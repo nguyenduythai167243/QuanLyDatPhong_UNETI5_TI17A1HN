@@ -1,0 +1,76 @@
+@*
+    Họ và tên: Nguyễn Duy Thái
+    Mã sinh viên: 23103100052
+    Nội dung thực hiện: Module 4 - Màn hình đăng nhập hệ thống, kiểm tra quyền và xác thực Session
+*@
+@{
+    ViewData["Title"] = "Đăng nhập hệ thống";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center py-5">
+    <div class="col-md-5">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex p-3 mb-2 shadow">
+                        <i class="bi bi-building fs-2"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark">Đăng Nhập Hệ Thống</h4>
+                    <p class="text-muted small">Hệ thống Quản lý Đặt phòng Khách sạn & Lưu trú</p>
+                </div>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger py-2 small shadow-sm d-flex align-items-center gap-2 mb-3">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <div>@ViewBag.Error</div>
+                    </div>
+                }
+
+                <form method="post" asp-action="DangNhap">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-secondary small">Tên đăng nhập</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+                            <input type="text" name="tenDangNhap" class="form-control" placeholder="Nhập tên đăng nhập..." required />
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-secondary small">Mật khẩu</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+                            <input type="password" name="matKhau" class="form-control" placeholder="Nhập mật khẩu..." required />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm mb-4">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>Đăng nhập
+                    </button>
+                </form>
+
+                <!-- Tài khoản kiểm thử nhanh dành cho giảng viên và chấm bài -->
+                <div class="border-top pt-3">
+                    <h6 class="fw-bold text-secondary text-uppercase small text-center mb-3">
+                        <i class="bi bi-lightning-charge-fill text-warning me-1"></i>Tài khoản kiểm thử nhanh
+                    </h6>
+                    <div class="d-grid gap-2">
+                        <a asp-action="ChuyenNhanhVaiTro" asp-route-vaiTro="LeTan" class="btn btn-outline-success btn-sm text-start py-2">
+                            <i class="bi bi-person-badge me-2"></i><strong>Lễ tân:</strong> letan / 123456 (Truy cập Module 4 đầy đủ)
+                        </a>
+                        <a asp-action="ChuyenNhanhVaiTro" asp-route-vaiTro="Admin" class="btn btn-outline-danger btn-sm text-start py-2">
+                            <i class="bi bi-shield-lock me-2"></i><strong>Admin:</strong> admin / 123456 (Quản trị toàn bộ)
+                        </a>
+                        <a asp-action="ChuyenNhanhVaiTro" asp-route-vaiTro="KhachHang" class="btn btn-outline-info btn-sm text-start py-2">
+                            <i class="bi bi-person me-2"></i><strong>Khách hàng:</strong> khach01 / 123456
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

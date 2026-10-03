@@ -1,0 +1,173 @@
+@*
+    Họ và tên: Nguyễn Duy Thái
+    Mã sinh viên: 23103100052
+    Nội dung thực hiện: Module 4 - Thủ tục trả phòng (Check-out), tính số đêm thực tế và hoàn tất lập hóa đơn thanh toán
+*@
+@model QuanLyDatPhong_Model4.Models.Entities.DatPhong
+@{
+    ViewData["Title"] = $"Làm thủ tục trả phòng #{Model.MaDatPhong}";
+    int soDem = ViewBag.SoDemThucTe ?? 1;
+    decimal tienPhong = ViewBag.TienPhong ?? 0;
+    decimal tienDichVu = ViewBag.TienDichVu ?? 0;
+    decimal tongThanhToan = ViewBag.TongThanhToan ?? 0;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm mb-2">
+                    <i class="bi bi-arrow-left me-1"></i>Quay lại danh sách
+                </a>
+                <h3 class="fw-bold text-dark mb-0">
+                    <i class="bi bi-box-arrow-right text-primary me-2"></i>Làm thủ tục trả phòng & Thanh toán
+                </h3>
+            </div>
+            <span class="badge badge-status-da-nhan-phong fs-6 px-3 py-2">
+                <i class="bi bi-key-fill me-1"></i>Phòng: @Model.Phong?.SoPhong
+            </span>
+        </div>
+
+        <div class="card shadow-sm border-top border-primary border-4">
+            <div class="card-body p-4">
+                <!-- Thông tin tóm tắt khách hàng & thời gian -->
+                <div class="row g-3 mb-4 p-3 bg-light rounded border">
+                    <div class="col-md-4">
+                        <span class="text-muted small d-block">Khách hàng:</span>
+                        <strong class="text-dark">@Model.KhachHang?.HoTen</strong>
+                        <div class="small text-secondary">SĐT: @Model.KhachHang?.SoDienThoai</div>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="text-muted small d-block">Thời gian thực tế:</span>
+                        <div class="small">
+                            <div>Nhận: <strong>@Model.NgayNhanThucTe?.ToString("dd/MM/yyyy HH:mm")</strong></div>
+                            <div>Trả: <strong>@DateTime.Now.ToString("dd/MM/yyyy HH:mm")</strong></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <span class="text-muted small d-block">Số đêm tính tiền:</span>
+                        <span class="badge bg-primary fs-6 px-3 py-2">@soDem đêm</span>
+                    </div>
+                </div>
+
+                <!-- Bảng chi tiết dịch vụ phát sinh đã sử dụng -->
+                <h6 class="fw-bold text-dark mb-2">
+                    <i class="bi bi-cart-check-fill text-success me-2"></i>Dịch vụ phát sinh đã sử dụng (LINQ Sum)
+                </h6>
+                <div class="table-responsive mb-4">
+                    <table class="table table-bordered table-sm align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Tên dịch vụ</th>
+                                <th class="text-center" style="width: 100px;">Số lượng</th>
+                                <th class="text-end" style="width: 130px;">Đơn giá</th>
+                                <th class="text-end" style="width: 150px;">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.DichVuPhatSinhs.Any(d => d.TrangThai != "Đã hủy"))
+                            {
+                                foreach (var dv in Model.DichVuPhatSinhs.Where(d => d.TrangThai != "Đã hủy"))
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="fw-semibold">@dv.TenDichVu</div>
+                                            <div class="small text-muted">@dv.NgaySuDung.ToString("dd/MM HH:mm") - @dv.GhiChu</div>
+                                        </td>
+                                        <td class="text-center">@dv.SoLuong</td>
+                                        <td class="text-end">@dv.DonGia.ToString("N0") đ</td>
+                                        <td class="text-end fw-semibold">@dv.ThanhTien.ToString("N0") đ</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted py-2 small">
+                                        Không phát sinh dịch vụ phụ trong thời gian lưu trú.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="table-light">
+                            <tr>
+                                <th colspan="3" class="text-end">Tổng tiền dịch vụ:</th>
+                                <th class="text-end text-success">@tienDichVu.ToString("N0") đ</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- Form tính tiền và hoàn tất Check-out -->
+                <form method="post" asp-action="TraPhong" id="formTraPhong">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="maDatPhong" value="@Model.MaDatPhong" />
+
+                    <div class="card bg-body-tertiary p-3 mb-4">
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3">Tổng kết viện phí & Thanh toán</h6>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label small text-muted mb-1">Tiền phòng (@soDem đêm):</label>
+                                <div class="fs-5 fw-bold text-dark">@tienPhong.ToString("N0") đ</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small text-muted mb-1">Tiền dịch vụ:</label>
+                                <div class="fs-5 fw-bold text-success">@tienDichVu.ToString("N0") đ</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small text-muted mb-1">Giảm giá (VNĐ):</label>
+                                <input type="number" id="txtGiamGia" name="giamGia" value="0" min="0" max="@(tienPhong + tienDichVu)" 
+                                       class="form-control form-control-sm fw-bold text-danger" oninput="capNhatTongTien()" />
+                            </div>
+                        </div>
+
+                        <hr class="my-3" />
+
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark mb-1">Hình thức thanh toán:</label>
+                                <select name="hinhThucThanhToan" class="form-select">
+                                    <option value="Tiền mặt">Tiền mặt</option>
+                                    <option value="Chuyển khoản">Chuyển khoản (QR Code / Ngân hàng)</option>
+                                    <option value="Thẻ">Thẻ tín dụng / Ghi nợ (POS)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 text-md-end">
+                                <span class="text-muted d-block small">TỔNG TIỀN PHẢI THANH TOÁN:</span>
+                                <span class="fs-3 fw-bold text-danger" id="lblTongThanhToan">@tongThanhToan.ToString("N0") đ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-dark">Ghi chú trả phòng:</label>
+                        <textarea name="ghiChuLeTan" class="form-control" rows="2" placeholder="Ví dụ: Khách đã trả đủ chìa khóa thẻ, kiểm tra phòng nguyên vẹn, hài lòng về dịch vụ..."></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a asp-action="Index" class="btn btn-outline-secondary">Hủy bỏ</a>
+                        <button type="submit" class="btn btn-primary fw-bold px-4">
+                            <i class="bi bi-check2-circle me-1"></i>Xác nhận trả phòng & Lập hóa đơn
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const tienPhong = @tienPhong;
+        const tienDichVu = @tienDichVu;
+        const tongGoc = tienPhong + tienDichVu;
+
+        function capNhatTongTien() {
+            let giamGia = parseFloat(document.getElementById('txtGiamGia').value) || 0;
+            if (giamGia < 0) giamGia = 0;
+            if (giamGia > tongGoc) giamGia = tongGoc;
+            let tongCuoi = tongGoc - giamGia;
+            document.getElementById('lblTongThanhToan').innerText = tongCuoi.toLocaleString('vi-VN') + ' đ';
+        }
+    </script>
+}
