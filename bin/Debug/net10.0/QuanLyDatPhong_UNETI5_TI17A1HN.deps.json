@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "QuanLyDatPhong_UNETI5_TI17A1HN/1.0.0": {
+        "runtime": {
+          "QuanLyDatPhong_UNETI5_TI17A1HN.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "QuanLyDatPhong_UNETI5_TI17A1HN/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
