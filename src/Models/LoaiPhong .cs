@@ -30,6 +30,6 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
         [Required]
         public bool TrangThai { get; set; }
 
-        // public virtual ICollection<DatPhong> ?DatPhongs { get; set; }
+        public virtual ICollection<Phong> Phongs { get; set; } = new List<Phong>();
     }
 }
