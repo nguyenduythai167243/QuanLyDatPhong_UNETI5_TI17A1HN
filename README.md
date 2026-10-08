@@ -13,7 +13,7 @@
 
 ---
 
-# 1. THÀNH VIÊN NHÓM
+# 1. THÀNH VIÊN NHÓM:
 
 | STT | Họ và tên | Mã sinh viên | Module phụ trách |
 |---:|---|---|---|
