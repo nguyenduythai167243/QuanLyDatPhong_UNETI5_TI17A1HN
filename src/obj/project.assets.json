@@ -8,23 +8,23 @@
     "net10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "C:\\Users\\kanka\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Net_Nhom5\\QuanLyDatPhong_UNETI5_TI17A1HN\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
+      "projectUniqueName": "C:\\Users\\kanka\\Downloads\\btl\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
       "projectName": "QuanLyDatPhong_UNETI5_TI17A1HN",
-      "projectPath": "D:\\Net_Nhom5\\QuanLyDatPhong_UNETI5_TI17A1HN\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Net_Nhom5\\QuanLyDatPhong_UNETI5_TI17A1HN\\obj\\",
+      "projectPath": "C:\\Users\\kanka\\Downloads\\btl\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
+      "packagesPath": "C:\\Users\\kanka\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kanka\\Downloads\\btl\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kanka\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -33,6 +33,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "D:\\SetUp": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -77,7 +78,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.400/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
