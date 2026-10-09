@@ -7,10 +7,6 @@
       "RelativeMoniker": "D:0:0:{51AA9C77-A459-7AD5-3C57-E14F033FCA8A}|QuanLyDatPhong_UNETI5_TI17A1HN.csproj|solutionrelative:models\\khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{51AA9C77-A459-7AD5-3C57-E14F033FCA8A}|QuanLyDatPhong_UNETI5_TI17A1HN.csproj|c:\\users\\pc\\documents\\thnet\\quanlydatphong_uneti5_ti17a1hn\\src\\models\\datphong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{51AA9C77-A459-7AD5-3C57-E14F033FCA8A}|QuanLyDatPhong_UNETI5_TI17A1HN.csproj|solutionrelative:models\\datphong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{51AA9C77-A459-7AD5-3C57-E14F033FCA8A}|QuanLyDatPhong_UNETI5_TI17A1HN.csproj|c:\\users\\pc\\documents\\thnet\\quanlydatphong_uneti5_ti17a1hn\\src\\models\\dichvuphatsinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{51AA9C77-A459-7AD5-3C57-E14F033FCA8A}|QuanLyDatPhong_UNETI5_TI17A1HN.csproj|solutionrelative:models\\dichvuphatsinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -25,6 +21,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{51AA9C77-A459-7AD5-3C57-E14F033FCA8A}|QuanLyDatPhong_UNETI5_TI17A1HN.csproj|c:\\users\\pc\\documents\\thnet\\quanlydatphong_uneti5_ti17a1hn\\src\\models\\loaiphong .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{51AA9C77-A459-7AD5-3C57-E14F033FCA8A}|QuanLyDatPhong_UNETI5_TI17A1HN.csproj|solutionrelative:models\\loaiphong .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{51AA9C77-A459-7AD5-3C57-E14F033FCA8A}|QuanLyDatPhong_UNETI5_TI17A1HN.csproj|c:\\users\\pc\\documents\\thnet\\quanlydatphong_uneti5_ti17a1hn\\src\\models\\datphong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{51AA9C77-A459-7AD5-3C57-E14F033FCA8A}|QuanLyDatPhong_UNETI5_TI17A1HN.csproj|solutionrelative:models\\datphong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,20 +38,19 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "DatPhong.cs",
               "DocumentMoniker": "C:\\Users\\PC\\Documents\\THNet\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\Models\\DatPhong.cs",
               "RelativeDocumentMoniker": "Models\\DatPhong.cs",
               "ToolTip": "C:\\Users\\PC\\Documents\\THNet\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\Models\\DatPhong.cs",
               "RelativeToolTip": "Models\\DatPhong.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAADwvw4AAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-09T00:01:29.529Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-09T00:01:29.529Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Phong .cs",
               "DocumentMoniker": "C:\\Users\\PC\\Documents\\THNet\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\Models\\Phong .cs",
               "RelativeDocumentMoniker": "Models\\Phong .cs",
@@ -63,7 +62,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "LoaiPhong .cs",
               "DocumentMoniker": "C:\\Users\\PC\\Documents\\THNet\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\Models\\LoaiPhong .cs",
               "RelativeDocumentMoniker": "Models\\LoaiPhong .cs",
@@ -75,7 +74,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "HoaDon.cs",
               "DocumentMoniker": "C:\\Users\\PC\\Documents\\THNet\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\Models\\HoaDon.cs",
               "RelativeDocumentMoniker": "Models\\HoaDon.cs",
@@ -87,7 +86,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "DichVuPhatSinh.cs",
               "DocumentMoniker": "C:\\Users\\PC\\Documents\\THNet\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\Models\\DichVuPhatSinh.cs",
               "RelativeDocumentMoniker": "Models\\DichVuPhatSinh.cs",
@@ -95,7 +94,8 @@
               "RelativeToolTip": "Models\\DichVuPhatSinh.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-08T23:59:44.021Z"
+              "WhenOpened": "2026-10-08T23:59:44.021Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -105,7 +105,7 @@
               "RelativeDocumentMoniker": "Models\\KhachHang.cs",
               "ToolTip": "C:\\Users\\PC\\Documents\\THNet\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\Models\\KhachHang.cs",
               "RelativeToolTip": "Models\\KhachHang.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAwwAoAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-08T23:59:41.732Z",
               "EditorCaption": ""
