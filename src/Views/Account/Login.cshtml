@@ -1,0 +1,68 @@
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-header text-center bg-primary text-white">
+                    <h3>ĐĂNG NHẬP</h3>
+                    <p class="mb-0">Hệ thống quản lý khách sạn</p>
+                </div>
+
+                <div class="card-body">
+                    @if (ViewBag.ThongBao != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.ThongBao
+                        </div>
+                    }
+
+                    <form asp-controller="Account"
+                          asp-action="Login"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+                            <label for="tenDangNhap" class="form-label">
+                                Tên đăng nhập
+                            </label>
+
+                            <input type="text"
+                                   id="tenDangNhap"
+                                   name="tenDangNhap"
+                                   class="form-control"
+                                   placeholder="Nhập tên đăng nhập"
+                                   required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="matKhau" class="form-label">
+                                Mật khẩu
+                            </label>
+
+                            <input type="password"
+                                   id="matKhau"
+                                   name="matKhau"
+                                   class="form-control"
+                                   placeholder="Nhập mật khẩu"
+                                   required />
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-primary w-100">
+                            Đăng nhập
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card-footer text-center text-muted">
+                    Quản lý khách sạn
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
