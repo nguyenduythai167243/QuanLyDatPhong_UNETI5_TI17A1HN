@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
 {
@@ -10,17 +8,15 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
         public int MaLoaiPhong { get; set; }
 
         [Required]
-        [MaxLength(200)]
-        [DataType(DataType.MultilineText)]
+        [StringLength(100)]
         public string TenLoaiPhong { get; set; } = string.Empty;
 
-        [Required]
-        [MaxLength(200)]
+        [StringLength(500)]
         [DataType(DataType.MultilineText)]
-        public string MoTa { get; set; } = string.Empty;
+        public string? MoTa { get; set; }
 
         [Required]
-        [Range(1, double.MaxValue)]
+        [Range(1, int.MaxValue)]
         public int SucChuaToiDa { get; set; }
 
         [Required]

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
+
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
 {
@@ -8,6 +8,9 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
     {
         [Key]
         public int MaPhong { get; set; }
+
+        [Required]
+        public int MaLoaiPhong { get; set; }
 
         [Required]
         [Range(0, double.MaxValue)]
@@ -18,7 +21,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
         public int Tang { get; set; }
 
         [Required]
-        [Range(1, double.MaxValue)]
+        [Range(1, int.MaxValue)]
         public int SucChua { get; set; }
 
         [Required]
