@@ -45,7 +45,8 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
         public string TrangThai { get; set; } = string.Empty;
 
         [ForeignKey("MaLoaiPhong")]
+        public int MaLoaiPhong { get; set; }
         public virtual LoaiPhong? LoaiPhong { get; set; }
-        // public virtual ICollection<DatPhong> ?DatPhongs { get; set; }
+        public virtual ICollection<DatPhong>? DatPhongs { get; set; }
     }
 }

@@ -1,0 +1,89 @@
+@model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.Phong>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SoPhong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SucChua)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaMotDem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DienTich)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TienNghi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoaiPhong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatPhongs)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.SoPhong)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Tang)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.SucChua)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.GiaMotDem)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.DienTich)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.TienNghi)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.MoTa)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.TrangThai)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.LoaiPhong)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.DatPhongs)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaPhong">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaPhong">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaPhong">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
