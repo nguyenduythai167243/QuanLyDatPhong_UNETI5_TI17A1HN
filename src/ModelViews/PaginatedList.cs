@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace QuanLyDatPhong_UNETI.ViewModels
+namespace QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels
 {
     public class PaginatedList<T> : List<T>
     {

@@ -1,7 +1,7 @@
 using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using QuanLyDatPhong_UNETI.ViewModels;
+using QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 
 public class PhongsController : Controller
