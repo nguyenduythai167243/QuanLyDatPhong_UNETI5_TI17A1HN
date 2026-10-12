@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
 {
@@ -8,8 +7,10 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
     {
         [Key]
         public int MaDichVuPhatSinh { get; set; }
-        //[ForeignKey]
-        //public int MaDatPhong { get; set; }
+        [ForeignKey("MaDatPhong")]
+        public int MaDatPhong { get; set; }
+        public virtual DatPhong? DatPhong { get; set; }
+        
         [Required, MaxLength(100)]
         public string TenDichVu { get; set; } = string.Empty;
         [Required]
@@ -24,11 +25,11 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
         [Required, MaxLength(200)]
         public string GhiChu { get; set; } = string.Empty;
         [Required]
-        public TrangThai TrangThai { get; set; }
+        public TrangThaiDV TrangThai { get; set; }
         [NotMapped]
         public decimal ThanhTien => SoLuong * DonGia;
     }
-    public enum TrangThai
+    public enum TrangThaiDV
     {
         DaGhiNhan,
         DaHuy,

@@ -29,6 +29,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
         public DateTime NgayLap { get; set; }
         [Required]
         public TrangThaiTT TrangThai { get; set; }
+        public virtual DatPhong? DatPhong { get; set; }
 
     }
     public enum HinhThucThanhToan
