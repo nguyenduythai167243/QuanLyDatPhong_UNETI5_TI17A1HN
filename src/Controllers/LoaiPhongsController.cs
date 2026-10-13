@@ -13,9 +13,9 @@ public class LoaiPhongsController : Controller
     }
 
     // GET: LOAIPHONGS
-    public async Task<IActionResult> Index()    
+    public async Task<IActionResult> Index()
     {
-        return View(await _context.LoaiPhong.ToListAsync());
+        return View(await _context.LoaiPhongs.ToListAsync());
     }
 
     // GET: LOAIPHONGS/Details/5
@@ -26,7 +26,7 @@ public class LoaiPhongsController : Controller
             return NotFound();
         }
 
-        var loaiphong = await _context.LoaiPhong
+        var loaiphong = await _context.LoaiPhongs
             .FirstOrDefaultAsync(m => m.MaLoaiPhong == maloaiphong);
         if (loaiphong == null)
         {
@@ -66,7 +66,7 @@ public class LoaiPhongsController : Controller
             return NotFound();
         }
 
-        var loaiphong = await _context.LoaiPhong.FindAsync(maloaiphong);
+        var loaiphong = await _context.LoaiPhongs.FindAsync(maloaiphong);
         if (loaiphong == null)
         {
             return NotFound();
@@ -117,7 +117,7 @@ public class LoaiPhongsController : Controller
             return NotFound();
         }
 
-        var loaiphong = await _context.LoaiPhong
+        var loaiphong = await _context.LoaiPhongs
             .FirstOrDefaultAsync(m => m.MaLoaiPhong == maloaiphong);
         if (loaiphong == null)
         {
@@ -132,10 +132,10 @@ public class LoaiPhongsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int? maloaiphong)
     {
-        var loaiphong = await _context.LoaiPhong.FindAsync(maloaiphong);
+        var loaiphong = await _context.LoaiPhongs.FindAsync(maloaiphong);
         if (loaiphong != null)
         {
-            _context.LoaiPhong.Remove(loaiphong);
+            _context.LoaiPhongs.Remove(loaiphong);
         }
 
         await _context.SaveChangesAsync();
@@ -144,6 +144,6 @@ public class LoaiPhongsController : Controller
 
     private bool LoaiPhongExists(int? maloaiphong)
     {
-        return _context.LoaiPhong.Any(e => e.MaLoaiPhong == maloaiphong);
+        return _context.LoaiPhongs.Any(e => e.MaLoaiPhong == maloaiphong);
     }
 }

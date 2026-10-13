@@ -10,8 +10,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
         public int MaPhong { get; set; }
 
         [Required]
-        [Range(0, double.MaxValue)]
-        public int SoPhong { get; set; }
+        public string SoPhong { get; set; }
 
         [Required]
         [Range(1, double.MaxValue)]
