@@ -1,0 +1,89 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.LoaiPhong
+
+@{
+    ViewData["Title"] = "Thêm loại phòng";
+}
+
+<h1>Thêm loại phòng</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="TenLoaiPhong" class="form-label">
+                    Tên loại phòng
+                </label>
+                <input asp-for="TenLoaiPhong" class="form-control" />
+                <span asp-validation-for="TenLoaiPhong"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MoTa" class="form-label">
+                    Mô tả
+                </label>
+                <textarea asp-for="MoTa"
+                          class="form-control"
+                          rows="3"></textarea>
+                <span asp-validation-for="MoTa"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="SucChuaToiDa" class="form-label">
+                    Sức chứa tối đa
+                </label>
+                <input asp-for="SucChuaToiDa"
+                       type="number"
+                       class="form-control" />
+                <span asp-validation-for="SucChuaToiDa"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GiaThamKhao" class="form-label">
+                    Giá tham khảo (VNĐ/đêm)
+                </label>
+                <input asp-for="GiaThamKhao"
+                       type="number"
+                       min="0"
+                       step="1000"
+                       class="form-control" />
+                <span asp-validation-for="GiaThamKhao"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="TrangThai" class="form-check-input" />
+                <label asp-for="TrangThai" class="form-check-label">
+                    Đang hoạt động
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Thêm loại phòng
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Quay lại
+            </a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
