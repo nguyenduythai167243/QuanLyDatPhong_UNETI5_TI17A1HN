@@ -127,5 +127,63 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         }
 
 
+        // Hiển thị trang xác nhận xóa loại phòng
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var loaiPhong = await _context.LoaiPhongs
+                .AsNoTracking()
+                .FirstOrDefaultAsync(lp => lp.MaLoaiPhong == id);
+
+            if (loaiPhong == null)
+            {
+                return NotFound();
+            }
+
+            bool coPhongLienQuan = await _context.Phongs
+                .AnyAsync(p => p.MaLoaiPhong == id);
+
+            ViewBag.CoPhongLienQuan = coPhongLienQuan;
+
+            return View(loaiPhong);
+        }
+
+        // Xử lý xóa khi Admin xác nhận
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var loaiPhong = await _context.LoaiPhongs
+                .FindAsync(id);
+
+            if (loaiPhong == null)
+            {
+                return NotFound();
+            }
+
+            bool coPhongLienQuan = await _context.Phongs
+                .AnyAsync(p => p.MaLoaiPhong == id);
+
+            if (coPhongLienQuan)
+            {
+                TempData["ThongBao"] =
+                    "Không thể xóa loại phòng vì vẫn còn phòng thuộc loại này.";
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            _context.LoaiPhongs.Remove(loaiPhong);
+            await _context.SaveChangesAsync();
+
+            TempData["ThongBao"] = "Đã xóa loại phòng thành công.";
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

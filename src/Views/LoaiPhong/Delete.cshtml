@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.LoaiPhong
+
+@{
+    ViewData["Title"] = "Xóa loại phòng";
+}
+
+<h1>Xóa loại phòng</h1>
+
+<h4>Bạn có chắc chắn muốn xóa loại phòng này không?</h4>
+
+<hr />
+
+@if (ViewBag.CoPhongLienQuan == true)
+{
+    <div class="alert alert-warning">
+        Không thể xóa loại phòng này vì vẫn còn phòng thuộc loại này.
+        Hãy xử lý các phòng liên quan trước khi xóa.
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        Thao tác này sẽ xóa loại phòng khỏi cơ sở dữ liệu.
+    </div>
+}
+
+<dl class="row">
+    <dt class="col-sm-3">Mã loại phòng</dt>
+    <dd class="col-sm-9">@Model.MaLoaiPhong</dd>
+
+    <dt class="col-sm-3">Tên loại phòng</dt>
+    <dd class="col-sm-9">@Model.TenLoaiPhong</dd>
+
+    <dt class="col-sm-3">Mô tả</dt>
+    <dd class="col-sm-9">@Model.MoTa</dd>
+
+    <dt class="col-sm-3">Sức chứa tối đa</dt>
+    <dd class="col-sm-9">@Model.SucChuaToiDa người</dd>
+
+    <dt class="col-sm-3">Giá tham khảo</dt>
+    <dd class="col-sm-9">@Model.GiaThamKhao.ToString("N0") VNĐ/đêm</dd>
+
+    <dt class="col-sm-3">Trạng thái</dt>
+    <dd class="col-sm-9">
+        @(Model.TrangThai ? "Đang hoạt động" : "Ngừng hoạt động")
+    </dd>
+</dl>
+
+@if (ViewBag.CoPhongLienQuan != true)
+{
+    <form asp-action="Delete"
+          asp-route-id="@Model.MaLoaiPhong"
+          method="post">
+        @Html.AntiForgeryToken()
+
+        <button type="submit" class="btn btn-danger">
+            Xác nhận xóa
+        </button>
+    </form>
+}
+
+<a asp-action="Index" class="btn btn-secondary mt-2">
+    Quay lại danh sách
+</a>
+

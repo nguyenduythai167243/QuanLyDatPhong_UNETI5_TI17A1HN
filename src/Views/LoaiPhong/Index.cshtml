@@ -47,13 +47,21 @@
                         @(loaiPhong.TrangThai ? "Đang hoạt động" : "Ngừng hoạt động")
                     </td>
 
+                    
                     <td>
+                        <a asp-action="Details"
+                           asp-route-id="@loaiPhong.MaLoaiPhong"
+                           class="btn btn-info btn-sm">
+                            Chi tiết
+                        </a>
+
                         <a asp-action="Edit"
                            asp-route-id="@loaiPhong.MaLoaiPhong"
                            class="btn btn-warning btn-sm">
                             Sửa
                         </a>
                     </td>
+
 
                 </tr>
             }
