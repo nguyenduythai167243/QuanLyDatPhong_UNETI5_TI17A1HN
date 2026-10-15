@@ -1,19 +1,19 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 
 public class DatPhongsController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext _context;
 
-    public DatPhongsController(ApplicationDbContext context)
+    public DatPhongsController(
+        QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext context)
     {
         _context = context;
     }
 
     // GET: DATPHONGS
-    public async Task<IActionResult> Index()    
+    public async Task<IActionResult> Index()
     {
         return View(await _context.DatPhongs.ToListAsync());
     }
@@ -28,6 +28,7 @@ public class DatPhongsController : Controller
 
         var datphong = await _context.DatPhongs
             .FirstOrDefaultAsync(m => m.MaDatPhong == madatphong);
+
         if (datphong == null)
         {
             return NotFound();
@@ -43,11 +44,11 @@ public class DatPhongsController : Controller
     }
 
     // POST: DATPHONGS/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("MaDatPhong,MaKhachHang,MaPhong,NgayNhanPhong,NgayTraPhong,SoNguoi,YeuCauDacBiet,NgayDat,TongTienDuKien,NgayNhanThucTe,NgayTraThucTe,TrangThai,NgayXuLy,GhiChuLeTan,KhachHang,Phong,DichVuPhatSinhs,HoaDon")] DatPhong datphong)
+    public async Task<IActionResult> Create(
+        [Bind("MaDatPhong,MaKhachHang,MaPhong,NgayNhanPhong,NgayTraPhong,SoNguoi,YeuCauDacBiet,NgayDat,TongTienDuKien,NgayNhanThucTe,NgayTraThucTe,TrangThai,NgayXuLy,GhiChuLeTan,KhachHang,Phong,DichVuPhatSinhs,HoaDon")]
+        DatPhong datphong)
     {
         if (ModelState.IsValid)
         {
@@ -55,6 +56,7 @@ public class DatPhongsController : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
         return View(datphong);
     }
 
@@ -67,19 +69,22 @@ public class DatPhongsController : Controller
         }
 
         var datphong = await _context.DatPhongs.FindAsync(madatphong);
+
         if (datphong == null)
         {
             return NotFound();
         }
+
         return View(datphong);
     }
 
     // POST: DATPHONGS/Edit/5
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? madatphong, [Bind("MaDatPhong,MaKhachHang,MaPhong,NgayNhanPhong,NgayTraPhong,SoNguoi,YeuCauDacBiet,NgayDat,TongTienDuKien,NgayNhanThucTe,NgayTraThucTe,TrangThai,NgayXuLy,GhiChuLeTan,KhachHang,Phong,DichVuPhatSinhs,HoaDon")] DatPhong datphong)
+    public async Task<IActionResult> Edit(
+        int? madatphong,
+        [Bind("MaDatPhong,MaKhachHang,MaPhong,NgayNhanPhong,NgayTraPhong,SoNguoi,YeuCauDacBiet,NgayDat,TongTienDuKien,NgayNhanThucTe,NgayTraThucTe,TrangThai,NgayXuLy,GhiChuLeTan,KhachHang,Phong,DichVuPhatSinhs,HoaDon")]
+        DatPhong datphong)
     {
         if (madatphong != datphong.MaDatPhong)
         {
@@ -99,13 +104,13 @@ public class DatPhongsController : Controller
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
+
             return RedirectToAction(nameof(Index));
         }
+
         return View(datphong);
     }
 
@@ -119,6 +124,7 @@ public class DatPhongsController : Controller
 
         var datphong = await _context.DatPhongs
             .FirstOrDefaultAsync(m => m.MaDatPhong == madatphong);
+
         if (datphong == null)
         {
             return NotFound();
@@ -133,6 +139,7 @@ public class DatPhongsController : Controller
     public async Task<IActionResult> DeleteConfirmed(int? madatphong)
     {
         var datphong = await _context.DatPhongs.FindAsync(madatphong);
+
         if (datphong != null)
         {
             _context.DatPhongs.Remove(datphong);

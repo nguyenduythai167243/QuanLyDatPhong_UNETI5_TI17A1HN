@@ -9,9 +9,6 @@ var connectionString = builder.Configuration.GetConnectionString("ApplicationDbC
 builder.Services.AddDbContext<QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDbContext<global::ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDistributedMemoryCache();
