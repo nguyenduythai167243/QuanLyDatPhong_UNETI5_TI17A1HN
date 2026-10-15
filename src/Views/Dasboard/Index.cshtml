@@ -1,0 +1,96 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid mt-4">
+    <h2 class="mb-4">Dashboard - Quản lý khách sạn</h2>
+
+    <div class="row g-3">
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6>Tổng số loại phòng</h6>
+                    <h3>@ViewBag.TongLoaiPhong</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6>Tổng số phòng</h6>
+                    <h3>@ViewBag.TongSoPhong</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6>Phòng sẵn sàng</h6>
+                    <h3>@ViewBag.PhongSanSang</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6>Tổng khách hàng</h6>
+                    <h3>@ViewBag.TongKhachHang</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6>Tổng đặt phòng</h6>
+                    <h3>@ViewBag.TongDatPhong</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6>Chờ xác nhận</h6>
+                    <h3>@ViewBag.DatPhongChoXacNhan</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6>Khách đang lưu trú</h6>
+                    <h3>@ViewBag.KhachDangLuuTru</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6>Sắp nhận phòng trong 7 ngày</h6>
+                    <h3>@ViewBag.DatPhongSapDen</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6>Doanh thu tháng hiện tại</h6>
+                    <h3>@(((decimal)ViewBag.DoanhThuThangNay).ToString("N0")) VNĐ</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

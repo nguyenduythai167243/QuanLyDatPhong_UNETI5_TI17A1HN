@@ -15,7 +15,7 @@ public class DatPhongsController : Controller
     // GET: DATPHONGS
     public async Task<IActionResult> Index()    
     {
-        return View(await _context.DatPhongs.ToListAsync());
+        return View(await _context.DatPhong.ToListAsync());
     }
 
     // GET: DATPHONGS/Details/5
@@ -26,7 +26,7 @@ public class DatPhongsController : Controller
             return NotFound();
         }
 
-        var datphong = await _context.DatPhongs
+        var datphong = await _context.DatPhong
             .FirstOrDefaultAsync(m => m.MaDatPhong == madatphong);
         if (datphong == null)
         {
@@ -66,7 +66,7 @@ public class DatPhongsController : Controller
             return NotFound();
         }
 
-        var datphong = await _context.DatPhongs.FindAsync(madatphong);
+        var datphong = await _context.DatPhong.FindAsync(madatphong);
         if (datphong == null)
         {
             return NotFound();
@@ -117,7 +117,7 @@ public class DatPhongsController : Controller
             return NotFound();
         }
 
-        var datphong = await _context.DatPhongs
+        var datphong = await _context.DatPhong
             .FirstOrDefaultAsync(m => m.MaDatPhong == madatphong);
         if (datphong == null)
         {
@@ -132,10 +132,10 @@ public class DatPhongsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int? madatphong)
     {
-        var datphong = await _context.DatPhongs.FindAsync(madatphong);
+        var datphong = await _context.DatPhong.FindAsync(madatphong);
         if (datphong != null)
         {
-            _context.DatPhongs.Remove(datphong);
+            _context.DatPhong.Remove(datphong);
         }
 
         await _context.SaveChangesAsync();
@@ -144,6 +144,6 @@ public class DatPhongsController : Controller
 
     private bool DatPhongExists(int? madatphong)
     {
-        return _context.DatPhongs.Any(e => e.MaDatPhong == madatphong);
+        return _context.DatPhong.Any(e => e.MaDatPhong == madatphong);
     }
 }
