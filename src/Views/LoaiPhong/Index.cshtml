@@ -1,65 +1,76 @@
-@model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.LoaiPhong>
+﻿@model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.LoaiPhong>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Quản lý loại phòng";
 }
 
-<h1>Index</h1>
+<h1>Quản lý loại phòng</h1>
+
+<p>Danh sách các loại phòng trong khách sạn.</p>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">
+        + Thêm loại phòng
+    </a>
 </p>
-<table class="table">
+
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TenLoaiPhong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MoTa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SucChuaToiDa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiaThamKhao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phongs)
-            </th>
-            <th></th>
+            <th>Mã loại phòng</th>
+            <th>Tên loại phòng</th>
+            <th>Mô tả</th>
+            <th>Sức chứa tối đa</th>
+            <th>Giá tham khảo</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.TenLoaiPhong)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.MoTa)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.SucChuaToiDa)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.GiaThamKhao)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Phongs)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaLoaiPhong">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaLoaiPhong">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaLoaiPhong">Delete</a>
-            </td>
-        </tr>
-}
+        @if (Model.Any())
+        {
+            @foreach (var loaiPhong in Model)
+            {
+                <tr>
+                    <td>@loaiPhong.MaLoaiPhong</td>
+                    <td>@loaiPhong.TenLoaiPhong</td>
+                    <td>@loaiPhong.MoTa</td>
+                    <td>@loaiPhong.SucChuaToiDa</td>
+                    <td>@loaiPhong.GiaThamKhao.ToString("N0") VNĐ</td>
+                    <td>
+                        @(loaiPhong.TrangThai
+                            ? "Đang hoạt động"
+                            : "Ngừng hoạt động")
+                    </td>
+                    <td>
+                        <a asp-action="Details"
+                           asp-route-id="@loaiPhong.MaLoaiPhong"
+                           class="btn btn-info btn-sm">
+                            Chi tiết
+                        </a>
+
+                        <a asp-action="Edit"
+                           asp-route-id="@loaiPhong.MaLoaiPhong"
+                           class="btn btn-warning btn-sm">
+                            Sửa
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@loaiPhong.MaLoaiPhong"
+                           class="btn btn-danger btn-sm">
+                            Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center">
+                    Chưa có loại phòng nào.
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

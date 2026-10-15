@@ -1,59 +1,53 @@
-@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.LoaiPhong
+﻿@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.LoaiPhong
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết loại phòng";
 }
 
-<h1>Details</h1>
+<h1>Chi tiết loại phòng</h1>
 
-<div>
-    <h4>LoaiPhong</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenLoaiPhong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenLoaiPhong)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MoTa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MoTa)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SucChuaToiDa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SucChuaToiDa)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GiaThamKhao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GiaThamKhao)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phongs)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phongs)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.MaLoaiPhong">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-5">Mã loại phòng</dt>
+            <dd class="col-sm-7">@Model.MaLoaiPhong</dd>
+
+            <dt class="col-sm-5">Tên loại phòng</dt>
+            <dd class="col-sm-7">@Model.TenLoaiPhong</dd>
+
+            <dt class="col-sm-5">Mô tả</dt>
+            <dd class="col-sm-7">
+                @(string.IsNullOrWhiteSpace(Model.MoTa)
+                    ? "Chưa có mô tả"
+                    : Model.MoTa)
+            </dd>
+
+            <dt class="col-sm-5">Sức chứa tối đa</dt>
+            <dd class="col-sm-7">@Model.SucChuaToiDa người</dd>
+
+            <dt class="col-sm-5">Giá tham khảo</dt>
+            <dd class="col-sm-7">
+                @Model.GiaThamKhao.ToString("N0") VNĐ/đêm
+            </dd>
+
+            <dt class="col-sm-5">Trạng thái</dt>
+            <dd class="col-sm-7">
+                @(Model.TrangThai
+                    ? "Đang hoạt động"
+                    : "Ngừng hoạt động")
+            </dd>
+        </dl>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Quay lại danh sách
+        </a>
+
+        <a asp-action="Edit"
+           asp-route-id="@Model.MaLoaiPhong"
+           class="btn btn-warning">
+            Sửa loại phòng
+        </a>
+    </div>
 </div>
