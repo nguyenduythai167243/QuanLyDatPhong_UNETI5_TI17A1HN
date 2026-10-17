@@ -1,4 +1,4 @@
-﻿@{
+@{
     var maTaiKhoan = Context.Session.GetInt32("MaTaiKhoan");
     var hoTen = Context.Session.GetString("HoTen");
     var vaiTro = Context.Session.GetString("VaiTro");
@@ -12,6 +12,7 @@
     <title>@ViewData["Title"] - QuanLyDatPhong_UNETI5_TI17A1HN</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/QuanLyDatPhong_UNETI5_TI17A1HN.styles.css" asp-append-version="true" />
 </head>
@@ -19,7 +20,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">QuanLyDatPhong_UNETI5_TI17A1HN</a>
+                <a class="navbar-brand fw-bold text-primary" asp-area="" asp-controller="Home" asp-action="Index">Hotel Booking UNETI</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,9 +35,33 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link text-primary fw-bold"
+               asp-controller="DatPhong"
+               asp-action="Index"><i class="bi bi-calendar2-check"></i> Quản lý Đặt phòng</a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link text-dark"
-               asp-controller="Home"
-               asp-action="Privacy">Privacy</a>
+               asp-controller="LoaiPhong"
+               asp-action="Index">Loại phòng</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-dark"
+               asp-controller="Phong"
+               asp-action="Index">Phòng</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-dark"
+               asp-controller="DichVuPhatSinh"
+               asp-action="Index">Dịch vụ</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-dark"
+               asp-controller="HoaDon"
+               asp-action="Index">Hóa đơn</a>
         </li>
     </ul>
 
