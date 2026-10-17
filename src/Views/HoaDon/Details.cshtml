@@ -1,87 +1,154 @@
-@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.HoaDon
+
+@using QuanLyDatPhong_UNETI5_TI17A1HN.Models
+@model HoaDon
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết hóa đơn";
 }
 
-<h1>Details</h1>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Chi tiết hóa đơn #@Model.MaHoaDon</h2>
+            <p class="text-muted mb-0">
+                Ngày lập: @Model.NgayLap.ToString("dd/MM/yyyy HH:mm")
+            </p>
+        </div>
 
-<div>
-    <h4>HoaDon</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaDatPhong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaDatPhong)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SoDem)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SoDem)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TienPhong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TienPhong)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TienDichVu)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TienDichVu)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GiamGia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GiamGia)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TongTienThanhToan)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TongTienThanhToan)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HinhThucThanhToan)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HinhThucThanhToan)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayLap)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NgayLap)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DatPhong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DatPhong)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.MaHoaDon">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        @if (Model.TrangThai == TrangThaiTT.DaThanhToan)
+        {
+            <span class="badge bg-success fs-6">Đã thanh toán</span>
+        }
+        else
+        {
+            <span class="badge bg-warning text-dark fs-6">Chưa thanh toán</span>
+        }
+    </div>
+
+    @if (TempData["ThongBao"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["ThongBao"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row g-4">
+        <div class="col-12 col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">Thông tin đặt phòng</h5>
+
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5">Mã đặt phòng</dt>
+                        <dd class="col-sm-7">@Model.MaDatPhong</dd>
+
+                        <dt class="col-sm-5">Khách hàng</dt>
+                        <dd class="col-sm-7">
+                            @(Model.DatPhong?.KhachHang?.HoTen ?? "Chưa có thông tin")
+                        </dd>
+
+                        <dt class="col-sm-5">Số điện thoại</dt>
+                        <dd class="col-sm-7">
+                            @(Model.DatPhong?.KhachHang?.SoDienThoai ?? "Chưa có thông tin")
+                        </dd>
+
+                        <dt class="col-sm-5">Mã phòng</dt>
+                        <dd class="col-sm-7">
+                            @(Model.DatPhong?.MaPhong.ToString() ?? "Chưa có thông tin")
+                        </dd>
+
+                        <dt class="col-sm-5">Ngày nhận thực tế</dt>
+                        <dd class="col-sm-7">
+                            @(Model.DatPhong?.NgayNhanThucTe?.ToString("dd/MM/yyyy HH:mm")
+                                ?? "Chưa có thông tin")
+                        </dd>
+
+                        <dt class="col-sm-5">Ngày trả thực tế</dt>
+                        <dd class="col-sm-7">
+                            @(Model.DatPhong?.NgayTraThucTe?.ToString("dd/MM/yyyy HH:mm")
+                                ?? "Chưa có thông tin")
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">Chi tiết thanh toán</h5>
+
+                    <dl class="row">
+                        <dt class="col-sm-6">Số đêm</dt>
+                        <dd class="col-sm-6">@Model.SoDem</dd>
+
+                        <dt class="col-sm-6">Tiền phòng</dt>
+                        <dd class="col-sm-6">@Model.TienPhong.ToString("N0") đ</dd>
+
+                        <dt class="col-sm-6">Tiền dịch vụ</dt>
+                        <dd class="col-sm-6">@Model.TienDichVu.ToString("N0") đ</dd>
+
+                        <dt class="col-sm-6">Giảm giá</dt>
+                        <dd class="col-sm-6">@Model.GiamGia.ToString("N0") đ</dd>
+
+                        <dt class="col-sm-6">Hình thức thanh toán</dt>
+                        <dd class="col-sm-6">
+                            @switch (Model.HinhThucThanhToan)
+                            {
+                                case HinhThucThanhToan.TienMat:
+                                    <span>Tiền mặt</span>
+                                    break;
+                                case HinhThucThanhToan.ChuyenKhoan:
+                                    <span>Chuyển khoản</span>
+                                    break;
+                                case HinhThucThanhToan.The:
+                                    <span>Thẻ</span>
+                                    break;
+                            }
+                        </dd>
+                    </dl>
+
+                    <hr />
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold">Tổng thanh toán</span>
+                        <span class="fs-4 fw-bold text-success">
+                            @Model.TongTienThanhToan.ToString("N0") đ
+                        </span>
+                    </div>
+
+                    @if (Model.TrangThai == TrangThaiTT.ChuaThanhToan)
+                    {
+                        <form asp-controller="HoaDon"
+                              asp-action="ThanhToan"
+                              asp-route-id="@Model.MaHoaDon"
+                              method="post" class="mt-4"
+                              onsubmit="return confirm('Xác nhận hóa đơn này đã được thanh toán?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-success w-100">
+                                Xác nhận thanh toán
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="alert alert-success mt-4 mb-0">
+                            Hóa đơn này đã được thanh toán.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-secondary">
+            Quay lại danh sách
+        </a>
+        <button type="button" class="btn btn-outline-primary"
+                onclick="window.print()">
+            In hóa đơn
+        </button>
+    </div>
 </div>

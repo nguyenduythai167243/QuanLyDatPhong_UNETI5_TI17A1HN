@@ -1,89 +1,111 @@
+
 @model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.HoaDon>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Quản lý hóa đơn";
 }
 
-<h1>Index</h1>
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Quản lý hóa đơn</h2>
+            <p class="text-muted mb-0">Danh sách hóa đơn khách sạn</p>
+        </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MaDatPhong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SoDem)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TienPhong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TienDichVu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiamGia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TongTienThanhToan)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HinhThucThanhToan)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NgayLap)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DatPhong)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.MaDatPhong)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.SoDem)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.TienPhong)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.TienDichVu)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.GiamGia)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.TongTienThanhToan)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.HinhThucThanhToan)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.NgayLap)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.DatPhong)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaHoaDon">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaHoaDon">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaHoaDon">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-1"></i> Lập hóa đơn
+        </a>
+    </div>
+
+    @if (TempData["ThongBao"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["ThongBao"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã HĐ</th>
+                            <th>Mã đặt phòng</th>
+                            <th>Số đêm</th>
+                            <th>Tiền phòng</th>
+                            <th>Tiền dịch vụ</th>
+                            <th>Giảm giá</th>
+                            <th>Tổng thanh toán</th>
+                            <th>Hình thức</th>
+                            <th>Ngày lập</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.MaHoaDon</td>
+                                    <td>@item.MaDatPhong</td>
+                                    <td>@item.SoDem</td>
+                                    <td>@item.TienPhong.ToString("N0") đ</td>
+                                    <td>@item.TienDichVu.ToString("N0") đ</td>
+                                    <td>@item.GiamGia.ToString("N0") đ</td>
+                                    <td class="fw-bold text-success">
+                                        @item.TongTienThanhToan.ToString("N0") đ
+                                    </td>
+                                    <td>
+                                        @switch (item.HinhThucThanhToan)
+                                        {
+                                            case QuanLyDatPhong_UNETI5_TI17A1HN.Models.HinhThucThanhToan.TienMat:
+                                                <span>Tiền mặt</span>
+                                                break;
+                                            case QuanLyDatPhong_UNETI5_TI17A1HN.Models.HinhThucThanhToan.ChuyenKhoan:
+                                                <span>Chuyển khoản</span>
+                                                break;
+                                            case QuanLyDatPhong_UNETI5_TI17A1HN.Models.HinhThucThanhToan.The:
+                                                <span>Thẻ</span>
+                                                break;
+                                        }
+                                    </td>
+                                    <td>@item.NgayLap.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>
+                                        @if (item.TrangThai ==
+                                            QuanLyDatPhong_UNETI5_TI17A1HN.Models.TrangThaiTT.DaThanhToan)
+                                        {
+                                            <span class="badge bg-success">Đã thanh toán</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning text-dark">Chưa thanh toán</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details"
+                                           asp-route-id="@item.MaHoaDon"
+                                           class="btn btn-sm btn-info text-white">
+                                            Chi tiết
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="11" class="text-center py-4 text-muted">
+                                    Chưa có hóa đơn nào.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

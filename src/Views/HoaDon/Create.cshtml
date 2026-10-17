@@ -1,84 +1,76 @@
-@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.HoaDon
+
+@using QuanLyDatPhong_UNETI5_TI17A1HN.Models
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Lập hóa đơn";
 }
 
-<h1>Create</h1>
-
-<h4>HoaDon</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group">
-                <label asp-for="MaDatPhong" class="control-label"></label>
-                <input asp-for="MaDatPhong" class="form-control" />
-                <span asp-validation-for="MaDatPhong" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="SoDem" class="control-label"></label>
-                <input asp-for="SoDem" class="form-control" />
-                <span asp-validation-for="SoDem" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="TienPhong" class="control-label"></label>
-                <input asp-for="TienPhong" class="form-control" />
-                <span asp-validation-for="TienPhong" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="TienDichVu" class="control-label"></label>
-                <input asp-for="TienDichVu" class="form-control" />
-                <span asp-validation-for="TienDichVu" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="GiamGia" class="control-label"></label>
-                <input asp-for="GiamGia" class="form-control" />
-                <span asp-validation-for="GiamGia" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="TongTienThanhToan" class="control-label"></label>
-                <input asp-for="TongTienThanhToan" class="form-control" />
-                <span asp-validation-for="TongTienThanhToan" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="HinhThucThanhToan" class="control-label"></label>
-                <input asp-for="HinhThucThanhToan" class="form-control" />
-                <span asp-validation-for="HinhThucThanhToan" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="NgayLap" class="control-label"></label>
-                <input asp-for="NgayLap" class="form-control" />
-                <span asp-validation-for="NgayLap" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="TrangThai" class="control-label"></label>
-                <input asp-for="TrangThai" class="form-control" />
-                <span asp-validation-for="TrangThai" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="DatPhong" class="control-label"></label>
-                <input asp-for="DatPhong" class="form-control" />
-                <span asp-validation-for="DatPhong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container py-4">
+    <div class="mb-4">
+        <h2 class="fw-bold">Lập hóa đơn</h2>
+        <p class="text-muted">
+            Chọn đặt phòng đã trả phòng để hệ thống tính tiền tự động.
+        </p>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <form asp-controller="HoaDon" asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label for="maDatPhong" class="form-label fw-semibold">
+                        Mã đặt phòng
+                    </label>
+                    <select id="maDatPhong" name="maDatPhong"
+                            class="form-select" asp-items="ViewBag.MaDatPhong"
+                            required>
+                        <option value="">-- Chọn đặt phòng --</option>
+                    </select>
+                    <small class="text-muted">
+                        Chỉ hiển thị đặt phòng đủ điều kiện lập hóa đơn.
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="giamGia" class="form-label fw-semibold">
+                        Giảm giá (VNĐ)
+                    </label>
+                    <input id="giamGia" name="giamGia" type="number"
+                           class="form-control" min="0" step="1000"
+                           value="0" required />
+                    <small class="text-muted">
+                        Mức giảm giá không được vượt quá tổng tiền trước giảm giá.
+                    </small>
+                </div>
+
+                <div class="mb-4">
+                    <label for="hinhThucThanhToan" class="form-label fw-semibold">
+                        Hình thức thanh toán
+                    </label>
+                    <select id="hinhThucThanhToan" name="hinhThucThanhToan"
+                            class="form-select" required>
+                        <option value="TienMat">Tiền mặt</option>
+                        <option value="ChuyenKhoan">Chuyển khoản</option>
+                        <option value="The">Thẻ</option>
+                    </select>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Lưu ý:</strong> Hệ thống tự tính số đêm, tiền phòng,
+                    tiền dịch vụ đã ghi nhận và tổng tiền thanh toán.
+                    Hóa đơn mới được tạo ở trạng thái chưa thanh toán.
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Lập hóa đơn
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    Quay lại
+                </a>
+            </form>
+        </div>
+    </div>
 </div>

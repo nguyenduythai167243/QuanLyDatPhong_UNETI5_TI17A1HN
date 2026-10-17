@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewData["Title"] = "Thống kê";
+
+    var doanhThuTheoThang = ViewBag.DoanhThuTheoThang;
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center
+                flex-wrap gap-3 mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Thống kê khách sạn</h2>
+            <p class="text-muted mb-0">
+                Tổng quan hoạt động và doanh thu
+            </p>
+        </div>
+
+        <form asp-controller="ThongKe" asp-action="Index"
+              method="get" class="d-flex align-items-center gap-2">
+            <label for="nam" class="fw-semibold">Năm:</label>
+            <select id="nam" name="nam"
+                    class="form-select"
+                    onchange="this.form.submit()">
+                @foreach (var n in ViewBag.DanhSachNam)
+                {
+                    if (n == (int)ViewBag.Nam)
+                    {
+                        <option value="@n" selected>@n</option>
+                    }
+                    else
+                    {
+                        <option value="@n">@n</option>
+                    }
+                }
+            </select>
+            <noscript>
+                <button type="submit" class="btn btn-primary">
+                    Xem
+                </button>
+            </noscript>
+        </form>
+    </div>
+
+    <!-- Các chỉ số tổng quan -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Tổng doanh thu thực thu</div>
+                    <h4 class="fw-bold text-success mb-0">
+                        @(((decimal)ViewBag.TongDoanhThu).ToString("N0")) đ
+                    </h4>
+                    <small class="text-muted">Tất cả hóa đơn đã thanh toán</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Tổng lượt đặt phòng</div>
+                    <h4 class="fw-bold mb-0">
+                        @ViewBag.TongDatPhong
+                    </h4>
+                    <small class="text-muted">Tất cả lượt đặt phòng</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Hóa đơn đã thanh toán</div>
+                    <h4 class="fw-bold text-primary mb-0">
+                        @ViewBag.HoaDonDaThanhToan
+                    </h4>
+                    <small class="text-muted">Hóa đơn đã hoàn tất thanh toán</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Hóa đơn chưa thanh toán</div>
+                    <h4 class="fw-bold text-danger mb-0">
+                        @ViewBag.HoaDonChuaThanhToan
+                    </h4>
+                    <small class="text-muted">Cần theo dõi thanh toán</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thống kê doanh thu -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Doanh thu tiền phòng</h6>
+                    <h4 class="fw-bold">
+                        @(((decimal)ViewBag.DoanhThuPhong).ToString("N0")) đ
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Tiền dịch vụ trên hóa đơn đã thanh toán</h6>
+                    <h4 class="fw-bold">
+                        @(((decimal)ViewBag.DoanhThuDichVu).ToString("N0")) đ
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Dịch vụ phát sinh đã ghi nhận</h6>
+                    <h4 class="fw-bold">
+                        @(((decimal)ViewBag.TongTienDichVuPhatSinh).ToString("N0")) đ
+                    </h4>
+                    <small class="text-muted">
+                        @ViewBag.SoLuotDichVu lượt ghi nhận
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doanh thu theo năm -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="fw-bold mb-1">
+                Doanh thu theo tháng năm @ViewBag.Nam
+            </h5>
+            <p class="text-muted mb-3">
+                Chỉ tính hóa đơn đã thanh toán, theo ngày lập hóa đơn.
+            </p>
+
+            <h4 class="text-success fw-bold mb-4">
+                Tổng doanh thu năm:
+                @(((decimal)ViewBag.DoanhThuNam).ToString("N0")) đ
+            </h4>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 120px">Tháng</th>
+                            <th>Doanh thu</th>
+                            <th style="width: 35%">Tỷ lệ trực quan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in doanhThuTheoThang)
+                        {
+                            var doanhThu = (decimal)item.DoanhThu;
+                            var tongNam = (decimal)ViewBag.DoanhThuNam;
+
+                            var tyLe = tongNam > 0
+                                ? (double)(doanhThu / tongNam * 100)
+                                : 0;
+
+                            <tr>
+                                <td class="fw-semibold">
+                                    Tháng @item.Thang
+                                </td>
+                                <td>
+                                    @doanhThu.ToString("N0") đ
+                                </td>
+                                <td>
+                                    <div class="progress" style="height: 20px">
+                                        <div class="progress-bar"
+                                             role="progressbar"
+                                             style="width: @tyLe.ToString("F2",
+                                                 System.Globalization.CultureInfo.InvariantCulture)%"
+                                             aria-valuenow="@tyLe"
+                                             aria-valuemin="0"
+                                             aria-valuemax="100">
+                                            @tyLe.ToString("F1")%
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
