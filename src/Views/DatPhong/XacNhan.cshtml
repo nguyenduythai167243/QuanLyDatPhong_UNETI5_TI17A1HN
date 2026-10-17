@@ -1,0 +1,178 @@
+@*
+    Họ và tên: Nguyễn Duy Thái
+    Mã sinh viên: 23103100052
+    Nội dung thực hiện: Module 4 - Màn hình Xác nhận đặt phòng với kiểm tra điều kiện tự động bằng LINQ
+*@
+
+@model QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels.XuLyDatPhongViewModel
+
+@{
+    ViewData["Title"] = $"Xác nhận Đặt phòng #{Model.DatPhong.MaDatPhong}";
+    var dp = Model.DatPhong;
+    var kt = Model.KiemTra;
+}
+
+<div class="container py-4" style="max-width: 850px;">
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-success text-white py-3">
+            <h4 class="mb-0 fw-bold">
+                <i class="bi bi-check-circle"></i> XÁC NHẬN ĐẶT PHÒNG #@dp.MaDatPhong
+            </h4>
+            <div class="small opacity-75">
+                Module 4 - Sinh viên thực hiện: Nguyễn Duy Thái (MSV: 23103100052)
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <!-- Thông báo TempData -->
+            @if (TempData["ThongBaoLoi"] != null)
+            {
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ThongBaoLoi"]
+                </div>
+            }
+
+            <!-- Tóm tắt thông tin đặt phòng -->
+            <div class="alert alert-light border mb-4">
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <span class="text-muted">Khách hàng:</span>
+                        <strong class="text-dark">@(dp.KhachHang?.HoTen ?? "N/A")</strong>
+                        <div class="small text-muted">SĐT: @(dp.KhachHang?.SoDienThoai ?? "N/A") | CMND/CCCD: @(dp.KhachHang?.SoGiayToTuyThan ?? "N/A")</div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <span class="text-muted">Phòng đăng ký:</span>
+                        <strong class="text-primary">Phòng @(dp.Phong?.SoPhong ?? "N/A")</strong>
+                        <div class="small text-muted">Loại: @(dp.Phong?.LoaiPhong?.TenLoaiPhong ?? "N/A") (Giá: @(dp.Phong?.GiaMotDem.ToString("N0") ?? "0") đ/đêm)</div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <span class="text-muted">Thời gian lưu trú:</span>
+                        <div><strong>Từ:</strong> @dp.NgayNhanPhong.ToString("dd/MM/yyyy") <strong>đến:</strong> @dp.NgayTraPhong.ToString("dd/MM/yyyy") (@Model.SoDem đêm)</div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <span class="text-muted">Tổng tiền dự kiến:</span>
+                        <div class="fs-5 fw-bold text-danger">@dp.TongTienDuKien.ToString("N0") VNĐ</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bảng kết quả kiểm tra điều kiện nghiệp vụ LINQ -->
+            <h5 class="fw-bold text-secondary mb-3">
+                <i class="bi bi-shield-check"></i> Kết quả kiểm tra điều kiện trước khi xác nhận (LINQ):
+            </h5>
+
+            <div class="list-group mb-4">
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>1. Phòng tồn tại và ở trạng thái Sẵn sàng</strong>
+                        <div class="small text-muted">Trạng thái phòng: @(kt.TrangThaiHienTaiCuaPhong ?? "Không rõ")</div>
+                    </div>
+                    @if (kt.PhongSanSang)
+                    {
+                        <span class="badge bg-success">Hợp lệ</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Không sẵn sàng</span>
+                    }
+                </div>
+
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>2. Khách hàng đang hoạt động</strong>
+                        <div class="small text-muted">Tài khoản chưa bị khóa</div>
+                    </div>
+                    @if (kt.KhachHangHoatDong)
+                    {
+                        <span class="badge bg-success">Hợp lệ</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Bị khóa</span>
+                    }
+                </div>
+
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>3. Không trùng khoảng ngày lưu trú với đơn đặt phòng khác</strong>
+                        <div class="small text-muted">Kiểm tra LINQ Overlap với các đơn đã xác nhận / đang ở</div>
+                    </div>
+                    @if (!kt.CoBiTrungLich)
+                    {
+                        <span class="badge bg-success">Không trùng</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Trùng @kt.DanhSachTrungLich.Count đơn</span>
+                    }
+                </div>
+
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>4. Kiểm soát công suất phòng theo loại phòng</strong>
+                        <div class="small text-muted">
+                            Đã kín @kt.SoPhongDaKinLichTrongKhoang / @kt.TongPhongSanSangCuaLoai phòng thuộc loại này
+                        </div>
+                    </div>
+                    @if (!kt.LoaiPhongBiKinLich)
+                    {
+                        <span class="badge bg-success">Còn phòng trống</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Đã kín lịch!</span>
+                    }
+                </div>
+            </div>
+
+            <!-- Cảnh báo lỗi chi tiết nếu vi phạm -->
+            @if (kt.DanhSachLoi.Any())
+            {
+                <div class="alert alert-danger mb-4">
+                    <h6 class="fw-bold mb-2"><i class="bi bi-x-circle-fill"></i> Không thể xác nhận đặt phòng vì:</h6>
+                    <ul class="mb-0">
+                        @foreach (var err in kt.DanhSachLoi)
+                        {
+                            <li>@err</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <!-- Form xử lý xác nhận -->
+            <form asp-action="XacNhan" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@dp.MaDatPhong" />
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Ghi chú của Lễ tân khi xử lý xác nhận:</label>
+                    <textarea name="ghiChuLeTan" class="form-control" rows="3" placeholder="Nhập ghi chú xử lý...">@Model.GhiChuLeTan</textarea>
+                    <div class="form-text">Ghi chú này sẽ được lưu cùng ngày xử lý (@DateTime.Now.ToString("dd/MM/yyyy HH:mm")).</div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <a asp-action="Details" asp-route-id="@dp.MaDatPhong" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Quay lại
+                    </a>
+
+                    <div class="d-flex gap-2">
+                        <a asp-action="TuChoi" asp-route-id="@dp.MaDatPhong" class="btn btn-outline-danger">
+                            Từ chối đơn này
+                        </a>
+                        @if (kt.HopLeDeXacNhan)
+                        {
+                            <button type="submit" class="btn btn-success px-4 fw-bold">
+                                <i class="bi bi-check2"></i> Xác nhận đặt phòng ngay
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-secondary px-4" disabled title="Không đủ điều kiện để xác nhận">
+                                Không thể xác nhận (Vi phạm điều kiện)
+                            </button>
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

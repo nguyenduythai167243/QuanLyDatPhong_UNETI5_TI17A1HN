@@ -1,0 +1,79 @@
+@*
+    Họ và tên: Nguyễn Duy Thái
+    Mã sinh viên: 23103100052
+    Nội dung thực hiện: Module 4 - Màn hình Từ chối đặt phòng kèm ghi nhận lý do của Lễ tân
+*@
+
+@model QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels.XuLyDatPhongViewModel
+
+@{
+    ViewData["Title"] = $"Từ chối Đặt phòng #{Model.DatPhong.MaDatPhong}";
+    var dp = Model.DatPhong;
+}
+
+<div class="container py-4" style="max-width: 700px;">
+    <div class="card border-0 shadow-sm border-start border-danger border-4">
+        <div class="card-header bg-white py-3">
+            <h4 class="mb-0 fw-bold text-danger">
+                <i class="bi bi-x-circle-fill"></i> TỪ CHỐI ĐẶT PHÒNG #@dp.MaDatPhong
+            </h4>
+            <div class="small text-muted">
+                Module 4 - Sinh viên thực hiện: Nguyễn Duy Thái (MSV: 23103100052)
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <!-- Thông báo TempData -->
+            @if (TempData["ThongBaoLoi"] != null)
+            {
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ThongBaoLoi"]
+                </div>
+            }
+
+            <div class="alert alert-light border mb-4">
+                <div class="row">
+                    <div class="col-sm-6 mb-2">
+                        <span class="text-muted">Khách hàng:</span>
+                        <strong>@(dp.KhachHang?.HoTen ?? "N/A")</strong>
+                    </div>
+                    <div class="col-sm-6 mb-2">
+                        <span class="text-muted">Phòng:</span>
+                        <strong class="text-primary">Phòng @(dp.Phong?.SoPhong ?? "N/A")</strong>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="text-muted">Thời gian:</span>
+                        <span>@dp.NgayNhanPhong.ToString("dd/MM/yyyy") - @dp.NgayTraPhong.ToString("dd/MM/yyyy")</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="text-muted">Trạng thái hiện tại:</span>
+                        <span class="badge bg-warning text-dark">@dp.TrangThai</span>
+                    </div>
+                </div>
+            </div>
+
+            <form asp-action="TuChoi" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@dp.MaDatPhong" />
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold text-danger">
+                        Lý do từ chối đặt phòng <span class="text-danger">*</span>:
+                    </label>
+                    <textarea name="lyDoTuChoi" class="form-control" rows="4" required placeholder="Vui lòng nêu rõ lý do từ chối đặt phòng (vd: Hết phòng trống, phòng bảo trì, không liên lạc được với khách...)">@Model.LyDoTuChoi</textarea>
+                    <div class="form-text">
+                        Lý do từ chối sẽ được lưu vào thông tin xử lý của Lễ tân để đối soát và thông báo cho khách hàng.
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <a asp-action="Details" asp-route-id="@dp.MaDatPhong" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Hủy & Quay lại
+                    </a>
+                    <button type="submit" class="btn btn-danger px-4 fw-bold" onclick="return confirm('Bạn có chắc chắn muốn TỪ CHỐI đơn đặt phòng này?');">
+                        <i class="bi bi-x-circle"></i> Xác nhận Từ chối
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

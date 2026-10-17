@@ -1,0 +1,148 @@
+@*
+    Họ và tên: Nguyễn Duy Thái
+    Mã sinh viên: 23103100052
+    Nội dung thực hiện: Module 4 - Màn hình kiểm soát công suất phòng theo loại phòng (Mục 8.5)
+*@
+
+@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "Kiểm soát công suất phòng";
+    DateTime tuNgay = ViewBag.TuNgay ?? DateTime.Today;
+    DateTime denNgay = ViewBag.DenNgay ?? DateTime.Today.AddDays(1);
+}
+
+<div class="container-fluid py-3">
+    <!-- Tiêu đề & Thông tin sinh viên phụ trách -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h3 class="text-primary fw-bold mb-1">
+                <i class="bi bi-pie-chart-fill"></i> KIỂM SOÁT CÔNG SUẤT PHÒNG THEO LOẠI PHÒNG
+            </h3>
+            <div class="text-muted small">
+                <span class="badge bg-primary">Module 4 - Mục 8.5</span>
+                <strong>Sinh viên phụ trách:</strong> Nguyễn Duy Thái - <strong>MSV:</strong> 23103100052
+            </div>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Quay lại Danh sách đặt phòng
+            </a>
+        </div>
+    </div>
+
+    <!-- Hướng dẫn nghiệp vụ mục 8.5 -->
+    <div class="alert alert-info py-2 small mb-4">
+        <i class="bi bi-info-circle-fill me-1"></i>
+        <strong>Yêu cầu nghiệp vụ (Mục 8.5):</strong> Hệ thống sử dụng LINQ để đếm số phòng đã có đặt phòng đang hiệu lực theo từng loại phòng trong khoảng ngày được chọn. Khi tất cả phòng Sẵn sàng của một loại phòng đã kín lịch, hệ thống sẽ <strong>cảnh báo Lễ tân</strong> và <strong>không cho xác nhận thêm</strong> đặt phòng cho loại phòng đó trong khoảng ngày này.
+    </div>
+
+    <!-- Form chọn khoảng ngày để kiểm tra công suất -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <form method="get" asp-action="KiemTraCongSuat" class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold text-muted small">Từ ngày (Ngày nhận dự kiến)</label>
+                    <input type="date" name="tuNgay" class="form-control" value="@tuNgay.ToString("yyyy-MM-dd")" required />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-bold text-muted small">Đến ngày (Ngày trả dự kiến)</label>
+                    <input type="date" name="denNgay" class="form-control" value="@denNgay.ToString("yyyy-MM-dd")" required />
+                </div>
+                <div class="col-md-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary w-100 fw-bold">
+                        <i class="bi bi-search"></i> Kiểm tra công suất ngay
+                    </button>
+                    <a asp-action="KiemTraCongSuat" class="btn btn-outline-secondary">Hôm nay</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bảng công suất từng loại phòng -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0 fw-bold text-secondary">
+                Công suất phòng từ <strong>@tuNgay.ToString("dd/MM/yyyy")</strong> đến <strong>@denNgay.ToString("dd/MM/yyyy")</strong>
+            </h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light text-secondary small text-uppercase">
+                    <tr>
+                        <th>Mã loại</th>
+                        <th>Tên loại phòng</th>
+                        <th>Sức chứa tối đa</th>
+                        <th>Giá tham khảo</th>
+                        <th>Tổng số phòng</th>
+                        <th>Phòng sẵn sàng</th>
+                        <th>Số phòng đã đặt</th>
+                        <th>Số phòng còn trống</th>
+                        <th>Tỷ lệ lấp đầy</th>
+                        <th>Trạng thái công suất</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr class="@(item.KinLich ? "table-danger" : "")">
+                                <td class="fw-bold">@item.MaLoaiPhong</td>
+                                <td class="fw-bold text-primary">@item.TenLoaiPhong</td>
+                                <td>@item.SucChuaToiDa người</td>
+                                <td>@item.GiaThamKhao.ToString("N0") đ</td>
+                                <td>@item.TongPhong</td>
+                                <td>
+                                    <span class="badge bg-success">@item.PhongSanSang phòng</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-warning text-dark">@item.PhongDaDat phòng</span>
+                                </td>
+                                <td>
+                                    <span class="badge @(item.PhongConTrong == 0 ? "bg-danger" : "bg-primary") fs-6">
+                                        @item.PhongConTrong phòng
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="progress flex-grow-1" style="height: 8px;">
+                                            <div class="progress-bar @(item.TyLeLapDay >= 100 ? "bg-danger" : (item.TyLeLapDay >= 70 ? "bg-warning" : "bg-success"))"
+                                                 role="progressbar"
+                                                 style="width: @item.TyLeLapDay%;"
+                                                 aria-valuenow="@item.TyLeLapDay"
+                                                 aria-valuemin="0"
+                                                 aria-valuemax="100">
+                                            </div>
+                                        </div>
+                                        <span class="small fw-bold">@item.TyLeLapDay%</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    @if (item.KinLich)
+                                    {
+                                        <span class="badge bg-danger px-2 py-1">
+                                            <i class="bi bi-exclamation-triangle-fill"></i> ĐÃ KÍN LỊCH
+                                        </span>
+                                    }
+                                    else if (item.PhongConTrong <= 1 && item.PhongSanSang > 1)
+                                    {
+                                        <span class="badge bg-warning text-dark px-2 py-1">
+                                            <i class="bi bi-exclamation-circle"></i> Sắp kín lịch
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success px-2 py-1">
+                                            <i class="bi bi-check-circle"></i> Còn phòng nhận
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
