@@ -1,0 +1,172 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    var doanhThu = (decimal)(ViewBag.DoanhThuThangNay ?? 0m);
+    var tongTienDichVu = (decimal)(ViewBag.TongTienDichVu ?? 0m);
+}
+
+<div class="container-fluid py-4">
+    <div class="mb-4">
+        <h2 class="fw-bold">Tổng quan hệ thống</h2>
+        <p class="text-muted mb-0">
+            Thống kê tình hình quản lý đặt phòng khách sạn
+        </p>
+    </div>
+
+    <div class="row g-3">
+        <!-- Tổng loại phòng -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Tổng loại phòng</div>
+                    <h3 class="fw-bold text-primary">
+                        @ViewBag.TongLoaiPhong
+                    </h3>
+                    <small class="text-muted">Số loại phòng hiện có</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tổng số phòng -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Tổng số phòng</div>
+                    <h3 class="fw-bold text-info">
+                        @ViewBag.TongSoPhong
+                    </h3>
+                    <small class="text-muted">Tất cả phòng trong hệ thống</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phòng sẵn sàng -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Phòng sẵn sàng</div>
+                    <h3 class="fw-bold text-success">
+                        @ViewBag.PhongSanSang
+                    </h3>
+                    <small class="text-muted">Có thể phục vụ khách</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tổng khách hàng -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Tổng khách hàng</div>
+                    <h3 class="fw-bold text-warning">
+                        @ViewBag.TongKhachHang
+                    </h3>
+                    <small class="text-muted">Khách hàng đã đăng ký</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tổng lượt đặt phòng -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Tổng lượt đặt phòng</div>
+                    <h3 class="fw-bold">
+                        @ViewBag.TongDatPhong
+                    </h3>
+                    <small class="text-muted">Tất cả lượt đặt phòng</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chờ xác nhận -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Chờ xác nhận</div>
+                    <h3 class="fw-bold text-warning">
+                        @ViewBag.DatPhongChoXacNhan
+                    </h3>
+                    <small class="text-muted">Đặt phòng đang chờ xử lý</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Khách đang lưu trú -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Khách đang lưu trú</div>
+                    <h3 class="fw-bold text-success">
+                        @ViewBag.KhachDangLuuTru
+                    </h3>
+                    <small class="text-muted">Đã nhận phòng</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Đặt phòng sắp đến -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Đặt phòng sắp đến</div>
+                    <h3 class="fw-bold text-info">
+                        @ViewBag.DatPhongSapDen
+                    </h3>
+                    <small class="text-muted">Trong 7 ngày tới</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Doanh thu tháng -->
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Doanh thu tháng này</div>
+                    <h3 class="fw-bold text-success">
+                        @doanhThu.ToString("N0") đ
+                    </h3>
+                    <small class="text-muted">Hóa đơn đã thanh toán</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tổng hóa đơn -->
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Tổng số hóa đơn</div>
+                    <h3 class="fw-bold text-primary">
+                        @ViewBag.TongHoaDon
+                    </h3>
+                    <small class="text-muted">Tất cả hóa đơn</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hóa đơn chưa thanh toán -->
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Hóa đơn chưa thanh toán</div>
+                    <h3 class="fw-bold text-danger">
+                        @ViewBag.HoaDonChuaThanhToan
+                    </h3>
+                    <small class="text-muted">Cần theo dõi thanh toán</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tiền dịch vụ phát sinh -->
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted mb-2">Tiền dịch vụ phát sinh</div>
+                    <h3 class="fw-bold text-info">
+                        @tongTienDichVu.ToString("N0") đ
+                    </h3>
+                    <small class="text-muted">Dịch vụ đã ghi nhận</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
