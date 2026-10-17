@@ -23,32 +23,25 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             var bayNgayToi = homNay.AddDays(7);
 
             // 1. Tổng số loại phòng
-            ViewBag.TongLoaiPhong = await _context.LoaiPhongs
-                .CountAsync();
+            ViewBag.TongLoaiPhong = await _context.LoaiPhongs.CountAsync();
 
             // 2. Tổng số phòng
-            ViewBag.TongSoPhong = await _context.Phongs
-                .CountAsync();
+            ViewBag.TongSoPhong = await _context.Phongs.CountAsync();
 
             // 3. Số phòng sẵn sàng
-            ViewBag.PhongSanSang = await _context.Phongs
-                .CountAsync(p => p.TrangThai == "Sẵn sàng");
+            ViewBag.PhongSanSang = await _context.Phongs.CountAsync(p => p.TrangThai == "Sẵn sàng");
 
             // 4. Tổng số khách hàng
-            ViewBag.TongKhachHang = await _context.KhachHangs
-                .CountAsync();
+            ViewBag.TongKhachHang = await _context.KhachHangs.CountAsync();
 
             // 5. Tổng số lượt đặt phòng
-            ViewBag.TongDatPhong = await _context.DatPhongs
-                .CountAsync();
+            ViewBag.TongDatPhong = await _context.DatPhongs.CountAsync();
 
             // 6. Đặt phòng chờ xác nhận
-            ViewBag.DatPhongChoXacNhan = await _context.DatPhongs
-                .CountAsync(d => d.TrangThai == "Chờ xác nhận");
+            ViewBag.DatPhongChoXacNhan = await _context.DatPhongs.CountAsync(d => d.TrangThai == "Chờ xác nhận");
 
             // 7. Khách đang lưu trú
-            ViewBag.KhachDangLuuTru = await _context.DatPhongs
-                .CountAsync(d => d.TrangThai == "Đã nhận phòng");
+            ViewBag.KhachDangLuuTru = await _context.DatPhongs.CountAsync(d => d.TrangThai == "Đã nhận phòng");
 
             // 8. Đặt phòng sắp đến trong 7 ngày tới
             ViewBag.DatPhongSapDen = await _context.DatPhongs
@@ -68,12 +61,10 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
                     .SumAsync(h => (decimal?)h.TongTienThanhToan) ?? 0m;
 
             // 10. Tổng số hóa đơn
-            ViewBag.TongHoaDon = await _context.HoaDons
-                .CountAsync();
+            ViewBag.TongHoaDon = await _context.HoaDons .CountAsync();
 
             // 11. Hóa đơn chưa thanh toán
-            ViewBag.HoaDonChuaThanhToan = await _context.HoaDons
-                .CountAsync(h => h.TrangThai == TrangThaiTT.ChuaThanhToan);
+            ViewBag.HoaDonChuaThanhToan = await _context.HoaDons.CountAsync(h => h.TrangThai == TrangThaiTT.ChuaThanhToan);
 
             // 12. Tổng tiền dịch vụ phát sinh đã ghi nhận
             ViewBag.TongTienDichVu = await _context.DichVuPhatSinhs
