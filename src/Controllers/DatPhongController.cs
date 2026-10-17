@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
-
-public class DatPhongsController : Controller
+using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
+public class DatPhongController : Controller
 {
-    private readonly QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public DatPhongsController(
-        QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext context)
+    public DatPhongController(ApplicationDbContext context)
     {
         _context = context;
     }

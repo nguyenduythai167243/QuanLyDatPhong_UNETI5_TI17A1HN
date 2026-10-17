@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
@@ -29,6 +29,8 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
         public DateTime NgayLap { get; set; }
         [Required]
         public TrangThaiTT TrangThai { get; set; }
+
+        [ForeignKey("MaDatPhong")]
         public virtual DatPhong? DatPhong { get; set; }
 
     }

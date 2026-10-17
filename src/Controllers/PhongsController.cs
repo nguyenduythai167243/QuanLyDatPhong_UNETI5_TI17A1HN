@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-// using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
 // using QuanLyDatPhong_UNETI5_TI17A1HN.Filters;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 using QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels;

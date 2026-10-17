@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
@@ -31,7 +31,8 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
         public String QuocTich {  get; set; }
         public bool TrangThai { get; set; }
         [ForeignKey("MaTaiKhoan")]
-        //public virtual TaiKhoan? TaiKhoan { get; set; }
+        public virtual TaiKhoan? TaiKhoan { get; set; }
+
         public virtual ICollection<DatPhong> DatPhongs { get; set; } = new List<DatPhong>();
     }
 }

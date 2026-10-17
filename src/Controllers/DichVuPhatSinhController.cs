@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 
-public class DichVuPhatSinhsController : Controller
+public class DichVuPhatSinhController : Controller
 {
-    private readonly QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext _context;
+    private readonly QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext _context;
 
-    public DichVuPhatSinhsController(
-        QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext context)
+    public DichVuPhatSinhController(
+        QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext context)
     {
         _context = context;
     }

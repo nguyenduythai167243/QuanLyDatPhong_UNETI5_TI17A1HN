@@ -1,12 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+var dbDir = Path.Combine(builder.Environment.ContentRootPath, "bin", "Debug", "net10.0");
+AppDomain.CurrentDomain.SetData("DataDirectory", dbDir);
 
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContext")
     ?? throw new InvalidOperationException("Connection string 'ApplicationDbContext' not found.");
 
-builder.Services.AddDbContext<QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext>(options =>
+if (connectionString.Contains("|DataDirectory|"))
+{
+    connectionString = connectionString.Replace("|DataDirectory|", dbDir.TrimEnd('\\', '/'));
+}
+
+builder.Services.AddDbContext<QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddControllersWithViews();

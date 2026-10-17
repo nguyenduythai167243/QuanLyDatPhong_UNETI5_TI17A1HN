@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
-
+using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
 public class DashboardController : Controller
 {
-    private readonly QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext _context;
+    private readonly QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext _context;
 
-    public DashboardController(QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext context)
+    public DashboardController(QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext context)
     {
         _context = context;
     }
@@ -21,7 +21,7 @@ public class DashboardController : Controller
 
         ViewBag.TongSoPhong = await _context.Phongs.CountAsync();
 
-        ViewBag.PhongSanSang = await _context.Phongs.CountAsync( p => p.TrangThai == "Sẵn sàng");
+        ViewBag.PhongSanSang = await _context.Phongs.CountAsync(p => p.TrangThai == "Sẵn sàng");
 
         ViewBag.TongKhachHang = await _context.KhachHangs.CountAsync();
 

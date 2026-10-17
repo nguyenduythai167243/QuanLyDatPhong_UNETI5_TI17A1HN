@@ -1,22 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 {
 	public class AccountController : Controller
 	{
 
-        private readonly QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext _context;
+		private readonly ApplicationDbContext _context;
 
-        public AccountController(
-            QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext context)
-        {
-            _context = context;
-        }
+		public AccountController(ApplicationDbContext context)
+		{
+			_context = context;
+		}
 
 
-        [HttpGet]
+		[HttpGet]
 		public IActionResult Login()
 		{
 			return View();

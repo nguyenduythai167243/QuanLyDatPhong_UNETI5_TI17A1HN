@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 
-public class HoaDonsController : Controller
+public class HoaDonController : Controller
 {
-    private readonly QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext _context;
+    private readonly QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext _context;
 
-    public HoaDonsController(
-        QuanLyDatPhong_UNETI5_TI17A1HN.Models.ApplicationDbContext context)
+    public HoaDonController(
+        QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext context)
     {
         _context = context;
     }
