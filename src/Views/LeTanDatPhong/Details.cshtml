@@ -319,9 +319,9 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <!-- TRẠNG THÁI 1: CHỜ XÁC NHẬN -->
                     @if (dp.TrangThai == "Chờ xác nhận")
                     {
+                        <!-- TRẠNG THÁI 1: CHỜ XÁC NHẬN -->
                         <div class="mb-3">
                             <p class="small text-muted mb-2">
                                 Đơn đặt phòng đang chờ Lễ tân xem xét điều kiện để chuyển trạng thái sang <strong>Đã xác nhận</strong> hoặc <strong>Từ chối</strong>.
@@ -336,10 +336,9 @@
                             </div>
                         </div>
                     }
-
-                    <!-- TRẠNG THÁI 2: ĐÃ XÁC NHẬN -->
                     else if (dp.TrangThai == "Đã xác nhận")
                     {
+                        <!-- TRẠNG THÁI 2: ĐÃ XÁC NHẬN -->
                         <div class="mb-3">
                             @if (Model.CoTheNhanPhong)
                             {
@@ -371,10 +370,9 @@
                             }
                         </div>
                     }
-
-                    <!-- TRẠNG THÁI 3: ĐÃ NHẬN PHÒNG -->
                     else if (dp.TrangThai == "Đã nhận phòng")
                     {
+                        <!-- TRẠNG THÁI 3: ĐÃ NHẬN PHÒNG -->
                         <div class="mb-3">
                             <p class="small text-primary mb-2">
                                 Khách hàng đang lưu trú tại khách sạn từ lúc @(dp.NgayNhanThucTe?.ToString("dd/MM/yyyy HH:mm") ?? "N/A").
@@ -389,10 +387,9 @@
                             </div>
                         </div>
                     }
-
-                    <!-- TRẠNG THÁI 4: ĐÃ TRẢ PHÒNG -->
                     else if (dp.TrangThai == "Đã trả phòng")
                     {
+                        <!-- TRẠNG THÁI 4: ĐÃ TRẢ PHÒNG -->
                         <div class="alert alert-success mb-3">
                             <i class="bi bi-check2-all"></i> Đơn đặt phòng đã hoàn tất trả phòng lúc @(dp.NgayTraThucTe?.ToString("dd/MM/yyyy HH:mm") ?? "N/A").
                         </div>
@@ -402,10 +399,9 @@
                             </a>
                         </div>
                     }
-
-                    <!-- TRẠNG THÁI 5 & 6: TỪ CHỐI / ĐÃ HỦY -->
                     else
                     {
+                        <!-- TRẠNG THÁI 5 & 6: TỪ CHỐI / ĐÃ HỦY -->
                         <div class="alert alert-secondary mb-0">
                             <i class="bi bi-x-octagon"></i> Đơn đặt phòng này ở trạng thái <strong>@dp.TrangThai</strong> và đã kết thúc. Không thể thay đổi luồng trạng thái.
                         </div>
