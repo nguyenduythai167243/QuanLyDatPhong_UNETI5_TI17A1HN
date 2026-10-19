@@ -1,6 +1,6 @@
 // Họ và tên: Nguyễn Duy Thái
 // Mã sinh viên: 23103100052
-// Nội dung thực hiện: Module 4 - Quản lý đặt phòng, Tiếp nhận, Xác nhận/Từ chối, Nhận phòng, Trả phòng, Quản lý trạng thái lưu trú và Kiểm soát công suất phòng
+// Nội dung thực hiện: MODULE 4 - TIẾP NHẬN, XÁC NHẬN VÀ QUẢN LÝ TRẠNG THÁI LƯU TRÚ (LeTanDatPhongController)
 
 using System;
 using System.Collections.Generic;
@@ -17,11 +17,11 @@ using QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels;
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 {
     [SessionAuthorize("Admin", "LeTan", "Lễ tân")]
-    public class DatPhongController : Controller
+    public class LeTanDatPhongController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DatPhongController(ApplicationDbContext context)
+        public LeTanDatPhongController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -97,6 +97,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             query = sortOrder switch
             {
                 "ngaydat_asc" => query.OrderBy(d => d.NgayDat),
+                "ngaydat_desc" => query.OrderByDescending(d => d.NgayDat),
                 "ngaynhan_asc" => query.OrderBy(d => d.NgayNhanPhong).ThenByDescending(d => d.NgayDat),
                 "ngaynhan_desc" => query.OrderByDescending(d => d.NgayNhanPhong).ThenByDescending(d => d.NgayDat),
                 _ => query.OrderByDescending(d => d.NgayDat) // Mặc định: ngày đặt mới nhất trước
@@ -137,7 +138,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         #region 8.2 & 8.3. XEM CHI TIẾT & KIỂM TRA ĐIỀU KIỆN ĐẶT PHÒNG
 
         /// <summary>
-        /// Xem chi tiết đặt phòng kèm báo cáo kiểm tra điều kiện nghiệp vụ theo thời gian thực
+        /// Xem chi tiết đặt phòng kèm báo cáo kiểm tra điều kiện nghiệp vụ theo thời gian thực (LINQ)
         /// </summary>
         public async Task<IActionResult> Details(int? id)
         {
@@ -183,8 +184,8 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         /// 2. Phòng liên quan tồn tại và ở trạng thái Sẵn sàng
         /// 3. Khách hàng còn hoạt động
         /// 4. Đặt phòng chưa có kết quả xử lý trước đó (đang là Chờ xác nhận)
-        /// 5. Thuật toán Overlap kiểm tra không trùng khoảng ngày lưu trú với booking khác đang hiệu lực của phòng đó
-        /// 6. Kiểm soát công suất phòng: Cảnh báo khi loại phòng đã kín lịch trong khoảng ngày
+        /// 5. Thuật toán Overlap kiểm tra không trùng khoảng ngày lưu trú với booking khác đang hiệu lực của phòng đó (LINQ)
+        /// 6. Kiểm soát công suất phòng: Cảnh báo khi loại phòng đã kín lịch trong khoảng ngày (LINQ)
         /// </summary>
         private async Task<KiemTraDatPhongResult> KiemTraDieuKienDatPhongAsync(DatPhong datPhong)
         {
@@ -199,15 +200,31 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             result.DaDenNgayNhan = datPhong.NgayNhanPhong.Date <= today;
             result.QuaHanNhanPhong = datPhong.TrangThai == "Đã xác nhận" && datPhong.NgayNhanPhong.Date < today;
 
-            // 1. Kiểm tra trạng thái khách hàng
+            // 1. Kiểm tra đặt phòng chưa bị hủy (Mục 8.3)
+            if (datPhong.TrangThai == "Đã hủy")
+            {
+                result.DanhSachLoi.Add("Đặt phòng này đã bị hủy, không thể xác nhận.");
+            }
+
+            // 2. Kiểm tra đặt phòng chưa có kết quả xử lý trước đó (Mục 8.3)
+            if (datPhong.TrangThai != "Chờ xác nhận")
+            {
+                result.DanhSachLoi.Add($"Đặt phòng đã có kết quả xử lý trước đó (Trạng thái hiện tại: {datPhong.TrangThai}).");
+            }
+
+            // 3. Kiểm tra khách hàng còn hoạt động (Mục 8.3)
             var khachHang = await _context.KhachHangs.FindAsync(datPhong.MaKhachHang);
             result.KhachHangHoatDong = khachHang != null && khachHang.TrangThai;
-            if (!result.KhachHangHoatDong)
+            if (khachHang == null)
+            {
+                result.DanhSachLoi.Add("Khách hàng liên quan không tồn tại trong hệ thống.");
+            }
+            else if (!khachHang.TrangThai)
             {
                 result.DanhSachLoi.Add("Tài khoản khách hàng này hiện đang bị khóa hoặc ngừng hoạt động.");
             }
 
-            // 2. Kiểm tra phòng tồn tại và trạng thái phòng
+            // 4. Kiểm tra phòng tồn tại và vẫn ở trạng thái Sẵn sàng (Mục 8.3)
             var phong = await _context.Phongs
                 .Include(p => p.LoaiPhong)
                 .FirstOrDefaultAsync(p => p.MaPhong == datPhong.MaPhong);
@@ -215,7 +232,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             if (phong == null)
             {
                 result.PhongSanSang = false;
-                result.DanhSachLoi.Add("Phòng tương ứng không tồn tại trong hệ thống.");
+                result.DanhSachLoi.Add("Phòng liên quan không tồn tại trong hệ thống.");
             }
             else
             {
@@ -224,17 +241,17 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
                 if (!result.PhongSanSang)
                 {
-                    result.DanhSachLoi.Add($"Phòng {phong.SoPhong} hiện ở trạng thái '{phong.TrangThai}', không sẵn sàng để nhận khách.");
+                    result.DanhSachLoi.Add($"Phòng {phong.SoPhong} hiện ở trạng thái '{phong.TrangThai}', không ở trạng thái Sẵn sàng.");
                 }
 
                 // Kiểm tra sức chứa phòng
                 if (datPhong.SoNguoi > phong.SucChua)
                 {
-                    result.DanhSachCanhBao.Add($"Số lượng khách ({datPhong.SoNguoi} người) vượt quá sức chứa tối đa của phòng ({phong.SucChua} người).");
+                    result.DanhSachCanhBao.Add($"Số lượng khách ({datPhong.SoNguoi} người) vượt quá sức chứa tối đa ({phong.SucChua} người) của phòng {phong.SoPhong}.");
                 }
             }
 
-            // 3. Thuật toán kiểm tra trùng lịch (Overlap Check) bằng LINQ
+            // 5. Thuật toán kiểm tra trùng lịch (Overlap Check) bằng LINQ (Mục 8.3)
             // Hai khoảng lưu trú [checkIn, checkOut] và [dp.NgayNhanPhong, dp.NgayTraPhong] trùng nhau khi:
             // datPhong.NgayNhanPhong < dp.NgayTraPhong && datPhong.NgayTraPhong > dp.NgayNhanPhong
             var checkIn = datPhong.NgayNhanPhong;
@@ -260,20 +277,20 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
                     result.DanhSachLoi.Add(
                         $"Phòng {phong?.SoPhong} đã có đơn đặt #{trung.MaDatPhong} " +
                         $"({trung.KhachHang?.HoTen}) ở trạng thái '{trung.TrangThai}' " +
-                        $"từ {trung.NgayNhanPhong:dd/MM/yyyy} đến {trung.NgayTraPhong:dd/MM/yyyy} trùng khoảng thời gian này.");
+                        $"từ {trung.NgayNhanPhong:dd/MM/yyyy} đến {trung.NgayTraPhong:dd/MM/yyyy} trùng khoảng ngày lưu trú.");
                 }
             }
 
-            // 4. Kiểm soát công suất phòng theo loại phòng (Mục 8.5)
+            // 6. Kiểm soát công suất phòng theo loại phòng bằng LINQ (Mục 8.5)
             if (phong != null)
             {
                 var maLoai = phong.MaLoaiPhong;
-                // Đếm tổng số phòng Sẵn sàng thuộc loại phòng này
+                // Đếm tổng số phòng Sẵn sàng thuộc loại phòng này bằng LINQ
                 var tongPhongSanSang = await _context.Phongs
                     .CountAsync(p => p.MaLoaiPhong == maLoai && p.TrangThai == "Sẵn sàng");
                 result.TongPhongSanSangCuaLoai = tongPhongSanSang;
 
-                // Đếm số phòng của loại phòng này đã có đơn đặt hiệu lực trùng khoảng ngày này
+                // Đếm số phòng của loại phòng này đã có đơn đặt hiệu lực trùng khoảng ngày này bằng LINQ
                 var soPhongDaKinLich = await _context.Phongs
                     .Where(p => p.MaLoaiPhong == maLoai && p.TrangThai == "Sẵn sàng")
                     .Where(p => _context.DatPhongs.Any(dp =>
@@ -300,8 +317,9 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
                 }
             }
 
-            // Đánh giá tính hợp lệ tổng quát để xác nhận
+            // Đánh giá tính hợp lệ tổng quát để xác nhận (Mục 8.3 & 8.5)
             result.HopLeDeXacNhan = result.DangChoXacNhan &&
+                                    datPhong.TrangThai != "Đã hủy" &&
                                     result.PhongSanSang &&
                                     result.KhachHangHoatDong &&
                                     !result.CoBiTrungLich &&
@@ -315,7 +333,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         #region 8.2. XÁC NHẬN ĐẶT PHÒNG
 
         /// <summary>
-        /// GET: DatPhong/XacNhan/5
+        /// GET: LeTanDatPhong/XacNhan/5
         /// Hiển thị màn hình xem xét và xác nhận đặt phòng
         /// </summary>
         [HttpGet]
@@ -353,8 +371,9 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         }
 
         /// <summary>
-        /// POST: DatPhong/XacNhan/5
-        /// Thực hiện xác nhận đặt phòng sau khi kiểm tra đầy đủ điều kiện bằng LINQ
+        /// POST: LeTanDatPhong/XacNhan/5
+        /// Thực hiện xác nhận đặt phòng sau khi kiểm tra đầy đủ điều kiện bằng LINQ (8.3 & 8.5)
+        /// Ghi nhận NgayXuLy và GhiChuLeTan (8.2)
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -383,7 +402,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
                 return RedirectToAction(nameof(XacNhan), new { id });
             }
 
-            // Cập nhật trạng thái sang "Đã xác nhận"
+            // Cập nhật trạng thái sang "Đã xác nhận", ghi NgayXuLy và GhiChuLeTan (Mục 8.2)
             datPhong.TrangThai = "Đã xác nhận";
             datPhong.NgayXuLy = DateTime.Now;
             datPhong.GhiChuLeTan = string.IsNullOrWhiteSpace(ghiChuLeTan) ? "Đã xác nhận đặt phòng" : ghiChuLeTan.Trim();
@@ -399,7 +418,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         #region 8.2. TỪ CHỐI ĐẶT PHÒNG
 
         /// <summary>
-        /// GET: DatPhong/TuChoi/5
+        /// GET: LeTanDatPhong/TuChoi/5
         /// Hiển thị màn hình từ chối đặt phòng
         /// </summary>
         [HttpGet]
@@ -437,7 +456,8 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         }
 
         /// <summary>
-        /// POST: DatPhong/TuChoi/5
+        /// POST: LeTanDatPhong/TuChoi/5
+        /// Cập nhật kết quả xử lý sang "Từ chối", ghi NgayXuLy và GhiChuLeTan (Mục 8.2)
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -476,7 +496,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         #region 8.4. LÀM THỦ TỤC NHẬN PHÒNG (CHECK-IN)
 
         /// <summary>
-        /// GET: DatPhong/NhanPhong/5
+        /// GET: LeTanDatPhong/NhanPhong/5
         /// Hiển thị màn hình xác nhận nhận phòng
         /// </summary>
         [HttpGet]
@@ -492,7 +512,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
             if (datPhong == null) return NotFound();
 
-            // Kiểm tra ràng buộc luồng trạng thái (8.4)
+            // Kiểm tra ràng buộc luồng trạng thái (Mục 8.4)
             if (datPhong.TrangThai != "Đã xác nhận")
             {
                 TempData["ThongBaoLoi"] = $"Chỉ đặt phòng ở trạng thái 'Đã xác nhận' mới được làm thủ tục nhận phòng. Trạng thái hiện tại: {datPhong.TrangThai}.";
@@ -519,9 +539,12 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         }
 
         /// <summary>
-        /// POST: DatPhong/NhanPhong/5
+        /// POST: LeTanDatPhong/NhanPhong/5
         /// Thực hiện thủ tục nhận phòng (Check-in)
-        /// Ghi nhận NgayNhanThucTe = DateTime.Now và chuyển trạng thái sang "Đã nhận phòng"
+        /// Ghi nhận NgayNhanThucTe = DateTime.Now và chuyển trạng thái sang "Đã nhận phòng" (Mục 8.4)
+        /// Nghiêm cấm:
+        /// - Chuyển trực tiếp từ "Chờ xác nhận" sang "Đã nhận phòng"
+        /// - Đặt phòng "Từ chối" làm thủ tục nhận phòng
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -534,21 +557,33 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
             if (datPhong == null) return NotFound();
 
-            // Ràng buộc 1: Không cho chuyển trực tiếp từ Chờ xác nhận hoặc Từ chối sang Đã nhận phòng
+            // Ràng buộc 1: Không cho chuyển trực tiếp từ Chờ xác nhận hoặc Từ chối sang Đã nhận phòng (8.4)
+            if (datPhong.TrangThai == "Chờ xác nhận")
+            {
+                TempData["ThongBaoLoi"] = "Quy trình không hợp lệ: Không cho chuyển trực tiếp từ 'Chờ xác nhận' sang 'Đã nhận phòng'. Cần xác nhận trước!";
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
+            if (datPhong.TrangThai == "Từ chối")
+            {
+                TempData["ThongBaoLoi"] = "Quy trình không hợp lệ: Đặt phòng đã bị 'Từ chối', không được phép làm thủ tục nhận phòng!";
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
             if (datPhong.TrangThai != "Đã xác nhận")
             {
                 TempData["ThongBaoLoi"] = $"Quy trình không hợp lệ: Không thể nhận phòng cho đơn ở trạng thái '{datPhong.TrangThai}'.";
                 return RedirectToAction(nameof(Details), new { id });
             }
 
-            // Ràng buộc 2: Đã đến ngày nhận phòng
+            // Ràng buộc 2: Đã đến ngày nhận phòng (8.4)
             if (datPhong.NgayNhanPhong.Date > DateTime.Today)
             {
                 TempData["ThongBaoLoi"] = $"Chưa đến ngày nhận phòng theo quy định ({datPhong.NgayNhanPhong:dd/MM/yyyy}). Không thể nhận phòng trước ngày.";
                 return RedirectToAction(nameof(Details), new { id });
             }
 
-            // Cập nhật trạng thái đặt phòng
+            // Cập nhật trạng thái đặt phòng sang "Đã nhận phòng" và ghi NgayNhanThucTe
             datPhong.TrangThai = "Đã nhận phòng";
             datPhong.NgayNhanThucTe = DateTime.Now;
 
@@ -576,7 +611,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         #region 8.4. LÀM THỦ TỤC TRẢ PHÒNG (CHECK-OUT)
 
         /// <summary>
-        /// GET: DatPhong/TraPhong/5
+        /// GET: LeTanDatPhong/TraPhong/5
         /// Hiển thị màn hình trả phòng và tính toán lưu trú thực tế
         /// </summary>
         [HttpGet]
@@ -615,9 +650,9 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         }
 
         /// <summary>
-        /// POST: DatPhong/TraPhong/5
+        /// POST: LeTanDatPhong/TraPhong/5
         /// Thực hiện thủ tục trả phòng (Check-out)
-        /// Ghi nhận NgayTraThucTe = DateTime.Now và chuyển trạng thái sang "Đã trả phòng"
+        /// Ghi nhận NgayTraThucTe = DateTime.Now và chuyển trạng thái sang "Đã trả phòng" (Mục 8.4)
         /// Trả phòng về trạng thái "Sẵn sàng"
         /// </summary>
         [HttpPost]
@@ -631,7 +666,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
             if (datPhong == null) return NotFound();
 
-            // Ràng buộc luồng trạng thái: Chỉ "Đã nhận phòng" mới được trả phòng
+            // Ràng buộc luồng trạng thái: Chỉ "Đã nhận phòng" mới được trả phòng (8.4)
             if (datPhong.TrangThai != "Đã nhận phòng")
             {
                 TempData["ThongBaoLoi"] = $"Không thể làm thủ tục trả phòng cho đơn ở trạng thái '{datPhong.TrangThai}'.";
@@ -662,11 +697,12 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
         #endregion
 
-        #region 8.5. XỬ LÝ ĐẶT PHÒNG QUÁ HẠN NHẬN PHÒNG (NO-SHOW)
+        #region 8.4 & 8.5. HỦY ĐẶT PHÒNG & XỬ LÝ QUÁ HẠN NHẬN PHÒNG (NO-SHOW)
 
         /// <summary>
-        /// POST: DatPhong/HuyQuaHan/5
-        /// Lễ tân hủy đặt phòng đã xác nhận nhưng khách quá ngày nhận phòng mà không đến nhận
+        /// POST: LeTanDatPhong/HuyQuaHan/5
+        /// Lễ tân hủy đặt phòng đã xác nhận nhưng khách quá ngày nhận phòng mà không đến nhận (No-show)
+        /// Đáp ứng mục 8.5: Đánh dấu cảnh báo để Lễ tân quyết định hủy, không tự ý xóa dữ liệu.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -703,13 +739,47 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return RedirectToAction(nameof(Index), new { canhBaoQuaHan = true });
         }
 
+        /// <summary>
+        /// POST: LeTanDatPhong/HuyDatPhong/5
+        /// Lễ tân hủy đặt phòng khi ở trạng thái phù hợp (Chờ xác nhận hoặc Đã xác nhận).
+        /// Nghiêm cấm hủy khi đã nhận phòng hoặc đã trả phòng (Mục 8.4).
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> HuyDatPhong(int id, string? lyDo)
+        {
+            var datPhong = await _context.DatPhongs
+                .Include(d => d.KhachHang)
+                .FirstOrDefaultAsync(d => d.MaDatPhong == id);
+
+            if (datPhong == null) return NotFound();
+
+            if (datPhong.TrangThai != "Chờ xác nhận" && datPhong.TrangThai != "Đã xác nhận")
+            {
+                TempData["ThongBaoLoi"] = $"Không thể hủy đặt phòng ở trạng thái '{datPhong.TrangThai}'. Chỉ đơn 'Chờ xác nhận' hoặc 'Đã xác nhận' mới được hủy.";
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
+            datPhong.TrangThai = "Đã hủy";
+            datPhong.NgayXuLy = DateTime.Now;
+            var noiDungLyDo = string.IsNullOrWhiteSpace(lyDo) ? "Khách yêu cầu hủy / Lễ tân xử lý hủy." : lyDo.Trim();
+            datPhong.GhiChuLeTan = string.IsNullOrWhiteSpace(datPhong.GhiChuLeTan)
+                ? $"Đã hủy: {noiDungLyDo}"
+                : $"{datPhong.GhiChuLeTan} | Đã hủy: {noiDungLyDo}";
+
+            await _context.SaveChangesAsync();
+
+            TempData["ThongBaoThanhCong"] = $"Đã hủy thành công đặt phòng #{datPhong.MaDatPhong}.";
+            return RedirectToAction(nameof(Details), new { id = datPhong.MaDatPhong });
+        }
+
         #endregion
 
-        #region 8.5. TRA CỨU & KIỂM SOÁT CÔNG SUẤT PHÒNG THEO LOẠI PHÒNG (LINQ API)
+        #region 8.5. TRA CỨU & KIỂM SOÁT CÔNG SUẤT PHÒNG THEO LOẠI PHÒNG (LINQ)
 
         /// <summary>
-        /// GET: DatPhong/KiemTraCongSuat
-        /// Action phục vụ tra cứu nhanh công suất phòng của toàn bộ khách sạn trong khoảng ngày
+        /// GET: LeTanDatPhong/KiemTraCongSuat
+        /// Action phục vụ tra cứu nhanh công suất phòng của toàn bộ khách sạn trong khoảng ngày bằng LINQ
         /// </summary>
         [HttpGet]
         public async Task<IActionResult> KiemTraCongSuat(DateTime? tuNgay, DateTime? denNgay)
@@ -768,7 +838,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
         #region CÁC ACTION CRUD PHỤ TRỢ (TƯƠNG THÍCH HỆ THỐNG)
 
-        // GET: DatPhong/Create (Tạo đặt phòng trực tiếp tại quầy của Lễ tân)
+        // GET: LeTanDatPhong/Create (Tạo đặt phòng trực tiếp tại quầy của Lễ tân)
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -801,7 +871,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return View(model);
         }
 
-        // POST: DatPhong/Create
+        // POST: LeTanDatPhong/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(DatPhong datphong)
@@ -828,7 +898,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
                 ModelState.AddModelError(nameof(datphong.SoNguoi), $"Số người ({datphong.SoNguoi}) vượt quá sức chứa tối đa ({phong.SucChua}) của phòng {phong.SoPhong}.");
             }
 
-            // Kiểm tra trùng lịch
+            // Kiểm tra trùng lịch bằng LINQ
             var coTrung = await _context.DatPhongs.AnyAsync(dp =>
                 dp.MaPhong == datphong.MaPhong &&
                 (dp.TrangThai == "Đã xác nhận" || dp.TrangThai == "Đã nhận phòng" || dp.TrangThai == "Chờ xác nhận") &&
@@ -868,7 +938,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return View(datphong);
         }
 
-        // GET: DatPhong/Edit/5
+        // GET: LeTanDatPhong/Edit/5
         // Nghiệp vụ mục 8.4: Không cho sửa đặt phòng đã Đã trả phòng
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
@@ -894,7 +964,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return View(datphong);
         }
 
-        // POST: DatPhong/Edit/5
+        // POST: LeTanDatPhong/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, DatPhong datphong)
@@ -939,7 +1009,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return View(datphong);
         }
 
-        // GET: DatPhong/Delete/5
+        // GET: LeTanDatPhong/Delete/5
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -961,7 +1031,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return View(datphong);
         }
 
-        // POST: DatPhong/Delete/5
+        // POST: LeTanDatPhong/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

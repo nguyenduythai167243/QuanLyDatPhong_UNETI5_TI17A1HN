@@ -46,6 +46,11 @@ app.UseAuthorization();
 app.MapStaticAssets();
 
 app.MapControllerRoute(
+    name: "datphong_alias",
+    pattern: "DatPhong/{action=Index}/{id?}",
+    defaults: new { controller = "LeTanDatPhong" });
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
