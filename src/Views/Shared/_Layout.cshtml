@@ -33,37 +33,51 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Trang chủ</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door me-1"></i>Trang chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="DanhSachPhong"><i class="bi bi-door-open me-1"></i>Tìm & Đặt Phòng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="TraCuu"><i class="bi bi-search me-1"></i>Tra Cứu Đơn</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-primary fw-bold" asp-controller="LeTanDatPhong"
-                                   asp-action="Index"><i class="bi bi-calendar2-check"></i> Lễ Tân Đặt Phòng</a>
-                            </li>
+                            @if (vaiTro == "Admin" || vaiTro == "LeTan" || vaiTro == "Lễ tân")
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-primary fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-gear-fill me-1"></i> Quản Lý Khách Sạn
+                                    </a>
+                                    <ul class="dropdown-menu shadow-sm">
+                                        <li>
+                                            <a class="dropdown-item fw-bold text-primary" asp-controller="LeTanDatPhong" asp-action="Index">
+                                                <i class="bi bi-calendar2-check me-2"></i>Lễ Tân Đặt Phòng
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item fw-bold text-success" asp-controller="KhachHang" asp-action="Index">
+                                                <i class="bi bi-people-fill me-2"></i>Quản Lý Khách Hàng
+                                            </a>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" asp-controller="LoaiPhong" asp-action="Index"><i class="bi bi-collection me-2"></i>Loại phòng</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Phong" asp-action="Index"><i class="bi bi-door-closed me-2"></i>Phòng</a></li>
+                                        <li><a class="dropdown-item" asp-controller="DichVuPhatSinh" asp-action="Index"><i class="bi bi-bell me-2"></i>Dịch vụ phát sinh</a></li>
+                                        <li><a class="dropdown-item" asp-controller="HoaDon" asp-action="Index"><i class="bi bi-receipt me-2"></i>Hóa đơn</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+                                        <li><a class="dropdown-item" asp-controller="ThongKe" asp-action="Index"><i class="bi bi-graph-up me-2"></i>Thống kê</a></li>
+                                    </ul>
+                                </li>
+                            }
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="LoaiPhong" asp-action="Index">Loại phòng</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Phong" asp-action="Index">Phòng</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="DichVuPhatSinh" asp-action="Index">Dịch vụ</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="HoaDon" asp-action="Index">Hóa đơn</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-                            </li>
-                   
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="ThongKe" asp-action="Index">Thống kê</a>
-                            </li>
+                            @if (maTaiKhoan != null && (vaiTro == "KhachHang" || string.IsNullOrEmpty(vaiTro)))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-info fw-bold" asp-controller="Home" asp-action="LichSuDatPhong">
+                                        <i class="bi bi-clock-history me-1"></i>Lịch Sử Đặt Phòng
+                                    </a>
+                                </li>
+                            }
                         </ul>
 
                         <ul class="navbar-nav align-items-sm-center">

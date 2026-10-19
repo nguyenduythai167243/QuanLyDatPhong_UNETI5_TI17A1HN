@@ -1,0 +1,137 @@
+@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.Phong
+
+@{
+    ViewData["Title"] = "Chi Tiết Phòng " + Model.SoPhong;
+    var phongLienQuan = ViewBag.PhongLienQuan as List<QuanLyDatPhong_UNETI5_TI17A1HN.Models.Phong> ?? new();
+}
+
+<div class="container-fluid px-0">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-action="DanhSachPhong">Danh sách phòng</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Phòng @Model.SoPhong</li>
+        </ol>
+    </nav>
+
+    <div class="row g-4 mb-5">
+        <!-- Cột trái: Hình ảnh & Giới thiệu chi tiết -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                <div class="d-flex align-items-center justify-content-center text-primary" style="height: 350px; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+                    <div class="text-center text-white">
+                        <i class="bi bi-door-open display-1"></i>
+                        <h2 class="fw-bold mt-2">Phòng @Model.SoPhong</h2>
+                        <span class="badge bg-warning text-dark fs-6 px-3 py-2 rounded-pill">
+                            @(Model.LoaiPhong?.TenLoaiPhong ?? "Hạng Tiêu Chuẩn") - Tầng @Model.Tang
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <h3 class="fw-bold text-dark mb-3">Mô Tả & Thông Tin Chi Tiết</h3>
+                    <p class="lead text-secondary mb-4">
+                        @(string.IsNullOrEmpty(Model.MoTa) ? "Không gian phòng nghỉ được thiết kế hiện đại, tinh tế với view nhìn thoáng đãng và nội thất cao cấp mang lại sự thoải mái tuyệt đối cho quý khách." : Model.MoTa)
+                    </p>
+
+                    <h5 class="fw-bold text-dark mb-3">Thông Số Kỹ Thuật Của Phòng:</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-6 col-md-3">
+                            <div class="p-3 bg-light rounded-3 text-center border">
+                                <i class="bi bi-people-fill text-primary fs-3 d-block mb-1"></i>
+                                <span class="text-muted small">Sức chứa</span>
+                                <h6 class="fw-bold mb-0">@Model.SucChua Người</h6>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="p-3 bg-light rounded-3 text-center border">
+                                <i class="bi bi-aspect-ratio-fill text-success fs-3 d-block mb-1"></i>
+                                <span class="text-muted small">Diện tích</span>
+                                <h6 class="fw-bold mb-0">@Model.DienTich m²</h6>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="p-3 bg-light rounded-3 text-center border">
+                                <i class="bi bi-layers-fill text-info fs-3 d-block mb-1"></i>
+                                <span class="text-muted small">Vị trí</span>
+                                <h6 class="fw-bold mb-0">Tầng @Model.Tang</h6>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="p-3 bg-light rounded-3 text-center border">
+                                <i class="bi bi-tag-fill text-warning fs-3 d-block mb-1"></i>
+                                <span class="text-muted small">Trạng thái</span>
+                                <h6 class="fw-bold mb-0">@(string.IsNullOrEmpty(Model.TrangThai) ? "Sẵn sàng" : Model.TrangThai)</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="fw-bold text-dark mb-3">Trang Thiết Bị & Tiện Nghi:</h5>
+                    <div class="p-4 bg-light rounded-3 border mb-4">
+                        <div class="row g-3">
+                            <div class="col-md-6"><i class="bi bi-check-circle-fill text-success me-2"></i>@Model.TienNghi</div>
+                            <div class="col-md-6"><i class="bi bi-check-circle-fill text-success me-2"></i>Điều hòa nhiệt độ 2 chiều</div>
+                            <div class="col-md-6"><i class="bi bi-check-circle-fill text-success me-2"></i>Smart TV truyền hình số</div>
+                            <div class="col-md-6"><i class="bi bi-check-circle-fill text-success me-2"></i>Minibar, trà & cà phê miễn phí</div>
+                            <div class="col-md-6"><i class="bi bi-check-circle-fill text-success me-2"></i>Phòng tắm riêng biệt cao cấp</div>
+                            <div class="col-md-6"><i class="bi bi-check-circle-fill text-success me-2"></i>Két sắt an toàn cá nhân</div>
+                        </div>
+                    </div>
+
+                    <h5 class="fw-bold text-dark mb-3">Chính Sách Khách Sạn:</h5>
+                    <ul class="text-muted small mb-0">
+                        <li><strong>Giờ nhận phòng (Check-in):</strong> từ 14:00 hàng ngày.</li>
+                        <li><strong>Giờ trả phòng (Check-out):</strong> trước 12:00 trưa hôm sau.</li>
+                        <li>Quý khách vui lòng xuất trình CCCD hoặc Hộ chiếu gốc khi làm thủ tục nhận phòng tại quầy lễ tân.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột phải: Card đặt phòng nhanh -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow rounded-4 sticky-top p-4" style="top: 20px;">
+                <div class="border-bottom pb-3 mb-3">
+                    <span class="text-muted small text-uppercase fw-bold">Giá phòng niêm yết</span>
+                    <div class="d-flex align-items-baseline gap-2">
+                        <h2 class="fw-bold text-primary mb-0">@Model.GiaMotDem.ToString("N0") đ</h2>
+                        <span class="text-muted">/ đêm</span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Hạng phòng:</span>
+                        <strong class="text-dark">@(Model.LoaiPhong?.TenLoaiPhong ?? "Tiêu chuẩn")</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Số phòng:</span>
+                        <strong class="text-dark">Phòng @Model.SoPhong</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Sức chứa tối đa:</span>
+                        <strong class="text-dark">@Model.SucChua Người</strong>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">Thuế & Phí:</span>
+                        <span class="text-success fw-bold">Đã bao gồm VAT</span>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <a asp-action="DatPhong" asp-route-maPhong="@Model.MaPhong" class="btn btn-primary btn-lg fw-bold shadow-sm">
+                        <i class="bi bi-calendar-check me-2"></i> Tiến Hành Đặt Phòng
+                    </a>
+                    <a asp-action="DanhSachPhong" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i> Xem Các Phòng Khác
+                    </a>
+                </div>
+
+                <div class="mt-4 p-3 bg-primary-subtle text-primary rounded-3 small">
+                    <i class="bi bi-shield-check me-1"></i> <strong>Cam kết giá tốt nhất:</strong> Đặt trực tiếp không qua trung gian, xác nhận nhanh chóng 24/7.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

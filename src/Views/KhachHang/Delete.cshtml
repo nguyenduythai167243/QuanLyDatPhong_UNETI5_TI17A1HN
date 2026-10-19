@@ -1,0 +1,88 @@
+@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Xác Nhận Xóa/Khóa Khách Hàng";
+    var coLichSu = Model.DatPhongs != null && Model.DatPhongs.Any();
+}
+
+<div class="container-fluid px-0">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1">
+                    <li class="breadcrumb-item"><a asp-action="Index">Khách Hàng</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Xóa/Khóa hồ sơ</li>
+                </ol>
+            </nav>
+            <h2 class="fw-bold text-danger mb-0">
+                <i class="bi bi-person-x text-danger me-2"></i>Xác Nhận Xóa / Khóa Hồ Sơ Khách Hàng
+            </h2>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i> Quay Lại
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card border-danger border-opacity-25 shadow-sm rounded-3">
+                <div class="card-header bg-danger text-white py-3">
+                    <h5 class="fw-bold mb-0">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>Cảnh Báo Thao Tác
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    @if (coLichSu)
+                    {
+                        <div class="alert alert-warning mb-4">
+                            <i class="bi bi-info-circle-fill me-2"></i>
+                            Khách hàng <strong>@Model.HoTen</strong> đã có <strong>@Model.DatPhongs.Count</strong> đơn đặt phòng trong hệ thống.
+                            Để bảo toàn dữ liệu lịch sử đặt phòng và hóa đơn thanh toán, hệ thống sẽ <strong>Khóa (Vô hiệu hóa)</strong> tài khoản này thay vì xóa vĩnh viễn khỏi Database.
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger mb-4">
+                            <i class="bi bi-trash-fill me-2"></i>
+                            Khách hàng này chưa từng có đơn đặt phòng nào. Hành động này sẽ <strong>xóa vĩnh viễn</strong> dữ liệu khách hàng khỏi hệ thống!
+                        </div>
+                    }
+
+                    <div class="bg-light p-3 rounded-3 mb-4">
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3">Thông Tin Khách Hàng:</h6>
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4 text-muted">Mã Khách Hàng:</dt>
+                            <dd class="col-sm-8 fw-bold">#@Model.MaKhachHang</dd>
+
+                            <dt class="col-sm-4 text-muted">Họ và Tên:</dt>
+                            <dd class="col-sm-8 fw-bold text-primary">@Model.HoTen</dd>
+
+                            <dt class="col-sm-4 text-muted">Số Điện Thoại:</dt>
+                            <dd class="col-sm-8 fw-bold">@Model.SoDienThoai</dd>
+
+                            <dt class="col-sm-4 text-muted">CCCD / Hộ Chiếu:</dt>
+                            <dd class="col-sm-8">@Model.SoGiayToTuyThan</dd>
+
+                            <dt class="col-sm-4 text-muted">Email:</dt>
+                            <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.Email) ? "Chưa có" : Model.Email)</dd>
+
+                            <dt class="col-sm-4 text-muted">Địa Chỉ:</dt>
+                            <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.DiaChi) ? "Chưa có" : Model.DiaChi)</dd>
+                        </dl>
+                    </div>
+
+                    <form asp-action="Delete" method="post" class="d-flex justify-content-end gap-2">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="MaKhachHang" />
+                        <a asp-action="Index" class="btn btn-outline-secondary">Hủy Bỏ</a>
+                        <button type="submit" class="btn btn-danger px-4">
+                            <i class="bi bi-trash me-1"></i> @(coLichSu ? "Xác Nhận Khóa Tài Khoản" : "Xác Nhận Xóa Vĩnh Viễn")
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

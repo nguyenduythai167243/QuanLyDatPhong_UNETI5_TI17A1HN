@@ -1,0 +1,142 @@
+@model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.DatPhong>
+
+@{
+    ViewData["Title"] = "Tra Cứu Trực Tuyến Đơn Đặt Phòng";
+    var tuKhoa = ViewBag.TuKhoa as string;
+}
+
+<div class="container py-4">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-primary mb-2">
+            <i class="bi bi-search me-2"></i>Tra Cứu Trạng Thái Đặt Phòng
+        </h2>
+        <p class="text-muted">Nhập Số điện thoại đã đặt phòng hoặc Mã đặt phòng để kiểm tra tiến trình xử lý</p>
+
+        <!-- Form tìm kiếm -->
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-6 col-md-8">
+                <form asp-action="TraCuu" method="get">
+                    <div class="input-group input-group-lg shadow-sm">
+                        <span class="input-group-text bg-white"><i class="bi bi-ticket-perforated text-primary"></i></span>
+                        <input type="text" name="tuKhoa" value="@tuKhoa" class="form-control" placeholder="Nhập Số điện thoại hoặc Mã đặt phòng..." required />
+                        <button type="submit" class="btn btn-primary fw-bold px-4">
+                            Tra Cứu
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(tuKhoa))
+    {
+        @if (!Model.Any())
+        {
+            <div class="text-center py-5">
+                <div class="card border-0 shadow-sm p-5 rounded-4 d-inline-block" style="max-width: 500px;">
+                    <i class="bi bi-emoji-frown text-muted display-3 mb-3"></i>
+                    <h5 class="fw-bold">Không tìm thấy đơn đặt phòng</h5>
+                    <p class="text-muted small">Không tìm thấy thông tin phù hợp với từ khóa: "<strong>@tuKhoa</strong>". Quý khách vui lòng kiểm tra lại số điện thoại hoặc mã đặt phòng.</p>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row justify-content-center g-4">
+                @foreach (var item in Model)
+                {
+                    string statusColor = item.TrangThai switch
+                    {
+                        "Chờ xác nhận" => "warning text-dark",
+                        "Đã xác nhận" => "info text-white",
+                        "Đã nhận phòng" => "success text-white",
+                        "Đã trả phòng" => "primary text-white",
+                        "Đã hủy" => "danger text-white",
+                        _ => "secondary text-white"
+                    };
+
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
+                                <div>
+                                    <span class="text-muted small text-uppercase">Mã đặt phòng:</span>
+                                    <h5 class="fw-bold text-primary mb-0">#DP@item.MaDatPhong</h5>
+                                </div>
+                                <span class="badge bg-@statusColor fs-6 px-3 py-2 rounded-pill">
+                                    @item.TrangThai
+                                </span>
+                            </div>
+
+                            <div class="card-body p-4">
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <label class="text-muted small d-block">Phòng nghỉ:</label>
+                                        <strong class="fs-6 text-dark">Phòng @(item.Phong?.SoPhong ?? "") - @(item.Phong?.LoaiPhong?.TenLoaiPhong ?? "")</strong>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-muted small d-block">Khách hàng:</label>
+                                        <strong class="fs-6 text-dark">@(item.KhachHang?.HoTen ?? "") (@(item.KhachHang?.SoDienThoai ?? ""))</strong>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-muted small d-block">Thời gian nhận phòng:</label>
+                                        <strong class="text-success"><i class="bi bi-box-arrow-in-right me-1"></i>@item.NgayNhanPhong.ToString("dd/MM/yyyy")</strong>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-muted small d-block">Thời gian trả phòng:</label>
+                                        <strong class="text-danger"><i class="bi bi-box-arrow-right me-1"></i>@item.NgayTraPhong.ToString("dd/MM/yyyy")</strong>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-muted small d-block">Tổng tiền dự kiến:</label>
+                                        <h5 class="fw-bold text-primary mb-0">@item.TongTienDuKien.ToString("N0") đ</h5>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-muted small d-block">Hóa đơn & Thanh toán:</label>
+                                        @if (item.HoaDon != null)
+                                        {
+                                            <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                                <i class="bi bi-check-circle me-1"></i>@(item.HoaDon.TrangThai == QuanLyDatPhong_UNETI5_TI17A1HN.Models.TrangThaiTT.DaThanhToan ? "Đã thanh toán" : "Chưa thanh toán")
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary-subtle text-secondary">Chưa thanh toán</span>
+                                        }
+                                    </div>
+                                </div>
+
+                                <!-- Thanh tiến trình Timeline trực quan -->
+                                <div class="mt-4 pt-3 border-top">
+                                    <label class="text-muted small fw-bold text-uppercase d-block mb-3">Tiến trình xử lý:</label>
+                                    <div class="d-flex justify-content-between text-center position-relative">
+                                        @{
+                                            bool step1 = true;
+                                            bool step2 = item.TrangThai == "Đã xác nhận" || item.TrangThai == "Đã nhận phòng" || item.TrangThai == "Đã trả phòng";
+                                            bool step3 = item.TrangThai == "Đã nhận phòng" || item.TrangThai == "Đã trả phòng";
+                                            bool step4 = item.TrangThai == "Đã trả phòng";
+                                        }
+                                        <div class="flex-fill">
+                                            <div class="badge rounded-circle @(step1 ? "bg-primary" : "bg-light text-muted") p-2 mb-1"><i class="bi bi-send-check"></i></div>
+                                            <div class="small @(step1 ? "fw-bold text-dark" : "text-muted")">Đã gửi đơn</div>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <div class="badge rounded-circle @(step2 ? "bg-primary" : "bg-light text-muted") p-2 mb-1"><i class="bi bi-check2-circle"></i></div>
+                                            <div class="small @(step2 ? "fw-bold text-dark" : "text-muted")">Đã xác nhận</div>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <div class="badge rounded-circle @(step3 ? "bg-primary" : "bg-light text-muted") p-2 mb-1"><i class="bi bi-door-open"></i></div>
+                                            <div class="small @(step3 ? "fw-bold text-dark" : "text-muted")">Đang lưu trú</div>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <div class="badge rounded-circle @(step4 ? "bg-primary" : "bg-light text-muted") p-2 mb-1"><i class="bi bi-flag"></i></div>
+                                            <div class="small @(step4 ? "fw-bold text-dark" : "text-muted")">Đã trả phòng</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>

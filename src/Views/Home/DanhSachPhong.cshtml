@@ -1,0 +1,193 @@
+@model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.Phong>
+
+@{
+    ViewData["Title"] = "Danh Sách Phòng Trống - Đặt Phòng Khách Sạn";
+    var loaiPhongs = ViewBag.LoaiPhongs as List<QuanLyDatPhong_UNETI5_TI17A1HN.Models.LoaiPhong> ?? new();
+    var phongBanIds = ViewBag.PhongBanIds as List<int> ?? new();
+    var ngayNhan = ViewBag.NgayNhan as string;
+    var ngayTra = ViewBag.NgayTra as string;
+    var maLoaiPhong = ViewBag.MaLoaiPhong as int?;
+    var soNguoi = ViewBag.SoNguoi as int?;
+    var giaTu = ViewBag.GiaTu as decimal?;
+    var giaDen = ViewBag.GiaDen as decimal?;
+}
+
+<div class="container-fluid px-0">
+    <!-- Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1">
+                    <li class="breadcrumb-item"><a asp-action="Index">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách phòng</li>
+                </ol>
+            </nav>
+            <h2 class="fw-bold text-dark mb-0">
+                <i class="bi bi-door-open-fill text-primary me-2"></i>Tìm & Đặt Phòng Nghỉ
+            </h2>
+            <p class="text-muted mb-0">Thời gian lưu trú: <strong>@ngayNhan</strong> đến <strong>@ngayTra</strong></p>
+        </div>
+        <div>
+            <a asp-action="TraCuu" class="btn btn-outline-secondary">
+                <i class="bi bi-search me-1"></i> Tra cứu đơn đã đặt
+            </a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Cột trái: Bộ lọc tìm kiếm -->
+        <div class="col-lg-3">
+            <div class="card border-0 shadow-sm rounded-3 sticky-top" style="top: 20px; z-index: 5;">
+                <div class="card-header bg-white py-3">
+                    <h5 class="fw-bold mb-0 text-primary">
+                        <i class="bi bi-funnel me-2"></i>Bộ Lọc Tìm Kiếm
+                    </h5>
+                </div>
+                <div class="card-body p-3">
+                    <form asp-action="DanhSachPhong" method="get">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted text-uppercase">Ngày nhận phòng</label>
+                            <input type="date" name="ngayNhan" value="@ngayNhan" class="form-control" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted text-uppercase">Ngày trả phòng</label>
+                            <input type="date" name="ngayTra" value="@ngayTra" class="form-control" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted text-uppercase">Hạng loại phòng</label>
+                            <select name="maLoaiPhong" class="form-select">
+                                <option value="">-- Tất cả các hạng --</option>
+                                @foreach (var lp in loaiPhongs)
+                                {
+                                    <option value="@lp.MaLoaiPhong" selected="@(maLoaiPhong == lp.MaLoaiPhong)">@lp.TenLoaiPhong</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted text-uppercase">Số lượng người</label>
+                            <input type="number" name="soNguoi" value="@soNguoi" min="1" max="10" class="form-control" placeholder="Tất cả" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted text-uppercase">Mức giá tối đa / đêm</label>
+                            <div class="input-group">
+                                <input type="number" name="giaDen" value="@giaDen" step="100000" class="form-control" placeholder="Ví dụ: 2000000" />
+                                <span class="input-group-text">đ</span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary fw-bold">
+                                <i class="bi bi-search me-1"></i> Áp Dụng Lọc
+                            </button>
+                            <a asp-action="DanhSachPhong" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-arrow-counterclockwise me-1"></i> Xóa Bộ Lọc
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột phải: Danh sách phòng -->
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Tìm thấy <strong>@Model.Count()</strong> phòng phù hợp</span>
+                <div class="d-flex align-items-center gap-2 small">
+                    <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="bi bi-check-circle me-1"></i>Còn trống</span>
+                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle"><i class="bi bi-x-circle me-1"></i>Đã kín lịch</span>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                @if (!Model.Any())
+                {
+                    <div class="col-12 text-center py-5">
+                        <div class="card border-0 shadow-sm p-5 rounded-3">
+                            <i class="bi bi-search fs-1 text-muted mb-3"></i>
+                            <h5 class="fw-bold text-dark">Không tìm thấy phòng phù hợp</h5>
+                            <p class="text-muted">Quý khách vui lòng thử thay đổi khoảng ngày nhận - trả phòng hoặc điều chỉnh bộ lọc tìm kiếm.</p>
+                            <div>
+                                <a asp-action="DanhSachPhong" class="btn btn-outline-primary">Xem lại toàn bộ phòng</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var p in Model)
+                    {
+                        var isBusy = phongBanIds.Contains(p.MaPhong);
+                        <div class="col-12 col-md-6">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative">
+                                @if (isBusy)
+                                {
+                                    <div class="position-absolute top-0 start-0 m-3 badge bg-danger fs-6 px-3 py-2 rounded-pill shadow-sm" style="z-index: 2;">
+                                        <i class="bi bi-lock-fill me-1"></i>Đã có khách đặt
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="position-absolute top-0 start-0 m-3 badge bg-success fs-6 px-3 py-2 rounded-pill shadow-sm" style="z-index: 2;">
+                                        <i class="bi bi-check-circle-fill me-1"></i>Còn trống
+                                    </div>
+                                }
+
+                                <div class="bg-light d-flex align-items-center justify-content-center text-primary" style="height: 180px; background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);">
+                                    <div class="text-center">
+                                        <i class="bi bi-building fs-1 text-primary"></i>
+                                        <div class="fw-bold fs-4 text-dark mt-1">Phòng @p.SoPhong</div>
+                                        <span class="badge bg-secondary">Tầng @p.Tang</span>
+                                    </div>
+                                    <span class="position-absolute top-0 end-0 m-3 badge bg-dark bg-opacity-75 px-3 py-2 rounded-pill fs-6">
+                                        @p.GiaMotDem.ToString("N0") đ <small class="fw-normal">/ đêm</small>
+                                    </span>
+                                </div>
+
+                                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                                    <div>
+                                        <h5 class="fw-bold text-dark mb-1">@(p.LoaiPhong?.TenLoaiPhong ?? "Phòng Tiêu Chuẩn")</h5>
+                                        <p class="text-muted small mb-3">@(string.IsNullOrEmpty(p.MoTa) ? "Đầy đủ tiện nghi cao cấp." : p.MoTa)</p>
+
+                                        <div class="row g-2 small text-muted border-top pt-3 mb-4">
+                                            <div class="col-6">
+                                                <i class="bi bi-people-fill text-primary me-1"></i>Sức chứa: <strong>@p.SucChua người</strong>
+                                            </div>
+                                            <div class="col-6">
+                                                <i class="bi bi-aspect-ratio text-success me-1"></i>Diện tích: <strong>@p.DienTich m²</strong>
+                                            </div>
+                                            <div class="col-12 text-truncate" title="@p.TienNghi">
+                                                <i class="bi bi-stars text-warning me-1"></i>Tiện nghi: <strong>@p.TienNghi</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex gap-2">
+                                        <a asp-action="ChiTietPhong" asp-route-id="@p.MaPhong" class="btn btn-outline-secondary w-50">
+                                            Chi tiết
+                                        </a>
+                                        @if (isBusy)
+                                        {
+                                            <button class="btn btn-secondary w-50" disabled>
+                                                Đã Kín Lịch
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="DatPhong" asp-route-maPhong="@p.MaPhong" asp-route-ngayNhan="@ngayNhan" asp-route-ngayTra="@ngayTra" asp-route-soNguoi="@soNguoi" class="btn btn-primary w-50 fw-bold shadow-sm">
+                                                Đặt Ngay
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

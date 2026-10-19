@@ -1,0 +1,277 @@
+@model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.KhachHang>
+
+@{
+    ViewData["Title"] = "Quản lý Khách Hàng - Lễ Tân";
+    var tuKhoa = ViewBag.TuKhoa as string;
+    var trangThai = ViewBag.TrangThai as string;
+    var currentPage = (int)(ViewBag.CurrentPage ?? 1);
+    var totalPages = (int)(ViewBag.TotalPages ?? 1);
+    var totalItems = (int)(ViewBag.TotalItems ?? 0);
+}
+
+<div class="container-fluid px-0">
+    <!-- Header Page -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <h2 class="fw-bold text-primary mb-1">
+                <i class="bi bi-people-fill me-2"></i>Quản Lý Hồ Sơ Khách Hàng
+            </h2>
+            <p class="text-muted mb-0">Tra cứu, quản lý thông tin định danh và lịch sử lưu trú của khách hàng</p>
+        </div>
+        <div class="d-flex gap-2 mt-2 mt-sm-0">
+            <a asp-action="Create" class="btn btn-primary shadow-sm">
+                <i class="bi bi-person-plus-fill me-1"></i> Thêm Khách Hàng Mới
+            </a>
+            <a asp-controller="LeTanDatPhong" asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-calendar-check me-1"></i> Sang Quản Lý Đặt Phòng
+            </a>
+        </div>
+    </div>
+
+    <!-- Thông báo nếu có -->
+    @if (TempData["ThongBaoThanhCong"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>@TempData["ThongBaoThanhCong"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ThongBaoLoi"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["ThongBaoLoi"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- KPI Cards Thống Kê Nhanh -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-3 bg-primary text-white h-100">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-white-50 text-uppercase fw-bold mb-1">Tổng Khách Hàng</h6>
+                        <h2 class="fw-bold mb-0">@ViewBag.TongKhachHang</h2>
+                    </div>
+                    <div class="fs-1 text-white-50">
+                        <i class="bi bi-people"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-3 bg-success text-white h-100">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-white-50 text-uppercase fw-bold mb-1">Đang Lưu Trú</h6>
+                        <h2 class="fw-bold mb-0">@ViewBag.KhachDangLuuTru</h2>
+                    </div>
+                    <div class="fs-1 text-white-50">
+                        <i class="bi bi-door-open"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-3 bg-info text-white h-100">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-white-50 text-uppercase fw-bold mb-1">Đang Hoạt Động</h6>
+                        <h2 class="fw-bold mb-0">@ViewBag.KhachHoatDong</h2>
+                    </div>
+                    <div class="fs-1 text-white-50">
+                        <i class="bi bi-person-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-3 bg-secondary text-white h-100">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-white-50 text-uppercase fw-bold mb-1">Tạm Khóa</h6>
+                        <h2 class="fw-bold mb-0">@ViewBag.KhachTamKhoa</h2>
+                    </div>
+                    <div class="fs-1 text-white-50">
+                        <i class="bi bi-person-x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bộ lọc & Tìm kiếm -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-3">
+            <form method="get" asp-action="Index" class="row g-2 align-items-center">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                        <input type="text" name="tuKhoa" value="@tuKhoa" class="form-control border-start-0" placeholder="Tìm theo tên, SĐT, Email, CCCD, địa chỉ..." />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select name="trangThai" class="form-select">
+                        <option value="">-- Tất cả trạng thái --</option>
+                        <option value="DangLuuTru" selected="@(trangThai == "DangLuuTru")">Khách đang lưu trú</option>
+                        <option value="HoatDong" selected="@(trangThai == "HoatDong")">Tài khoản hoạt động</option>
+                        <option value="Khoa" selected="@(trangThai == "Khoa")">Tài khoản bị khóa</option>
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-grow-1">
+                        <i class="bi bi-funnel-fill me-1"></i> Lọc dữ liệu
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary" title="Đặt lại bộ lọc">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bảng danh sách khách hàng -->
+    <div class="card border-0 shadow-sm rounded-3">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h6 class="fw-bold mb-0 text-dark">
+                <i class="bi bi-card-list me-2 text-primary"></i>Danh Sách Khách Hàng (@totalItems hồ sơ)
+            </h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light text-muted small text-uppercase">
+                    <tr>
+                        <th class="ps-3" style="width: 70px;">Mã KH</th>
+                        <th>Họ và Tên</th>
+                        <th>Liên hệ</th>
+                        <th>Giấy tờ tùy thân</th>
+                        <th>Giới tính / Tuổi</th>
+                        <th>Lịch sử phòng</th>
+                        <th>Trạng thái</th>
+                        <th class="text-center" style="width: 170px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center py-5 text-muted">
+                                <i class="bi bi-person-dash fs-1 d-block mb-2 text-secondary"></i>
+                                Không tìm thấy khách hàng nào phù hợp với điều kiện tìm kiếm.
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var kh in Model)
+                        {
+                            var dangCoPhong = kh.DatPhongs.Any(d => d.TrangThai == "Đã nhận phòng");
+                            var soLanDat = kh.DatPhongs.Count;
+                            <tr>
+                                <td class="ps-3 fw-bold text-secondary">#@kh.MaKhachHang</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center me-2" style="width: 38px; height: 38px;">
+                                            @(kh.HoTen.Substring(0, 1).ToUpper())
+                                        </div>
+                                        <div>
+                                            <a asp-action="Details" asp-route-id="@kh.MaKhachHang" class="fw-bold text-decoration-none text-dark d-block">
+                                                @kh.HoTen
+                                            </a>
+                                            <small class="text-muted">Quốc tịch: @(kh.QuocTich ?? "VN")</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div><i class="bi bi-telephone text-primary me-1"></i><strong>@kh.SoDienThoai</strong></div>
+                                    @if (!string.IsNullOrEmpty(kh.Email))
+                                    {
+                                        <div class="small text-muted"><i class="bi bi-envelope me-1"></i>@kh.Email</div>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark border">
+                                        <i class="bi bi-credit-card-2-front me-1 text-info"></i>@kh.SoGiayToTuyThan
+                                    </span>
+                                    @if (!string.IsNullOrEmpty(kh.DiaChi))
+                                    {
+                                        <div class="small text-muted text-truncate" style="max-width: 180px;" title="@kh.DiaChi">
+                                            <i class="bi bi-geo-alt me-1"></i>@kh.DiaChi
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <div>
+                                        @(kh.GioiTinh ? "Nam" : "Nữ")
+                                    </div>
+                                    @if (kh.NgaySinh.HasValue)
+                                    {
+                                        <small class="text-muted">@kh.NgaySinh.Value.ToString("dd/MM/yyyy")</small>
+                                    }
+                                </td>
+                                <td>
+                                    @if (dangCoPhong)
+                                    {
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle mb-1 d-inline-block">
+                                            <i class="bi bi-door-open-fill me-1"></i>Đang ở phòng
+                                        </span>
+                                    }
+                                    <div class="small text-muted">Tổng: <strong>@soLanDat</strong> lần đặt</div>
+                                </td>
+                                <td>
+                                    @if (kh.TrangThai)
+                                    {
+                                        <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Hoạt động</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger"><i class="bi bi-lock me-1"></i>Đã khóa</span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm">
+                                        <a asp-action="Details" asp-route-id="@kh.MaKhachHang" class="btn btn-outline-info" title="Xem hồ sơ & lịch sử">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@kh.MaKhachHang" class="btn btn-outline-warning" title="Chỉnh sửa">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@kh.MaKhachHang" class="btn btn-outline-danger" title="Xóa/Khóa">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Phân trang -->
+        @if (totalPages > 1)
+        {
+            <div class="card-footer bg-white d-flex justify-content-between align-items-center py-3">
+                <div class="small text-muted">
+                    Trang <strong>@currentPage</strong> / <strong>@totalPages</strong> (Tổng @totalItems bản ghi)
+                </div>
+                <nav>
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item @(currentPage <= 1 ? "disabled" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@(currentPage - 1)" asp-route-tuKhoa="@tuKhoa" asp-route-trangThai="@trangThai">Trước</a>
+                        </li>
+                        @for (int p = 1; p <= totalPages; p++)
+                        {
+                            <li class="page-item @(p == currentPage ? "active" : "")">
+                                <a class="page-link" asp-action="Index" asp-route-page="@p" asp-route-tuKhoa="@tuKhoa" asp-route-trangThai="@trangThai">@p</a>
+                            </li>
+                        }
+                        <li class="page-item @(currentPage >= totalPages ? "disabled" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@(currentPage + 1)" asp-route-tuKhoa="@tuKhoa" asp-route-trangThai="@trangThai">Sau</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        }
+    </div>
+</div>

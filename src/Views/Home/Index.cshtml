@@ -1,8 +1,219 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.Phong>
+
+@{
+    ViewData["Title"] = "UNETI Luxury Hotel - Đặt Phòng Trực Tuyến Sang Trọng";
+    var loaiPhongs = ViewBag.LoaiPhongs as List<QuanLyDatPhong_UNETI5_TI17A1HN.Models.LoaiPhong> ?? new();
+    var ngayNhan = ViewBag.NgayNhan as string;
+    var ngayTra = ViewBag.NgayTra as string;
+    var soNguoi = (int)(ViewBag.SoNguoi ?? 2);
+    var maLoaiPhong = ViewBag.MaLoaiPhong as int?;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Hero Banner Section -->
+<div class="position-relative overflow-hidden p-4 p-md-5 mb-5 rounded-4 text-white shadow" style="background: linear-gradient(135deg, #0d47a1 0%, #1976d2 50%, #00838f 100%);">
+    <div class="row align-items-center py-4">
+        <div class="col-lg-7">
+            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3">
+                <i class="bi bi-star-fill me-1"></i> Khách Sạn & Nghỉ Dưỡng Đẳng Cấp 5 Sao
+            </span>
+            <h1 class="display-4 fw-bold mb-3">Chào Mừng Đến Với UNETI Hotel</h1>
+            <p class="lead mb-4 text-white-50">
+                Tận hưởng kỳ nghỉ hoàn hảo với không gian sang trọng, dịch vụ chuyên nghiệp chuẩn quốc tế và trải nghiệm lưu trú đỉnh cao tại trung tâm thành phố.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="#booking-bar" class="btn btn-warning btn-lg fw-bold px-4 shadow-sm text-dark">
+                    <i class="bi bi-calendar-check me-2"></i>Đặt Phòng Ngay
+                </a>
+                <a asp-action="TraCuu" class="btn btn-outline-light btn-lg px-4">
+                    <i class="bi bi-search me-2"></i>Tra Cứu Đơn Đặt
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-block text-center">
+            <div class="bg-white bg-opacity-10 p-4 rounded-4 backdrop-blur border border-white border-opacity-25 shadow-lg">
+                <i class="bi bi-building text-warning" style="font-size: 5rem;"></i>
+                <h4 class="fw-bold mt-3 text-white">UNETI Grand Hotel</h4>
+                <div class="d-flex justify-content-center text-warning fs-5 my-2">
+                    <i class="bi bi-star-fill me-1"></i>
+                    <i class="bi bi-star-fill me-1"></i>
+                    <i class="bi bi-star-fill me-1"></i>
+                    <i class="bi bi-star-fill me-1"></i>
+                    <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="text-white-50 small mb-0">Hơn 50+ phòng nghỉ hiện đại, tiện nghi đẳng cấp bậc nhất.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Booking Search Bar -->
+<div id="booking-bar" class="card border-0 shadow-lg rounded-4 p-3 p-md-4 mb-5" style="margin-top: -50px; z-index: 10;">
+    <div class="card-body p-0">
+        <form asp-action="DanhSachPhong" method="get" class="row g-3 align-items-end">
+            <div class="col-12 col-md-3">
+                <label class="form-label fw-bold text-secondary small text-uppercase">
+                    <i class="bi bi-calendar-event me-1 text-primary"></i>Ngày nhận phòng
+                </label>
+                <input type="date" name="ngayNhan" value="@ngayNhan" class="form-control form-control-lg fs-6" required />
+            </div>
+
+            <div class="col-12 col-md-3">
+                <label class="form-label fw-bold text-secondary small text-uppercase">
+                    <i class="bi bi-calendar-check me-1 text-danger"></i>Ngày trả phòng
+                </label>
+                <input type="date" name="ngayTra" value="@ngayTra" class="form-control form-control-lg fs-6" required />
+            </div>
+
+            <div class="col-12 col-md-2">
+                <label class="form-label fw-bold text-secondary small text-uppercase">
+                    <i class="bi bi-door-closed me-1 text-info"></i>Loại phòng
+                </label>
+                <select name="maLoaiPhong" class="form-select form-select-lg fs-6">
+                    <option value="">Tất cả</option>
+                    @foreach (var lp in loaiPhongs)
+                    {
+                        <option value="@lp.MaLoaiPhong" selected="@(maLoaiPhong == lp.MaLoaiPhong)">@lp.TenLoaiPhong</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-12 col-md-2">
+                <label class="form-label fw-bold text-secondary small text-uppercase">
+                    <i class="bi bi-people me-1 text-success"></i>Số khách
+                </label>
+                <select name="soNguoi" class="form-select form-select-lg fs-6">
+                    <option value="1" selected="@(soNguoi == 1)">1 Người</option>
+                    <option value="2" selected="@(soNguoi == 2)">2 Người</option>
+                    <option value="3" selected="@(soNguoi == 3)">3 Người</option>
+                    <option value="4" selected="@(soNguoi == 4)">4 Người</option>
+                    <option value="6" selected="@(soNguoi >= 5)">Gia đình (> 4)</option>
+                </select>
+            </div>
+
+            <div class="col-12 col-md-2">
+                <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold shadow-sm">
+                    <i class="bi bi-search me-1"></i> Tìm Phòng
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Các Loại Phòng Nổi Bật -->
+<div class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-1">
+                <i class="bi bi-gem text-warning me-2"></i>Các Hạng Phòng Đẳng Cấp
+            </h3>
+            <p class="text-muted mb-0">Lựa chọn không gian nghỉ dưỡng phù hợp nhất cho chuyến đi của bạn</p>
+        </div>
+        <a asp-action="DanhSachPhong" class="btn btn-outline-primary fw-bold">
+            Xem Tất Cả Phòng <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+    </div>
+
+    <div class="row g-4">
+        @if (!Model.Any())
+        {
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">Đang cập nhật danh sách phòng...</p>
+            </div>
+        }
+        else
+        {
+            @foreach (var p in Model)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden transition-all hover-shadow">
+                        <!-- Mockup Image / Visual Card -->
+                        <div class="position-relative bg-light d-flex align-items-center justify-content-center text-primary" style="height: 200px; background: linear-gradient(45deg, #e3f2fd, #bbdefb);">
+                            <div class="text-center">
+                                <i class="bi bi-door-open text-primary" style="font-size: 4rem;"></i>
+                                <div class="fw-bold fs-5 text-dark mt-1">Phòng @p.SoPhong</div>
+                                <span class="badge bg-primary">Tầng @p.Tang</span>
+                            </div>
+                            <span class="position-absolute top-0 end-0 m-3 badge bg-dark bg-opacity-75 px-3 py-2 rounded-pill fs-6">
+                                @(p.GiaMotDem.ToString("N0")) đ <small class="fw-normal">/ đêm</small>
+                            </span>
+                        </div>
+
+                        <div class="card-body p-4 d-flex flex-column justify-content-between">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="fw-bold text-dark mb-0">@(p.LoaiPhong?.TenLoaiPhong ?? "Phòng Tiêu Chuẩn")</h5>
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                        @(string.IsNullOrEmpty(p.TrangThai) ? "Sẵn sàng" : p.TrangThai)
+                                    </span>
+                                </div>
+                                <p class="text-muted small mb-3 text-truncate-2" style="min-height: 40px;">
+                                    @(string.IsNullOrEmpty(p.MoTa) ? "Phòng nghỉ sang trọng, đầy đủ tiện nghi tiêu chuẩn cao cấp." : p.MoTa)
+                                </p>
+
+                                <div class="row g-2 small text-muted mb-4 border-top pt-3">
+                                    <div class="col-6">
+                                        <i class="bi bi-people-fill text-primary me-1"></i>Sức chứa: <strong>@p.SucChua khách</strong>
+                                    </div>
+                                    <div class="col-6">
+                                        <i class="bi bi-arrows-angle-expand text-success me-1"></i>Diện tích: <strong>@p.DienTich m²</strong>
+                                    </div>
+                                    <div class="col-12 text-truncate" title="@p.TienNghi">
+                                        <i class="bi bi-check2-circle text-info me-1"></i>Tiện nghi: <strong>@p.TienNghi</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <a asp-action="ChiTietPhong" asp-route-id="@p.MaPhong" class="btn btn-outline-secondary w-50">
+                                    Chi Tiết
+                                </a>
+                                <a asp-action="DatPhong" asp-route-maPhong="@p.MaPhong" asp-route-ngayNhan="@ngayNhan" asp-route-ngayTra="@ngayTra" asp-route-soNguoi="@soNguoi" class="btn btn-primary w-50 fw-bold shadow-sm">
+                                    Đặt Ngay
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<!-- Dịch Vụ & Tiện Ích Đẳng Cấp -->
+<div class="bg-light p-4 p-md-5 rounded-4 mb-5 border">
+    <div class="text-center mb-5">
+        <h3 class="fw-bold text-dark">Dịch Vụ Tiện Ích Chuẩn 5 Sao</h3>
+        <p class="text-muted">Chúng tôi cam kết mang lại trải nghiệm nghỉ dưỡng hoàn hảo nhất cho quý khách</p>
+    </div>
+
+    <div class="row g-4 text-center">
+        <div class="col-6 col-md-3">
+            <div class="card border-0 bg-white shadow-sm p-4 rounded-3 h-100">
+                <div class="text-primary fs-1 mb-2"><i class="bi bi-wifi"></i></div>
+                <h5 class="fw-bold">Wifi Tốc Độ Cao</h5>
+                <p class="text-muted small mb-0">Kết nối internet cáp quang miễn phí phủ khắp khuôn viên.</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 bg-white shadow-sm p-4 rounded-3 h-100">
+                <div class="text-warning fs-1 mb-2"><i class="bi bi-cup-hot"></i></div>
+                <h5 class="fw-bold">Buffet Sáng Cao Cấp</h5>
+                <p class="text-muted small mb-0">Thực đơn Á - Âu phong phú từ đầu bếp 5 sao hàng đầu.</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 bg-white shadow-sm p-4 rounded-3 h-100">
+                <div class="text-success fs-1 mb-2"><i class="bi bi-clock-history"></i></div>
+                <h5 class="fw-bold">Lễ Tân 24/7</h5>
+                <p class="text-muted small mb-0">Đội ngũ hỗ trợ nhiệt tình, nhận trả phòng nhanh chóng.</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 bg-white shadow-sm p-4 rounded-3 h-100">
+                <div class="text-danger fs-1 mb-2"><i class="bi bi-shield-check"></i></div>
+                <h5 class="fw-bold">An Toàn Tuyệt Đối</h5>
+                <p class="text-muted small mb-0">Hệ thống khóa thông minh và camera an ninh 24/24.</p>
+            </div>
+        </div>
+    </div>
 </div>
