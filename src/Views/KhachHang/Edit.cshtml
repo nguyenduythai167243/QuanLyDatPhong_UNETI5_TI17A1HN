@@ -1,118 +1,103 @@
-@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.KhachHang
+﻿@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.KhachHang
 
 @{
-    ViewData["Title"] = "Chỉnh Sửa Hồ Sơ Khách Hàng";
+    ViewData["Title"] = "Chỉnh sửa thông tin cá nhân";
 }
 
-<div class="container-fluid px-0">
-    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
-        <div>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-1">
-                    <li class="breadcrumb-item"><a asp-action="Index">Khách Hàng</a></li>
-                    <li class="breadcrumb-item"><a asp-action="Details" asp-route-id="@Model.MaKhachHang">#@Model.MaKhachHang</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa</li>
-                </ol>
-            </nav>
-            <h2 class="fw-bold text-dark mb-0">
-                <i class="bi bi-pencil-square text-warning me-2"></i>Cập Nhật Hồ Sơ: @Model.HoTen
-            </h2>
+<div class="container py-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white py-3">
+            <h4 class="mb-0">Chỉnh sửa thông tin cá nhân</h4>
         </div>
-        <div>
-            <a asp-action="Details" asp-route-id="@Model.MaKhachHang" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-1"></i> Quay Lại
-            </a>
-        </div>
-    </div>
 
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm rounded-3">
-                <div class="card-header bg-white py-3">
-                    <h5 class="fw-bold mb-0 text-primary">
-                        <i class="bi bi-person-lines-fill me-2"></i>Thông Tin Chi Tiết
-                    </h5>
+        <div class="card-body p-4">
+            <form asp-controller="KhachHang"
+                  asp-action="Edit"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="HoTen" class="form-label">Họ và tên</label>
+                    <input asp-for="HoTen" class="form-control" />
+                    <span asp-validation-for="HoTen" class="text-danger"></span>
                 </div>
-                <div class="card-body p-4">
-                    <form asp-action="Edit" method="post">
-                        @Html.AntiForgeryToken()
-                        <input type="hidden" asp-for="MaKhachHang" />
-                        <input type="hidden" asp-for="MaTaiKhoan" />
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label asp-for="HoTen" class="form-label fw-bold">Họ và Tên <span class="text-danger">*</span></label>
-                                <input asp-for="HoTen" class="form-control" />
-                                <span asp-validation-for="HoTen" class="text-danger small"></span>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label asp-for="SoDienThoai" class="form-label fw-bold">Số Điện Thoại <span class="text-danger">*</span></label>
-                                <input asp-for="SoDienThoai" class="form-control" />
-                                <span asp-validation-for="SoDienThoai" class="text-danger small"></span>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label asp-for="SoGiayToTuyThan" class="form-label fw-bold">Số CCCD / Hộ Chiếu <span class="text-danger">*</span></label>
-                                <input asp-for="SoGiayToTuyThan" class="form-control" />
-                                <span asp-validation-for="SoGiayToTuyThan" class="text-danger small"></span>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label asp-for="Email" class="form-label fw-bold">Email</label>
-                                <input asp-for="Email" class="form-control" type="email" />
-                                <span asp-validation-for="Email" class="text-danger small"></span>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label asp-for="GioiTinh" class="form-label fw-bold">Giới Tính</label>
-                                <select asp-for="GioiTinh" class="form-select">
-                                    <option value="true">Nam</option>
-                                    <option value="false">Nữ</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label asp-for="NgaySinh" class="form-label fw-bold">Ngày Sinh</label>
-                                <input asp-for="NgaySinh" class="form-control" type="date" />
-                                <span asp-validation-for="NgaySinh" class="text-danger small"></span>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label asp-for="QuocTich" class="form-label fw-bold">Quốc Tịch</label>
-                                <input asp-for="QuocTich" class="form-control" />
-                            </div>
-
-                            <div class="col-12">
-                                <label asp-for="DiaChi" class="form-label fw-bold">Địa Chỉ</label>
-                                <input asp-for="DiaChi" class="form-control" />
-                                <span asp-validation-for="DiaChi" class="text-danger small"></span>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="form-check form-switch mt-2">
-                                    <input class="form-check-input" type="checkbox" role="switch" asp-for="TrangThai" id="flexSwitchCheckEdit">
-                                    <label class="form-check-label fw-bold" for="flexSwitchCheckEdit">Trạng thái hoạt động (bỏ chọn để khóa tài khoản khách)</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr class="my-4" />
-
-                        <div class="d-flex justify-content-end gap-2">
-                            <a asp-action="Details" asp-route-id="@Model.MaKhachHang" class="btn btn-outline-secondary">Hủy bỏ</a>
-                            <button type="submit" class="btn btn-warning px-4">
-                                <i class="bi bi-check-lg me-1"></i> Lưu Thay Đổi
-                            </button>
-                        </div>
-                    </form>
+                <div class="mb-3">
+                    <label asp-for="NgaySinh" class="form-label">Ngày sinh</label>
+                    <input asp-for="NgaySinh"
+                           type="date"
+                           asp-format="{0:yyyy-MM-dd}"
+                           class="form-control" />
+                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
                 </div>
-            </div>
+
+                <div class="mb-3">
+                    <label asp-for="GioiTinh" class="form-label">Giới tính</label>
+                    <select asp-for="GioiTinh" class="form-select">
+                        <option value="true">Nam</option>
+                        <option value="false">Nữ</option>
+                    </select>
+                    <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="SoDienThoai" class="form-label">Số điện thoại</label>
+                    <input asp-for="SoDienThoai"
+                           type="tel"
+                           class="form-control" />
+                    <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email"
+                           type="email"
+                           class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DiaChi" class="form-label">Địa chỉ</label>
+                    <input asp-for="DiaChi" class="form-control" />
+                    <span asp-validation-for="DiaChi" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="SoGiayToTuyThan"
+                           class="form-label">Số giấy tờ tùy thân</label>
+                    <input asp-for="SoGiayToTuyThan" class="form-control" />
+                    <span asp-validation-for="SoGiayToTuyThan"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="QuocTich" class="form-label">Quốc tịch</label>
+                    <input asp-for="QuocTich" class="form-control" />
+                    <span asp-validation-for="QuocTich" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        Lưu thay đổi
+                    </button>
+
+                    <a asp-controller="KhachHang"
+                       asp-action="Index"
+                       class="btn btn-outline-secondary">
+                        Hủy
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -120,9 +120,15 @@
                 </div>
 
                 <div class="d-grid gap-2">
-                    <a asp-action="DatPhong" asp-route-maPhong="@Model.MaPhong" class="btn btn-primary btn-lg fw-bold shadow-sm">
-                        <i class="bi bi-calendar-check me-2"></i> Tiến Hành Đặt Phòng
-                    </a>
+                    
+<a asp-controller="DatPhong"
+   asp-action="DatPhong"
+   asp-route-maPhong="@Model.MaPhong"
+   class="btn btn-primary btn-lg fw-bold shadow-sm">
+    <i class="bi bi-calendar-check me-2"></i>
+    Tiến Hành Đặt Phòng
+</a>
+
                     <a asp-action="DanhSachPhong" class="btn btn-outline-secondary">
                         <i class="bi bi-arrow-left me-1"></i> Xem Các Phòng Khác
                     </a>

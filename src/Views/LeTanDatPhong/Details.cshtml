@@ -1,4 +1,4 @@
-@*
+﻿@*
     Họ và tên: Nguyễn Duy Thái
     Mã sinh viên: 23103100052
     Nội dung thực hiện: Module 4 - Màn hình chi tiết đặt phòng, kiểm tra điều kiện nghiệp vụ LINQ và quản lý luồng trạng thái
@@ -174,7 +174,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-4 text-muted">Trạng thái tài khoản:</div>
                         <div class="col-sm-8">
-                            @if (dp.KhachHang?.TrangThai == true)
+                            @if (dp.KhachHang?.TrangThai == "Hoạt động")
                             {
                                 <span class="badge bg-success">Đang hoạt động</span>
                             }

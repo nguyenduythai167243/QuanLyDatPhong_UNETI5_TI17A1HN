@@ -1,0 +1,110 @@
+
+@model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.DatPhong>
+
+@{
+    ViewData["Title"] = "Lịch sử đặt phòng";
+}
+
+<div class="container py-4">
+    <h2 class="mb-4">Lịch sử đặt phòng</h2>
+
+    @if (TempData["ThongBao"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["ThongBao"]
+        </div>
+    }
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-secondary">
+            Bạn chưa có đơn đặt phòng nào.
+        </div>
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="btn btn-primary">
+            Xem danh sách phòng
+        </a>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Mã đặt phòng</th>
+                        <th>Phòng</th>
+                        <th>Ngày đặt</th>
+                        <th>Ngày nhận</th>
+                        <th>Ngày trả</th>
+                        <th>Số người</th>
+                        <th>Tổng tiền dự kiến</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.MaDatPhong</td>
+                            <td>
+                                @(item.Phong?.SoPhong ?? "Chưa có")
+                            </td>
+                            <td>
+                                @item.NgayDat.ToString("dd/MM/yyyy HH:mm")
+                            </td>
+                            <td>
+                                @item.NgayNhanPhong.ToString("dd/MM/yyyy")
+                            </td>
+                            <td>
+                                @item.NgayTraPhong.ToString("dd/MM/yyyy")
+                            </td>
+                            <td>@item.SoNguoi</td>
+                            <td>
+                                @item.TongTienDuKien.ToString("N0") VNĐ
+                            </td>
+                            <td>
+                                @item.TrangThai
+                            </td>
+                            <td>
+                                @if ((item.TrangThai == "Chờ xác nhận" ||
+                                      item.TrangThai == "Đã xác nhận") &&
+                                     item.NgayNhanPhong.Date > DateTime.Today)
+                                {
+                                    <form asp-controller="DatPhong"
+                                          asp-action="Huy"
+                                          method="post"
+                                          onsubmit="return confirm('Bạn có chắc muốn hủy đơn đặt phòng này không?');">
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="@item.MaDatPhong" />
+
+                                        <button type="submit"
+                                                class="btn btn-danger btn-sm">
+                                            Hủy đặt phòng
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Không thể hủy</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn btn-outline-primary mt-3">
+        Quay lại trang chủ
+    </a>
+</div>

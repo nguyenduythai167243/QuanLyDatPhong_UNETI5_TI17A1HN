@@ -38,9 +38,6 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Home" asp-action="DanhSachPhong"><i class="bi bi-door-open me-1"></i>Tìm & Đặt Phòng</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="TraCuu"><i class="bi bi-search me-1"></i>Tra Cứu Đơn</a>
-                            </li>
 
                             @if (vaiTro == "Admin" || vaiTro == "LeTan" || vaiTro == "Lễ tân")
                             {
@@ -55,7 +52,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item fw-bold text-success" asp-controller="KhachHang" asp-action="Index">
+                                            <a class="dropdown-item fw-bold text-success" asp-controller="QuanLyKhachHang" asp-action="Index">
                                                 <i class="bi bi-people-fill me-2"></i>Quản Lý Khách Hàng
                                             </a>
                                         </li>
@@ -72,11 +69,24 @@
 
                             @if (maTaiKhoan != null && (vaiTro == "KhachHang" || string.IsNullOrEmpty(vaiTro)))
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-info fw-bold" asp-controller="Home" asp-action="LichSuDatPhong">
-                                        <i class="bi bi-clock-history me-1"></i>Lịch Sử Đặt Phòng
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-primary fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-gear-fill me-1"></i>Quản Lý Tài Khoản
                                     </a>
+                                    <ul class="dropdown-menu shadow-sm">
+                                        <li>
+                                            <a class="dropdown-item fw-bold text-primary" asp-controller="KhachHang" asp-action="Index">
+                                                <i class="bi bi-people-fill me-2"></i>Thông Tin Cá Nhân
+                                            </a>
+                                        </li>
+                                       <li>
+                                            <a class="dropdown-item fw-bold text-primary" asp-controller="DatPhong" asp-action="LichSu">
+                                                <i class="bi bi-clock-history"></i>Lịch Sử Đặt Phòng
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
+                                
                             }
                         </ul>
 

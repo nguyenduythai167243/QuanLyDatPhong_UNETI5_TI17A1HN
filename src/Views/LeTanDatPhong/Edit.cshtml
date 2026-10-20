@@ -1,4 +1,4 @@
-@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.DatPhong
+﻿@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.DatPhong
 
 @{
     ViewData["Title"] = "Edit";
@@ -110,5 +110,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

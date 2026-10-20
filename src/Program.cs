@@ -45,15 +45,6 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 
-// Chuyển hướng các URL cũ /DatPhong sang /LeTanDatPhong
-app.MapGet("/DatPhong/{action=Index}/{id?}", (string? action, string? id) =>
-{
-    var act = string.IsNullOrEmpty(action) ? "Index" : action;
-    return string.IsNullOrEmpty(id)
-        ? Results.Redirect($"/LeTanDatPhong/{act}")
-        : Results.Redirect($"/LeTanDatPhong/{act}/{id}");
-});
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")

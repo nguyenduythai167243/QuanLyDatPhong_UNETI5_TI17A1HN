@@ -177,9 +177,12 @@
                                         }
                                         else
                                         {
-                                            <a asp-action="DatPhong" asp-route-maPhong="@p.MaPhong" asp-route-ngayNhan="@ngayNhan" asp-route-ngayTra="@ngayTra" asp-route-soNguoi="@soNguoi" class="btn btn-primary w-50 fw-bold shadow-sm">
-                                                Đặt Ngay
-                                            </a>
+                                            
+<a href="@Url.Action("DatPhong", "DatPhong", new { maPhong = p.MaPhong })"
+   class="btn btn-primary w-50 fw-bold shadow-sm">
+    Đặt Ngay
+</a>
+
                                         }
                                     </div>
                                 </div>

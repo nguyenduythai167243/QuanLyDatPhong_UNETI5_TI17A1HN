@@ -1,0 +1,172 @@
+﻿@model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.KhachHang>
+
+@{
+    ViewData["Title"] = "Quản lý khách hàng";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">Quản lý khách hàng</h2>
+            <p class="text-muted mb-0">Danh sách thông tin khách hàng</p>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close"
+                    data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Tìm kiếm theo số giấy tờ tùy thân -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form asp-controller="QuanLyKhachHang"
+                  asp-action="Index"
+                  method="get">
+                <div class="row g-2">
+                    <div class="col-md-9">
+                        <input type="text"
+                               name="searchString"
+                               value="@ViewData["SearchString"]"
+                               class="form-control"
+                               placeholder="Nhập số giấy tờ tùy thân cần tìm..." />
+                    </div>
+
+                    <div class="col-md-3 d-flex gap-2">
+                        <button type="submit" class="btn btn-primary flex-fill">
+                            Tìm kiếm
+                        </button>
+
+                        <a asp-controller="QuanLyKhachHang"
+                           asp-action="Index"
+                           class="btn btn-secondary">
+                            Làm mới
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bảng danh sách khách hàng -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <strong>Danh sách khách hàng</strong>
+            <span class="text-muted">
+                (@Model.Count() khách hàng)
+            </span>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle mb-0">
+                    <thead class="table-light text-center">
+                        <tr>
+                            <th>Mã KH</th>
+                            <th>Họ tên</th>
+                            <th>Ngày sinh</th>
+                            <th>Giới tính</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Số giấy tờ tùy thân</th>
+                            <th>Quốc tịch</th>
+                            <th>Trạng thái</th>
+                            <th style="min-width: 230px;">Thao tác</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">@item.MaKhachHang</td>
+                                    <td>@item.HoTen</td>
+
+                                    <td class="text-center">
+                                        @(item.NgaySinh.HasValue
+                                            ? item.NgaySinh.Value.ToString("dd/MM/yyyy")
+                                            : "Chưa cập nhật")
+                                    </td>
+
+                                    <td class="text-center">
+                                        @(item.GioiTinh ? "Nam" : "Nữ")
+                                    </td>
+
+                                    <td>@item.SoDienThoai</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.SoGiayToTuyThan</td>
+                                    <td>@item.QuocTich</td>
+
+                                    <td class="text-center">
+                                        @if (item.TrangThai == "Hoạt động")
+                                        {
+                                            <span class="badge bg-success">Hoạt động</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                @item.TrangThai
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center flex-wrap gap-1">
+                                            <a asp-controller="QuanLyKhachHang"
+                                               asp-action="Details"
+                                               asp-route-makhachhang="@item.MaKhachHang"
+                                               class="btn btn-sm btn-info text-white">
+                                                Chi tiết
+                                            </a>
+
+                                            <a asp-controller="QuanLyKhachHang"
+                                               asp-action="Edit"
+                                               asp-route-makhachhang="@item.MaKhachHang"
+                                               class="btn btn-sm btn-warning">
+                                                Sửa
+                                            </a>
+
+                                            <form asp-controller="QuanLyKhachHang"
+                                                  asp-action="UpdateStatus"
+                                                  asp-route-id="@item.MaKhachHang"
+                                                  method="post"
+                                                  class="d-inline">
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-outline-secondary">
+                                                    Đổi trạng thái
+                                                </button>
+                                            </form>
+
+                                            <a asp-controller="QuanLyKhachHang"
+                                               asp-action="Delete"
+                                               asp-route-makhachhang="@item.MaKhachHang"
+                                               class="btn btn-sm btn-danger">
+                                                Xóa
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="10" class="text-center py-4 text-muted">
+                                    Không tìm thấy khách hàng phù hợp.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

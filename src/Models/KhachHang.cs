@@ -29,7 +29,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Models
         public String SoGiayToTuyThan {  get; set; }
         [StringLength(5)]
         public String QuocTich {  get; set; }
-        public bool TrangThai { get; set; }
+        public String TrangThai { get; set; }
         [ForeignKey("MaTaiKhoan")]
         public virtual TaiKhoan? TaiKhoan { get; set; }
 

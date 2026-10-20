@@ -1,4 +1,4 @@
-// Họ và tên: Nguyễn Duy Thái
+﻿// Họ và tên: Nguyễn Duy Thái
 // Mã sinh viên: 23103100052
 // Nội dung thực hiện: MODULE 4 - TIẾP NHẬN, XÁC NHẬN VÀ QUẢN LÝ TRẠNG THÁI LƯU TRÚ (LeTanDatPhongController)
 
@@ -214,12 +214,12 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
             // 3. Kiểm tra khách hàng còn hoạt động (Mục 8.3)
             var khachHang = await _context.KhachHangs.FindAsync(datPhong.MaKhachHang);
-            result.KhachHangHoatDong = khachHang != null && khachHang.TrangThai;
+            result.KhachHangHoatDong = khachHang != null && khachHang.TrangThai == "Hoạt động";
             if (khachHang == null)
             {
                 result.DanhSachLoi.Add("Khách hàng liên quan không tồn tại trong hệ thống.");
             }
-            else if (!khachHang.TrangThai)
+            else if (khachHang.TrangThai != "Hoạt động")
             {
                 result.DanhSachLoi.Add("Tài khoản khách hàng này hiện đang bị khóa hoặc ngừng hoạt động.");
             }
@@ -843,7 +843,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         public async Task<IActionResult> Create()
         {
             var khachHangs = await _context.KhachHangs
-                .Where(k => k.TrangThai)
+                .Where(k => k.TrangThai == "Hoạt đ")
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -927,7 +927,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             }
 
             // Nạp lại danh sách nếu lỗi
-            var khachHangs = await _context.KhachHangs.Where(k => k.TrangThai).AsNoTracking().ToListAsync();
+            var khachHangs = await _context.KhachHangs.Where(k => k.TrangThai == "Hoạt động").AsNoTracking().ToListAsync();
             var phongs = await _context.Phongs.Where(p => p.TrangThai == "Sẵn sàng").Include(p => p.LoaiPhong).AsNoTracking().ToListAsync();
             ViewBag.MaKhachHang = new SelectList(khachHangs, "MaKhachHang", "HoTen", datphong.MaKhachHang);
             ViewBag.MaPhong = new SelectList(phongs.Select(p => new {
@@ -959,7 +959,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
                 return RedirectToAction(nameof(Details), new { id = datphong.MaDatPhong });
             }
 
-            ViewBag.MaKhachHang = new SelectList(await _context.KhachHangs.Where(k => k.TrangThai).AsNoTracking().ToListAsync(), "MaKhachHang", "HoTen", datphong.MaKhachHang);
+            ViewBag.MaKhachHang = new SelectList(await _context.KhachHangs.Where(k => k.TrangThai == "Hoạt động").AsNoTracking().ToListAsync(), "MaKhachHang", "HoTen", datphong.MaKhachHang);
             ViewBag.MaPhong = new SelectList(await _context.Phongs.AsNoTracking().ToListAsync(), "MaPhong", "SoPhong", datphong.MaPhong);
             return View(datphong);
         }
@@ -1004,7 +1004,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
                 }
             }
 
-            ViewBag.MaKhachHang = new SelectList(await _context.KhachHangs.Where(k => k.TrangThai).AsNoTracking().ToListAsync(), "MaKhachHang", "HoTen", datphong.MaKhachHang);
+            ViewBag.MaKhachHang = new SelectList(await _context.KhachHangs.Where(k => k.TrangThai == "Hoạt động").AsNoTracking().ToListAsync(), "MaKhachHang", "HoTen", datphong.MaKhachHang);
             ViewBag.MaPhong = new SelectList(await _context.Phongs.AsNoTracking().ToListAsync(), "MaPhong", "SoPhong", datphong.MaPhong);
             return View(datphong);
         }

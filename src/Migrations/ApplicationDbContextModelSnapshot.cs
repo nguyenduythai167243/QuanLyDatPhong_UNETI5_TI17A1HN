@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
 
 #nullable disable
@@ -1399,8 +1398,9 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
+                    b.Property<string>("TrangThai")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MaKhachHang");
 
@@ -1422,7 +1422,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000001",
                             SoGiayToTuyThan = "0010000001",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1436,7 +1436,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000002",
                             SoGiayToTuyThan = "0010000002",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1450,7 +1450,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000003",
                             SoGiayToTuyThan = "0010000003",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1464,7 +1464,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000004",
                             SoGiayToTuyThan = "0010000004",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1478,7 +1478,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000005",
                             SoGiayToTuyThan = "0010000005",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1492,7 +1492,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000006",
                             SoGiayToTuyThan = "0010000006",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1506,7 +1506,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000007",
                             SoGiayToTuyThan = "0010000007",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1520,7 +1520,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000008",
                             SoGiayToTuyThan = "0010000008",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1534,7 +1534,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000009",
                             SoGiayToTuyThan = "0010000009",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1548,7 +1548,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000010",
                             SoGiayToTuyThan = "0010000010",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1562,7 +1562,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000011",
                             SoGiayToTuyThan = "0010000011",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1576,7 +1576,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000012",
                             SoGiayToTuyThan = "0010000012",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1590,7 +1590,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000013",
                             SoGiayToTuyThan = "0010000013",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1604,7 +1604,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000014",
                             SoGiayToTuyThan = "0010000014",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1618,7 +1618,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000015",
                             SoGiayToTuyThan = "0010000015",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1632,7 +1632,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000016",
                             SoGiayToTuyThan = "0010000016",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1646,7 +1646,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000017",
                             SoGiayToTuyThan = "0010000017",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1660,7 +1660,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000018",
                             SoGiayToTuyThan = "0010000018",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1674,7 +1674,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000019",
                             SoGiayToTuyThan = "0010000019",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1688,7 +1688,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000020",
                             SoGiayToTuyThan = "0010000020",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1702,7 +1702,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000021",
                             SoGiayToTuyThan = "0010000021",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1716,7 +1716,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000022",
                             SoGiayToTuyThan = "0010000022",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1730,7 +1730,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000023",
                             SoGiayToTuyThan = "0010000023",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1744,7 +1744,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000024",
                             SoGiayToTuyThan = "0010000024",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1758,7 +1758,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000025",
                             SoGiayToTuyThan = "0010000025",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1772,7 +1772,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000026",
                             SoGiayToTuyThan = "0010000026",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1786,7 +1786,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000027",
                             SoGiayToTuyThan = "0010000027",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1800,7 +1800,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000028",
                             SoGiayToTuyThan = "0010000028",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1814,7 +1814,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000029",
                             SoGiayToTuyThan = "0010000029",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         },
                         new
                         {
@@ -1828,7 +1828,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             QuocTich = "VN",
                             SoDienThoai = "0901000030",
                             SoGiayToTuyThan = "0010000030",
-                            TrangThai = true
+                            TrangThai = "Hoạt động"
                         });
                 });
 

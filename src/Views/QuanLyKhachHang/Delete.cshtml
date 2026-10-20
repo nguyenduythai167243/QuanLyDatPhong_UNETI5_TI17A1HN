@@ -1,0 +1,51 @@
+@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Xóa khách hàng";
+}
+
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">Xóa khách hàng</h4>
+        </div>
+
+        <div class="card-body">
+            <div class="alert alert-warning">
+                Bạn có chắc chắn muốn xóa khách hàng này không?
+            </div>
+
+            <dl class="row">
+                <dt class="col-sm-4">Mã khách hàng</dt>
+                <dd class="col-sm-8">@Model.MaKhachHang</dd>
+
+                <dt class="col-sm-4">Họ tên</dt>
+                <dd class="col-sm-8">@Model.HoTen</dd>
+
+                <dt class="col-sm-4">Số điện thoại</dt>
+                <dd class="col-sm-8">@Model.SoDienThoai</dd>
+
+                <dt class="col-sm-4">Số giấy tờ tùy thân</dt>
+                <dd class="col-sm-8">@Model.SoGiayToTuyThan</dd>
+
+                <dt class="col-sm-4">Email</dt>
+                <dd class="col-sm-8">@Model.Email</dd>
+            </dl>
+
+            <form asp-action="Delete"
+                  asp-route-makhachhang="@Model.MaKhachHang"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <button type="submit" class="btn btn-danger">
+                    Xác nhận xóa
+                </button>
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    Hủy
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

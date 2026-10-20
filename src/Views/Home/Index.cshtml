@@ -167,7 +167,7 @@
                                 <a asp-action="ChiTietPhong" asp-route-id="@p.MaPhong" class="btn btn-outline-secondary w-50">
                                     Chi Tiết
                                 </a>
-                                <a asp-action="DatPhong" asp-route-maPhong="@p.MaPhong" asp-route-ngayNhan="@ngayNhan" asp-route-ngayTra="@ngayTra" asp-route-soNguoi="@soNguoi" class="btn btn-primary w-50 fw-bold shadow-sm">
+                                <a asp-controller="DatPhong" asp-action="DatPhong" asp-route-maPhong="@p.MaPhong" asp-route-ngayNhan="@ngayNhan" asp-route-ngayTra="@ngayTra" asp-route-soNguoi="@soNguoi" class="btn btn-primary w-50 fw-bold shadow-sm">
                                     Đặt Ngay
                                 </a>
                             </div>
