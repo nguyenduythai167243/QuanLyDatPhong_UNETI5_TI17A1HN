@@ -190,4 +190,4 @@ public class QuanLyKhachHangController : Controller
     {
         return _context.KhachHangs.Any(e => e.MaKhachHang == makhachhang);
     }
-
+3
