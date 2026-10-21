@@ -1,80 +1,79 @@
+
 @model QuanLyDatPhong_UNETI5_TI17A1HN.Models.DichVuPhatSinh
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết dịch vụ";
+    var active = Model.TrangThai ==
+        QuanLyDatPhong_UNETI5_TI17A1HN.Models.TrangThaiDV.DaGhiNhan;
 }
 
-<h1>Details</h1>
+<div class="container py-4" style="max-width:900px">
+    <a asp-action="Index" class="text-decoration-none text-muted">
+        <i class="bi bi-arrow-left me-2"></i>Quay lại danh sách
+    </a>
 
-<div>
-    <h4>DichVuPhatSinh</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaDatPhong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaDatPhong)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DatPhong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DatPhong)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenDichVu)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenDichVu)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SoLuong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SoLuong)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DonGia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DonGia)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NgaySuDung)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NgaySuDung)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GhiChu)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GhiChu)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ThanhTien)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ThanhTien)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.MaDichVuPhatSinh">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mt-3 mb-4">
+        <div>
+            <div class="text-muted small">CHI TIẾT DỊCH VỤ</div>
+            <h2 class="fw-bold mb-1">#DV@Model.MaDichVuPhatSinh</h2>
+            <p class="text-muted mb-0">Thông tin chi tiết của dịch vụ phát sinh.</p>
+        </div>
+        @if (active)
+        {
+            <span class="badge rounded-pill text-bg-success px-3 py-2">Đã ghi nhận</span>
+        }
+        else
+        {
+            <span class="badge rounded-pill text-bg-secondary px-3 py-2">Đã hủy</span>
+        }
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body p-4">
+            <div class="text-muted mb-2">Tên dịch vụ</div>
+            <h4 class="fw-bold">@Model.TenDichVu</h4>
+            <hr class="my-4" />
+            <div class="row g-4">
+                <div class="col-sm-6">
+                    <div class="text-muted small mb-1">Mã đặt phòng</div>
+                    <div class="fw-semibold">#DP@Model.MaDatPhong</div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-muted small mb-1">Ngày sử dụng</div>
+                    <div class="fw-semibold">@Model.NgaySuDung.ToString("dd/MM/yyyy")</div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-muted small mb-1">Số lượng</div>
+                    <div class="fw-semibold">@Model.SoLuong</div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-muted small mb-1">Đơn giá</div>
+                    <div class="fw-semibold">@Model.DonGia.ToString("N0") ₫</div>
+                </div>
+                <div class="col-12">
+                    <div class="text-muted small mb-1">Ghi chú</div>
+                    <div>@(string.IsNullOrWhiteSpace(Model.GhiChu) ? "Không có ghi chú" : Model.GhiChu)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body p-4 d-flex justify-content-between align-items-center">
+            <div>
+                <div class="text-muted mb-1">Thành tiền</div>
+                <div class="text-muted small">Số lượng × đơn giá</div>
+            </div>
+            <h3 class="fw-bold text-primary mb-0">@Model.ThanhTien.ToString("N0") ₫</h3>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+        <a asp-action="Index" class="btn btn-light border px-4">Quay lại</a>
+        @if (active)
+        {
+            <a asp-action="Edit" asp-route-id="@Model.MaDichVuPhatSinh"
+               class="btn btn-primary px-4">Chỉnh sửa</a>
+        }
+    </div>
 </div>

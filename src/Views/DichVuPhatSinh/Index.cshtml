@@ -1,83 +1,451 @@
+
 @model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.DichVuPhatSinh>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Quản lý dịch vụ phát sinh";
+
+    var danhSach = Model?.ToList() ?? new List<QuanLyDatPhong_UNETI5_TI17A1HN.Models.DichVuPhatSinh>();
+    var daGhiNhan = danhSach.Where(x => x.TrangThai == QuanLyDatPhong_UNETI5_TI17A1HN.Models.TrangThaiDV.DaGhiNhan).ToList();
+    var daHuy = danhSach.Where(x => x.TrangThai == QuanLyDatPhong_UNETI5_TI17A1HN.Models.TrangThaiDV.DaHuy).ToList();
+    var tongTien = daGhiNhan.Sum(x => x.SoLuong * x.DonGia);
 }
 
-<h1>Index</h1>
+<style>
+    .service-page {
+        color: #172033;
+        padding: 24px 0 40px;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MaDatPhong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DatPhong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TenDichVu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SoLuong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DonGia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NgaySuDung)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GhiChu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThanhTien)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.MaDatPhong)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.DatPhong)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.TenDichVu)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.SoLuong)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.DonGia)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.NgaySuDung)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.GhiChu)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.ThanhTien)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaDichVuPhatSinh">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaDichVuPhatSinh">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaDichVuPhatSinh">Delete</a>
-            </td>
-        </tr>
+    .service-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 28px;
+    }
+
+    .service-heading h2 {
+        font-weight: 750;
+        letter-spacing: -.7px;
+        margin-bottom: 7px;
+    }
+
+    .service-subtitle {
+        color: #788398;
+        margin: 0;
+    }
+
+    .service-btn {
+        border-radius: 11px;
+        padding: 11px 17px;
+        font-weight: 600;
+    }
+
+    .service-stat {
+        background: #fff;
+        border: 1px solid #e9edf4;
+        border-radius: 17px;
+        padding: 21px;
+        height: 100%;
+        box-shadow: 0 5px 20px rgba(27, 39, 70, .035);
+    }
+
+    .stat-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+    }
+
+    .stat-icon {
+        width: 45px;
+        height: 45px;
+        display: grid;
+        place-items: center;
+        border-radius: 13px;
+        font-size: 21px;
+    }
+
+    .stat-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #7b8497;
+    }
+
+    .stat-value {
+        font-size: 26px;
+        font-weight: 750;
+        letter-spacing: -.5px;
+        overflow-wrap: anywhere;
+    }
+
+    .service-panel {
+        background: #fff;
+        border: 1px solid #e9edf4;
+        border-radius: 17px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(27, 39, 70, .035);
+    }
+
+    .panel-header {
+        padding: 22px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #edf0f5;
+    }
+
+    .panel-header h5 {
+        font-weight: 750;
+        margin: 0 0 5px;
+    }
+
+    .panel-header p {
+        color: #8791a4;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .service-search {
+        min-width: 240px;
+        max-width: 330px;
+        position: relative;
+    }
+
+    .service-search input {
+        border-radius: 10px;
+        padding: 10px 13px 10px 38px;
+        border-color: #e2e7ef;
+    }
+
+    .service-search i {
+        position: absolute;
+        top: 13px;
+        left: 13px;
+        color: #8a94a7;
+    }
+
+    .service-table {
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    .service-table thead th {
+        background: #f8f9fc;
+        color: #778196;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: .6px;
+        font-weight: 750;
+        padding: 15px 18px;
+        border-bottom: 1px solid #edf0f5;
+    }
+
+    .service-table tbody td {
+        padding: 17px 18px;
+        vertical-align: middle;
+        border-color: #f0f2f6;
+        font-size: 13px;
+    }
+
+    .service-table tbody tr:hover {
+        background: #fafbfe;
+    }
+
+    .service-code {
+        font-weight: 750;
+        color: #4456c5;
+    }
+
+    .service-name {
+        font-weight: 650;
+        color: #273249;
+    }
+
+    .service-muted {
+        color: #8993a5;
+        font-size: 12px;
+        margin-top: 4px;
+    }
+
+    .service-price {
+        font-weight: 750;
+        color: #202b41;
+    }
+
+    .service-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 20px;
+        padding: 6px 10px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .status-active {
+        background: #e7f8ef;
+        color: #188653;
+    }
+
+    .status-cancelled {
+        background: #fff0f0;
+        color: #c34b52;
+    }
+
+    .service-actions {
+        display: flex;
+        gap: 6px;
+    }
+
+    .service-action {
+        width: 33px;
+        height: 33px;
+        border-radius: 9px;
+        display: inline-grid;
+        place-items: center;
+        text-decoration: none;
+        border: 1px solid #e8ebf2;
+        color: #647087;
+        background: #fff;
+    }
+
+    .service-action:hover {
+        background: #eef1ff;
+        border-color: #dce1ff;
+        color: #4456c5;
+    }
+
+    .service-empty {
+        padding: 55px 20px;
+        text-align: center;
+        color: #8a94a7;
+    }
+
+    .service-empty i {
+        font-size: 36px;
+        display: block;
+        margin-bottom: 12px;
+        color: #c2cada;
+    }
+
+    .service-footer {
+        padding: 15px 22px;
+        border-top: 1px solid #edf0f5;
+        color: #8791a4;
+        font-size: 12px;
+    }
+
+    @@media (max-width: 768px) {
+        .service-page { padding-top: 14px; }
+        .service-heading h2 { font-size: 24px; }
+        .panel-header { padding: 18px; }
+        .service-search { min-width: 100%; max-width: 100%; }
+    }
+</style>
+
+<div class="container-fluid service-page">
+
+    <div class="service-heading">
+        <div>
+            <div class="text-uppercase fw-bold small text-primary mb-2">
+                HỆ THỐNG QUẢN LÝ KHÁCH SẠN
+            </div>
+            <h2>Quản lý dịch vụ phát sinh</h2>
+            <p class="service-subtitle">
+                Theo dõi dịch vụ sử dụng trong thời gian lưu trú và chi phí phát sinh.
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-primary service-btn shadow-sm">
+            <i class="bi bi-plus-lg me-2"></i>Thêm dịch vụ
+        </a>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="service-stat">
+                <div class="stat-top">
+                    <span class="stat-label">TỔNG DỊCH VỤ</span>
+                    <span class="stat-icon" style="background:#edf0ff;color:#4d5bd4">
+                        <i class="bi bi-grid-1x2"></i>
+                    </span>
+                </div>
+                <div class="stat-value">@danhSach.Count</div>
+                <div class="service-muted">Tất cả bản ghi dịch vụ</div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="service-stat">
+                <div class="stat-top">
+                    <span class="stat-label">ĐÃ GHI NHẬN</span>
+                    <span class="stat-icon" style="background:#e7f8ef;color:#188653">
+                        <i class="bi bi-check-circle"></i>
+                    </span>
+                </div>
+                <div class="stat-value">@daGhiNhan.Count</div>
+                <div class="service-muted">Dịch vụ hợp lệ</div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="service-stat">
+                <div class="stat-top">
+                    <span class="stat-label">TỔNG CHI PHÍ DỊCH VỤ</span>
+                    <span class="stat-icon" style="background:#fff3df;color:#d58a18">
+                        <i class="bi bi-cash-stack"></i>
+                    </span>
+                </div>
+                <div class="stat-value" style="font-size:24px">
+                    @tongTien.ToString("N0") <span style="font-size:13px">VNĐ</span>
+                </div>
+                <div class="service-muted">Không tính dịch vụ đã hủy</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-panel">
+        <div class="panel-header">
+            <div>
+                <h5>Danh sách dịch vụ</h5>
+                <p>Tra cứu và quản lý các dịch vụ phát sinh theo đặt phòng.</p>
+            </div>
+
+            <div class="service-search">
+                <i class="bi bi-search"></i>
+                <input id="serviceSearch" type="text" class="form-control"
+                       placeholder="Tìm mã phòng, tên dịch vụ..." />
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table service-table align-middle" id="serviceTable">
+                <thead>
+                    <tr>
+                        <th>Mã dịch vụ</th>
+                        <th>Đặt phòng</th>
+                        <th>Tên dịch vụ</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                        <th>Ngày sử dụng</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @if (danhSach.Any())
+                {
+                    foreach (var item in danhSach)
+                    {
+                        var daHuyItem = item.TrangThai == QuanLyDatPhong_UNETI5_TI17A1HN.Models.TrangThaiDV.DaHuy;
+
+                        <tr data-status="@(daHuyItem ? "cancelled" : "active")">
+                            <td>
+                                <span class="service-code">DV-@item.MaDichVuPhatSinh.ToString("D4")</span>
+                            </td>
+                            <td>
+                                <span class="fw-semibold">#@item.MaDatPhong</span>
+                                <div class="service-muted">Mã đặt phòng</div>
+                            </td>
+                            <td>
+                                <div class="service-name">@item.TenDichVu</div>
+                                @if (!string.IsNullOrWhiteSpace(item.GhiChu))
+                                {
+                                    <div class="service-muted">@item.GhiChu</div>
+                                }
+                            </td>
+                            <td>@item.SoLuong</td>
+                            <td>@item.DonGia.ToString("N0") đ</td>
+                            <td class="service-price">@((item.SoLuong * item.DonGia).ToString("N0")) đ</td>
+                            <td>@item.NgaySuDung.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                @if (daHuyItem)
+                                {
+                                    <span class="service-status status-cancelled">
+                                        <i class="bi bi-x-circle"></i>Đã hủy
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="service-status status-active">
+                                        <i class="bi bi-check-circle"></i>Đã ghi nhận
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                <div class="service-actions">
+                                    <a asp-action="Details" asp-route-id="@item.MaDichVuPhatSinh"
+                                       class="service-action" title="Xem chi tiết">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    @if (!daHuyItem)
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.MaDichVuPhatSinh"
+                                           class="service-action" title="Chỉnh sửa">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.MaDichVuPhatSinh"
+                                           class="service-action" title="Hủy dịch vụ">
+                                            <i class="bi bi-trash3"></i>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="9">
+                            <div class="service-empty">
+                                <i class="bi bi-inbox"></i>
+                                <div class="fw-semibold text-dark mb-1">Chưa có dịch vụ phát sinh</div>
+                                <div class="small mb-3">Thêm dịch vụ đầu tiên cho khách đang lưu trú.</div>
+                                <a asp-action="Create" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-plus-lg me-1"></i>Thêm dịch vụ
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="service-footer d-flex justify-content-between flex-wrap gap-2">
+            <span id="resultCount">Hiển thị @danhSach.Count dịch vụ</span>
+            <span><i class="bi bi-shield-check me-1"></i>Dữ liệu quản lý nội bộ</span>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (() => {
+            const search = document.getElementById('serviceSearch');
+            const rows = Array.from(document.querySelectorAll('#serviceTable tbody tr[data-status]'));
+            const resultCount = document.getElementById('resultCount');
+
+            function filterRows() {
+                const keyword = search.value.trim().toLocaleLowerCase('vi');
+                let visible = 0;
+
+                rows.forEach(row => {
+                    const matches = row.innerText.toLocaleLowerCase('vi').includes(keyword);
+                    row.style.display = matches ? '' : 'none';
+                    if (matches) visible++;
+                });
+
+                resultCount.textContent = `Hiển thị ${visible} / ${rows.length} dịch vụ`;
+            }
+
+            search.addEventListener('input', filterRows);
+        })();
+    </script>
 }
-    </tbody>
-</table>
