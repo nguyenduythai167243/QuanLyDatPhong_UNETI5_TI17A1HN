@@ -21,7 +21,7 @@
 | 2 | Chưa cập nhật | Chưa cập nhật | Module 2 |
 | 3 | Chưa cập nhật | Chưa cập nhật | Module 3 |
 | 4 | Nguyễn Duy Thái | 23103100052 | Module 4 |
-| 5 | Chưa cập nhật | Chưa cập nhật | Module 5 |
+| 5 | Vũ Viết Tiệp | 23103100038 | Module 5 |
 
 > Cập nhật chính xác họ tên, mã sinh viên và Module trước khi nộp bài.
 
