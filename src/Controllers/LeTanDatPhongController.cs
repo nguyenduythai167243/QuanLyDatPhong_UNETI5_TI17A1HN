@@ -28,11 +28,11 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
         #region 8.1. DANH SÁCH ĐẶT PHÒNG CẦN XỬ LÝ (TÌM KIẾM, LỌC, SẮP XẾP, PHÂN TRANG)
 
-        /// <summary>
+        
         /// Màn hình danh sách đặt phòng dành cho Lễ tân
         /// Hỗ trợ tìm kiếm theo họ tên khách, số phòng; lọc theo loại phòng, trạng thái, ngày nhận phòng;
         /// lọc cảnh báo quá hạn nhận phòng (no-show); sắp xếp theo ngày đặt hoặc ngày nhận; phân trang EF Core.
-        /// </summary>
+        
         public async Task<IActionResult> Index(
             string? tuKhoa,
             int? maLoaiPhong,
@@ -137,9 +137,9 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
         #region 8.2 & 8.3. XEM CHI TIẾT & KIỂM TRA ĐIỀU KIỆN ĐẶT PHÒNG
 
-        /// <summary>
+        
         /// Xem chi tiết đặt phòng kèm báo cáo kiểm tra điều kiện nghiệp vụ theo thời gian thực (LINQ)
-        /// </summary>
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -177,7 +177,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return View(viewModel);
         }
 
-        /// <summary>
+        
         /// Thuật toán kiểm tra điều kiện trước khi xác nhận và kiểm soát công suất phòng (LINQ)
         /// Theo yêu cầu mục 8.3 & 8.5 trong tài liệu bài tập lớn:
         /// 1. Đặt phòng tồn tại và chưa bị hủy
@@ -186,7 +186,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         /// 4. Đặt phòng chưa có kết quả xử lý trước đó (đang là Chờ xác nhận)
         /// 5. Thuật toán Overlap kiểm tra không trùng khoảng ngày lưu trú với booking khác đang hiệu lực của phòng đó (LINQ)
         /// 6. Kiểm soát công suất phòng: Cảnh báo khi loại phòng đã kín lịch trong khoảng ngày (LINQ)
-        /// </summary>
+        
         private async Task<KiemTraDatPhongResult> KiemTraDieuKienDatPhongAsync(DatPhong datPhong)
         {
             var result = new KiemTraDatPhongResult
@@ -332,10 +332,10 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
         #region 8.2. XÁC NHẬN ĐẶT PHÒNG
 
-        /// <summary>
+        
         /// GET: LeTanDatPhong/XacNhan/5
         /// Hiển thị màn hình xem xét và xác nhận đặt phòng
-        /// </summary>
+        
         [HttpGet]
         public async Task<IActionResult> XacNhan(int? id)
         {
@@ -370,11 +370,11 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return View(vm);
         }
 
-        /// <summary>
+        
         /// POST: LeTanDatPhong/XacNhan/5
         /// Thực hiện xác nhận đặt phòng sau khi kiểm tra đầy đủ điều kiện bằng LINQ (8.3 & 8.5)
         /// Ghi nhận NgayXuLy và GhiChuLeTan (8.2)
-        /// </summary>
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> XacNhan(int id, string? ghiChuLeTan)
@@ -417,10 +417,10 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
         #region 8.2. TỪ CHỐI ĐẶT PHÒNG
 
-        /// <summary>
+        
         /// GET: LeTanDatPhong/TuChoi/5
         /// Hiển thị màn hình từ chối đặt phòng
-        /// </summary>
+        
         [HttpGet]
         public async Task<IActionResult> TuChoi(int? id)
         {
@@ -455,10 +455,10 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return View(vm);
         }
 
-        /// <summary>
+        
         /// POST: LeTanDatPhong/TuChoi/5
         /// Cập nhật kết quả xử lý sang "Từ chối", ghi NgayXuLy và GhiChuLeTan (Mục 8.2)
-        /// </summary>
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> TuChoi(int id, string lyDoTuChoi)
@@ -495,10 +495,10 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
         #region 8.4. LÀM THỦ TỤC NHẬN PHÒNG (CHECK-IN)
 
-        /// <summary>
+        
         /// GET: LeTanDatPhong/NhanPhong/5
         /// Hiển thị màn hình xác nhận nhận phòng
-        /// </summary>
+        
         [HttpGet]
         public async Task<IActionResult> NhanPhong(int? id)
         {
@@ -538,14 +538,14 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return View(vm);
         }
 
-        /// <summary>
+        
         /// POST: LeTanDatPhong/NhanPhong/5
         /// Thực hiện thủ tục nhận phòng (Check-in)
         /// Ghi nhận NgayNhanThucTe = DateTime.Now và chuyển trạng thái sang "Đã nhận phòng" (Mục 8.4)
         /// Nghiêm cấm:
         /// - Chuyển trực tiếp từ "Chờ xác nhận" sang "Đã nhận phòng"
         /// - Đặt phòng "Từ chối" làm thủ tục nhận phòng
-        /// </summary>
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NhanPhong(int id, string? ghiChu)
@@ -610,10 +610,10 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
         #region 8.4. LÀM THỦ TỤC TRẢ PHÒNG (CHECK-OUT)
 
-        /// <summary>
+        
         /// GET: LeTanDatPhong/TraPhong/5
         /// Hiển thị màn hình trả phòng và tính toán lưu trú thực tế
-        /// </summary>
+        
         [HttpGet]
         public async Task<IActionResult> TraPhong(int? id)
         {
@@ -649,12 +649,12 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return View(vm);
         }
 
-        /// <summary>
+        
         /// POST: LeTanDatPhong/TraPhong/5
         /// Thực hiện thủ tục trả phòng (Check-out)
         /// Ghi nhận NgayTraThucTe = DateTime.Now và chuyển trạng thái sang "Đã trả phòng" (Mục 8.4)
         /// Trả phòng về trạng thái "Sẵn sàng"
-        /// </summary>
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> TraPhong(int id, string? ghiChu)
@@ -699,11 +699,11 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
         #region 8.4 & 8.5. HỦY ĐẶT PHÒNG & XỬ LÝ QUÁ HẠN NHẬN PHÒNG (NO-SHOW)
 
-        /// <summary>
+        
         /// POST: LeTanDatPhong/HuyQuaHan/5
         /// Lễ tân hủy đặt phòng đã xác nhận nhưng khách quá ngày nhận phòng mà không đến nhận (No-show)
         /// Đáp ứng mục 8.5: Đánh dấu cảnh báo để Lễ tân quyết định hủy, không tự ý xóa dữ liệu.
-        /// </summary>
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> HuyQuaHan(int id, string? lyDo)
@@ -739,11 +739,11 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return RedirectToAction(nameof(Index), new { canhBaoQuaHan = true });
         }
 
-        /// <summary>
+        
         /// POST: LeTanDatPhong/HuyDatPhong/5
         /// Lễ tân hủy đặt phòng khi ở trạng thái phù hợp (Chờ xác nhận hoặc Đã xác nhận).
         /// Nghiêm cấm hủy khi đã nhận phòng hoặc đã trả phòng (Mục 8.4).
-        /// </summary>
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> HuyDatPhong(int id, string? lyDo)
@@ -777,10 +777,10 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 
         #region 8.5. TRA CỨU & KIỂM SOÁT CÔNG SUẤT PHÒNG THEO LOẠI PHÒNG (LINQ)
 
-        /// <summary>
+        
         /// GET: LeTanDatPhong/KiemTraCongSuat
         /// Action phục vụ tra cứu nhanh công suất phòng của toàn bộ khách sạn trong khoảng ngày bằng LINQ
-        /// </summary>
+        
         [HttpGet]
         public async Task<IActionResult> KiemTraCongSuat(DateTime? tuNgay, DateTime? denNgay)
         {
