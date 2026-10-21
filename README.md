@@ -17,7 +17,7 @@
 
 | STT | Họ và tên | Mã sinh viên | Module phụ trách |
 |---:|---|---|---|
-| 1 | Nguyễn Duy Thái | 23103100052 | Module 1 |
+| 1 | Trần Bá Trường Sinh | 23103100010 | Module 1 |
 | 2 | Chưa cập nhật | Chưa cập nhật | Module 2 |
 | 3 | Chưa cập nhật | Chưa cập nhật | Module 3 |
 | 4 | Nguyễn Duy Thái | 23103100052 | Module 4 |
