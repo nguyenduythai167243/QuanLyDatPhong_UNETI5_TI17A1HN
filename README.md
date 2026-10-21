@@ -18,8 +18,8 @@
 | STT | Họ và tên | Mã sinh viên | Module phụ trách |
 |---:|---|---|---|
 | 1 | Trần Bá Trường Sinh | 23103100010 | Module 1 |
-| 2 | Lê Thành Minh| 23103100044 | Module 2 |
-| 3 | Chưa cập nhật | Chưa cập nhật | Module 3 |
+| 2 | Nguyễn Thế Thịnh | 23103100034 | Module 2 |
+| 3 | Lê Thành Minh| 23103100044 | Module 3 |
 | 4 | Nguyễn Duy Thái | 23103100052 | Module 4 |
 | 5 | Vũ Viết Tiệp | 23103100038 | Module 5 |
 
