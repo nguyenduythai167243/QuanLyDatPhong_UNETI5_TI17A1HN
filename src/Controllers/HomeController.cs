@@ -5,20 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 using QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IPhongRepository _phongRepository;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(IPhongRepository phongRepository)
         {
-            _context = context;
+            _phongRepository = phongRepository;
         }
 
         // ==========================================
@@ -29,28 +28,14 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             ngayNhan ??= DateTime.Today;
             ngayTra ??= DateTime.Today.AddDays(1);
 
-            ViewBag.LoaiPhongs = await _context.LoaiPhongs.ToListAsync();
+            ViewBag.LoaiPhongs = await _phongRepository.GetLoaiPhongsAsync();
             ViewBag.NgayNhan = ngayNhan.Value.ToString("yyyy-MM-dd");
             ViewBag.NgayTra = ngayTra.Value.ToString("yyyy-MM-dd");
             ViewBag.SoNguoi = soNguoi ?? 2;
             ViewBag.MaLoaiPhong = maLoaiPhong;
 
             // Lấy danh sách phòng nổi bật có thể đặt
-            var query = _context.Phongs
-                .Include(p => p.LoaiPhong)
-                .AsQueryable();
-
-            if (maLoaiPhong.HasValue && maLoaiPhong.Value > 0)
-            {
-                query = query.Where(p => p.MaLoaiPhong == maLoaiPhong.Value);
-            }
-
-            if (soNguoi.HasValue && soNguoi.Value > 0)
-            {
-                query = query.Where(p => p.SucChua >= soNguoi.Value);
-            }
-
-            var phongs = await query.Take(6).ToListAsync();
+            var phongs = await _phongRepository.GetFeaturedRoomsAsync(maLoaiPhong, soNguoi, 6);
             return View(phongs);
         }
 
@@ -68,44 +53,14 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             ngayNhan ??= DateTime.Today;
             ngayTra ??= DateTime.Today.AddDays(1);
 
-            var query = _context.Phongs
-                .Include(p => p.LoaiPhong)
-                .AsQueryable();
-
-            if (maLoaiPhong.HasValue && maLoaiPhong.Value > 0)
-            {
-                query = query.Where(p => p.MaLoaiPhong == maLoaiPhong.Value);
-            }
-
-            if (soNguoi.HasValue && soNguoi.Value > 0)
-            {
-                query = query.Where(p => p.SucChua >= soNguoi.Value);
-            }
-
-            if (giaTu.HasValue)
-            {
-                query = query.Where(p => p.GiaMotDem >= giaTu.Value);
-            }
-
-            if (giaDen.HasValue)
-            {
-                query = query.Where(p => p.GiaMotDem <= giaDen.Value);
-            }
-
             // Kiểm tra phòng bận trong khoảng thời gian đã chọn
             var checkIn = ngayNhan.Value.Date;
             var checkOut = ngayTra.Value.Date;
 
-            var phongBanIds = await _context.DatPhongs
-                .Where(d => (d.TrangThai == "Đã xác nhận" || d.TrangThai == "Đã nhận phòng")
-                            && d.NgayNhanPhong.Date < checkOut
-                            && d.NgayTraPhong.Date > checkIn)
-                .Select(d => d.MaPhong)
-                .Distinct()
-                .ToListAsync();
+            var phongBanIds = await _phongRepository.GetOccupiedRoomIdsAsync(checkIn, checkOut, includeChoXacNhan: false);
 
             ViewBag.PhongBanIds = phongBanIds;
-            ViewBag.LoaiPhongs = await _context.LoaiPhongs.ToListAsync();
+            ViewBag.LoaiPhongs = await _phongRepository.GetLoaiPhongsAsync();
             ViewBag.NgayNhan = checkIn.ToString("yyyy-MM-dd");
             ViewBag.NgayTra = checkOut.ToString("yyyy-MM-dd");
             ViewBag.SoNguoi = soNguoi;
@@ -113,7 +68,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             ViewBag.GiaTu = giaTu;
             ViewBag.GiaDen = giaDen;
 
-            var danhSach = await query.ToListAsync();
+            var danhSach = await _phongRepository.GetCustomerRoomsAsync(maLoaiPhong, soNguoi, giaTu, giaDen);
             return View(danhSach);
         }
 
@@ -124,18 +79,11 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         {
             if (id == null) return NotFound();
 
-            var phong = await _context.Phongs
-                .Include(p => p.LoaiPhong)
-                .FirstOrDefaultAsync(p => p.MaPhong == id);
-
+            var phong = await _phongRepository.GetByIdWithLoaiPhongAsync(id.Value);
             if (phong == null) return NotFound();
 
             // Lấy các phòng liên quan cùng loại phòng
-            ViewBag.PhongLienQuan = await _context.Phongs
-                .Include(p => p.LoaiPhong)
-                .Where(p => p.MaLoaiPhong == phong.MaLoaiPhong && p.MaPhong != phong.MaPhong)
-                .Take(3)
-                .ToListAsync();
+            ViewBag.PhongLienQuan = await _phongRepository.GetRelatedRoomsAsync(phong.MaLoaiPhong, phong.MaPhong, 3);
 
             return View(phong);
         }

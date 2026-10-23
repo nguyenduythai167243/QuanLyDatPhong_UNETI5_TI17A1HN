@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 
 
+using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var dbDir = Path.Combine(builder.Environment.ContentRootPath, "bin", "Debug", "net10.0");
@@ -17,6 +19,8 @@ if (connectionString.Contains("|DataDirectory|"))
 
 builder.Services.AddDbContext<QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IPhongRepository, PhongRepository>();
 
 builder.Services.AddControllersWithViews();
 
