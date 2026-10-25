@@ -21,6 +21,7 @@ builder.Services.AddDbContext<QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbC
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IPhongRepository, PhongRepository>();
+builder.Services.AddScoped<IThongkeRepository, ThongKeRepository>();
 
 builder.Services.AddControllersWithViews();
 

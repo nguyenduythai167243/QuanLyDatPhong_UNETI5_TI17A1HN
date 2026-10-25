@@ -3,106 +3,74 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 {
     public class ThongKeController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IThongkeRepository _thongKeRepository;
 
-        public ThongKeController(ApplicationDbContext context)
+        public ThongKeController(IThongkeRepository thongKeRepository)
         {
-            _context = context;
+            _thongKeRepository = thongKeRepository;
         }
+    
 
         public async Task<IActionResult> Index(int? nam)
         {
             var homNay = DateTime.Today;
             var namThongKe = nam ?? homNay.Year;
 
-            var dauNam = new DateTime(namThongKe, 1, 1);
-            var dauNamSau = dauNam.AddYears(1);
-
             // 1. Tổng số lượt đặt phòng
             ViewBag.TongDatPhong =
-                await _context.DatPhongs.CountAsync();
+                await _thongKeRepository.GetTongDatPhongAsync();
 
             // 2. Tổng số hóa đơn
             ViewBag.TongHoaDon =
-                await _context.HoaDons.CountAsync();
+                await _thongKeRepository.GetTongHoaDonAsync();
 
             // 3. Số hóa đơn đã thanh toán
             ViewBag.HoaDonDaThanhToan =
-                await _context.HoaDons.CountAsync(
-                    h => h.TrangThai == TrangThaiTT.DaThanhToan);
+                await _thongKeRepository.GetHoaDonDaThanhToanAsync();
 
             // 4. Số hóa đơn chưa thanh toán
             ViewBag.HoaDonChuaThanhToan =
-                await _context.HoaDons.CountAsync(
-                    h => h.TrangThai == TrangThaiTT.ChuaThanhToan);
+                await _thongKeRepository.GetHoaDonChuaThanhToanAsync();
 
             // 5. Tổng doanh thu thực thu
-            var hoaDonDaThanhToan = _context.HoaDons
-                .Where(h => h.TrangThai == TrangThaiTT.DaThanhToan);
-
             ViewBag.TongDoanhThu =
-                await hoaDonDaThanhToan
-                    .SumAsync(h => (decimal?)h.TongTienThanhToan) ?? 0m;
+                await _thongKeRepository.GetTongDoanhThuAsync();
 
             // 6. Tổng tiền phòng đã thu
             ViewBag.DoanhThuPhong =
-                await hoaDonDaThanhToan
-                    .SumAsync(h => (decimal?)h.TienPhong) ?? 0m;
+                await _thongKeRepository.GetDoanhThuPhongAsync();
 
             // 7. Tổng tiền dịch vụ trên hóa đơn đã thanh toán
             ViewBag.DoanhThuDichVu =
-                await hoaDonDaThanhToan
-                    .SumAsync(h => (decimal?)h.TienDichVu) ?? 0m;
+                await _thongKeRepository.GetDoanhThuDichVuAsync();
 
-            // 8. Tổng tiền dịch vụ phát sinh đã ghi nhận,
-            // không tính các dịch vụ đã hủy
-            var dichVuDaGhiNhan = _context.DichVuPhatSinhs
-                .Where(d => d.TrangThai == TrangThaiDV.DaGhiNhan);
-
+            // 8. Số lượt dịch vụ đã ghi nhận
             ViewBag.SoLuotDichVu =
-                await dichVuDaGhiNhan.CountAsync();
+                await _thongKeRepository.GetSoLuotDichVuAsync();
 
+            // 9. Tổng tiền dịch vụ phát sinh đã ghi nhận
             ViewBag.TongTienDichVuPhatSinh =
-                await dichVuDaGhiNhan
-                    .SumAsync(d => (decimal?)(d.SoLuong * d.DonGia))
-                    ?? 0m;
+                await _thongKeRepository.GetTongTienDichVuPhatSinhAsync();
 
-            // 9. Doanh thu theo tháng trong năm được chọn
-            var doanhThuTheoThang = await _context.HoaDons
-                .Where(h =>
-                    h.TrangThai == TrangThaiTT.DaThanhToan &&
-                    h.NgayLap >= dauNam &&
-                    h.NgayLap < dauNamSau)
-                .GroupBy(h => h.NgayLap.Month)
-                .Select(g => new
-                {
-                    Thang = g.Key,
-                    DoanhThu = g.Sum(h => h.TongTienThanhToan)
-                })
-                .ToListAsync();
+            // 10. Doanh thu theo 12 tháng của năm được chọn
+            var doanhThuTheoThang =
+                await _thongKeRepository.GetDoanhThuTheoThangAsync(namThongKe);
 
-            // Hiển thị đủ 12 tháng, kể cả tháng chưa có doanh thu
-            ViewBag.DoanhThuTheoThang = Enumerable.Range(1, 12)
-                .Select(thang => new
-                {
-                    Thang = thang,
-                    DoanhThu = doanhThuTheoThang
-                        .Where(x => x.Thang == thang)
-                        .Select(x => x.DoanhThu)
-                        .FirstOrDefault()
-                })
-                .ToList();
+            ViewBag.DoanhThuTheoThang = doanhThuTheoThang;
 
-            // 10. Tổng doanh thu trong năm được chọn
+            // Tổng doanh thu trong năm được chọn
             ViewBag.DoanhThuNam =
                 doanhThuTheoThang.Sum(x => x.DoanhThu);
 
             ViewBag.Nam = namThongKe;
+
+            // Danh sách 5 năm để chọn thống kê
             ViewBag.DanhSachNam = Enumerable
                 .Range(homNay.Year - 4, 5)
                 .Reverse()
