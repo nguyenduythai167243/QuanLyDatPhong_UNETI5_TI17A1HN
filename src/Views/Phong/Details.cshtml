@@ -1,87 +1,322 @@
 @model QuanLyDatPhong_UNETI5_TI17A1HN.Models.Phong
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết phòng " + Model.SoPhong;
 }
 
-<h1>Details</h1>
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Quản lý phòng</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Hồ sơ phòng @Model.SoPhong</li>
+        </ol>
+    </nav>
 
-<div>
-    <h4>Phong</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SoPhong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SoPhong)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tang)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tang)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SucChua)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SucChua)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GiaMotDem)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GiaMotDem)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DienTich)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DienTich)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TienNghi)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TienNghi)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MoTa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MoTa)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LoaiPhong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LoaiPhong)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DatPhongs)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DatPhongs)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.MaPhong">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <!-- Header Banner Phòng -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+        <div class="card-body p-4 p-md-5 text-white" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="badge bg-warning text-dark fs-6 px-3 py-1.5 rounded-pill fw-bold">
+                            TẦNG @Model.Tang
+                        </span>
+                        @switch (Model.TrangThai)
+                        {
+                            case "Sẵn sàng":
+                                <span class="badge bg-success fs-6 px-3 py-1.5 rounded-pill">
+                                    <i class="bi bi-check-circle-fill me-1"></i>Sẵn Sàng Đón Khách
+                                </span>
+                                break;
+                            case "Đang bảo trì":
+                                <span class="badge bg-warning text-dark fs-6 px-3 py-1.5 rounded-pill">
+                                    <i class="bi bi-tools me-1"></i>Đang Bảo Trì
+                                </span>
+                                break;
+                            case "Ngừng kinh doanh":
+                                <span class="badge bg-danger fs-6 px-3 py-1.5 rounded-pill">
+                                    <i class="bi bi-slash-circle-fill me-1"></i>Ngừng Kinh Doanh
+                                </span>
+                                break;
+                            default:
+                                <span class="badge bg-secondary fs-6 px-3 py-1.5 rounded-pill">@Model.TrangThai</span>
+                                break;
+                        }
+                    </div>
+                    <h1 class="display-6 fw-bold mb-1">Phòng @Model.SoPhong</h1>
+                    <p class="fs-5 opacity-90 mb-0">
+                        <i class="bi bi-tag-fill me-1"></i>@(Model.LoaiPhong?.TenLoaiPhong ?? "Chưa phân loại")
+                    </p>
+                </div>
+
+                <div class="text-md-end bg-white bg-opacity-10 p-3 rounded-3 backdrop-blur">
+                    <small class="text-uppercase tracking-wider opacity-75 d-block">Giá niêm yết mỗi đêm</small>
+                    <div class="display-6 fw-bold text-warning">
+                        @Model.GiaMotDem.ToString("N0") <span class="fs-5 fw-normal text-white">VNĐ</span>
+                    </div>
+                    <small class="opacity-75">Sức chứa tối đa: @Model.SucChua người</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action bar -->
+        <div class="card-footer bg-white py-3 px-4 d-flex flex-wrap justify-content-between align-items-center gap-2 border-top">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách
+            </a>
+            <div class="d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@Model.MaPhong" class="btn btn-warning fw-semibold text-dark shadow-sm">
+                    <i class="bi bi-pencil-square me-1"></i> Chỉnh sửa phòng
+                </a>
+                <button type="button" class="btn btn-outline-danger shadow-sm" data-bs-toggle="modal" data-bs-target="#deleteDetailModal">
+                    <i class="bi bi-trash3 me-1"></i> Xóa phòng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xác Nhận Xóa -->
+    <div class="modal fade" id="deleteDetailModal" tabindex="-1" aria-labelledby="deleteDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-danger text-white py-3">
+                    <h5 class="modal-title fw-bold" id="deleteDetailModalLabel">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>Xác Nhận Xóa Phòng @Model.SoPhong
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="mb-3 text-secondary">
+                        Bạn có chắc chắn muốn xóa phòng <strong class="text-dark font-monospace fs-5">@Model.SoPhong</strong> khỏi hệ thống?
+                    </p>
+                    <div class="alert alert-warning small mb-0">
+                        <i class="bi bi-info-circle me-1"></i>
+                        <strong>Lưu ý:</strong> Nếu phòng đã có lịch sử đặt phòng, hệ thống sẽ ngăn chặn việc xóa và gợi ý chuyển sang <em>"Ngừng kinh doanh"</em> để bảo đảm toàn vẹn dữ liệu.
+                    </div>
+                </div>
+                <div class="modal-footer bg-light py-2">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+                    <form asp-action="Delete" asp-route-id="@Model.MaPhong" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger fw-semibold">
+                            <i class="bi bi-trash3 me-1"></i> Xác nhận xóa
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Cột trái: Thông số & Tiện nghi -->
+        <div class="col-lg-6">
+            <!-- Thẻ Thông số chi tiết -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <h5 class="fw-bold mb-0 text-dark">
+                        <i class="bi bi-sliders text-primary me-2"></i>Thông Số Kỹ Thuật
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="border rounded-3 p-3 h-100 bg-light bg-opacity-50">
+                                <div class="text-muted small text-uppercase fw-semibold mb-1">Số phòng</div>
+                                <div class="fs-5 fw-bold text-dark font-monospace">@Model.SoPhong</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="border rounded-3 p-3 h-100 bg-light bg-opacity-50">
+                                <div class="text-muted small text-uppercase fw-semibold mb-1">Vị trí tầng</div>
+                                <div class="fs-5 fw-bold text-primary">Tầng @Model.Tang</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="border rounded-3 p-3 h-100 bg-light bg-opacity-50">
+                                <div class="text-muted small text-uppercase fw-semibold mb-1">Hạng loại phòng</div>
+                                <div class="fs-5 fw-bold text-dark">@(Model.LoaiPhong?.TenLoaiPhong ?? "—")</div>
+                                <small class="text-muted">Mã: #@Model.MaLoaiPhong</small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="border rounded-3 p-3 h-100 bg-light bg-opacity-50">
+                                <div class="text-muted small text-uppercase fw-semibold mb-1">Sức chứa</div>
+                                <div class="fs-5 fw-bold text-dark">
+                                    <i class="bi bi-people-fill text-muted me-1"></i>@Model.SucChua người
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="border rounded-3 p-3 h-100 bg-light bg-opacity-50">
+                                <div class="text-muted small text-uppercase fw-semibold mb-1">Diện tích phòng</div>
+                                <div class="fs-5 fw-bold text-dark">@Model.DienTich.ToString("G29") m²</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="border rounded-3 p-3 h-100 bg-light bg-opacity-50">
+                                <div class="text-muted small text-uppercase fw-semibold mb-1">Giá một đêm</div>
+                                <div class="fs-5 fw-bold text-danger">@Model.GiaMotDem.ToString("N0") VNĐ</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thẻ Tiện nghi & Mô tả -->
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <h5 class="fw-bold mb-0 text-dark">
+                        <i class="bi bi-stars text-warning me-2"></i>Tiện Nghi & Mô Tả
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <h6 class="fw-bold text-muted small text-uppercase mb-2">Tiện nghi trang bị</h6>
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        @if (!string.IsNullOrWhiteSpace(Model.TienNghi))
+                        {
+                            var amenities = Model.TienNghi.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                            foreach (var am in amenities)
+                            {
+                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill fs-6 fw-normal">
+                                    <i class="bi bi-check2-circle me-1"></i>@am
+                                </span>
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">Chưa cập nhật tiện nghi.</span>
+                        }
+                    </div>
+
+                    <h6 class="fw-bold text-muted small text-uppercase mb-2">Mô tả chi tiết phòng</h6>
+                    <div class="p-3 bg-light rounded-3 text-secondary lh-lg">
+                        @(string.IsNullOrWhiteSpace(Model.MoTa) ? "Chưa có mô tả cụ thể cho phòng này." : Model.MoTa)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột phải: Lịch đặt phòng & Trạng thái hiện tại -->
+        <div class="col-lg-6">
+            <!-- Thẻ Đổi trạng thái nhanh -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <h5 class="fw-bold mb-0 text-dark">
+                        <i class="bi bi-arrow-repeat text-info me-2"></i>Chuyển Đổi Trạng Thái Vận Hành
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <p class="text-muted small mb-3">
+                        Thực hiện cập nhật tức thời trạng thái của phòng mà không cần vào form sửa thông tin:
+                    </p>
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <form asp-action="CapNhatTrangThai" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@Model.MaPhong" />
+                                <input type="hidden" name="trangThaiMoi" value="Sẵn sàng" />
+                                <button type="submit" class="btn btn-outline-success w-100 py-2 @(Model.TrangThai == "Sẵn sàng" ? "active disabled" : "")">
+                                    <i class="bi bi-check-circle me-1"></i> Sẵn sàng
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <form asp-action="CapNhatTrangThai" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@Model.MaPhong" />
+                                <input type="hidden" name="trangThaiMoi" value="Đang bảo trì" />
+                                <button type="submit" class="btn btn-outline-warning w-100 py-2 @(Model.TrangThai == "Đang bảo trì" ? "active disabled" : "")">
+                                    <i class="bi bi-tools me-1"></i> Bảo trì
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <form asp-action="CapNhatTrangThai" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@Model.MaPhong" />
+                                <input type="hidden" name="trangThaiMoi" value="Ngừng kinh doanh" />
+                                <button type="submit" class="btn btn-outline-danger w-100 py-2 @(Model.TrangThai == "Ngừng kinh doanh" ? "active disabled" : "")">
+                                    <i class="bi bi-slash-circle me-1"></i> Ngừng KD
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thẻ Lịch đặt phòng gần đây -->
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0 text-dark">
+                        <i class="bi bi-calendar2-check text-primary me-2"></i>Lịch Đặt Phòng Đang Hiệu Lực
+                    </h5>
+                    @if (Model.DatPhongs != null && Model.DatPhongs.Any())
+                    {
+                        <span class="badge bg-primary rounded-pill">@Model.DatPhongs.Count đơn</span>
+                    }
+                </div>
+                <div class="card-body p-0">
+                    @if (Model.DatPhongs == null || !Model.DatPhongs.Any())
+                    {
+                        <div class="p-4 text-center text-muted">
+                            <i class="bi bi-calendar-x fs-1 text-secondary opacity-50 mb-2 d-block"></i>
+                            <h6 class="fw-bold">Phòng chưa có lịch đặt nào đang hiệu lực</h6>
+                            <p class="small mb-0">Phòng hoàn toàn sẵn sàng tiếp nhận lượt đặt mới của khách hàng.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light small text-uppercase">
+                                    <tr>
+                                        <th class="ps-3 py-2">Mã Đơn</th>
+                                        <th>Thời Gian Lưu Trú</th>
+                                        <th>Trạng Thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var dp in Model.DatPhongs.OrderByDescending(d => d.NgayNhanPhong))
+                                    {
+                                        <tr>
+                                            <td class="ps-3 fw-bold font-monospace">#@dp.MaDatPhong</td>
+                                            <td>
+                                                <div class="small fw-semibold text-dark">
+                                                    @dp.NgayNhanPhong.ToString("dd/MM/yyyy") &rarr; @dp.NgayTraPhong.ToString("dd/MM/yyyy")
+                                                </div>
+                                                <small class="text-muted">
+                                                    (@((dp.NgayTraPhong.Date - dp.NgayNhanPhong.Date).Days) đêm)
+                                                </small>
+                                            </td>
+                                            <td>
+                                                @switch (dp.TrangThai)
+                                                {
+                                                    case "Đã xác nhận":
+                                                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle">Đã xác nhận</span>
+                                                        break;
+                                                    case "Đã nhận phòng":
+                                                        <span class="badge bg-success-subtle text-success border border-success-subtle">Đang lưu trú</span>
+                                                        break;
+                                                    default:
+                                                        <span class="badge bg-secondary-subtle text-secondary">@dp.TrangThai</span>
+                                                        break;
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

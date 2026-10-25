@@ -1,79 +1,242 @@
 @model QuanLyDatPhong_UNETI5_TI17A1HN.Models.Phong
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh sửa phòng " + Model.SoPhong;
 }
 
-<h1>Edit</h1>
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Quản lý phòng</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa phòng @Model.SoPhong</li>
+        </ol>
+    </nav>
 
-<h4>Phong</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="MaPhong" />
-            <div class="form-group">
-                <label asp-for="SoPhong" class="control-label"></label>
-                <input asp-for="SoPhong" class="form-control" />
-                <span asp-validation-for="SoPhong" class="text-danger"></span>
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <!-- Card Header -->
+                <div class="card-header bg-warning text-dark py-3 px-4 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="mb-0 fw-bold">
+                            <i class="bi bi-pencil-square me-2"></i>Chỉnh Sửa Phòng @Model.SoPhong
+                        </h4>
+                        <small class="text-muted">Cập nhật hạng phòng, mức giá, diện tích và trạng thái vận hành</small>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a asp-action="Details" asp-route-id="@Model.MaPhong" class="btn btn-sm btn-outline-dark fw-semibold">
+                            <i class="bi bi-eye me-1"></i> Xem chi tiết
+                        </a>
+                        <a asp-action="Index" class="btn btn-sm btn-dark fw-semibold">
+                            <i class="bi bi-arrow-left me-1"></i> Danh sách
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-body p-4 p-md-5 bg-white">
+                    <form asp-action="Edit" method="post" id="editRoomForm">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="MaPhong" />
+
+                        @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show shadow-sm mb-4" role="alert">
+                                <div class="d-flex align-items-center mb-1">
+                                    <i class="bi bi-exclamation-triangle-fill fs-5 me-2"></i>
+                                    <strong>Không thể lưu thay đổi do các lỗi sau:</strong>
+                                </div>
+                                <div asp-validation-summary="All" class="text-danger small mb-0 ps-4"></div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+
+                        <!-- Phần 1: Thông tin cơ bản -->
+                        <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                            <i class="bi bi-info-circle text-primary me-2"></i>1. Định Danh & Loại Phòng
+                        </h5>
+
+                        <div class="row g-3 mb-4">
+                            <!-- Số phòng -->
+                            <div class="col-md-4">
+                                <label asp-for="SoPhong" class="form-label fw-semibold">
+                                    Số Phòng <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-door-closed"></i></span>
+                                    <input asp-for="SoPhong" class="form-control" required />
+                                </div>
+                                <span asp-validation-for="SoPhong" class="text-danger small"></span>
+                                <small class="text-muted">Không trùng với phòng khác</small>
+                            </div>
+
+                            <!-- Loại phòng -->
+                            <div class="col-md-5">
+                                <label asp-for="MaLoaiPhong" class="form-label fw-semibold">
+                                    Hạng Loại Phòng <span class="text-danger">*</span>
+                                </label>
+                                <select asp-for="MaLoaiPhong" class="form-select" asp-items="ViewBag.MaLoaiPhong" required>
+                                </select>
+                                <span asp-validation-for="MaLoaiPhong" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Tầng -->
+                            <div class="col-md-3">
+                                <label asp-for="Tang" class="form-label fw-semibold">
+                                    Tầng <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-layers"></i></span>
+                                    <input asp-for="Tang" type="number" min="1" class="form-control" required />
+                                </div>
+                                <span asp-validation-for="Tang" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <!-- Phần 2: Thông số kỹ thuật & Giá -->
+                        <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                            <i class="bi bi-cash-stack text-success me-2"></i>2. Thông Số Kỹ Thuật & Giá Thuê
+                        </h5>
+
+                        <div class="row g-3 mb-4">
+                            <!-- Sức chứa -->
+                            <div class="col-md-4">
+                                <label asp-for="SucChua" class="form-label fw-semibold">
+                                    Sức Chứa Tối Đa <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-people"></i></span>
+                                    <input asp-for="SucChua" type="number" min="1" max="20" class="form-control" required />
+                                    <span class="input-group-text bg-light">người</span>
+                                </div>
+                                <span asp-validation-for="SucChua" class="text-danger small"></span>
+                                <small class="text-muted">Không vượt quá sức chứa loại phòng</small>
+                            </div>
+
+                            <!-- Giá một đêm -->
+                            <div class="col-md-4">
+                                <label asp-for="GiaMotDem" class="form-label fw-semibold">
+                                    Giá Một Đêm <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <input asp-for="GiaMotDem" type="number" min="1000" step="50000" class="form-control fw-bold text-danger" required />
+                                    <span class="input-group-text bg-light fw-semibold">VNĐ</span>
+                                </div>
+                                <span asp-validation-for="GiaMotDem" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Diện tích -->
+                            <div class="col-md-4">
+                                <label asp-for="DienTich" class="form-label fw-semibold">
+                                    Diện Tích Phòng <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <input asp-for="DienTich" type="number" min="5" step="0.5" class="form-control" required />
+                                    <span class="input-group-text bg-light">m²</span>
+                                </div>
+                                <span asp-validation-for="DienTich" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <!-- Phần 3: Trạng thái vận hành & Cảnh báo nghiệp vụ -->
+                        <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                            <i class="bi bi-toggles text-warning me-2"></i>3. Trạng Thái Vận Hành
+                        </h5>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="TrangThai" class="form-label fw-semibold">
+                                    Trạng Thái Hiện Tại <span class="text-danger">*</span>
+                                </label>
+                                <select asp-for="TrangThai" class="form-select">
+                                    <option value="Sẵn sàng" selected="@(Model.TrangThai == "Sẵn sàng")">✓ Sẵn sàng (Đón tiếp khách)</option>
+                                    <option value="Đang bảo trì" selected="@(Model.TrangThai == "Đang bảo trì")">⚠ Đang bảo trì (Tạm ngưng phục vụ)</option>
+                                    <option value="Ngừng kinh doanh" selected="@(Model.TrangThai == "Ngừng kinh doanh")">✕ Ngừng kinh doanh (Dừng khai thác)</option>
+                                </select>
+                                <span asp-validation-for="TrangThai" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card bg-light border-0 p-3 h-100 rounded-3">
+                                    <div class="d-flex align-items-start gap-2 text-muted small">
+                                        <i class="bi bi-shield-exclamation text-warning fs-5"></i>
+                                        <div>
+                                            <strong class="text-dark">Ràng buộc nghiệp vụ:</strong>
+                                            Hệ thống sẽ từ chối chuyển sang <em>"Đang bảo trì"</em> hoặc <em>"Ngừng kinh doanh"</em> nếu phòng đang có lịch đặt phòng còn hiệu lực trong tương lai.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phần 4: Tiện nghi & Mô tả -->
+                        <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                            <i class="bi bi-stars text-warning me-2"></i>4. Tiện Nghi & Mô Tả Phòng
+                        </h5>
+
+                        <div class="mb-3">
+                            <label asp-for="TienNghi" class="form-label fw-semibold">
+                                Tiện Nghi Đi Kèm <span class="text-danger">*</span>
+                            </label>
+                            <textarea asp-for="TienNghi" id="tienNghiEditInput" class="form-control" rows="2" required></textarea>
+                            <span asp-validation-for="TienNghi" class="text-danger small"></span>
+
+                            <!-- Gợi ý tiện nghi nhanh -->
+                            <div class="mt-2 d-flex flex-wrap align-items-center gap-1">
+                                <small class="text-muted me-1"><i class="bi bi-lightbulb me-1"></i>Gợi ý chọn nhanh:</small>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill quick-amenity" data-amenity="Wifi tốc độ cao">Wifi tốc độ cao</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill quick-amenity" data-amenity="SmartTV 55 inch">SmartTV 55"</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill quick-amenity" data-amenity="Điều hòa 2 chiều">Điều hòa 2 chiều</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill quick-amenity" data-amenity="Bồn tắm nằm">Bồn tắm nằm</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill quick-amenity" data-amenity="Ban công ngắm phố">Ban công ngắm phố</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill quick-amenity" data-amenity="Tủ lạnh Minibar">Minibar</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill quick-amenity" data-amenity="Máy sấy tóc">Máy sấy tóc</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 rounded-pill quick-amenity" data-amenity="Bình nóng lạnh">Bình nóng lạnh</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="MoTa" class="form-label fw-semibold">
+                                Mô Tả Chi Tiết Không Gian Phòng <span class="text-danger">*</span>
+                            </label>
+                            <textarea asp-for="MoTa" class="form-control" rows="3" required></textarea>
+                            <span asp-validation-for="MoTa" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Nút Submit & Hủy -->
+                        <div class="d-flex justify-content-between align-items-center border-top pt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4 py-2">
+                                <i class="bi bi-arrow-left me-1"></i> Hủy Bỏ
+                            </a>
+                            <button type="submit" class="btn btn-warning px-5 py-2 fw-bold text-dark shadow-sm">
+                                <i class="bi bi-check2-circle me-1"></i> Lưu Cập Nhật
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Tang" class="control-label"></label>
-                <input asp-for="Tang" class="form-control" />
-                <span asp-validation-for="Tang" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SucChua" class="control-label"></label>
-                <input asp-for="SucChua" class="form-control" />
-                <span asp-validation-for="SucChua" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GiaMotDem" class="control-label"></label>
-                <input asp-for="GiaMotDem" class="form-control" />
-                <span asp-validation-for="GiaMotDem" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DienTich" class="control-label"></label>
-                <input asp-for="DienTich" class="form-control" />
-                <span asp-validation-for="DienTich" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TienNghi" class="control-label"></label>
-                <input asp-for="TienNghi" class="form-control" />
-                <span asp-validation-for="TienNghi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MoTa" class="control-label"></label>
-                <input asp-for="MoTa" class="form-control" />
-                <span asp-validation-for="MoTa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TrangThai" class="control-label"></label>
-                <input asp-for="TrangThai" class="form-control" />
-                <span asp-validation-for="TrangThai" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LoaiPhong" class="control-label"></label>
-                <input asp-for="LoaiPhong" class="form-control" />
-                <span asp-validation-for="LoaiPhong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DatPhongs" class="control-label"></label>
-                <input asp-for="DatPhongs" class="form-control" />
-                <span asp-validation-for="DatPhongs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.querySelectorAll('.quick-amenity').forEach(button => {
+            button.addEventListener('click', function () {
+                const amenity = this.getAttribute('data-amenity');
+                const textarea = document.getElementById('tienNghiEditInput');
+                let currentVal = textarea.value.trim();
+                if (currentVal.length === 0) {
+                    textarea.value = amenity;
+                } else {
+                    const list = currentVal.split(',').map(s => s.trim().toLowerCase());
+                    if (!list.includes(amenity.toLowerCase())) {
+                        textarea.value = currentVal + ', ' + amenity;
+                    }
+                }
+            });
+        });
+    </script>
 }

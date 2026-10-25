@@ -1,98 +1,151 @@
 @model QuanLyDatPhong_UNETI5_TI17A1HN.Models.Phong
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Xóa phòng " + Model.SoPhong;
+    bool coDatPhong = Model.DatPhongs != null && Model.DatPhongs.Any();
 }
 
-<h1>Delete</h1>
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Quản lý phòng</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Xác nhận xóa phòng @Model.SoPhong</li>
+        </ol>
+    </nav>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>QuanLyDatPhong_UNETI5_TI17A1HN.Models.Phong</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SoPhong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SoPhong)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tang)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tang)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SucChua)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SucChua)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GiaMotDem)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GiaMotDem)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DienTich)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DienTich)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TienNghi)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TienNghi)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MoTa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MoTa)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LoaiPhong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LoaiPhong)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DatPhongs)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DatPhongs)
-        </dd>
-    </dl>
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="MaPhong" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <!-- Header -->
+                <div class="card-header bg-danger text-white py-3 px-4 d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-trash3-fill fs-4"></i>
+                        <div>
+                            <h5 class="mb-0 fw-bold">Xác Nhận Xóa Phòng Khách Sạn</h5>
+                            <small class="opacity-75">Kiểm tra tính an toàn dữ liệu trước khi xóa</small>
+                        </div>
+                    </div>
+                    <a asp-action="Index" class="btn btn-sm btn-light text-danger fw-semibold">
+                        <i class="bi bi-arrow-left me-1"></i> Quay lại
+                    </a>
+                </div>
+
+                <div class="card-body p-4 p-md-5 bg-white">
+                    @if (coDatPhong)
+                    {
+                        <!-- Cảnh báo ràng buộc: Không thể xóa vì đã có lịch sử đặt phòng -->
+                        <div class="alert alert-warning border-warning shadow-sm rounded-3 p-4 mb-4" role="alert">
+                            <div class="d-flex align-items-start gap-3">
+                                <i class="bi bi-shield-lock-fill text-warning fs-1"></i>
+                                <div>
+                                    <h5 class="alert-heading fw-bold text-dark mb-2">
+                                        Không Thể Xóa Vĩnh Viễn Phòng @Model.SoPhong!
+                                    </h5>
+                                    <p class="mb-2 text-secondary">
+                                        Phòng này đã phát sinh <strong>@(Model.DatPhongs?.Count ?? 0)</strong> lượt đặt phòng trong hệ thống.
+                                        Theo quy định toàn vẹn dữ liệu, không được phép xóa phòng đã có lịch sử nhằm bảo đảm tính chính xác của hóa đơn, thống kê và báo cáo kế toán.
+                                    </p>
+                                    <hr>
+                                    <p class="mb-0 fw-semibold text-dark">
+                                        <i class="bi bi-lightbulb-fill text-warning me-1"></i>Gợi ý giải pháp:
+                                        Bạn có thể chuyển trạng thái phòng sang <strong>"Ngừng kinh doanh"</strong> để phòng không còn hiển thị cho khách đặt mà vẫn bảo toàn lịch sử dữ liệu.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card tóm tắt phòng -->
+                        <div class="card bg-light border-0 rounded-3 p-3 mb-4">
+                            <div class="row g-2 small">
+                                <div class="col-sm-4">
+                                    <span class="text-muted">Số phòng:</span> <strong class="text-dark font-monospace">@Model.SoPhong</strong>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="text-muted">Hạng phòng:</span> <strong class="text-primary">@(Model.LoaiPhong?.TenLoaiPhong ?? "—")</strong>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="text-muted">Trạng thái hiện tại:</span> <strong class="text-danger">@Model.TrangThai</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4 py-2">
+                                <i class="bi bi-arrow-left me-1"></i> Quay Lại Danh Sách
+                            </a>
+                            <form asp-action="CapNhatTrangThai" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@Model.MaPhong" />
+                                <input type="hidden" name="trangThaiMoi" value="Ngừng kinh doanh" />
+                                <button type="submit" class="btn btn-warning px-4 py-2 fw-bold text-dark shadow-sm">
+                                    <i class="bi bi-slash-circle me-1"></i> Chuyển Sang "Ngừng Kinh Doanh"
+                                </button>
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- Trường hợp phòng chưa có đặt phòng: Cho phép xóa -->
+                        <div class="alert alert-danger bg-danger-subtle text-danger border border-danger-subtle rounded-3 p-4 mb-4">
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="bi bi-exclamation-octagon-fill fs-2"></i>
+                                <div>
+                                    <h5 class="fw-bold mb-1">Bạn có chắc chắn muốn xóa phòng này?</h5>
+                                    <p class="mb-0 small">
+                                        Hành động này sẽ xóa hoàn toàn thông tin phòng <strong>@Model.SoPhong</strong> khỏi cơ sở dữ liệu và <strong>không thể hoàn tác</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thông tin chi tiết phòng sắp xóa -->
+                        <div class="card border rounded-3 p-4 mb-4 bg-light bg-opacity-50">
+                            <h6 class="fw-bold text-muted small text-uppercase mb-3">Thông Tin Phòng Sắp Xóa</h6>
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <span class="text-muted small d-block">Số phòng:</span>
+                                    <strong class="fs-5 text-dark font-monospace">@Model.SoPhong</strong>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span class="text-muted small d-block">Vị trí:</span>
+                                    <strong class="fs-6 text-dark">Tầng @Model.Tang</strong>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span class="text-muted small d-block">Hạng loại phòng:</span>
+                                    <strong class="fs-6 text-primary">@(Model.LoaiPhong?.TenLoaiPhong ?? "—")</strong>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span class="text-muted small d-block">Sức chứa tối đa:</span>
+                                    <strong class="fs-6 text-dark">@Model.SucChua người</strong>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span class="text-muted small d-block">Giá một đêm:</span>
+                                    <strong class="fs-6 text-danger">@Model.GiaMotDem.ToString("N0") VNĐ</strong>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span class="text-muted small d-block">Diện tích:</span>
+                                    <strong class="fs-6 text-dark">@Model.DienTich.ToString("G29") m²</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4 py-2">
+                                <i class="bi bi-x-circle me-1"></i> Hủy Bỏ
+                            </a>
+                            <form asp-action="Delete" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@Model.MaPhong" />
+                                <button type="submit" class="btn btn-danger px-4 py-2 fw-bold shadow-sm">
+                                    <i class="bi bi-trash3-fill me-1"></i> Xác Nhận Xóa Vĩnh Viễn
+                                </button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
