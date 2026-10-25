@@ -1,172 +1,589 @@
-﻿@{
+﻿
+@using System.Globalization
+
+@{
     ViewData["Title"] = "Dashboard";
-    var doanhThu = (decimal)(ViewBag.DoanhThuThangNay ?? 0m);
-    var tongTienDichVu = (decimal)(ViewBag.TongTienDichVu ?? 0m);
+
+    var culture = CultureInfo.GetCultureInfo("vi-VN");
+
+    decimal doanhThu = ViewBag.DoanhThuThangNay == null
+        ? 0m : Convert.ToDecimal(ViewBag.DoanhThuThangNay);
+
+    decimal tongTienDichVu = ViewBag.TongTienDichVu == null
+        ? 0m : Convert.ToDecimal(ViewBag.TongTienDichVu);
+
+    int tongLoaiPhong = ViewBag.TongLoaiPhong ?? 0;
+    int tongSoPhong = ViewBag.TongSoPhong ?? 0;
+    int phongSanSang = ViewBag.PhongSanSang ?? 0;
+    int tongKhachHang = ViewBag.TongKhachHang ?? 0;
+    int tongDatPhong = ViewBag.TongDatPhong ?? 0;
+    int datPhongChoXacNhan = ViewBag.DatPhongChoXacNhan ?? 0;
+    int khachDangLuuTru = ViewBag.KhachDangLuuTru ?? 0;
+    int datPhongSapDen = ViewBag.DatPhongSapDen ?? 0;
+    int tongHoaDon = ViewBag.TongHoaDon ?? 0;
+    int hoaDonChuaThanhToan = ViewBag.HoaDonChuaThanhToan ?? 0;
+
+    int phongChuaSanSang = Math.Max(0, tongSoPhong - phongSanSang);
+    int datPhongKhacCho = Math.Max(0, tongDatPhong - datPhongChoXacNhan);
+    int hoaDonDaThanhToan = Math.Max(0, tongHoaDon - hoaDonChuaThanhToan);
+
+    string TienViet(decimal soTien) => soTien.ToString("N0", culture) + " đ";
 }
 
-<div class="container-fluid py-4">
-    <div class="mb-4">
-        <h2 class="fw-bold">Tổng quan hệ thống</h2>
-        <p class="text-muted mb-0">
-            Thống kê tình hình quản lý đặt phòng khách sạn
-        </p>
+<style>
+    .dashboard-page {
+        color: #172b4d;
+    }
+
+    .dashboard-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 26px;
+    }
+
+    .dashboard-heading h2 {
+        font-weight: 750;
+        letter-spacing: -0.6px;
+        margin-bottom: 6px;
+    }
+
+    .dashboard-subtitle {
+        color: #748198;
+        margin-bottom: 0;
+    }
+
+    .dashboard-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
+        border: 1px solid #e6ecf5;
+        border-radius: 12px;
+        background: #fff;
+        color: #52627a;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .dashboard-card {
+        background: #fff;
+        border: 1px solid #e9eef5;
+        border-radius: 16px;
+        box-shadow: 0 4px 18px rgba(25, 42, 70, .045);
+        height: 100%;
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 9px 25px rgba(25, 42, 70, .08);
+    }
+
+    .dashboard-kpi {
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .kpi-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .kpi-title {
+        color: #718096;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .kpi-value {
+        color: #172b4d;
+        font-size: clamp(23px, 2vw, 30px);
+        font-weight: 750;
+        line-height: 1.25;
+        overflow-wrap: anywhere;
+        margin-bottom: 10px;
+    }
+
+    .kpi-description {
+        color: #8b97a9;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .kpi-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 46px;
+        flex: 0 0 46px;
+        border-radius: 14px;
+        font-size: 21px;
+    }
+
+    .icon-blue { background: #eaf2ff; color: #3977e3; }
+    .icon-cyan { background: #e4f8fc; color: #149bb7; }
+    .icon-green { background: #e5f8ef; color: #159b65; }
+    .icon-orange { background: #fff2df; color: #d88919; }
+    .icon-red { background: #ffebed; color: #dc4b5a; }
+    .icon-purple { background: #f0eaff; color: #8055d8; }
+
+    .kpi-accent {
+        height: 3px;
+        border-radius: 3px;
+        margin-top: 17px;
+    }
+
+    .accent-blue { background: #3977e3; }
+    .accent-cyan { background: #149bb7; }
+    .accent-green { background: #159b65; }
+    .accent-orange { background: #e6a23c; }
+    .accent-red { background: #dc4b5a; }
+    .accent-purple { background: #8055d8; }
+
+    .dashboard-section {
+        margin-top: 28px;
+    }
+
+    .dashboard-section-title {
+        font-size: 18px;
+        font-weight: 750;
+        margin-bottom: 4px;
+        color: #172b4d;
+    }
+
+    .dashboard-section-description {
+        color: #8491a5;
+        font-size: 13px;
+        margin-bottom: 0;
+    }
+
+    .chart-card {
+        padding: 22px;
+    }
+
+    .chart-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .chart-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #253858;
+        margin-bottom: 5px;
+    }
+
+    .chart-subtitle {
+        color: #8a96a8;
+        font-size: 12px;
+        margin-bottom: 0;
+    }
+
+    .chart-badge {
+        padding: 6px 10px;
+        border-radius: 9px;
+        background: #f0f5ff;
+        color: #3977e3;
+        font-size: 11px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 270px;
+        width: 100%;
+    }
+
+    .chart-container.doughnut-container {
+        height: 250px;
+    }
+
+    .dashboard-footer-note {
+        margin-top: 22px;
+        padding: 15px 18px;
+        border: 1px solid #e5edf9;
+        border-radius: 13px;
+        background: #f7faff;
+        color: #63738b;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    @@media (max-width: 767px) {
+        .dashboard-heading {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .dashboard-kpi,
+        .chart-card {
+            padding: 17px;
+        }
+
+        .chart-container {
+            height: 240px;
+        }
+    }
+</style>
+
+<div class="container-fluid py-4 dashboard-page">
+
+    <!-- Tiêu đề -->
+    <div class="dashboard-heading">
+        <div>
+            <h2>Tổng quan hệ thống</h2>
+            <p class="dashboard-subtitle">
+                Theo dõi tình hình phòng, đặt phòng và doanh thu khách sạn.
+            </p>
+        </div>
+
+        <div class="dashboard-label">
+            <span>📅</span>
+            <span>@DateTime.Today.ToString("dd/MM/yyyy")</span>
+        </div>
     </div>
 
+    <!-- Các chỉ số tổng quan -->
     <div class="row g-3">
-        <!-- Tổng loại phòng -->
+
         <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Tổng loại phòng</div>
-                    <h3 class="fw-bold text-primary">
-                        @ViewBag.TongLoaiPhong
-                    </h3>
-                    <small class="text-muted">Số loại phòng hiện có</small>
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Tổng loại phòng</div>
+                        <div class="kpi-value">@tongLoaiPhong</div>
+                        <p class="kpi-description">Các loại phòng hiện có</p>
+                    </div>
+                    <div class="kpi-icon icon-blue">▦</div>
                 </div>
+                <div class="kpi-accent accent-blue"></div>
             </div>
         </div>
 
-        <!-- Tổng số phòng -->
         <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Tổng số phòng</div>
-                    <h3 class="fw-bold text-info">
-                        @ViewBag.TongSoPhong
-                    </h3>
-                    <small class="text-muted">Tất cả phòng trong hệ thống</small>
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Tổng số phòng</div>
+                        <div class="kpi-value">@tongSoPhong</div>
+                        <p class="kpi-description">Tất cả phòng trong hệ thống</p>
+                    </div>
+                    <div class="kpi-icon icon-cyan">▤</div>
                 </div>
+                <div class="kpi-accent accent-cyan"></div>
             </div>
         </div>
 
-        <!-- Phòng sẵn sàng -->
         <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Phòng sẵn sàng</div>
-                    <h3 class="fw-bold text-success">
-                        @ViewBag.PhongSanSang
-                    </h3>
-                    <small class="text-muted">Có thể phục vụ khách</small>
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Phòng sẵn sàng</div>
+                        <div class="kpi-value">@phongSanSang</div>
+                        <p class="kpi-description">Phòng có thể phục vụ khách</p>
+                    </div>
+                    <div class="kpi-icon icon-green">✓</div>
                 </div>
+                <div class="kpi-accent accent-green"></div>
             </div>
         </div>
 
-        <!-- Tổng khách hàng -->
         <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Tổng khách hàng</div>
-                    <h3 class="fw-bold text-warning">
-                        @ViewBag.TongKhachHang
-                    </h3>
-                    <small class="text-muted">Khách hàng đã đăng ký</small>
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Tổng khách hàng</div>
+                        <div class="kpi-value">@tongKhachHang</div>
+                        <p class="kpi-description">Khách hàng đã đăng ký</p>
+                    </div>
+                    <div class="kpi-icon icon-orange">♙</div>
                 </div>
+                <div class="kpi-accent accent-orange"></div>
             </div>
         </div>
 
-        <!-- Tổng lượt đặt phòng -->
         <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Tổng lượt đặt phòng</div>
-                    <h3 class="fw-bold">
-                        @ViewBag.TongDatPhong
-                    </h3>
-                    <small class="text-muted">Tất cả lượt đặt phòng</small>
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Tổng lượt đặt phòng</div>
+                        <div class="kpi-value">@tongDatPhong</div>
+                        <p class="kpi-description">Tất cả lượt đặt phòng</p>
+                    </div>
+                    <div class="kpi-icon icon-purple">▣</div>
                 </div>
+                <div class="kpi-accent accent-purple"></div>
             </div>
         </div>
 
-        <!-- Chờ xác nhận -->
         <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Chờ xác nhận</div>
-                    <h3 class="fw-bold text-warning">
-                        @ViewBag.DatPhongChoXacNhan
-                    </h3>
-                    <small class="text-muted">Đặt phòng đang chờ xử lý</small>
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Chờ xác nhận</div>
+                        <div class="kpi-value">@datPhongChoXacNhan</div>
+                        <p class="kpi-description">Đặt phòng chờ xử lý</p>
+                    </div>
+                    <div class="kpi-icon icon-orange">◷</div>
                 </div>
+                <div class="kpi-accent accent-orange"></div>
             </div>
         </div>
 
-        <!-- Khách đang lưu trú -->
         <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Khách đang lưu trú</div>
-                    <h3 class="fw-bold text-success">
-                        @ViewBag.KhachDangLuuTru
-                    </h3>
-                    <small class="text-muted">Đã nhận phòng</small>
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Đang lưu trú</div>
+                        <div class="kpi-value">@khachDangLuuTru</div>
+                        <p class="kpi-description">Lượt đặt đã nhận phòng</p>
+                    </div>
+                    <div class="kpi-icon icon-green">⌂</div>
                 </div>
+                <div class="kpi-accent accent-green"></div>
             </div>
         </div>
 
-        <!-- Đặt phòng sắp đến -->
         <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Đặt phòng sắp đến</div>
-                    <h3 class="fw-bold text-info">
-                        @ViewBag.DatPhongSapDen
-                    </h3>
-                    <small class="text-muted">Trong 7 ngày tới</small>
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Đặt phòng sắp đến</div>
+                        <div class="kpi-value">@datPhongSapDen</div>
+                        <p class="kpi-description">Trong 7 ngày tới</p>
+                    </div>
+                    <div class="kpi-icon icon-cyan">➜</div>
                 </div>
+                <div class="kpi-accent accent-cyan"></div>
             </div>
         </div>
 
-        <!-- Doanh thu tháng -->
-        <div class="col-12 col-sm-6 col-xl-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Doanh thu tháng này</div>
-                    <h3 class="fw-bold text-success">
-                        @doanhThu.ToString("N0") đ
-                    </h3>
-                    <small class="text-muted">Hóa đơn đã thanh toán</small>
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Doanh thu tháng này</div>
+                        <div class="kpi-value text-success" style="font-size:clamp(21px, 2vw, 28px)">
+                            @TienViet(doanhThu)
+                        </div>
+                        <p class="kpi-description">Từ hóa đơn đã thanh toán</p>
+                    </div>
+                    <div class="kpi-icon icon-green">₫</div>
                 </div>
+                <div class="kpi-accent accent-green"></div>
             </div>
         </div>
 
-        <!-- Tổng hóa đơn -->
-        <div class="col-12 col-sm-6 col-xl-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Tổng số hóa đơn</div>
-                    <h3 class="fw-bold text-primary">
-                        @ViewBag.TongHoaDon
-                    </h3>
-                    <small class="text-muted">Tất cả hóa đơn</small>
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Tổng số hóa đơn</div>
+                        <div class="kpi-value">@tongHoaDon</div>
+                        <p class="kpi-description">Tất cả hóa đơn đã lập</p>
+                    </div>
+                    <div class="kpi-icon icon-blue">▤</div>
                 </div>
+                <div class="kpi-accent accent-blue"></div>
             </div>
         </div>
 
-        <!-- Hóa đơn chưa thanh toán -->
-        <div class="col-12 col-sm-6 col-xl-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Hóa đơn chưa thanh toán</div>
-                    <h3 class="fw-bold text-danger">
-                        @ViewBag.HoaDonChuaThanhToan
-                    </h3>
-                    <small class="text-muted">Cần theo dõi thanh toán</small>
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Hóa đơn chưa thanh toán</div>
+                        <div class="kpi-value text-danger">@hoaDonChuaThanhToan</div>
+                        <p class="kpi-description">Cần theo dõi thanh toán</p>
+                    </div>
+                    <div class="kpi-icon icon-red">!</div>
                 </div>
+                <div class="kpi-accent accent-red"></div>
             </div>
         </div>
 
-        <!-- Tiền dịch vụ phát sinh -->
-        <div class="col-12 col-sm-6 col-xl-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Tiền dịch vụ phát sinh</div>
-                    <h3 class="fw-bold text-info">
-                        @tongTienDichVu.ToString("N0") đ
-                    </h3>
-                    <small class="text-muted">Dịch vụ đã ghi nhận</small>
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="dashboard-card dashboard-kpi">
+                <div class="kpi-top">
+                    <div>
+                        <div class="kpi-title">Tiền dịch vụ phát sinh</div>
+                        <div class="kpi-value text-info" style="font-size:clamp(21px, 2vw, 28px)">
+                            @TienViet(tongTienDichVu)
+                        </div>
+                        <p class="kpi-description">Dịch vụ đã ghi nhận</p>
+                    </div>
+                    <div class="kpi-icon icon-cyan">♧</div>
+                </div>
+                <div class="kpi-accent accent-cyan"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Biểu đồ -->
+    <div class="dashboard-section">
+        <div class="mb-3">
+            <h4 class="dashboard-section-title">Phân tích tổng quan</h4>
+            <p class="dashboard-section-description">
+                Biểu đồ trực quan về tình trạng phòng, đặt phòng và hóa đơn.
+            </p>
+        </div>
+
+        <div class="row g-3">
+
+            <!-- Biểu đồ tình trạng phòng -->
+            <div class="col-12 col-lg-4">
+                <div class="dashboard-card chart-card">
+                    <div class="chart-heading">
+                        <div>
+                            <div class="chart-title">Tình trạng phòng</div>
+                            <p class="chart-subtitle">Phòng sẵn sàng và các phòng còn lại</p>
+                        </div>
+                        <span class="chart-badge">PHÒNG</span>
+                    </div>
+
+                    <div class="chart-container doughnut-container">
+                        <canvas id="roomChart"></canvas>
+                    </div>
                 </div>
             </div>
+
+            <!-- Biểu đồ đặt phòng -->
+            <div class="col-12 col-lg-4">
+                <div class="dashboard-card chart-card">
+                    <div class="chart-heading">
+                        <div>
+                            <div class="chart-title">Tình hình đặt phòng</div>
+                            <p class="chart-subtitle">Chờ xác nhận và các lượt đặt khác</p>
+                        </div>
+                        <span class="chart-badge">ĐẶT PHÒNG</span>
+                    </div>
+
+                    <div class="chart-container doughnut-container">
+                        <canvas id="bookingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biểu đồ hóa đơn -->
+            <div class="col-12 col-lg-4">
+                <div class="dashboard-card chart-card">
+                    <div class="chart-heading">
+                        <div>
+                            <div class="chart-title">Tình hình hóa đơn</div>
+                            <p class="chart-subtitle">Đã thanh toán và chưa thanh toán</p>
+                        </div>
+                        <span class="chart-badge">HÓA ĐƠN</span>
+                    </div>
+
+                    <div class="chart-container doughnut-container">
+                        <canvas id="invoiceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+
+    <div class="dashboard-footer-note">
+        <strong>Lưu ý:</strong> Các biểu đồ được tổng hợp từ số liệu Dashboard hiện có.
+        “Phòng còn lại” là phần chênh lệch giữa tổng số phòng và số phòng sẵn sàng;
+        không đồng nghĩa toàn bộ các phòng đó đều đang có khách lưu trú.
+        “Các lượt đặt khác” bao gồm tất cả lượt đặt không thuộc nhóm chờ xác nhận.
+        Số hóa đơn đã thanh toán được tính bằng tổng hóa đơn trừ hóa đơn chưa thanh toán.
+    </div>
+
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof Chart === "undefined") {
+                console.error("Không tải được Chart.js. Hãy kiểm tra kết nối Internet.");
+                return;
+            }
+
+            Chart.defaults.font.family =
+                "'Inter', 'Segoe UI', Arial, sans-serif";
+            Chart.defaults.color = "#8290a5";
+
+            const tooltipConfig = {
+                backgroundColor: "#172b4d",
+                padding: 12,
+                cornerRadius: 8,
+                displayColors: true
+            };
+
+            function createDoughnutChart(canvasId, labels, values, colors) {
+                const canvas = document.getElementById(canvasId);
+                if (!canvas) return;
+
+                new Chart(canvas, {
+                    type: "doughnut",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: values,
+                            backgroundColor: colors,
+                            borderColor: "#ffffff",
+                            borderWidth: 4,
+                            hoverOffset: 7
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: "70%",
+                        plugins: {
+                            legend: {
+                                position: "bottom",
+                                labels: {
+                                    usePointStyle: true,
+                                    pointStyle: "circle",
+                                    padding: 18,
+                                    boxWidth: 8,
+                                    font: { size: 11 }
+                                }
+                            },
+                            tooltip: tooltipConfig
+                        }
+                    }
+                });
+            }
+
+            createDoughnutChart(
+                "roomChart",
+                ["Phòng sẵn sàng", "Phòng còn lại"],
+                [@phongSanSang, @phongChuaSanSang],
+                ["#3977e3", "#e7edf6"]
+            );
+
+            createDoughnutChart(
+                "bookingChart",
+                ["Chờ xác nhận", "Các lượt đặt khác"],
+                [@datPhongChoXacNhan, @datPhongKhacCho],
+                ["#e6a23c", "#3977e3"]
+            );
+
+            createDoughnutChart(
+                "invoiceChart",
+                ["Đã thanh toán", "Chưa thanh toán"],
+                [@hoaDonDaThanhToan, @hoaDonChuaThanhToan],
+                ["#159b65", "#e25563"]
+            );
+        });
+    </script>
+}

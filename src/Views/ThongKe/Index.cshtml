@@ -1,195 +1,876 @@
 ﻿
+@using System.Text.Json
+@using System.Globalization
+
 @{
     ViewData["Title"] = "Thống kê";
 
     var doanhThuTheoThang = ViewBag.DoanhThuTheoThang;
+    var nam = (int)ViewBag.Nam;
+    var tongDoanhThu = (decimal)ViewBag.TongDoanhThu;
+    var tongDatPhong = (int)ViewBag.TongDatPhong;
+    var hoaDonDaThanhToan = (int)ViewBag.HoaDonDaThanhToan;
+    var hoaDonChuaThanhToan = (int)ViewBag.HoaDonChuaThanhToan;
+    var doanhThuPhong = (decimal)ViewBag.DoanhThuPhong;
+    var doanhThuDichVu = (decimal)ViewBag.DoanhThuDichVu;
+    var tongTienDichVuPhatSinh = (decimal)ViewBag.TongTienDichVuPhatSinh;
+    var soLuotDichVu = (int)ViewBag.SoLuotDichVu;
+    var doanhThuNam = (decimal)ViewBag.DoanhThuNam;
+
+    var danhSachThang = ((IEnumerable<dynamic>)doanhThuTheoThang).ToList();
+    var nhanThang = Enumerable.Range(1, 12)
+        .Select(t => $"Tháng {t}").ToArray();
+
+    var duLieuThang = Enumerable.Range(1, 12)
+        .Select(t =>
+        {
+            var item = danhSachThang.FirstOrDefault(x => (int)x.Thang == t);
+            return item == null ? 0m : (decimal)item.DoanhThu;
+        }).ToArray();
+
+    var tiLeThanhToan = hoaDonDaThanhToan + hoaDonChuaThanhToan > 0
+        ? Math.Round((double)hoaDonDaThanhToan /
+            (hoaDonDaThanhToan + hoaDonChuaThanhToan) * 100, 1)
+        : 0;
+
+    var viVn = CultureInfo.GetCultureInfo("vi-VN");
 }
 
-<div class="container-fluid py-4">
-    <div class="d-flex justify-content-between align-items-center
-                flex-wrap gap-3 mb-4">
-        <div>
-            <h2 class="fw-bold mb-1">Thống kê khách sạn</h2>
-            <p class="text-muted mb-0">
-                Tổng quan hoạt động và doanh thu
-            </p>
-        </div>
+<style>
+    .tk-page {
+        --navy: #152846;
+        --blue: #4678f5;
+        --muted: #8190a5;
+        --line: #e9eef5;
+        color: #26364d;
+        padding: 10px 0 35px;
+    }
 
-        <form asp-controller="ThongKe" asp-action="Index"
-              method="get" class="d-flex align-items-center gap-2">
-            <label for="nam" class="fw-semibold">Năm:</label>
-            <select id="nam" name="nam"
-                    class="form-select"
-                    onchange="this.form.submit()">
-                @foreach (var n in ViewBag.DanhSachNam)
-                {
-                    if (n == (int)ViewBag.Nam)
+    .tk-page * { box-sizing: border-box; }
+
+    .tk-hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 24px;
+        padding: 30px;
+        margin-bottom: 24px;
+        color: white;
+        background: linear-gradient(120deg, #142846 0%, #234c83 65%, #3979d8 100%);
+        box-shadow: 0 15px 35px rgba(26, 59, 104, .17);
+    }
+
+    .tk-hero::after {
+        content: "";
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        border: 45px solid rgba(255,255,255,.06);
+        border-radius: 50%;
+        right: -55px;
+        top: -115px;
+        pointer-events: none;
+    }
+
+    .tk-hero-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 22px;
+        flex-wrap: wrap;
+    }
+
+    .tk-eyebrow {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: #b8d4ff;
+        text-transform: uppercase;
+        margin-bottom: 9px;
+    }
+
+    .tk-title {
+        font-size: clamp(25px, 3vw, 34px);
+        line-height: 1.2;
+        font-weight: 800;
+        letter-spacing: -.8px;
+        margin: 0;
+        color: white;
+    }
+
+    .tk-subtitle {
+        color: #d2e1f5;
+        margin: 10px 0 0;
+        font-size: 13px;
+    }
+
+    .tk-filter {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px 10px 16px;
+        border: 1px solid rgba(255,255,255,.2);
+        border-radius: 14px;
+        background: rgba(255,255,255,.1);
+        backdrop-filter: blur(8px);
+    }
+
+    .tk-filter label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #e2edff;
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    .tk-filter select {
+        min-width: 95px;
+        border: 0;
+        border-radius: 9px;
+        padding: 9px 12px;
+        background: white;
+        color: #183251;
+        font-weight: 800;
+        outline: none;
+    }
+
+    .tk-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 17px;
+        margin-bottom: 22px;
+    }
+
+    .tk-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 19px;
+        padding: 21px;
+        box-shadow: 0 5px 22px rgba(27, 51, 82, .035);
+        min-width: 0;
+        transition: transform .2s, box-shadow .2s;
+    }
+
+    .tk-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(27, 51, 82, .08);
+    }
+
+    .tk-card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .tk-icon {
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        font-size: 22px;
+        font-weight: 800;
+    }
+
+    .tk-blue { color: #3975ef; background: #edf3ff; }
+    .tk-green { color: #119b73; background: #e7f9f2; }
+    .tk-purple { color: #8959db; background: #f2ecff; }
+    .tk-orange { color: #d98924; background: #fff3e1; }
+    .tk-red { color: #d94f64; background: #fff0f2; }
+
+    .tk-chip {
+        background: #f3f6fb;
+        color: #7e8ca1;
+        border-radius: 20px;
+        padding: 5px 8px;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: .5px;
+        white-space: nowrap;
+    }
+
+    .tk-label {
+        color: #7e8ca1;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.5;
+        min-height: 36px;
+    }
+
+    .tk-number {
+        color: var(--navy);
+        font-size: clamp(22px, 2vw, 29px);
+        font-weight: 800;
+        letter-spacing: -.7px;
+        line-height: 1.25;
+        overflow-wrap: anywhere;
+        margin-top: 4px;
+    }
+
+    .tk-foot {
+        color: #9ba7b7;
+        font-size: 10px;
+        line-height: 1.5;
+        margin-top: 10px;
+    }
+
+    .tk-panel {
+        min-width: 0;
+        padding: 24px;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        box-shadow: 0 5px 22px rgba(27, 51, 82, .035);
+        margin-bottom: 22px;
+    }
+
+    .tk-panel-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 23px;
+    }
+
+    .tk-panel-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--navy);
+        margin: 0;
+    }
+
+    .tk-panel-desc {
+        color: var(--muted);
+        font-size: 12px;
+        margin: 6px 0 0;
+        line-height: 1.6;
+    }
+
+    .tk-badge {
+        background: #edf3ff;
+        color: #3975ef;
+        padding: 7px 11px;
+        border-radius: 9px;
+        font-size: 10px;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .tk-chart {
+        position: relative;
+        height: 320px;
+        width: 100%;
+    }
+
+    .tk-chart-small {
+        height: 260px;
+    }
+
+    .tk-chart-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(280px, 1fr);
+        gap: 22px;
+    }
+
+    .tk-chart-grid .tk-panel { margin-bottom: 22px; }
+
+    .tk-mini-stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .tk-mini {
+        background: #f6f8fc;
+        border: 1px solid #eff2f7;
+        border-radius: 13px;
+        padding: 13px;
+        min-width: 0;
+    }
+
+    .tk-mini-label {
+        color: #7e8ca1;
+        font-size: 11px;
+        margin-bottom: 7px;
+    }
+
+    .tk-mini-value {
+        color: var(--navy);
+        font-size: 14px;
+        font-weight: 800;
+        overflow-wrap: anywhere;
+    }
+
+    .tk-table-wrap { overflow-x: auto; }
+
+    .tk-table {
+        width: 100%;
+        min-width: 530px;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .tk-table thead th {
+        padding: 14px 16px;
+        background: #f5f7fb;
+        color: #78869b;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: .6px;
+        font-weight: 800;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .tk-table thead th:first-child { border-radius: 10px 0 0 10px; }
+    .tk-table thead th:last-child { border-radius: 0 10px 10px 0; }
+
+    .tk-table tbody td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #eff2f7;
+        font-size: 13px;
+        color: #3d4d64;
+    }
+
+    .tk-table tbody tr:last-child td { border-bottom: 0; }
+    .tk-table tbody tr:hover { background: #fafbfe; }
+
+    .tk-month {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        color: var(--navy);
+    }
+
+    .tk-month-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #4678f5;
+        flex-shrink: 0;
+    }
+
+    .tk-money {
+        text-align: right;
+        font-weight: 800;
+        white-space: nowrap;
+        color: var(--navy) !important;
+    }
+
+    .tk-progress {
+        width: 100%;
+        height: 21px;
+        border-radius: 7px;
+        background: #edf1f7;
+        overflow: hidden;
+    }
+
+    .tk-progress-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 0;
+        height: 100%;
+        border-radius: 7px;
+        background: linear-gradient(90deg, #3975ef, #64a5ff);
+        color: white;
+        font-size: 10px;
+        font-weight: 800;
+        transition: width .5s ease;
+    }
+
+    .tk-table tfoot td {
+        background: #f4f7fc;
+        padding: 16px;
+        color: var(--navy);
+        font-weight: 800;
+        font-size: 13px;
+    }
+
+    .tk-table tfoot td:first-child { border-radius: 0 0 0 10px; }
+    .tk-table tfoot td:last-child { border-radius: 0 0 10px 0; }
+
+    .tk-note {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        background: #f1f6ff;
+        border: 1px solid #e1eaff;
+        color: #5b6e8a;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .tk-note strong { color: #234c83; }
+
+    .tk-empty {
+        padding: 30px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    @@media (max-width: 1100px) {
+        .tk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .tk-chart-grid { grid-template-columns: 1fr; }
+    }
+
+    @@media (max-width: 600px) {
+        .tk-hero { padding: 22px 18px; border-radius: 18px; }
+        .tk-filter { width: 100%; justify-content: space-between; }
+        .tk-grid { gap: 10px; }
+        .tk-card { padding: 15px; border-radius: 15px; }
+        .tk-icon { width: 37px; height: 37px; font-size: 19px; }
+        .tk-chip { display: none; }
+        .tk-card-top { margin-bottom: 14px; }
+        .tk-panel { padding: 16px; border-radius: 16px; }
+        .tk-chart { height: 260px; }
+        .tk-chart-small { height: 245px; }
+    }
+</style>
+
+<div class="tk-page">
+    <header class="tk-hero">
+        <div class="tk-hero-content">
+            <div>
+                <div class="tk-eyebrow">Hotel management · Analytics</div>
+                <h1 class="tk-title">Báo cáo &amp; thống kê</h1>
+                <p class="tk-subtitle">
+                    Theo dõi doanh thu, đặt phòng và hiệu quả kinh doanh khách sạn.
+                </p>
+            </div>
+
+            <form asp-controller="ThongKe" asp-action="Index"
+                  method="get" class="tk-filter">
+                <label for="nam">Năm thống kê</label>
+                <select id="nam" name="nam" onchange="this.form.submit()">
+                    @foreach (var n in ViewBag.DanhSachNam)
                     {
-                        <option value="@n" selected>@n</option>
-                    }
-                    else
-                    {
-                        <option value="@n">@n</option>
-                    }
-                }
-            </select>
-            <noscript>
-                <button type="submit" class="btn btn-primary">
-                    Xem
-                </button>
-            </noscript>
-        </form>
-    </div>
-
-    <!-- Các chỉ số tổng quan -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Tổng doanh thu thực thu</div>
-                    <h4 class="fw-bold text-success mb-0">
-                        @(((decimal)ViewBag.TongDoanhThu).ToString("N0")) đ
-                    </h4>
-                    <small class="text-muted">Tất cả hóa đơn đã thanh toán</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Tổng lượt đặt phòng</div>
-                    <h4 class="fw-bold mb-0">
-                        @ViewBag.TongDatPhong
-                    </h4>
-                    <small class="text-muted">Tất cả lượt đặt phòng</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Hóa đơn đã thanh toán</div>
-                    <h4 class="fw-bold text-primary mb-0">
-                        @ViewBag.HoaDonDaThanhToan
-                    </h4>
-                    <small class="text-muted">Hóa đơn đã hoàn tất thanh toán</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <div class="text-muted mb-2">Hóa đơn chưa thanh toán</div>
-                    <h4 class="fw-bold text-danger mb-0">
-                        @ViewBag.HoaDonChuaThanhToan
-                    </h4>
-                    <small class="text-muted">Cần theo dõi thanh toán</small>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Thống kê doanh thu -->
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-md-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h6 class="text-muted">Doanh thu tiền phòng</h6>
-                    <h4 class="fw-bold">
-                        @(((decimal)ViewBag.DoanhThuPhong).ToString("N0")) đ
-                    </h4>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h6 class="text-muted">Tiền dịch vụ trên hóa đơn đã thanh toán</h6>
-                    <h4 class="fw-bold">
-                        @(((decimal)ViewBag.DoanhThuDichVu).ToString("N0")) đ
-                    </h4>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h6 class="text-muted">Dịch vụ phát sinh đã ghi nhận</h6>
-                    <h4 class="fw-bold">
-                        @(((decimal)ViewBag.TongTienDichVuPhatSinh).ToString("N0")) đ
-                    </h4>
-                    <small class="text-muted">
-                        @ViewBag.SoLuotDichVu lượt ghi nhận
-                    </small>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Doanh thu theo năm -->
-    <div class="card border-0 shadow-sm mb-4">
-        <div class="card-body">
-            <h5 class="fw-bold mb-1">
-                Doanh thu theo tháng năm @ViewBag.Nam
-            </h5>
-            <p class="text-muted mb-3">
-                Chỉ tính hóa đơn đã thanh toán, theo ngày lập hóa đơn.
-            </p>
-
-            <h4 class="text-success fw-bold mb-4">
-                Tổng doanh thu năm:
-                @(((decimal)ViewBag.DoanhThuNam).ToString("N0")) đ
-            </h4>
-
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th style="width: 120px">Tháng</th>
-                            <th>Doanh thu</th>
-                            <th style="width: 35%">Tỷ lệ trực quan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in doanhThuTheoThang)
+                        if (n == nam)
                         {
-                            var doanhThu = (decimal)item.DoanhThu;
-                            var tongNam = (decimal)ViewBag.DoanhThuNam;
-
-                            var tyLe = tongNam > 0
-                                ? (double)(doanhThu / tongNam * 100)
-                                : 0;
-
-                            <tr>
-                                <td class="fw-semibold">
-                                    Tháng @item.Thang
-                                </td>
-                                <td>
-                                    @doanhThu.ToString("N0") đ
-                                </td>
-                                <td>
-                                    <div class="progress" style="height: 20px">
-                                        <div class="progress-bar"
-                                             role="progressbar"
-                                             style="width: @tyLe.ToString("F2",
-                                                 System.Globalization.CultureInfo.InvariantCulture)%"
-                                             aria-valuenow="@tyLe"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100">
-                                            @tyLe.ToString("F1")%
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                            <option value="@n" selected>@n</option>
                         }
-                    </tbody>
-                </table>
+                        else
+                        {
+                            <option value="@n">@n</option>
+                        }
+                    }
+                </select>
+                <noscript>
+                    <button type="submit" class="btn btn-primary">Xem</button>
+                </noscript>
+            </form>
+        </div>
+    </header>
+
+    <section class="tk-grid">
+        <article class="tk-card">
+            <div class="tk-card-top">
+                <div class="tk-icon tk-green">₫</div>
+                <span class="tk-chip">THỰC THU</span>
+            </div>
+            <div class="tk-label">Tổng doanh thu thực thu</div>
+            <div class="tk-number">@tongDoanhThu.ToString("N0", viVn)</div>
+            <div class="tk-foot">VNĐ · Tất cả hóa đơn đã thanh toán</div>
+        </article>
+
+        <article class="tk-card">
+            <div class="tk-card-top">
+                <div class="tk-icon tk-purple">▤</div>
+                <span class="tk-chip">ĐẶT PHÒNG</span>
+            </div>
+            <div class="tk-label">Tổng lượt đặt phòng</div>
+            <div class="tk-number">@tongDatPhong.ToString("N0", viVn)</div>
+            <div class="tk-foot">Tất cả lượt đặt phòng trong hệ thống</div>
+        </article>
+
+        <article class="tk-card">
+            <div class="tk-card-top">
+                <div class="tk-icon tk-blue">✓</div>
+                <span class="tk-chip">HOÀN TẤT</span>
+            </div>
+            <div class="tk-label">Hóa đơn đã thanh toán</div>
+            <div class="tk-number">@hoaDonDaThanhToan.ToString("N0", viVn)</div>
+            <div class="tk-foot">Các hóa đơn đã hoàn tất thanh toán</div>
+        </article>
+
+        <article class="tk-card">
+            <div class="tk-card-top">
+                <div class="tk-icon tk-red">!</div>
+                <span class="tk-chip">CẦN THEO DÕI</span>
+            </div>
+            <div class="tk-label">Hóa đơn chưa thanh toán</div>
+            <div class="tk-number">@hoaDonChuaThanhToan.ToString("N0", viVn)</div>
+            <div class="tk-foot">Tỷ lệ đã thanh toán: @tiLeThanhToan.ToString("N1", viVn)%</div>
+        </article>
+    </section>
+
+    <section class="tk-grid">
+        <article class="tk-card">
+            <div class="tk-card-top">
+                <div class="tk-icon tk-blue">⌂</div>
+                <span class="tk-chip">PHÒNG</span>
+            </div>
+            <div class="tk-label">Doanh thu tiền phòng</div>
+            <div class="tk-number">@doanhThuPhong.ToString("N0", viVn)</div>
+            <div class="tk-foot">VNĐ · Từ hóa đơn đã thanh toán</div>
+        </article>
+
+        <article class="tk-card">
+            <div class="tk-card-top">
+                <div class="tk-icon tk-green">◇</div>
+                <span class="tk-chip">DỊCH VỤ</span>
+            </div>
+            <div class="tk-label">Tiền dịch vụ trên hóa đơn đã thanh toán</div>
+            <div class="tk-number">@doanhThuDichVu.ToString("N0", viVn)</div>
+            <div class="tk-foot">VNĐ · Dịch vụ đã được tính vào hóa đơn</div>
+        </article>
+
+        <article class="tk-card">
+            <div class="tk-card-top">
+                <div class="tk-icon tk-orange">＋</div>
+                <span class="tk-chip">PHÁT SINH</span>
+            </div>
+            <div class="tk-label">Dịch vụ phát sinh đã ghi nhận</div>
+            <div class="tk-number">@tongTienDichVuPhatSinh.ToString("N0", viVn)</div>
+            <div class="tk-foot">@soLuotDichVu lượt ghi nhận · VNĐ</div>
+        </article>
+
+        <article class="tk-card">
+            <div class="tk-card-top">
+                <div class="tk-icon tk-purple">▥</div>
+                <span class="tk-chip">NĂM @nam</span>
+            </div>
+            <div class="tk-label">Doanh thu trong năm được chọn</div>
+            <div class="tk-number">@doanhThuNam.ToString("N0", viVn)</div>
+            <div class="tk-foot">VNĐ · Theo ngày lập hóa đơn trong năm @nam</div>
+        </article>
+    </section>
+
+    <section class="tk-panel">
+        <div class="tk-panel-head">
+            <div>
+                <h2 class="tk-panel-title">Biến động doanh thu theo tháng</h2>
+                <p class="tk-panel-desc">
+                    Doanh thu hóa đơn đã thanh toán theo ngày lập hóa đơn · Năm @nam
+                </p>
+            </div>
+            <span class="tk-badge">12 THÁNG</span>
+        </div>
+
+        <div class="tk-chart">
+            <canvas id="tkRevenueChart" role="img"
+                    aria-label="Biểu đồ doanh thu từng tháng"></canvas>
+        </div>
+    </section>
+
+    <section class="tk-chart-grid">
+        <div class="tk-panel">
+            <div class="tk-panel-head">
+                <div>
+                    <h2 class="tk-panel-title">Cơ cấu doanh thu</h2>
+                    <p class="tk-panel-desc">
+                        So sánh tiền phòng và tiền dịch vụ trên hóa đơn đã thanh toán.
+                    </p>
+                </div>
+            </div>
+
+            <div class="tk-chart tk-chart-small">
+                <canvas id="tkCompositionChart" role="img"
+                        aria-label="Biểu đồ cơ cấu doanh thu phòng và dịch vụ"></canvas>
+            </div>
+
+            <div class="tk-mini-stats">
+                <div class="tk-mini">
+                    <div class="tk-mini-label">Doanh thu tiền phòng</div>
+                    <div class="tk-mini-value">@doanhThuPhong.ToString("N0", viVn) đ</div>
+                </div>
+                <div class="tk-mini">
+                    <div class="tk-mini-label">Doanh thu dịch vụ</div>
+                    <div class="tk-mini-value">@doanhThuDichVu.ToString("N0", viVn) đ</div>
+                </div>
             </div>
         </div>
-    </div>
+
+        <div class="tk-panel">
+            <div class="tk-panel-head">
+                <div>
+                    <h2 class="tk-panel-title">Trạng thái hóa đơn</h2>
+                    <p class="tk-panel-desc">
+                        Tỷ trọng hóa đơn đã thanh toán và chưa thanh toán.
+                    </p>
+                </div>
+            </div>
+
+            <div class="tk-chart tk-chart-small">
+                <canvas id="tkInvoiceChart" role="img"
+                        aria-label="Biểu đồ trạng thái hóa đơn"></canvas>
+            </div>
+
+            <div class="tk-mini-stats">
+                <div class="tk-mini">
+                    <div class="tk-mini-label">Đã thanh toán</div>
+                    <div class="tk-mini-value">@hoaDonDaThanhToan hóa đơn</div>
+                </div>
+                <div class="tk-mini">
+                    <div class="tk-mini-label">Chưa thanh toán</div>
+                    <div class="tk-mini-value">@hoaDonChuaThanhToan hóa đơn</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tk-panel">
+        <div class="tk-panel-head">
+            <div>
+                <h2 class="tk-panel-title">Báo cáo doanh thu chi tiết</h2>
+                <p class="tk-panel-desc">
+                    Doanh thu và tỷ trọng đóng góp của từng tháng trong năm @nam.
+                </p>
+            </div>
+            <span class="tk-badge">NĂM @nam</span>
+        </div>
+
+        <div class="tk-table-wrap">
+            <table class="tk-table">
+                <thead>
+                    <tr>
+                        <th style="width: 150px">Thời gian</th>
+                        <th style="text-align: right">Doanh thu</th>
+                        <th style="width: 36%">Tỷ lệ doanh thu năm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in doanhThuTheoThang)
+                    {
+                        var doanhThu = (decimal)item.DoanhThu;
+                        var tyLe = doanhThuNam > 0
+                            ? (double)(doanhThu / doanhThuNam * 100)
+                            : 0;
+
+                        var tyLeCss = tyLe.ToString("F2", CultureInfo.InvariantCulture);
+
+                        <tr>
+                            <td>
+                                <div class="tk-month">
+                                    <span class="tk-month-dot"></span>
+                                    Tháng @item.Thang
+                                </div>
+                            </td>
+                            <td class="tk-money">
+                                @doanhThu.ToString("N0", viVn) đ
+                            </td>
+                            <td>
+                                <div class="tk-progress">
+                                    <div class="tk-progress-bar"
+                                         role="progressbar"
+                                         style="width: @tyLeCss%"
+                                         aria-valuenow="@tyLeCss"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100">
+                                        @tyLe.ToString("N1", viVn)%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>TỔNG CỘNG NĂM @nam</td>
+                        <td class="tk-money">@doanhThuNam.ToString("N0", viVn) đ</td>
+                        <td>100%</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="tk-note">
+            <span>ⓘ</span>
+            <div>
+                <strong>Ghi chú số liệu:</strong>
+                Tổng doanh thu thực thu là tổng của tất cả hóa đơn đã thanh toán.
+                Biểu đồ và bảng theo tháng lọc theo ngày lập hóa đơn trong năm đang chọn.
+                Doanh thu phòng và dịch vụ là số liệu tổng hợp từ các hóa đơn đã thanh toán;
+                tổng tiền dịch vụ phát sinh đã ghi nhận có thể khác nếu dịch vụ chưa nằm
+                trong hóa đơn đã thanh toán.
+            </div>
+        </div>
+    </section>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        (() => {
+            if (typeof Chart === "undefined") {
+                console.error("Không tải được Chart.js. Kiểm tra kết nối Internet.");
+                return;
+            }
+
+            const labels = @Html.Raw(JsonSerializer.Serialize(nhanThang));
+            const revenue = @Html.Raw(JsonSerializer.Serialize(duLieuThang));
+            const roomRevenue = @Html.Raw(JsonSerializer.Serialize(doanhThuPhong));
+            const serviceRevenue = @Html.Raw(JsonSerializer.Serialize(doanhThuDichVu));
+            const paid = @Html.Raw(JsonSerializer.Serialize(hoaDonDaThanhToan));
+            const unpaid = @Html.Raw(JsonSerializer.Serialize(hoaDonChuaThanhToan));
+
+            const money = value => new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+                maximumFractionDigits: 0
+            }).format(value);
+
+            Chart.defaults.font.family = "'Segoe UI', Arial, sans-serif";
+            Chart.defaults.color = "#8190a5";
+
+            const revenueCanvas = document.getElementById("tkRevenueChart");
+            if (revenueCanvas) {
+                const ctx = revenueCanvas.getContext("2d");
+                const gradient = ctx.createLinearGradient(0, 0, 0, 330);
+                gradient.addColorStop(0, "rgba(70,120,245,.28)");
+                gradient.addColorStop(1, "rgba(70,120,245,.015)");
+
+                new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: "Doanh thu",
+                            data: revenue,
+                            borderColor: "#4678f5",
+                            backgroundColor: gradient,
+                            borderWidth: 3,
+                            fill: true,
+                            tension: .38,
+                            pointRadius: 4,
+                            pointHoverRadius: 7,
+                            pointBackgroundColor: "#fff",
+                            pointBorderColor: "#4678f5",
+                            pointBorderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: { mode: "index", intersect: false },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: "#152846",
+                                padding: 13,
+                                displayColors: false,
+                                callbacks: {
+                                    label: c => " " + money(c.parsed.y)
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                border: { display: false }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                border: { display: false },
+                                grid: { color: "#edf1f7" },
+                                ticks: {
+                                    callback: value => {
+                                        const n = Number(value);
+                                        if (n >= 1e9) return (n / 1e9) + " tỷ";
+                                        if (n >= 1e6) return (n / 1e6) + " tr";
+                                        if (n >= 1e3) return (n / 1e3) + " k";
+                                        return n;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const compositionCanvas = document.getElementById("tkCompositionChart");
+            if (compositionCanvas) {
+                new Chart(compositionCanvas, {
+                    type: "doughnut",
+                    data: {
+                        labels: ["Tiền phòng", "Tiền dịch vụ"],
+                        datasets: [{
+                            data: [roomRevenue, serviceRevenue],
+                            backgroundColor: ["#4678f5", "#22b68a"],
+                            borderColor: "#fff",
+                            borderWidth: 5,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: "70%",
+                        plugins: {
+                            legend: {
+                                position: "bottom",
+                                labels: {
+                                    usePointStyle: true,
+                                    pointStyle: "circle",
+                                    padding: 20,
+                                    boxWidth: 8
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: c => " " + c.label + ": " + money(c.raw)
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const invoiceCanvas = document.getElementById("tkInvoiceChart");
+            if (invoiceCanvas) {
+                new Chart(invoiceCanvas, {
+                    type: "doughnut",
+                    data: {
+                        labels: ["Đã thanh toán", "Chưa thanh toán"],
+                        datasets: [{
+                            data: [paid, unpaid],
+                            backgroundColor: ["#22b68a", "#f4a340"],
+                            borderColor: "#fff",
+                            borderWidth: 5,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: "70%",
+                        plugins: {
+                            legend: {
+                                position: "bottom",
+                                labels: {
+                                    usePointStyle: true,
+                                    pointStyle: "circle",
+                                    padding: 20,
+                                    boxWidth: 8
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: c => ` ${c.label}: ${c.raw} hóa đơn`
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        })();
+    </script>
+}
