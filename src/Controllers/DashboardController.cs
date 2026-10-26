@@ -3,16 +3,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 {
     public class DashboardController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDashboardRepository _dashboardRepository;
 
-        public DashboardController(ApplicationDbContext context)
+        public DashboardController(IDashboardRepository dashboardRepository)
         {
-            _context = context;
+            _dashboardRepository = dashboardRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -23,53 +24,41 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             var bayNgayToi = homNay.AddDays(7);
 
             // 1. Tổng số loại phòng
-            ViewBag.TongLoaiPhong = await _context.LoaiPhongs.CountAsync();
-
+            ViewBag.TongLoaiPhong = await _dashboardRepository.GetTongLoaiPhongAsync();
             // 2. Tổng số phòng
-            ViewBag.TongSoPhong = await _context.Phongs.CountAsync();
+            ViewBag.TongSoPhong = await _dashboardRepository.GetTongSoPhongAsync();
 
             // 3. Số phòng sẵn sàng
-            ViewBag.PhongSanSang = await _context.Phongs.CountAsync(p => p.TrangThai == "Sẵn sàng");
+            ViewBag.PhongSanSang = await _dashboardRepository.GetTongSoPhongSanSangAsync();
 
             // 4. Tổng số khách hàng
-            ViewBag.TongKhachHang = await _context.KhachHangs.CountAsync();
+            ViewBag.TongKhachHang = await _dashboardRepository.GetTongKhachHangAsync();
 
             // 5. Tổng số lượt đặt phòng
-            ViewBag.TongDatPhong = await _context.DatPhongs.CountAsync();
+            ViewBag.TongDatPhong = await _dashboardRepository.GetTongDatPhongAsync();
 
             // 6. Đặt phòng chờ xác nhận
-            ViewBag.DatPhongChoXacNhan = await _context.DatPhongs.CountAsync(d => d.TrangThai == "Chờ xác nhận");
+            ViewBag.DatPhongChoXacNhan = await _dashboardRepository.GetDatPhongChoXacNhanAsync();
 
             // 7. Khách đang lưu trú
-            ViewBag.KhachDangLuuTru = await _context.DatPhongs.CountAsync(d => d.TrangThai == "Đã nhận phòng");
+            ViewBag.KhachDangLuuTru = await _dashboardRepository.GetKhachDangLuuTruAsync();
 
             // 8. Đặt phòng sắp đến trong 7 ngày tới
-            ViewBag.DatPhongSapDen = await _context.DatPhongs
-                .CountAsync(d =>
-                    d.NgayNhanPhong >= homNay &&
-                    d.NgayNhanPhong < bayNgayToi &&
-                    d.TrangThai == "Đã xác nhận");
+            ViewBag.DatPhongSapDen = await _dashboardRepository.GetDatPhongSapDenTrong7NgayAsync();
 
             // 9. Doanh thu tháng này
             // Chỉ tính hóa đơn đã thanh toán
             ViewBag.DoanhThuThangNay =
-                await _context.HoaDons
-                    .Where(h =>
-                        h.TrangThai == TrangThaiTT.DaThanhToan &&
-                        h.NgayLap >= dauThang &&
-                        h.NgayLap < dauThangSau)
-                    .SumAsync(h => (decimal?)h.TongTienThanhToan) ?? 0m;
+                await _dashboardRepository.GetDoanhthuThangNayAsync();
 
             // 10. Tổng số hóa đơn
-            ViewBag.TongHoaDon = await _context.HoaDons .CountAsync();
+            ViewBag.TongHoaDon = await _dashboardRepository.GettongHoaDonAsync();
 
             // 11. Hóa đơn chưa thanh toán
-            ViewBag.HoaDonChuaThanhToan = await _context.HoaDons.CountAsync(h => h.TrangThai == TrangThaiTT.ChuaThanhToan);
+            ViewBag.HoaDonChuaThanhToan = await _dashboardRepository.GetHoaDonChuaThanhToanAsync();
 
             // 12. Tổng tiền dịch vụ phát sinh đã ghi nhận
-            ViewBag.TongTienDichVu = await _context.DichVuPhatSinhs
-                .Where(d => d.TrangThai == TrangThaiDV.DaGhiNhan)
-                .SumAsync(d => (decimal?)(d.SoLuong * d.DonGia)) ?? 0m;
+            ViewBag.TongTienDichVu = await _dashboardRepository.GetTongTienDichVuPhatSinhAsync();
 
             return View();
         }

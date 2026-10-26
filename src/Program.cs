@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using QuanLyDatPhong_UNeTI5_TI17A1HN.Repositories;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 
 
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbC
 
 builder.Services.AddScoped<IPhongRepository, PhongRepository>();
 builder.Services.AddScoped<IThongkeRepository, ThongKeRepository>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 
 builder.Services.AddControllersWithViews();
 
