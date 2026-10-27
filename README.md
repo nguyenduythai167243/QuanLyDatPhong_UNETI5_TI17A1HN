@@ -9,6 +9,7 @@
 - **ORM:** Entity Framework Core 10
 - **Ngôn ngữ:** C#
 - **Nhóm:** 05 sinh viên
+- **Nhóm trưởng:** Nguyễn Duy Thái
 - **Lớp:** TI17A1HN
 
 ---
