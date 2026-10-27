@@ -1,154 +1,93 @@
-﻿@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.DatPhong
+@*
+    Họ và tên: Nguyễn Duy Thái
+    Mã sinh viên: 23103100052
+    Nội dung thực hiện: Module 4 - Màn hình Xác nhận Xóa / Hủy bỏ đơn đặt phòng của Lễ tân
+*@
+
+@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.DatPhong
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = $"Xóa Đặt Phòng #{Model.MaDatPhong} - Lễ Tân";
 }
 
-<h1>Delete</h1>
+<div class="container py-4" style="max-width: 750px;">
+    <!-- Nút quay lại -->
+    <div class="mb-3">
+        <a asp-action="Details" asp-route-id="@Model.MaDatPhong" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+            <i class="bi bi-arrow-left me-1"></i> Quay lại chi tiết đặt phòng
+        </a>
+    </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>QuanLyDatPhong_UNETI5_TI17A1HN.Models.DatPhong</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MaKhachHang)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaKhachHang)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MaPhong)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaPhong)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayNhanPhong)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NgayNhanPhong)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayTraPhong)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NgayTraPhong)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SoNguoi)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SoNguoi)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.YeuCauDacBiet)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.YeuCauDacBiet)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayDat)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NgayDat)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TongTienDuKien)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TongTienDuKien)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayNhanThucTe)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NgayNhanThucTe)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayTraThucTe)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NgayTraThucTe)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayXuLy)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NgayXuLy)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.GhiChuLeTan)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.GhiChuLeTan)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.KhachHang)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.KhachHang)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Phong)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Phong)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DichVuPhatSinhs)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DichVuPhatSinhs)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.HoaDon)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.HoaDon)
-        </dd>
-    </dl>
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="MaDatPhong" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+        <!-- Header -->
+        <div class="py-4 px-4 text-white" style="background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div>
+                    <span class="badge bg-white bg-opacity-20 text-white rounded-pill px-3 py-1 mb-2">
+                        <i class="bi bi-trash-fill me-1"></i> Xóa dữ liệu đặt phòng
+                    </span>
+                    <h3 class="mb-0 fw-bold">
+                        XÁC NHẬN XÓA ĐẶT PHÒNG #@Model.MaDatPhong
+                    </h3>
+                </div>
+                <span class="badge bg-white text-danger fs-6 px-3 py-2 rounded-pill shadow-sm">
+                    Trạng thái: @Model.TrangThai
+                </span>
+            </div>
+            <div class="small opacity-75 mt-2">
+                Module 4 - Sinh viên thực hiện: Nguyễn Duy Thái (MSV: 23103100052)
+            </div>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="alert alert-danger bg-opacity-10 border border-danger rounded-3 mb-4 d-flex align-items-center gap-3">
+                <i class="bi bi-exclamation-triangle-fill fs-3 text-danger"></i>
+                <div class="small">
+                    <strong>Cảnh báo nghiệp vụ:</strong> Bạn đang chuẩn bị xóa đơn đặt phòng <strong>#@Model.MaDatPhong</strong>. Thao tác này sẽ xóa vĩnh viễn thông tin đặt phòng khỏi hệ thống và không thể khôi phục. Chỉ áp dụng cho đơn chưa nhận phòng hoặc tạo nhầm.
+                </div>
+            </div>
+
+            <!-- Tóm tắt thông tin -->
+            <div class="p-4 rounded-4 mb-4 border" style="background: #f8fafc;">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="text-muted small fw-bold text-uppercase">Khách hàng:</div>
+                        <strong class="fs-5 text-dark">@(Model.KhachHang?.HoTen ?? "N/A")</strong>
+                        <div class="small text-muted">SĐT: @(Model.KhachHang?.SoDienThoai ?? "N/A")</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-muted small fw-bold text-uppercase">Phòng:</div>
+                        <div class="mt-1">
+                            <span class="room-tag fs-6">
+                                <i class="bi bi-key-fill text-primary"></i> Phòng @(Model.Phong?.SoPhong ?? "N/A")
+                            </span>
+                            <span class="text-secondary small ms-2">(@(Model.Phong?.LoaiPhong?.TenLoaiPhong ?? "N/A"))</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 pt-2 border-top">
+                        <div class="text-muted small fw-bold text-uppercase">Khoảng thời gian:</div>
+                        <span class="fw-semibold text-dark">@Model.NgayNhanPhong.ToString("dd/MM/yyyy") &rarr; @Model.NgayTraPhong.ToString("dd/MM/yyyy")</span>
+                    </div>
+                    <div class="col-sm-6 pt-2 border-top">
+                        <div class="text-muted small fw-bold text-uppercase">Tổng tiền dự kiến:</div>
+                        <span class="fw-bold text-danger fs-5">@Model.TongTienDuKien.ToString("N0") VNĐ</span>
+                    </div>
+                </div>
+            </div>
+
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="MaDatPhong" />
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-3 border-top">
+                    <a asp-action="Details" asp-route-id="@Model.MaDatPhong" class="btn btn-outline-secondary px-4 rounded-pill">
+                        <i class="bi bi-arrow-left me-1"></i> Hủy & Giữ lại đơn
+                    </a>
+                    <button type="submit" class="btn btn-danger px-4 py-2 fw-bold rounded-pill shadow-sm" onclick="return confirm('Bạn có CHẮC CHẮN muốn xóa vĩnh viễn đơn đặt phòng này?');">
+                        <i class="bi bi-trash-fill me-1"></i> Xác nhận Xóa vĩnh viễn
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

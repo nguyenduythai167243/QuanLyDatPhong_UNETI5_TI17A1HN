@@ -1,4 +1,4 @@
-﻿@*
+@*
     Họ và tên: Nguyễn Duy Thái
     Mã sinh viên: 23103100052
     Nội dung thực hiện: Module 4 - Màn hình kiểm soát công suất phòng theo loại phòng (Mục 8.5)
@@ -7,79 +7,277 @@
 @model IEnumerable<dynamic>
 
 @{
-    ViewData["Title"] = "Kiểm soát công suất phòng";
+    ViewData["Title"] = "Kiểm Soát Công Suất Phòng - Lễ Tân";
+    ViewData["FluidLayout"] = true;
     DateTime tuNgay = ViewBag.TuNgay ?? DateTime.Today;
     DateTime denNgay = ViewBag.DenNgay ?? DateTime.Today.AddDays(1);
+
+    // Calculate aggregated metrics
+    int tongPhongAll = 0;
+    int tongSanSangAll = 0;
+    int tongDaDatAll = 0;
+    int tongConTrongAll = 0;
+
+    if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            tongPhongAll += (int)item.TongPhong;
+            tongSanSangAll += (int)item.PhongSanSang;
+            tongDaDatAll += (int)item.PhongDaDat;
+            tongConTrongAll += (int)item.PhongConTrong;
+        }
+    }
+    double tyLeChung = tongSanSangAll > 0 ? Math.Round((double)tongDaDatAll / tongSanSangAll * 100, 1) : 0;
 }
 
-<div class="container-fluid py-3">
-    <!-- Tiêu đề & Thông tin sinh viên phụ trách -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <div>
-            <h3 class="text-primary fw-bold mb-1">
-                <i class="bi bi-pie-chart-fill"></i> KIỂM SOÁT CÔNG SUẤT PHÒNG THEO LOẠI PHÒNG
-            </h3>
-            <div class="text-muted small">
-                <span class="badge bg-primary">Module 4 - Mục 8.5</span>
-                <strong>Sinh viên phụ trách:</strong> Nguyễn Duy Thái - <strong>MSV:</strong> 23103100052
+<div class="py-2">
+    <!-- ======================================================================
+         1. HERO HEADER BANNER
+         ====================================================================== -->
+    <div class="letan-hero mb-3 py-3 px-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+            <div>
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <a asp-action="Index" class="btn btn-sm btn-outline-light rounded-pill px-3 py-1">
+                        <i class="bi bi-arrow-left me-1"></i> Về danh sách đặt phòng
+                    </a>
+                    <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-10 py-1 px-2">
+                        Module 4 - Mục 8.5
+                    </span>
+                    <span class="badge bg-info bg-opacity-50 text-white">LINQ Capacity Engine</span>
+                </div>
+                <h2 class="letan-hero-title mb-1">
+                    <i class="bi bi-pie-chart-fill text-warning me-2"></i>GIÁM SÁT CÔNG SUẤT & TỶ LỆ LẤP ĐẦY PHÒNG
+                </h2>
+                <div class="letan-hero-sub">
+                    Phân tích tình trạng buồng phòng từ <strong>@tuNgay.ToString("dd/MM/yyyy")</strong> đến <strong>@denNgay.ToString("dd/MM/yyyy")</strong> |
+                    <strong>Sinh viên:</strong> Nguyễn Duy Thái (23103100052)
+                </div>
+            </div>
+
+            <!-- Nút hành động nhanh -->
+            <div>
+                <a asp-action="Create" class="btn-hero-action btn-accent">
+                    <i class="bi bi-plus-circle-fill"></i> Đặt phòng tại quầy
+                </a>
             </div>
         </div>
-        <div>
-            <a asp-action="Index" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left"></i> Quay lại Danh sách đặt phòng
-            </a>
+    </div>
+
+    <!-- Nghiệp vụ 8.5 Note -->
+    <div class="alert alert-info border-0 shadow-sm d-flex align-items-center gap-3 rounded-4 mb-4 bg-white border-start border-info border-4">
+        <i class="bi bi-shield-lock-fill fs-3 text-info"></i>
+        <div class="small">
+            <strong>Cơ chế tự động khóa phòng (Mục 8.5):</strong> Hệ thống sử dụng LINQ để tính toán số phòng đã có đặt phòng trong khoảng ngày được chọn. Khi số phòng đã đặt chạm mức tối đa của loại phòng đó, hệ thống sẽ <strong>bật cảnh báo đỏ</strong> và <strong>chặn không cho xác nhận thêm đơn đặt</strong> vào loại phòng này để tránh tình trạng Overbooking.
         </div>
     </div>
 
-    <!-- Hướng dẫn nghiệp vụ mục 8.5 -->
-    <div class="alert alert-info py-2 small mb-4">
-        <i class="bi bi-info-circle-fill me-1"></i>
-        <strong>Yêu cầu nghiệp vụ (Mục 8.5):</strong> Hệ thống sử dụng LINQ để đếm số phòng đã có đặt phòng đang hiệu lực theo từng loại phòng trong khoảng ngày được chọn. Khi tất cả phòng Sẵn sàng của một loại phòng đã kín lịch, hệ thống sẽ <strong>cảnh báo Lễ tân</strong> và <strong>không cho xác nhận thêm</strong> đặt phòng cho loại phòng đó trong khoảng ngày này.
+    <!-- ======================================================================
+         2. BỘ CHỌN KHOẢNG NGÀY & PRESETS
+         ====================================================================== -->
+    <div class="letan-filter-card mb-4">
+        <form method="get" asp-action="KiemTraCongSuat" class="row g-3 align-items-end">
+            <div class="col-12 col-md-4">
+                <label class="letan-label">
+                    <i class="bi bi-calendar-event"></i> Từ ngày (Ngày nhận dự kiến)
+                </label>
+                <input type="date" name="tuNgay" class="letan-select w-100" value="@tuNgay.ToString("yyyy-MM-dd")" required />
+            </div>
+
+            <div class="col-12 col-md-4">
+                <label class="letan-label">
+                    <i class="bi bi-calendar-check"></i> Đến ngày (Ngày trả dự kiến)
+                </label>
+                <input type="date" name="denNgay" class="letan-select w-100" value="@denNgay.ToString("yyyy-MM-dd")" required />
+            </div>
+
+            <div class="col-12 col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary fw-bold w-100 py-2 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-search"></i> Kiểm tra công suất
+                </button>
+                <a asp-action="KiemTraCongSuat" class="btn btn-outline-secondary py-2 px-3 fw-semibold" title="Xem hôm nay">
+                    Hôm nay
+                </a>
+            </div>
+        </form>
     </div>
 
-    <!-- Form chọn khoảng ngày để kiểm tra công suất -->
-    <div class="card border-0 shadow-sm mb-4">
-        <div class="card-body">
-            <form method="get" asp-action="KiemTraCongSuat" class="row g-3 align-items-end">
-                <div class="col-md-4">
-                    <label class="form-label fw-bold text-muted small">Từ ngày (Ngày nhận dự kiến)</label>
-                    <input type="date" name="tuNgay" class="form-control" value="@tuNgay.ToString("yyyy-MM-dd")" required />
+    <!-- ======================================================================
+         3. TỔNG HỢP KPI TOÀN KHÁCH SẠN
+         ====================================================================== -->
+    <div class="letan-kpi-grid mb-4">
+        <!-- 1. Tổng phòng -->
+        <div class="letan-kpi-card letan-kpi-total">
+            <div class="letan-kpi-header">
+                <span class="letan-kpi-title">Tổng buồng phòng</span>
+                <div class="letan-kpi-icon">
+                    <i class="bi bi-buildings"></i>
                 </div>
-                <div class="col-md-4">
-                    <label class="form-label fw-bold text-muted small">Đến ngày (Ngày trả dự kiến)</label>
-                    <input type="date" name="denNgay" class="form-control" value="@denNgay.ToString("yyyy-MM-dd")" required />
+            </div>
+            <div class="letan-kpi-value">@tongPhongAll</div>
+            <div class="letan-kpi-footer text-primary">
+                <span>Toàn bộ khách sạn</span>
+            </div>
+        </div>
+
+        <!-- 2. Phòng sẵn sàng -->
+        <div class="letan-kpi-card letan-kpi-completed">
+            <div class="letan-kpi-header">
+                <span class="letan-kpi-title">Phòng sẵn sàng</span>
+                <div class="letan-kpi-icon">
+                    <i class="bi bi-check2-circle"></i>
                 </div>
-                <div class="col-md-4 d-flex gap-2">
-                    <button type="submit" class="btn btn-primary w-100 fw-bold">
-                        <i class="bi bi-search"></i> Kiểm tra công suất ngay
-                    </button>
-                    <a asp-action="KiemTraCongSuat" class="btn btn-outline-secondary">Hôm nay</a>
+            </div>
+            <div class="letan-kpi-value">@tongSanSangAll</div>
+            <div class="letan-kpi-footer text-success">
+                <span>Có thể đưa vào khai thác</span>
+            </div>
+        </div>
+
+        <!-- 3. Đã có người đặt -->
+        <div class="letan-kpi-card letan-kpi-pending">
+            <div class="letan-kpi-header">
+                <span class="letan-kpi-title">Phòng đã đặt</span>
+                <div class="letan-kpi-icon">
+                    <i class="bi bi-calendar2-check"></i>
                 </div>
-            </form>
+            </div>
+            <div class="letan-kpi-value">@tongDaDatAll</div>
+            <div class="letan-kpi-footer text-warning">
+                <span>Trong khoảng ngày chọn</span>
+            </div>
+        </div>
+
+        <!-- 4. Phòng còn trống -->
+        <div class="letan-kpi-card letan-kpi-confirmed">
+            <div class="letan-kpi-header">
+                <span class="letan-kpi-title">Khả dụng còn trống</span>
+                <div class="letan-kpi-icon">
+                    <i class="bi bi-door-open"></i>
+                </div>
+            </div>
+            <div class="letan-kpi-value">@tongConTrongAll</div>
+            <div class="letan-kpi-footer text-info">
+                <span>Có thể nhận thêm khách</span>
+            </div>
+        </div>
+
+        <!-- 5. Tỷ lệ lấp đầy bình quân -->
+        <div class="letan-kpi-card @(tyLeChung >= 85 ? "letan-kpi-danger has-alert" : "letan-kpi-inhouse")">
+            <div class="letan-kpi-header">
+                <span class="letan-kpi-title">Tỷ lệ lấp đầy chung</span>
+                <div class="letan-kpi-icon">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+            </div>
+            <div class="letan-kpi-value">@tyLeChung%</div>
+            <div class="letan-kpi-footer" style="color: #7c3aed;">
+                <span>Công suất sử dụng</span>
+            </div>
         </div>
     </div>
 
-    <!-- Bảng công suất từng loại phòng -->
-    <div class="card border-0 shadow-sm">
-        <div class="card-header bg-white py-3">
-            <h5 class="mb-0 fw-bold text-secondary">
-                Công suất phòng từ <strong>@tuNgay.ToString("dd/MM/yyyy")</strong> đến <strong>@denNgay.ToString("dd/MM/yyyy")</strong>
+    <!-- ======================================================================
+         4. CARDS CÔNG SUẤT TỪNG LOẠI PHÒNG (VISUAL CARDS)
+         ====================================================================== -->
+    <div class="row g-3 mb-4">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                var isFull = (bool)item.KinLich;
+                double tyLe = (double)item.TyLeLapDay;
+                string barClass = tyLe >= 100 ? "occupancy-full" : (tyLe >= 75 ? "occupancy-high" : (tyLe >= 40 ? "occupancy-medium" : "occupancy-safe"));
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="occupancy-card @(isFull ? "is-full" : "")">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 fw-bold">
+                                    Mã loại: @item.MaLoaiPhong
+                                </span>
+                                @if (isFull)
+                                {
+                                    <span class="badge bg-danger py-1 px-2">
+                                        <i class="bi bi-exclamation-triangle-fill"></i> KÍN LỊCH
+                                    </span>
+                                }
+                                else if (item.PhongConTrong <= 1 && item.PhongSanSang > 1)
+                                {
+                                    <span class="badge bg-warning text-dark py-1 px-2">
+                                        <i class="bi bi-exclamation-circle"></i> Sắp kín
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle py-1 px-2">
+                                        <i class="bi bi-check-circle"></i> Khả dụng
+                                    </span>
+                                }
+                            </div>
+
+                            <h5 class="fw-bold text-dark mb-1">@item.TenLoaiPhong</h5>
+                            <div class="small text-muted mb-3">
+                                Sức chứa: <strong>@item.SucChuaToiDa người/phòng</strong> | Giá: <strong>@item.GiaThamKhao.ToString("N0") đ</strong>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="d-flex justify-content-between small text-muted mb-1">
+                                <span>Công suất lấp đầy:</span>
+                                <strong class="text-dark">@tyLe%</strong>
+                            </div>
+                            <div class="occupancy-bar-container">
+                                <div class="occupancy-bar-fill @barClass" style="width: @(tyLe > 100 ? 100 : tyLe)%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="pt-3 border-top mt-3 d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="small text-muted">Đã đặt:</div>
+                                <span class="fw-bold text-dark">@item.PhongDaDat / @item.PhongSanSang</span>
+                            </div>
+                            <div class="text-end">
+                                <div class="small text-muted">Còn trống:</div>
+                                <span class="badge @(item.PhongConTrong == 0 ? "bg-danger" : "bg-primary") fs-6">
+                                    @item.PhongConTrong phòng
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <!-- ======================================================================
+         5. BẢNG CHI TIẾT CÔNG SUẤT (DETAILED TABLE)
+         ====================================================================== -->
+    <div class="letan-table-card">
+        <div class="letan-table-header">
+            <h5 class="mb-0 fw-bold text-dark">
+                <i class="bi bi-table text-primary me-2"></i>Bảng chi tiết công suất theo từng hạng phòng
             </h5>
+            <span class="text-muted small">
+                Thời gian: <strong>@tuNgay.ToString("dd/MM/yyyy")</strong> - <strong>@denNgay.ToString("dd/MM/yyyy")</strong>
+            </span>
         </div>
+
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light text-secondary small text-uppercase">
+            <table class="letan-table">
+                <thead>
                     <tr>
-                        <th>Mã loại</th>
-                        <th>Tên loại phòng</th>
-                        <th>Sức chứa tối đa</th>
+                        <th style="width: 70px;">Mã</th>
+                        <th>Hạng loại phòng</th>
+                        <th>Sức chứa</th>
                         <th>Giá tham khảo</th>
-                        <th>Tổng số phòng</th>
-                        <th>Phòng sẵn sàng</th>
-                        <th>Số phòng đã đặt</th>
-                        <th>Số phòng còn trống</th>
-                        <th>Tỷ lệ lấp đầy</th>
-                        <th>Trạng thái công suất</th>
+                        <th class="text-center">Tổng phòng</th>
+                        <th class="text-center">Sẵn sàng</th>
+                        <th class="text-center">Đã đặt</th>
+                        <th class="text-center">Còn trống</th>
+                        <th style="min-width: 170px;">Tỷ lệ lấp đầy</th>
+                        <th class="text-center">Trạng thái công suất</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,54 +285,60 @@
                     {
                         foreach (var item in Model)
                         {
-                            <tr class="@(item.KinLich ? "table-danger" : "")">
-                                <td class="fw-bold">@item.MaLoaiPhong</td>
+                            <tr class="@(item.KinLich ? "table-danger bg-opacity-25" : "")">
+                                <td class="fw-bold font-monospace">@item.MaLoaiPhong</td>
                                 <td class="fw-bold text-primary">@item.TenLoaiPhong</td>
-                                <td>@item.SucChuaToiDa người</td>
-                                <td>@item.GiaThamKhao.ToString("N0") đ</td>
-                                <td>@item.TongPhong</td>
                                 <td>
-                                    <span class="badge bg-success">@item.PhongSanSang phòng</span>
+                                    <i class="bi bi-people text-secondary me-1"></i>@item.SucChuaToiDa người
                                 </td>
-                                <td>
-                                    <span class="badge bg-warning text-dark">@item.PhongDaDat phòng</span>
+                                <td class="fw-semibold">@item.GiaThamKhao.ToString("N0") đ</td>
+                                <td class="text-center">@item.TongPhong</td>
+                                <td class="text-center">
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                        @item.PhongSanSang phòng
+                                    </span>
                                 </td>
-                                <td>
+                                <td class="text-center">
+                                    <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">
+                                        @item.PhongDaDat phòng
+                                    </span>
+                                </td>
+                                <td class="text-center">
                                     <span class="badge @(item.PhongConTrong == 0 ? "bg-danger" : "bg-primary") fs-6">
                                         @item.PhongConTrong phòng
                                     </span>
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
-                                        <div class="progress flex-grow-1" style="height: 8px;">
+                                        <div class="progress flex-grow-1" style="height: 8px; border-radius: 9999px;">
                                             <div class="progress-bar @(item.TyLeLapDay >= 100 ? "bg-danger" : (item.TyLeLapDay >= 70 ? "bg-warning" : "bg-success"))"
                                                  role="progressbar"
-                                                 style="width: @item.TyLeLapDay%;"
+                                                 style="width: @item.TyLeLapDay%; border-radius: 9999px;"
                                                  aria-valuenow="@item.TyLeLapDay"
                                                  aria-valuemin="0"
                                                  aria-valuemax="100">
                                             </div>
                                         </div>
-                                        <span class="small fw-bold">@item.TyLeLapDay%</span>
+                                        <span class="small fw-bold font-monospace">@item.TyLeLapDay%</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     @if (item.KinLich)
                                     {
-                                        <span class="badge bg-danger px-2 py-1">
+                                        <span class="badge bg-danger py-1 px-2">
                                             <i class="bi bi-exclamation-triangle-fill"></i> ĐÃ KÍN LỊCH
                                         </span>
                                     }
                                     else if (item.PhongConTrong <= 1 && item.PhongSanSang > 1)
                                     {
-                                        <span class="badge bg-warning text-dark px-2 py-1">
+                                        <span class="badge bg-warning text-dark py-1 px-2">
                                             <i class="bi bi-exclamation-circle"></i> Sắp kín lịch
                                         </span>
                                     }
                                     else
                                     {
-                                        <span class="badge bg-success px-2 py-1">
-                                            <i class="bi bi-check-circle"></i> Còn phòng nhận
+                                        <span class="badge bg-success py-1 px-2">
+                                            <i class="bi bi-check-circle"></i> Còn phòng
                                         </span>
                                     }
                                 </td>

@@ -1,4 +1,4 @@
-﻿@*
+@*
     Họ và tên: Nguyễn Duy Thái
     Mã sinh viên: 23103100052
     Nội dung thực hiện: Module 4 - Màn hình Từ chối đặt phòng kèm ghi nhận lý do của Lễ tân
@@ -7,46 +7,74 @@
 @model QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels.XuLyDatPhongViewModel
 
 @{
-    ViewData["Title"] = $"Từ chối Đặt phòng #{Model.DatPhong.MaDatPhong}";
+    ViewData["Title"] = $"Từ chối Đặt phòng #{Model.DatPhong.MaDatPhong} - Lễ Tân";
     var dp = Model.DatPhong;
 }
 
-<div class="container py-4" style="max-width: 700px;">
-    <div class="card border-0 shadow-sm border-start border-danger border-4">
-        <div class="card-header bg-white py-3">
-            <h4 class="mb-0 fw-bold text-danger">
-                <i class="bi bi-x-circle-fill"></i> TỪ CHỐI ĐẶT PHÒNG #@dp.MaDatPhong
-            </h4>
-            <div class="small text-muted">
+<div class="container py-4" style="max-width: 750px;">
+    <!-- Nút quay lại -->
+    <div class="mb-3">
+        <a asp-action="Details" asp-route-id="@dp.MaDatPhong" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+            <i class="bi bi-arrow-left me-1"></i> Quay lại chi tiết đặt phòng
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+        <!-- Header -->
+        <div class="py-4 px-4 text-white" style="background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div>
+                    <span class="badge bg-white bg-opacity-20 text-white rounded-pill px-3 py-1 mb-2">
+                        <i class="bi bi-x-circle-fill me-1"></i> Từ chối tiếp nhận
+                    </span>
+                    <h3 class="mb-0 fw-bold">
+                        TỪ CHỐI ĐẶT PHÒNG #@dp.MaDatPhong
+                    </h3>
+                </div>
+                <span class="badge bg-white text-danger fs-6 px-3 py-2 rounded-pill shadow-sm">
+                    Phòng @(dp.Phong?.SoPhong ?? "---")
+                </span>
+            </div>
+            <div class="small opacity-75 mt-2">
                 Module 4 - Sinh viên thực hiện: Nguyễn Duy Thái (MSV: 23103100052)
             </div>
         </div>
+
         <div class="card-body p-4">
             <!-- Thông báo TempData -->
             @if (TempData["ThongBaoLoi"] != null)
             {
-                <div class="alert alert-danger">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ThongBaoLoi"]
+                <div class="alert alert-danger border-0 rounded-3 shadow-sm d-flex align-items-center gap-2 mb-4">
+                    <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                    <div>@TempData["ThongBaoLoi"]</div>
                 </div>
             }
 
-            <div class="alert alert-light border mb-4">
-                <div class="row">
-                    <div class="col-sm-6 mb-2">
-                        <span class="text-muted">Khách hàng:</span>
-                        <strong>@(dp.KhachHang?.HoTen ?? "N/A")</strong>
-                    </div>
-                    <div class="col-sm-6 mb-2">
-                        <span class="text-muted">Phòng:</span>
-                        <strong class="text-primary">Phòng @(dp.Phong?.SoPhong ?? "N/A")</strong>
+            <!-- Tóm tắt đơn đặt -->
+            <div class="p-4 rounded-4 mb-4 border" style="background: #f8fafc;">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="text-muted small fw-bold text-uppercase">Khách hàng:</div>
+                        <strong class="fs-5 text-dark">@(dp.KhachHang?.HoTen ?? "N/A")</strong>
+                        <div class="small text-muted">SĐT: @(dp.KhachHang?.SoDienThoai ?? "N/A")</div>
                     </div>
                     <div class="col-sm-6">
-                        <span class="text-muted">Thời gian:</span>
-                        <span>@dp.NgayNhanPhong.ToString("dd/MM/yyyy") - @dp.NgayTraPhong.ToString("dd/MM/yyyy")</span>
+                        <div class="text-muted small fw-bold text-uppercase">Phòng dự kiến:</div>
+                        <div class="mt-1">
+                            <span class="room-tag fs-6">
+                                <i class="bi bi-key-fill text-primary"></i> Phòng @(dp.Phong?.SoPhong ?? "N/A")
+                            </span>
+                        </div>
                     </div>
-                    <div class="col-sm-6">
-                        <span class="text-muted">Trạng thái hiện tại:</span>
-                        <span class="badge bg-warning text-dark">@dp.TrangThai</span>
+                    <div class="col-sm-6 pt-2 border-top">
+                        <div class="text-muted small fw-bold text-uppercase">Khoảng thời gian:</div>
+                        <span class="fw-semibold text-dark">@dp.NgayNhanPhong.ToString("dd/MM/yyyy") &rarr; @dp.NgayTraPhong.ToString("dd/MM/yyyy")</span>
+                    </div>
+                    <div class="col-sm-6 pt-2 border-top">
+                        <div class="text-muted small fw-bold text-uppercase">Trạng thái hiện tại:</div>
+                        <span class="status-pill status-pending mt-1">
+                            <span class="status-dot"></span> @dp.TrangThai
+                        </span>
                     </div>
                 </div>
             </div>
@@ -57,20 +85,20 @@
 
                 <div class="mb-4">
                     <label class="form-label fw-bold text-danger">
-                        Lý do từ chối đặt phòng <span class="text-danger">*</span>:
+                        <i class="bi bi-pencil-fill me-1"></i> Lý do từ chối đặt phòng <span class="text-danger">*</span>:
                     </label>
-                    <textarea name="lyDoTuChoi" class="form-control" rows="4" required placeholder="Vui lòng nêu rõ lý do từ chối đặt phòng (vd: Hết phòng trống, phòng bảo trì, không liên lạc được với khách...)">@Model.LyDoTuChoi</textarea>
-                    <div class="form-text">
-                        Lý do từ chối sẽ được lưu vào thông tin xử lý của Lễ tân để đối soát và thông báo cho khách hàng.
+                    <textarea name="lyDoTuChoi" class="letan-select w-100" rows="4" required placeholder="Vui lòng nêu rõ lý do từ chối (vd: Hết phòng trống trong khoảng ngày, phòng đang trong đợt bảo trì, không liên lạc được với khách hàng...)">@Model.LyDoTuChoi</textarea>
+                    <div class="form-text text-muted">
+                        <i class="bi bi-info-circle me-1"></i> Lý do từ chối sẽ được lưu vào hệ thống để báo cáo quản lý và giải trình với khách hàng.
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <a asp-action="Details" asp-route-id="@dp.MaDatPhong" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-left"></i> Hủy & Quay lại
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-3 border-top">
+                    <a asp-action="Details" asp-route-id="@dp.MaDatPhong" class="btn btn-outline-secondary px-4 rounded-pill">
+                        <i class="bi bi-arrow-left me-1"></i> Hủy & Quay lại
                     </a>
-                    <button type="submit" class="btn btn-danger px-4 fw-bold" onclick="return confirm('Bạn có chắc chắn muốn TỪ CHỐI đơn đặt phòng này?');">
-                        <i class="bi bi-x-circle"></i> Xác nhận Từ chối
+                    <button type="submit" class="btn btn-danger px-4 py-2 fw-bold rounded-pill shadow-sm" onclick="return confirm('Bạn có chắc chắn muốn TỪ CHỐI đơn đặt phòng này?');">
+                        <i class="bi bi-x-circle me-1"></i> Xác nhận Từ chối Đơn đặt
                     </button>
                 </div>
             </form>

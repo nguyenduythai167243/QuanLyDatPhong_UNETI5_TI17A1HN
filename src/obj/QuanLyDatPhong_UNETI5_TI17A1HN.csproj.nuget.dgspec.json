@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\admin\\Desktop\\Study\\THLT .Net\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj": {}
+    "D:\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj": {}
   },
   "projects": {
-    "C:\\Users\\admin\\Desktop\\Study\\THLT .Net\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj": {
+    "D:\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\admin\\Desktop\\Study\\THLT .Net\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
+        "projectUniqueName": "D:\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
         "projectName": "QuanLyDatPhong_UNETI5_TI17A1HN",
-        "projectPath": "C:\\Users\\admin\\Desktop\\Study\\THLT .Net\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
-        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\admin\\Desktop\\Study\\THLT .Net\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\obj\\",
+        "projectPath": "D:\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "D:\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "D:\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -25,8 +26,7 @@
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
+          "D:\\ThiMVC6\\02_NuGetOffline": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

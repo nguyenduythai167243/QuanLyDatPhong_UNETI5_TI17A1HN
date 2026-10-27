@@ -1,116 +1,132 @@
-﻿@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.DatPhong
+@*
+    Họ và tên: Nguyễn Duy Thái
+    Mã sinh viên: 23103100052
+    Nội dung thực hiện: Module 4 - Màn hình cập nhật thông tin đặt phòng của Lễ tân
+*@
+
+@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.DatPhong
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = $"Chỉnh Sửa Đặt Phòng #{Model.MaDatPhong} - Lễ Tân";
+    ViewData["FluidLayout"] = true;
 }
 
-<h1>Edit</h1>
+<div class="container py-4" style="max-width: 850px;">
+    <!-- Nút quay lại -->
+    <div class="mb-3">
+        <a asp-action="Details" asp-route-id="@Model.MaDatPhong" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+            <i class="bi bi-arrow-left me-1"></i> Quay lại chi tiết đặt phòng
+        </a>
+    </div>
 
-<h4>DatPhong</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="MaDatPhong" />
-            <div class="form-group">
-                <label asp-for="MaKhachHang" class="control-label"></label>
-                <input asp-for="MaKhachHang" class="form-control" />
-                <span asp-validation-for="MaKhachHang" class="text-danger"></span>
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+        <!-- Header -->
+        <div class="py-4 px-4 text-white" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%);">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div>
+                    <span class="badge bg-white bg-opacity-20 text-white rounded-pill px-3 py-1 mb-2">
+                        <i class="bi bi-pencil-square me-1"></i> Cập nhật hồ sơ
+                    </span>
+                    <h3 class="mb-0 fw-bold">
+                        CHỈNH SỬA ĐẶT PHÒNG #@Model.MaDatPhong
+                    </h3>
+                </div>
+                <span class="badge bg-primary text-white fs-6 px-3 py-2 rounded-pill shadow-sm">
+                    Trạng thái: @Model.TrangThai
+                </span>
             </div>
-            <div class="form-group">
-                <label asp-for="MaPhong" class="control-label"></label>
-                <input asp-for="MaPhong" class="form-control" />
-                <span asp-validation-for="MaPhong" class="text-danger"></span>
+            <div class="small opacity-75 mt-2">
+                Module 4 - Sinh viên thực hiện: Nguyễn Duy Thái (MSV: 23103100052)
             </div>
-            <div class="form-group">
-                <label asp-for="NgayNhanPhong" class="control-label"></label>
-                <input asp-for="NgayNhanPhong" class="form-control" />
-                <span asp-validation-for="NgayNhanPhong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NgayTraPhong" class="control-label"></label>
-                <input asp-for="NgayTraPhong" class="form-control" />
-                <span asp-validation-for="NgayTraPhong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SoNguoi" class="control-label"></label>
-                <input asp-for="SoNguoi" class="form-control" />
-                <span asp-validation-for="SoNguoi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="YeuCauDacBiet" class="control-label"></label>
-                <input asp-for="YeuCauDacBiet" class="form-control" />
-                <span asp-validation-for="YeuCauDacBiet" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NgayDat" class="control-label"></label>
-                <input asp-for="NgayDat" class="form-control" />
-                <span asp-validation-for="NgayDat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TongTienDuKien" class="control-label"></label>
-                <input asp-for="TongTienDuKien" class="form-control" />
-                <span asp-validation-for="TongTienDuKien" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NgayNhanThucTe" class="control-label"></label>
-                <input asp-for="NgayNhanThucTe" class="form-control" />
-                <span asp-validation-for="NgayNhanThucTe" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NgayTraThucTe" class="control-label"></label>
-                <input asp-for="NgayTraThucTe" class="form-control" />
-                <span asp-validation-for="NgayTraThucTe" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TrangThai" class="control-label"></label>
-                <input asp-for="TrangThai" class="form-control" />
-                <span asp-validation-for="TrangThai" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NgayXuLy" class="control-label"></label>
-                <input asp-for="NgayXuLy" class="form-control" />
-                <span asp-validation-for="NgayXuLy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GhiChuLeTan" class="control-label"></label>
-                <input asp-for="GhiChuLeTan" class="form-control" />
-                <span asp-validation-for="GhiChuLeTan" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="KhachHang" class="control-label"></label>
-                <input asp-for="KhachHang" class="form-control" />
-                <span asp-validation-for="KhachHang" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phong" class="control-label"></label>
-                <input asp-for="Phong" class="form-control" />
-                <span asp-validation-for="Phong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DichVuPhatSinhs" class="control-label"></label>
-                <input asp-for="DichVuPhatSinhs" class="form-control" />
-                <span asp-validation-for="DichVuPhatSinhs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HoaDon" class="control-label"></label>
-                <input asp-for="HoaDon" class="form-control" />
-                <span asp-validation-for="HoaDon" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+
+        <div class="card-body p-4">
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="MaDatPhong" />
+                <input type="hidden" asp-for="NgayDat" />
+                <input type="hidden" asp-for="TrangThai" />
+                <input type="hidden" asp-for="NgayNhanThucTe" />
+                <input type="hidden" asp-for="NgayTraThucTe" />
+                <input type="hidden" asp-for="NgayXuLy" />
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 small"></div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="MaKhachHang" class="letan-label">
+                            <i class="bi bi-person-fill"></i> Khách hàng <span class="text-danger">*</span>
+                        </label>
+                        <select asp-for="MaKhachHang" class="letan-select w-100" asp-items="ViewBag.MaKhachHang" required></select>
+                        <span asp-validation-for="MaKhachHang" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="MaPhong" class="letan-label">
+                            <i class="bi bi-door-open-fill"></i> Số phòng phân bổ <span class="text-danger">*</span>
+                        </label>
+                        <select asp-for="MaPhong" class="letan-select w-100" asp-items="ViewBag.MaPhong" required></select>
+                        <span asp-validation-for="MaPhong" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="NgayNhanPhong" class="letan-label">
+                            <i class="bi bi-box-arrow-in-right text-success"></i> Ngày nhận phòng (Check-in) <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="NgayNhanPhong" type="date" class="letan-select w-100" value="@Model.NgayNhanPhong.ToString("yyyy-MM-dd")" required />
+                        <span asp-validation-for="NgayNhanPhong" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="NgayTraPhong" class="letan-label">
+                            <i class="bi bi-box-arrow-left text-danger"></i> Ngày trả phòng (Check-out) <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="NgayTraPhong" type="date" class="letan-select w-100" value="@Model.NgayTraPhong.ToString("yyyy-MM-dd")" required />
+                        <span asp-validation-for="NgayTraPhong" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="SoNguoi" class="letan-label">
+                            <i class="bi bi-people-fill"></i> Số người lưu trú <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="SoNguoi" type="number" min="1" max="10" class="letan-select w-100" required />
+                        <span asp-validation-for="SoNguoi" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="TongTienDuKien" class="letan-label">
+                            <i class="bi bi-cash-stack"></i> Tổng tiền dự kiến (VNĐ) <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="TongTienDuKien" type="number" step="1000" class="letan-select w-100" required />
+                        <span asp-validation-for="TongTienDuKien" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="YeuCauDacBiet" class="letan-label">
+                            <i class="bi bi-stars"></i> Yêu cầu đặc biệt của khách
+                        </label>
+                        <textarea asp-for="YeuCauDacBiet" class="letan-select w-100" rows="2"></textarea>
+                        <span asp-validation-for="YeuCauDacBiet" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="GhiChuLeTan" class="letan-label">
+                            <i class="bi bi-chat-left-dots-fill"></i> Ghi chú của Lễ tân
+                        </label>
+                        <textarea asp-for="GhiChuLeTan" class="letan-select w-100" rows="2"></textarea>
+                        <span asp-validation-for="GhiChuLeTan" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+                    <a asp-action="Details" asp-route-id="@Model.MaDatPhong" class="btn btn-outline-secondary px-4 rounded-pill">
+                        <i class="bi bi-arrow-left me-1"></i> Hủy
+                    </a>
+                    <button type="submit" class="btn btn-primary px-5 py-2 fw-bold rounded-pill shadow-sm">
+                        <i class="bi bi-check2 me-1"></i> Lưu thay đổi
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

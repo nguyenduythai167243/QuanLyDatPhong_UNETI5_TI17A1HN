@@ -1,4 +1,4 @@
-﻿@*
+@*
     Họ và tên: Nguyễn Duy Thái
     Mã sinh viên: 23103100052
     Nội dung thực hiện: Module 4 - Màn hình làm thủ tục trả phòng (Check-out) và tính thời gian lưu trú thực tế
@@ -7,54 +7,87 @@
 @model QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels.XuLyDatPhongViewModel
 
 @{
-    ViewData["Title"] = $"Trả phòng - Đặt phòng #{Model.DatPhong.MaDatPhong}";
+    ViewData["Title"] = $"Thủ Tục Trả Phòng - Đặt Phòng #{Model.DatPhong.MaDatPhong} - Lễ Tân";
     var dp = Model.DatPhong;
 }
 
-<div class="container py-4" style="max-width: 800px;">
-    <div class="card border-0 shadow-sm border-start border-warning border-4">
-        <div class="card-header bg-white py-3">
-            <h4 class="mb-0 fw-bold text-dark">
-                <i class="bi bi-box-arrow-left text-warning"></i> LÀM THỦ TỤC TRẢ PHÒNG (CHECK-OUT)
-            </h4>
-            <div class="small text-muted">
+<div class="container py-4" style="max-width: 850px;">
+    <!-- Nút quay lại -->
+    <div class="mb-3">
+        <a asp-action="Details" asp-route-id="@dp.MaDatPhong" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+            <i class="bi bi-arrow-left me-1"></i> Quay lại chi tiết đặt phòng
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+        <!-- Header -->
+        <div class="py-4 px-4 text-white" style="background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div>
+                    <span class="badge bg-white bg-opacity-20 text-white rounded-pill px-3 py-1 mb-2">
+                        <i class="bi bi-box-arrow-left me-1"></i> Thủ tục hoàn tất lưu trú
+                    </span>
+                    <h3 class="mb-0 fw-bold">
+                        LÀM THỦ TỤC TRẢ PHÒNG (CHECK-OUT)
+                    </h3>
+                </div>
+                <span class="badge bg-white text-dark fs-6 px-3 py-2 rounded-pill shadow-sm">
+                    Đơn #@dp.MaDatPhong
+                </span>
+            </div>
+            <div class="small opacity-75 mt-2">
                 Module 4 - Sinh viên thực hiện: Nguyễn Duy Thái (MSV: 23103100052)
             </div>
         </div>
+
         <div class="card-body p-4">
             <!-- Thông tin lưu trú thực tế -->
-            <div class="alert alert-light border mb-4">
-                <div class="row">
-                    <div class="col-sm-6 mb-2">
-                        <span class="text-muted">Đơn đặt:</span>
-                        <strong class="fs-5">#@dp.MaDatPhong</strong>
+            <div class="p-4 rounded-4 mb-4 border" style="background: linear-gradient(135deg, #fffbeb 0%, #f8fafc 100%);">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="text-muted small fw-bold text-uppercase">Khách hàng trả phòng:</div>
+                        <div class="fs-5 fw-bold text-dark mt-1">@(dp.KhachHang?.HoTen ?? "N/A")</div>
+                        <div class="small text-muted">
+                            <i class="bi bi-telephone text-primary me-1"></i>@(dp.KhachHang?.SoDienThoai ?? "N/A")
+                        </div>
                     </div>
-                    <div class="col-sm-6 mb-2">
-                        <span class="text-muted">Khách hàng trả phòng:</span>
-                        <strong class="fs-5 text-dark">@(dp.KhachHang?.HoTen ?? "N/A")</strong>
+
+                    <div class="col-md-6">
+                        <div class="text-muted small fw-bold text-uppercase">Phòng thu hồi:</div>
+                        <div class="mt-1">
+                            <span class="room-tag fs-5">
+                                <i class="bi bi-key-fill text-primary"></i> Phòng @(dp.Phong?.SoPhong ?? "N/A")
+                            </span>
+                            <span class="badge bg-warning-subtle text-warning-emphasis ms-2">
+                                @Model.SoDem đêm thực tế
+                            </span>
+                        </div>
                     </div>
-                    <div class="col-sm-6 mb-2">
-                        <span class="text-muted">Phòng trả:</span>
-                        <span class="badge bg-primary fs-5">Phòng @(dp.Phong?.SoPhong ?? "N/A")</span>
+
+                    <div class="col-md-6 pt-2 border-top">
+                        <div class="text-muted small fw-bold text-uppercase">Đã nhận phòng thực tế lúc:</div>
+                        <div class="fw-bold text-primary mt-1">
+                            <i class="bi bi-calendar-check me-1"></i>
+                            @(dp.NgayNhanThucTe?.ToString("dd/MM/yyyy HH:mm:ss") ?? dp.NgayNhanPhong.ToString("dd/MM/yyyy"))
+                        </div>
                     </div>
-                    <div class="col-sm-6 mb-2">
-                        <span class="text-muted">Đã nhận phòng thực tế lúc:</span>
-                        <strong class="text-primary">@(dp.NgayNhanThucTe?.ToString("dd/MM/yyyy HH:mm") ?? dp.NgayNhanPhong.ToString("dd/MM/yyyy"))</strong>
-                    </div>
-                    <div class="col-sm-6 mb-2">
-                        <span class="text-muted">Thời điểm trả phòng thực tế ghi nhận:</span>
-                        <strong class="text-success fs-5">@DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")</strong>
-                    </div>
-                    <div class="col-sm-6 mb-2">
-                        <span class="text-muted">Số đêm lưu trú thực tế:</span>
-                        <span class="badge bg-info text-dark fs-6">@Model.SoDem đêm</span>
+
+                    <div class="col-md-6 pt-2 border-top">
+                        <div class="text-muted small fw-bold text-uppercase">Ghi nhận thời điểm trả phòng thực tế:</div>
+                        <div class="fw-bold text-success mt-1">
+                            <i class="bi bi-clock-history me-1"></i>
+                            @DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Gợi ý dịch vụ và hóa đơn (Module 5 liên kết) -->
-            <div class="alert alert-info py-2 small mb-4">
-                <i class="bi bi-info-circle-fill me-1"></i> Sau khi bấm <strong>Xác nhận Trả phòng</strong>, trạng thái sẽ chuyển thành <strong>Đã trả phòng</strong> và phòng sẽ được giải phóng về trạng thái <strong>Sẵn sàng</strong>. Sau đó Lễ tân có thể chuyển sang phân hệ <strong>Hóa đơn</strong> (Module 5) để tiến hành quyết toán và in hóa đơn cho khách.
+            <!-- Hướng dẫn liên kết Module 5 Hóa Đơn -->
+            <div class="alert alert-info border-0 shadow-sm d-flex align-items-center gap-3 rounded-4 mb-4 bg-white border-start border-info border-4">
+                <i class="bi bi-info-circle-fill fs-3 text-info"></i>
+                <div class="small">
+                    <strong>Quy trình chuyển tiếp (Module 5):</strong> Sau khi Lễ tân bấm <strong>Xác nhận Trả phòng</strong>, trạng thái sẽ chuyển thành <strong>Đã trả phòng</strong> và phòng sẽ được giải phóng ngay lập tức về trạng thái <strong>Sẵn sàng</strong>. Sau đó Lễ tân có thể chuyển sang phân hệ <strong>Hóa đơn</strong> để quyết toán minibar, dịch vụ phát sinh và in hóa đơn cho khách.
+                </div>
             </div>
 
             <form asp-action="TraPhong" method="post">
@@ -62,16 +95,18 @@
                 <input type="hidden" name="id" value="@dp.MaDatPhong" />
 
                 <div class="mb-4">
-                    <label class="form-label fw-bold">Ghi chú kiểm tra phòng và bàn giao:</label>
-                    <textarea name="ghiChu" class="form-control" rows="3" placeholder="Ví dụ: Đã kiểm tra phòng, minibar và thiết bị đầy đủ, thu hồi thẻ từ..."></textarea>
+                    <label class="form-label fw-bold text-dark">
+                        <i class="bi bi-clipboard-check text-primary me-1"></i> Ghi chú kiểm tra phòng và bàn giao:
+                    </label>
+                    <textarea name="ghiChu" class="letan-select w-100" rows="3" placeholder="Ví dụ: Đã kiểm tra phòng đầy đủ thiết bị, minibar sử dụng 2 nước suối, thu hồi thẻ từ phòng @(dp.Phong?.SoPhong)...">@Model.GhiChuLeTan</textarea>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <a asp-action="Details" asp-route-id="@dp.MaDatPhong" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-left"></i> Quay lại
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-3 border-top">
+                    <a asp-action="Details" asp-route-id="@dp.MaDatPhong" class="btn btn-outline-secondary px-4 rounded-pill">
+                        <i class="bi bi-arrow-left me-1"></i> Hủy & Quay lại
                     </a>
-                    <button type="submit" class="btn btn-warning text-dark px-4 py-2 fw-bold" onclick="return confirm('Xác nhận hoàn tất trả phòng cho đơn đặt này?');">
-                        <i class="bi bi-check2-circle"></i> Xác nhận Hoàn tất Trả phòng
+                    <button type="submit" class="btn btn-warning text-dark px-4 py-2 fw-bold rounded-pill shadow-sm" onclick="return confirm('Xác nhận hoàn tất trả phòng cho đơn đặt này?');">
+                        <i class="bi bi-check2-circle me-1"></i> Xác nhận Hoàn tất Trả phòng
                     </button>
                 </div>
             </form>

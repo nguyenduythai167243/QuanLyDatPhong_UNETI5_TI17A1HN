@@ -24,6 +24,8 @@ builder.Services.AddDbContext<QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbC
 builder.Services.AddScoped<IPhongRepository, PhongRepository>();
 builder.Services.AddScoped<IThongkeRepository, ThongKeRepository>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<ILeTanRepository, LeTanRepository>();
+builder.Services.AddScoped<ILeTanDatPhongRepository, LeTanRepository>();
 
 builder.Services.AddControllersWithViews();
 

@@ -1,336 +1,549 @@
-﻿@*
+@*
     Họ và tên: Nguyễn Duy Thái
     Mã sinh viên: 23103100052
-    Nội dung thực hiện: Module 4 - Màn hình danh sách tiếp nhận, tìm kiếm, lọc, sắp xếp, phân trang và quản lý đặt phòng của Lễ tân
+    Nội dung thực hiện: Module 4 - Màn hình danh sách tiếp nhận, tìm kiếm, lọc, sắp xếp, phân trang và quản lý đặt phòng của Lễ tân (Luxury Hospitality Receptionist Command Center)
 *@
 
 @model QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels.DatPhongFilterViewModel
 
 @{
-    ViewData["Title"] = "Quản lý Đặt phòng - Lễ tân";
+    ViewData["Title"] = "Lễ Tân Khách Sạn - Tiếp Nhận & Quản Lý Đặt Phòng";
+    ViewData["FluidLayout"] = true;
+    var today = DateTime.Today;
+    var currentTrangThai = Model.TrangThai ?? "";
+    var isNoShowFilter = Model.CanhBaoQuaHan == true;
 }
 
-<div class="container-fluid py-3">
-    <!-- Tiêu đề & Thông tin sinh viên phụ trách -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <div>
-            <h2 class="text-primary fw-bold mb-1">
-                <i class="bi bi-calendar2-check"></i> QUẢN LÝ ĐẶT PHÒNG VÀ LƯU TRÚ
-            </h2>
-            <div class="text-muted small">
-                <span class="badge bg-primary">Module 4</span>
-                <strong>Sinh viên phụ trách:</strong> Nguyễn Duy Thái - <strong>MSV:</strong> 23103100052
+<div class="py-2">
+    <!-- ======================================================================
+         1. HERO COMMAND BAR / TIÊU ĐỀ LỄ TÂN CA TRỰC
+         ====================================================================== -->
+    <div class="letan-hero">
+        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
+            <div>
+                <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                    <span class="letan-live-badge">
+                        <span class="letan-live-dot"></span> TRỰC LỄ TÂN TRỰC TUYẾN
+                    </span>
+                    <span class="badge bg-white bg-opacity-10 text-light border border-white border-opacity-10 py-1 px-2">
+                        <i class="bi bi-clock me-1"></i> <span id="letan-live-clock">Đang đồng bộ giờ...</span>
+                    </span>
+                </div>
+                <h1 class="letan-hero-title mb-1">
+                    <i class="bi bi-building-fill-check text-warning me-2"></i>TRUNG TÂM TIẾP NHẬN & QUẢN LÝ LƯU TRÚ
+                </h1>
+                <div class="letan-hero-sub d-flex align-items-center gap-2 flex-wrap">
+                    <span class="badge bg-primary bg-opacity-50 text-white border border-primary border-opacity-25">Module 4</span>
+                    <span>Hệ thống quản lý khách sạn cao cấp UNETI</span>
+                    <span class="text-white-50">|</span>
+                    <span><strong>Phụ trách:</strong> Nguyễn Duy Thái (MSV: 23103100052)</span>
+                </div>
             </div>
-        </div>
-        <div class="d-flex gap-2">
-            <a asp-action="KiemTraCongSuat" class="btn btn-outline-info">
-                <i class="bi bi-bar-chart-line"></i> Kiểm tra công suất phòng
-            </a>
-            <a asp-action="Create" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> Đặt phòng tại quầy
-            </a>
+
+            <!-- Action buttons -->
+            <div class="letan-hero-actions">
+                <a asp-action="KiemTraCongSuat" class="btn-hero-action btn-glass">
+                    <i class="bi bi-pie-chart-fill text-info"></i>
+                    <span>Kiểm tra công suất</span>
+                </a>
+                <a asp-action="Create" class="btn-hero-action btn-accent">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    <span>Đặt phòng tại quầy</span>
+                </a>
+            </div>
         </div>
     </div>
 
-    <!-- Thông báo Alert TempData -->
+    <!-- ======================================================================
+         2. HỆ THỐNG THÔNG BÁO FLASH TEMPDATA
+         ====================================================================== -->
     @if (TempData["ThongBaoThanhCong"] != null)
     {
-        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
-            <i class="bi bi-check-circle-fill me-2"></i> @TempData["ThongBaoThanhCong"]
+        <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 d-flex align-items-center gap-2 mb-3 rounded-3" role="alert">
+            <i class="bi bi-check-circle-fill fs-5 text-success"></i>
+            <div class="flex-grow-1 fw-semibold">@TempData["ThongBaoThanhCong"]</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
     @if (TempData["ThongBaoLoi"] != null)
     {
-        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ThongBaoLoi"]
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm border-0 d-flex align-items-center gap-2 mb-3 rounded-3" role="alert">
+            <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
+            <div class="flex-grow-1 fw-semibold">@TempData["ThongBaoLoi"]</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
     @if (TempData["ThongBaoCanhBao"] != null)
     {
-        <div class="alert alert-warning alert-dismissible fade show shadow-sm" role="alert">
-            <i class="bi bi-exclamation-circle-fill me-2"></i> @TempData["ThongBaoCanhBao"]
+        <div class="alert alert-warning alert-dismissible fade show shadow-sm border-0 d-flex align-items-center gap-2 mb-3 rounded-3" role="alert">
+            <i class="bi bi-exclamation-circle-fill fs-5 text-warning"></i>
+            <div class="flex-grow-1 fw-semibold">@TempData["ThongBaoCanhBao"]</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
 
-    <!-- Thống kê KPI nhanh cho Lễ tân -->
-    <div class="row g-3 mb-4">
-        <div class="col-6 col-md-2">
-            <div class="card border-0 shadow-sm text-center bg-light p-2 h-100">
-                <div class="text-secondary small fw-bold">TỔNG ĐƠN ĐẶT</div>
-                <div class="fs-4 fw-bold text-dark">@Model.TongDon</div>
-                <a asp-action="Index" class="small text-decoration-none mt-1">Xem tất cả</a>
+    <!-- ======================================================================
+         3. THỐNG KÊ KPI NHANH CHO LỄ TÂN (6 CHỈ SỐ QUAN TRỌNG)
+         ====================================================================== -->
+    <div class="letan-kpi-grid">
+        <!-- 1. Tổng đơn -->
+        <a asp-action="Index" class="letan-kpi-card letan-kpi-total">
+            <div class="letan-kpi-header">
+                <span class="letan-kpi-title">Tổng đơn đặt</span>
+                <div class="letan-kpi-icon">
+                    <i class="bi bi-folder2-open"></i>
+                </div>
             </div>
-        </div>
-        <div class="col-6 col-md-2">
-            <div class="card border-0 shadow-sm text-center bg-warning bg-opacity-10 p-2 h-100 border-start border-warning border-4">
-                <div class="text-warning small fw-bold">CHỜ XÁC NHẬN</div>
-                <div class="fs-4 fw-bold text-warning">@Model.SoChoXacNhan</div>
-                <a asp-action="Index" asp-route-trangThai="Chờ xác nhận" class="small text-decoration-none mt-1">Cần duyệt ngay</a>
+            <div class="letan-kpi-value">@Model.TongDon</div>
+            <div class="letan-kpi-footer text-primary">
+                <span>Xem toàn bộ</span>
+                <i class="bi bi-arrow-right"></i>
             </div>
-        </div>
-        <div class="col-6 col-md-2">
-            <div class="card border-0 shadow-sm text-center bg-info bg-opacity-10 p-2 h-100 border-start border-info border-4">
-                <div class="text-info small fw-bold">ĐÃ XÁC NHẬN</div>
-                <div class="fs-4 fw-bold text-info">@Model.SoDaXacNhan</div>
-                <a asp-action="Index" asp-route-trangThai="Đã xác nhận" class="small text-decoration-none mt-1">Chờ nhận phòng</a>
+        </a>
+
+        <!-- 2. Chờ xác nhận -->
+        <a asp-action="Index" asp-route-trangThai="Chờ xác nhận" class="letan-kpi-card letan-kpi-pending">
+            <div class="letan-kpi-header">
+                <span class="letan-kpi-title">Chờ xác nhận</span>
+                <div class="letan-kpi-icon">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
             </div>
-        </div>
-        <div class="col-6 col-md-2">
-            <div class="card border-0 shadow-sm text-center bg-primary bg-opacity-10 p-2 h-100 border-start border-primary border-4">
-                <div class="text-primary small fw-bold">ĐANG LƯU TRÚ</div>
-                <div class="fs-4 fw-bold text-primary">@Model.SoDangLuuTru</div>
-                <a asp-action="Index" asp-route-trangThai="Đã nhận phòng" class="small text-decoration-none mt-1">Đang ở khách sạn</a>
+            <div class="letan-kpi-value">@Model.SoChoXacNhan</div>
+            <div class="letan-kpi-footer text-warning">
+                <span>Cần duyệt ngay</span>
+                <i class="bi bi-arrow-right"></i>
             </div>
-        </div>
-        <div class="col-6 col-md-2">
-            <div class="card border-0 shadow-sm text-center bg-success bg-opacity-10 p-2 h-100 border-start border-success border-4">
-                <div class="text-success small fw-bold">ĐÃ TRẢ PHÒNG</div>
-                <div class="fs-4 fw-bold text-success">@Model.SoDaTraPhong</div>
-                <a asp-action="Index" asp-route-trangThai="Đã trả phòng" class="small text-decoration-none mt-1">Đã xong</a>
+        </a>
+
+        <!-- 3. Đã xác nhận -->
+        <a asp-action="Index" asp-route-trangThai="Đã xác nhận" class="letan-kpi-card letan-kpi-confirmed">
+            <div class="letan-kpi-header">
+                <span class="letan-kpi-title">Đã xác nhận</span>
+                <div class="letan-kpi-icon">
+                    <i class="bi bi-patch-check-fill"></i>
+                </div>
             </div>
-        </div>
-        <div class="col-6 col-md-2">
-            <div class="card border-0 shadow-sm text-center bg-danger bg-opacity-10 p-2 h-100 border-start border-danger border-4">
-                <div class="text-danger small fw-bold">QUÁ HẠN CHECK-IN</div>
-                <div class="fs-4 fw-bold text-danger">@Model.SoQuaHanChuaNhan</div>
-                <a asp-action="Index" asp-route-canhBaoQuaHan="true" class="small text-danger fw-bold text-decoration-none mt-1">Cảnh báo No-show</a>
+            <div class="letan-kpi-value">@Model.SoDaXacNhan</div>
+            <div class="letan-kpi-footer text-info">
+                <span>Chờ check-in</span>
+                <i class="bi bi-arrow-right"></i>
             </div>
-        </div>
+        </a>
+
+        <!-- 4. Đang lưu trú -->
+        <a asp-action="Index" asp-route-trangThai="Đã nhận phòng" class="letan-kpi-card letan-kpi-inhouse">
+            <div class="letan-kpi-header">
+                <span class="letan-kpi-title">Đang lưu trú</span>
+                <div class="letan-kpi-icon">
+                    <i class="bi bi-house-check-fill"></i>
+                </div>
+            </div>
+            <div class="letan-kpi-value">@Model.SoDangLuuTru</div>
+            <div class="letan-kpi-footer" style="color: #7c3aed;">
+                <span>Đang ở khách sạn</span>
+                <i class="bi bi-arrow-right"></i>
+            </div>
+        </a>
+
+        <!-- 5. Đã trả phòng -->
+        <a asp-action="Index" asp-route-trangThai="Đã trả phòng" class="letan-kpi-card letan-kpi-completed">
+            <div class="letan-kpi-header">
+                <span class="letan-kpi-title">Đã hoàn tất</span>
+                <div class="letan-kpi-icon">
+                    <i class="bi bi-door-closed-fill"></i>
+                </div>
+            </div>
+            <div class="letan-kpi-value">@Model.SoDaTraPhong</div>
+            <div class="letan-kpi-footer text-success">
+                <span>Đã trả phòng</span>
+                <i class="bi bi-arrow-right"></i>
+            </div>
+        </a>
+
+        <!-- 6. Cảnh báo quá hạn No-show -->
+        <a asp-action="Index" asp-route-canhBaoQuaHan="true" class="letan-kpi-card letan-kpi-danger @(Model.SoQuaHanChuaNhan > 0 ? "has-alert" : "")">
+            <div class="letan-kpi-header">
+                <span class="letan-kpi-title">Quá hạn Check-in</span>
+                <div class="letan-kpi-icon">
+                    <i class="bi bi-exclamation-octagon-fill"></i>
+                </div>
+            </div>
+            <div class="letan-kpi-value">@Model.SoQuaHanChuaNhan</div>
+            <div class="letan-kpi-footer text-danger">
+                <span>Cảnh báo No-show</span>
+                <i class="bi bi-arrow-right"></i>
+            </div>
+        </a>
     </div>
 
-    <!-- Bộ lọc & Tìm kiếm (LINQ Filter) -->
-    <div class="card border-0 shadow-sm mb-4">
-        <div class="card-body">
-            <form method="get" asp-action="Index" class="row g-2 align-items-end">
-                <div class="col-md-3">
-                    <label class="form-label small fw-bold text-muted">Từ khóa (Khách hàng, Số phòng, SĐT)</label>
-                    <input type="text" name="tuKhoa" value="@Model.TuKhoa" class="form-control" placeholder="Nhập tên khách hoặc số phòng..." />
+    <!-- ======================================================================
+         4. QUICK FILTER TABS (CHIPS TRẠNG THÁI)
+         ====================================================================== -->
+    <div class="letan-quick-tabs">
+        <a asp-action="Index" class="letan-tab-chip @(string.IsNullOrEmpty(currentTrangThai) && !isNoShowFilter ? "active" : "")">
+            <i class="bi bi-grid-fill"></i>
+            <span>Tất cả</span>
+            <span class="letan-tab-badge">@Model.TongDon</span>
+        </a>
+        <a asp-action="Index" asp-route-trangThai="Chờ xác nhận" class="letan-tab-chip @(currentTrangThai == "Chờ xác nhận" ? "active" : "")">
+            <i class="bi bi-hourglass-split text-warning"></i>
+            <span>Chờ xác nhận</span>
+            <span class="letan-tab-badge">@Model.SoChoXacNhan</span>
+        </a>
+        <a asp-action="Index" asp-route-trangThai="Đã xác nhận" class="letan-tab-chip @(currentTrangThai == "Đã xác nhận" && !isNoShowFilter ? "active" : "")">
+            <i class="bi bi-patch-check-fill text-info"></i>
+            <span>Đã xác nhận</span>
+            <span class="letan-tab-badge">@Model.SoDaXacNhan</span>
+        </a>
+        <a asp-action="Index" asp-route-trangThai="Đã nhận phòng" class="letan-tab-chip @(currentTrangThai == "Đã nhận phòng" ? "active" : "")">
+            <i class="bi bi-house-door-fill text-primary"></i>
+            <span>Đang lưu trú</span>
+            <span class="letan-tab-badge">@Model.SoDangLuuTru</span>
+        </a>
+        <a asp-action="Index" asp-route-trangThai="Đã trả phòng" class="letan-tab-chip @(currentTrangThai == "Đã trả phòng" ? "active" : "")">
+            <i class="bi bi-check2-circle text-success"></i>
+            <span>Đã trả phòng</span>
+            <span class="letan-tab-badge">@Model.SoDaTraPhong</span>
+        </a>
+        <a asp-action="Index" asp-route-canhBaoQuaHan="true" class="letan-tab-chip @(isNoShowFilter ? "active bg-danger text-white border-danger" : "")">
+            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+            <span>Quá hạn Check-in (No-show)</span>
+            <span class="letan-tab-badge">@Model.SoQuaHanChuaNhan</span>
+        </a>
+    </div>
+
+    <!-- ======================================================================
+         5. BỘ LỌC TÌM KIẾM ĐA TIÊU CHÍ (LINQ FILTER & SEARCH CONSOLE)
+         ====================================================================== -->
+    <div class="letan-filter-card">
+        <form method="get" asp-action="Index" class="row g-3 align-items-end">
+            <!-- Tìm kiếm từ khóa -->
+            <div class="col-12 col-md-4 col-xl-3">
+                <label class="letan-label">
+                    <i class="bi bi-search"></i> Từ khóa tìm kiếm
+                </label>
+                <div class="letan-input-group">
+                    <i class="bi bi-search letan-input-icon"></i>
+                    <input type="text" name="tuKhoa" value="@Model.TuKhoa" class="letan-form-control w-100" placeholder="Tên khách, SĐT, số phòng..." />
                 </div>
-                <div class="col-md-2">
-                    <label class="form-label small fw-bold text-muted">Loại phòng</label>
-                    <select name="maLoaiPhong" class="form-select" asp-items="Model.LoaiPhongSelectList">
-                        <option value="">-- Tất cả loại phòng --</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label small fw-bold text-muted">Trạng thái đặt phòng</label>
-                    <select name="trangThai" class="form-select">
-                        <option value="">-- Tất cả trạng thái --</option>
-                        @foreach (var tt in Model.TrangThaiList)
+            </div>
+
+            <!-- Loại phòng -->
+            <div class="col-6 col-md-3 col-xl-2">
+                <label class="letan-label">
+                    <i class="bi bi-door-open"></i> Hạng loại phòng
+                </label>
+                <select name="maLoaiPhong" class="letan-select w-100" asp-items="Model.LoaiPhongSelectList">
+                    <option value="">-- Tất cả loại --</option>
+                </select>
+            </div>
+
+            <!-- Trạng thái -->
+            <div class="col-6 col-md-3 col-xl-2">
+                <label class="letan-label">
+                    <i class="bi bi-tags"></i> Trạng thái đặt
+                </label>
+                <select name="trangThai" class="letan-select w-100">
+                    <option value="">-- Tất cả trạng thái --</option>
+                    @foreach (var tt in Model.TrangThaiList)
+                    {
+                        if (Model.TrangThai == tt)
                         {
-                            if (Model.TrangThai == tt)
-                            {
-                                <option value="@tt" selected>@tt</option>
-                            }
-                            else
-                            {
-                                <option value="@tt">@tt</option>
-                            }
+                            <option value="@tt" selected>@tt</option>
                         }
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label small fw-bold text-muted">Ngày nhận phòng</label>
-                    <input type="date" name="ngayNhanPhong" value="@(Model.NgayNhanPhong?.ToString("yyyy-MM-dd"))" class="form-control" />
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label small fw-bold text-muted">Sắp xếp</label>
-                    <select name="sortOrder" class="form-select">
-                        <option value="" selected="@(string.IsNullOrEmpty(Model.SortOrder))">Ngày đặt mới nhất</option>
-                        <option value="ngaydat_asc" selected="@(Model.SortOrder == "ngaydat_asc")">Ngày đặt cũ nhất</option>
-                        <option value="ngaynhan_asc" selected="@(Model.SortOrder == "ngaynhan_asc")">Ngày nhận sớm nhất</option>
-                        <option value="ngaynhan_desc" selected="@(Model.SortOrder == "ngaynhan_desc")">Ngày nhận muộn nhất</option>
-                    </select>
-                </div>
-                <div class="col-md-1 d-flex gap-1">
-                    <button type="submit" class="btn btn-primary w-100" title="Tìm kiếm & Lọc">
-                        Lọc
-                    </button>
-                    <a asp-action="Index" class="btn btn-outline-secondary" title="Xóa bộ lọc">
-                        Hủy
-                    </a>
-                </div>
-                @if (Model.CanhBaoQuaHan == true)
-                {
-                    <input type="hidden" name="canhBaoQuaHan" value="true" />
-                }
-            </form>
-        </div>
-    </div>
+                        else
+                        {
+                            <option value="@tt">@tt</option>
+                        }
+                    }
+                </select>
+            </div>
 
-    <!-- Bảng danh sách đặt phòng -->
-    <div class="card border-0 shadow-sm">
-        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-            <h5 class="mb-0 fw-bold text-secondary">
-                Danh sách đặt phòng (@(Model.DanhSach?.TotalItems ?? 0) kết quả)
-            </h5>
+            <!-- Ngày nhận phòng -->
+            <div class="col-6 col-md-3 col-xl-2">
+                <label class="letan-label">
+                    <i class="bi bi-calendar3"></i> Ngày nhận phòng
+                </label>
+                <input type="date" name="ngayNhanPhong" value="@(Model.NgayNhanPhong?.ToString("yyyy-MM-dd"))" class="letan-select w-100" />
+            </div>
+
+            <!-- Sắp xếp -->
+            <div class="col-6 col-md-3 col-xl-2">
+                <label class="letan-label">
+                    <i class="bi bi-sort-down"></i> Thứ tự sắp xếp
+                </label>
+                <select name="sortOrder" class="letan-select w-100">
+                    <option value="" selected="@(string.IsNullOrEmpty(Model.SortOrder))">Ngày đặt mới nhất</option>
+                    <option value="ngaydat_asc" selected="@(Model.SortOrder == "ngaydat_asc")">Ngày đặt cũ nhất</option>
+                    <option value="ngaynhan_asc" selected="@(Model.SortOrder == "ngaynhan_asc")">Ngày nhận sớm nhất</option>
+                    <option value="ngaynhan_desc" selected="@(Model.SortOrder == "ngaynhan_desc")">Ngày nhận muộn nhất</option>
+                </select>
+            </div>
+
+            <!-- Nút hành động -->
+            <div class="col-12 col-md-6 col-xl-1 d-flex gap-2">
+                <button type="submit" class="btn btn-primary fw-bold w-100 py-2 d-flex align-items-center justify-content-center gap-1 shadow-sm" title="Lọc kết quả">
+                    <i class="bi bi-funnel-fill"></i> Lọc
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary fw-semibold py-2 d-flex align-items-center justify-content-center" title="Làm mới bộ lọc">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                </a>
+            </div>
+
             @if (Model.CanhBaoQuaHan == true)
             {
-                <span class="badge bg-danger">
-                    Đang lọc: Cảnh báo quá ngày nhận phòng (No-show)
-                </span>
+                <input type="hidden" name="canhBaoQuaHan" value="true" />
             }
+        </form>
+    </div>
+
+    <!-- ======================================================================
+         6. BẢNG DANH SÁCH ĐẶT PHÒNG CAO CẤP (LUXURY TABLE)
+         ====================================================================== -->
+    <div class="letan-table-card">
+        <div class="letan-table-header">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fs-5 fw-bold text-dark">
+                    <i class="bi bi-table text-primary me-1"></i> Danh sách Đặt phòng
+                </span>
+                <span class="badge bg-light text-dark border px-2 py-1 fw-bold">
+                    @(Model.DanhSach?.TotalItems ?? 0) kết quả
+                </span>
+                @if (isNoShowFilter)
+                {
+                    <span class="badge bg-danger text-white py-1 px-2 d-flex align-items-center gap-1">
+                        <i class="bi bi-exclamation-triangle-fill"></i> Đang lọc: Cảnh báo No-show
+                    </span>
+                }
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-muted small">
+                    <i class="bi bi-info-circle me-1"></i>Nhấp chuột vào hàng để xem hoặc chọn thao tác nhanh
+                </span>
+            </div>
         </div>
+
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light text-secondary small text-uppercase">
+            <table class="letan-table">
+                <thead>
                     <tr>
-                        <th style="width: 70px;">Mã</th>
-                        <th>Khách hàng</th>
-                        <th>Phòng / Loại</th>
-                        <th>Lưu trú (Nhận - Trả)</th>
-                        <th>Số người</th>
-                        <th>Tổng tiền dự kiến</th>
-                        <th>Trạng thái</th>
-                        <th>Ghi chú lễ tân</th>
-                        <th style="width: 220px;" class="text-center">Thao tác nghiệp vụ</th>
+                        <th style="width: 80px;">Mã</th>
+                        <th style="min-width: 200px;">Khách hàng</th>
+                        <th style="min-width: 170px;">Phòng / Hạng</th>
+                        <th style="min-width: 190px;">Lịch lưu trú</th>
+                        <th style="min-width: 90px;" class="text-center">Số khách</th>
+                        <th style="min-width: 150px;">Dự kiến</th>
+                        <th style="min-width: 160px;">Trạng thái</th>
+                        <th style="min-width: 170px;">Ghi chú lễ tân</th>
+                        <th style="min-width: 230px;" class="text-center">Thao tác nghiệp vụ</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if (Model.DanhSach != null && Model.DanhSach.Any())
                     {
-                        var today = DateTime.Today;
                         foreach (var item in Model.DanhSach)
                         {
                             var soDem = (int)(item.NgayTraPhong.Date - item.NgayNhanPhong.Date).TotalDays;
                             if (soDem <= 0) soDem = 1;
                             var laDonQuaHan = item.TrangThai == "Đã xác nhận" && item.NgayNhanPhong.Date < today;
                             var daDenNgayNhan = item.NgayNhanPhong.Date <= today;
+                            var customerName = item.KhachHang?.HoTen ?? "Khách vãng lai";
+                            var initialChar = !string.IsNullOrWhiteSpace(customerName) ? customerName.Trim()[0].ToString().ToUpper() : "K";
 
-                            <tr class="@(laDonQuaHan ? "table-danger bg-opacity-25" : "")">
-                                <td class="fw-bold">#@item.MaDatPhong</td>
+                            <tr class="@(laDonQuaHan ? "row-noshow-alert" : "")">
+                                <!-- Mã đơn -->
                                 <td>
-                                    <div class="fw-bold text-dark">@(item.KhachHang?.HoTen ?? "N/A")</div>
-                                    <div class="small text-muted">SĐT: @(item.KhachHang?.SoDienThoai ?? "N/A")</div>
+                                    <span class="fw-bold text-dark font-monospace">#@item.MaDatPhong</span>
                                 </td>
+
+                                <!-- Khách hàng -->
                                 <td>
-                                    <span class="badge bg-primary fs-6">Phòng @(item.Phong?.SoPhong ?? "N/A")</span>
-                                    <div class="small text-muted mt-1">@(item.Phong?.LoaiPhong?.TenLoaiPhong ?? "")</div>
-                                </td>
-                                <td>
-                                    <div class="small">
-                                        <i class="bi bi-box-arrow-in-right text-success"></i>
-                                        <strong>Nhận:</strong> @item.NgayNhanPhong.ToString("dd/MM/yyyy")
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="customer-avatar">@initialChar</div>
+                                        <div>
+                                            <div class="fw-bold text-dark">@customerName</div>
+                                            <div class="small text-muted d-flex align-items-center gap-1">
+                                                <i class="bi bi-telephone text-primary"></i>
+                                                <span>@(item.KhachHang?.SoDienThoai ?? "N/A")</span>
+                                                @if (!string.IsNullOrWhiteSpace(item.KhachHang?.SoDienThoai))
+                                                {
+                                                    <a href="javascript:void(0)" class="btn-copy-info text-decoration-none text-muted ms-1" data-copy="@item.KhachHang?.SoDienThoai" title="Sao chép SĐT">
+                                                        <i class="bi bi-copy"></i>
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="small">
-                                        <i class="bi bi-box-arrow-left text-danger"></i>
-                                        <strong>Trả:</strong> @item.NgayTraPhong.ToString("dd/MM/yyyy")
-                                    </div>
-                                    <div class="small text-secondary">(@soDem đêm)</div>
                                 </td>
+
+                                <!-- Phòng / Hạng -->
                                 <td>
-                                    <span class="badge bg-light text-dark border">@item.SoNguoi người</span>
+                                    <span class="room-tag">
+                                        <i class="bi bi-key-fill text-primary"></i>
+                                        P.@(item.Phong?.SoPhong ?? "---")
+                                    </span>
+                                    <div class="small text-muted mt-1 fw-semibold">
+                                        @(item.Phong?.LoaiPhong?.TenLoaiPhong ?? "Chưa phân loại")
+                                    </div>
                                 </td>
-                                <td class="fw-bold text-primary">
-                                    @item.TongTienDuKien.ToString("N0") đ
+
+                                <!-- Lịch lưu trú -->
+                                <td>
+                                    <div class="stay-timeline">
+                                        <div class="stay-date-row">
+                                            <i class="bi bi-box-arrow-in-right text-success fw-bold"></i>
+                                            <span class="fw-semibold">@item.NgayNhanPhong.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <div class="stay-date-row">
+                                            <i class="bi bi-box-arrow-left text-danger fw-bold"></i>
+                                            <span class="fw-semibold">@item.NgayTraPhong.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <span class="stay-nights-badge mt-1">
+                                            <i class="bi bi-moon-stars text-secondary"></i> @soDem đêm
+                                        </span>
+                                    </div>
                                 </td>
+
+                                <!-- Số khách -->
+                                <td class="text-center">
+                                    <span class="badge bg-light text-dark border px-2 py-1">
+                                        <i class="bi bi-people text-secondary me-1"></i>@item.SoNguoi
+                                    </span>
+                                </td>
+
+                                <!-- Tổng tiền dự kiến -->
+                                <td>
+                                    <div class="fw-bold text-primary fs-6">
+                                        @item.TongTienDuKien.ToString("N0") <span class="small text-muted fw-normal">đ</span>
+                                    </div>
+                                    <div class="small text-muted">Dự kiến</div>
+                                </td>
+
+                                <!-- Trạng thái -->
                                 <td>
                                     @switch (item.TrangThai)
                                     {
                                         case "Chờ xác nhận":
-                                            <span class="badge bg-warning text-dark px-2 py-1">Chờ xác nhận</span>
+                                            <span class="status-pill status-pending">
+                                                <span class="status-dot"></span> Chờ xác nhận
+                                            </span>
                                             break;
                                         case "Đã xác nhận":
-                                            <span class="badge bg-info text-dark px-2 py-1">Đã xác nhận</span>
+                                            <span class="status-pill status-confirmed">
+                                                <span class="status-dot"></span> Đã xác nhận
+                                            </span>
                                             if (laDonQuaHan)
                                             {
-                                                <div class="badge bg-danger mt-1 d-block">
-                                                    Quá hạn nhận phòng!
+                                                <div class="badge bg-danger mt-1 d-block text-white">
+                                                    <i class="bi bi-clock-history"></i> Quá hạn Check-in!
                                                 </div>
                                             }
                                             break;
                                         case "Đã nhận phòng":
-                                            <span class="badge bg-primary px-2 py-1">Đã nhận phòng</span>
+                                            <span class="status-pill status-inhouse">
+                                                <span class="status-dot"></span> Đang lưu trú
+                                            </span>
                                             <div class="small text-muted mt-1">
-                                                @(item.NgayNhanThucTe?.ToString("dd/MM HH:mm") ?? "")
+                                                <i class="bi bi-clock"></i> @(item.NgayNhanThucTe?.ToString("dd/MM HH:mm") ?? "")
                                             </div>
                                             break;
                                         case "Đã trả phòng":
-                                            <span class="badge bg-success px-2 py-1">Đã trả phòng</span>
+                                            <span class="status-pill status-completed">
+                                                <span class="status-dot"></span> Đã trả phòng
+                                            </span>
                                             <div class="small text-muted mt-1">
-                                                @(item.NgayTraThucTe?.ToString("dd/MM HH:mm") ?? "")
+                                                <i class="bi bi-check-all text-success"></i> @(item.NgayTraThucTe?.ToString("dd/MM HH:mm") ?? "")
                                             </div>
                                             break;
                                         case "Từ chối":
-                                            <span class="badge bg-secondary px-2 py-1">Từ chối</span>
+                                            <span class="status-pill status-rejected">
+                                                <span class="status-dot"></span> Từ chối
+                                            </span>
                                             break;
                                         case "Đã hủy":
-                                            <span class="badge bg-danger px-2 py-1">Đã hủy</span>
+                                            <span class="status-pill status-cancelled">
+                                                <span class="status-dot"></span> Đã hủy
+                                            </span>
                                             break;
                                         default:
-                                            <span class="badge bg-secondary px-2 py-1">@item.TrangThai</span>
+                                            <span class="status-pill status-rejected">
+                                                <span class="status-dot"></span> @item.TrangThai
+                                            </span>
                                             break;
                                     }
                                 </td>
+
+                                <!-- Ghi chú lễ tân -->
                                 <td>
-                                    <div class="small text-truncate" style="max-width: 180px;" title="@item.GhiChuLeTan">
-                                        @(string.IsNullOrWhiteSpace(item.GhiChuLeTan) ? "-" : item.GhiChuLeTan)
+                                    <div class="small text-truncate" style="max-width: 170px;" title="@item.GhiChuLeTan">
+                                        <i class="bi bi-chat-left-text text-secondary me-1"></i>
+                                        @(string.IsNullOrWhiteSpace(item.GhiChuLeTan) ? "Không có" : item.GhiChuLeTan)
                                     </div>
                                     @if (!string.IsNullOrWhiteSpace(item.YeuCauDacBiet))
                                     {
-                                        <div class="small text-info text-truncate" style="max-width: 180px;" title="Yêu cầu: @item.YeuCauDacBiet">
-                                            <em>YC: @item.YeuCauDacBiet</em>
+                                        <div class="small text-info text-truncate mt-1" style="max-width: 170px;" title="Yêu cầu khách: @item.YeuCauDacBiet">
+                                            <i class="bi bi-stars"></i> @item.YeuCauDacBiet
                                         </div>
                                     }
                                 </td>
+
+                                <!-- Thao tác nghiệp vụ -->
                                 <td class="text-center">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <!-- Xem chi tiết luôn khả dụng -->
-                                        <a asp-action="Details" asp-route-id="@item.MaDatPhong" class="btn btn-outline-secondary" title="Xem chi tiết">
-                                            Chi tiết
+                                    <div class="action-btn-group justify-content-center">
+                                        <!-- Xem chi tiết -->
+                                        <a asp-action="Details" asp-route-id="@item.MaDatPhong" class="btn-act btn-act-view" title="Xem hồ sơ chi tiết">
+                                            <i class="bi bi-eye"></i> Chi tiết
                                         </a>
 
                                         @if (item.TrangThai == "Chờ xác nhận")
                                         {
                                             <!-- Chờ xác nhận -> Duyệt hoặc Từ chối -->
-                                            <a asp-action="XacNhan" asp-route-id="@item.MaDatPhong" class="btn btn-success" title="Xác nhận đặt phòng">
-                                                Duyệt
+                                            <a asp-action="XacNhan" asp-route-id="@item.MaDatPhong" class="btn-act btn-act-confirm" title="Xác nhận duyệt phòng">
+                                                <i class="bi bi-check-lg"></i> Duyệt
                                             </a>
-                                            <a asp-action="TuChoi" asp-route-id="@item.MaDatPhong" class="btn btn-danger" title="Từ chối đặt phòng">
-                                                Từ chối
+                                            <a asp-action="TuChoi" asp-route-id="@item.MaDatPhong" class="btn-act btn-act-reject" title="Từ chối đặt phòng">
+                                                <i class="bi bi-x-lg"></i>
                                             </a>
                                         }
                                         else if (item.TrangThai == "Đã xác nhận")
                                         {
-                                            <!-- Đã xác nhận -> Nhận phòng (nếu đến ngày) hoặc Hủy nếu quá hạn -->
+                                            <!-- Đã xác nhận -> Nhận phòng hoặc Hủy quá hạn -->
                                             if (daDenNgayNhan)
                                             {
-                                                <a asp-action="NhanPhong" asp-route-id="@item.MaDatPhong" class="btn btn-primary" title="Làm thủ tục nhận phòng">
-                                                    Nhận phòng
+                                                <a asp-action="NhanPhong" asp-route-id="@item.MaDatPhong" class="btn-act btn-act-checkin" title="Làm thủ tục nhận phòng (Check-in)">
+                                                    <i class="bi bi-door-open"></i> Nhận phòng
                                                 </a>
                                             }
                                             else
                                             {
-                                                <button class="btn btn-outline-secondary" disabled title="Chưa đến ngày nhận phòng (@item.NgayNhanPhong.ToString("dd/MM/yyyy"))">
+                                                <span class="badge bg-light text-muted border px-2 py-1" title="Chưa tới ngày nhận phòng (@item.NgayNhanPhong.ToString("dd/MM/yyyy"))">
                                                     Chưa tới ngày
-                                                </button>
+                                                </span>
                                             }
 
                                             if (laDonQuaHan)
                                             {
-                                                <form asp-action="HuyQuaHan" asp-route-id="@item.MaDatPhong" method="post" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn hủy đơn đặt phòng quá hạn này (No-show)?');">
+                                                <form asp-action="HuyQuaHan" asp-route-id="@item.MaDatPhong" method="post" class="d-inline" onsubmit="return confirm('Xác nhận HỦY đơn đặt phòng quá hạn này (No-show)?');">
                                                     @Html.AntiForgeryToken()
-                                                    <button type="submit" class="btn btn-outline-danger" title="Hủy đơn do khách quá hạn không đến nhận">
-                                                        Hủy
+                                                    <button type="submit" class="btn-act btn-act-reject" title="Hủy do khách không đến nhận phòng (No-show)">
+                                                        <i class="bi bi-trash"></i> Hủy No-show
                                                     </button>
                                                 </form>
                                             }
                                         }
                                         else if (item.TrangThai == "Đã nhận phòng")
                                         {
-                                            <!-- Đã nhận phòng -> Trả phòng -->
-                                            <a asp-action="TraPhong" asp-route-id="@item.MaDatPhong" class="btn btn-warning text-dark fw-bold" title="Làm thủ tục trả phòng">
-                                                Trả phòng
+                                            <!-- Đã nhận phòng -> Trả phòng (Check-out) -->
+                                            <a asp-action="TraPhong" asp-route-id="@item.MaDatPhong" class="btn-act btn-act-checkout" title="Làm thủ tục trả phòng (Check-out)">
+                                                <i class="bi bi-box-arrow-left"></i> Trả phòng
                                             </a>
                                         }
                                         else if (item.TrangThai == "Đã trả phòng")
                                         {
                                             <!-- Đã trả phòng -> Xem hóa đơn -->
-                                            <a asp-controller="HoaDon" asp-action="Index" class="btn btn-outline-success" title="Xem hóa đơn thanh toán">
-                                                Hóa đơn
+                                            <a asp-controller="HoaDon" asp-action="Index" class="btn-act btn-act-confirm" title="Chuyển sang phân hệ Hóa đơn">
+                                                <i class="bi bi-receipt"></i> Hóa đơn
                                             </a>
                                         }
                                     </div>
@@ -341,9 +554,17 @@
                     else
                     {
                         <tr>
-                            <td colspan="9" class="text-center py-4 text-muted">
-                                <i class="bi bi-inbox fs-2 d-block mb-2"></i>
-                                Không tìm thấy đơn đặt phòng nào phù hợp với điều kiện tìm kiếm.
+                            <td colspan="9" class="text-center py-5">
+                                <div class="py-4">
+                                    <div class="mb-3">
+                                        <i class="bi bi-inbox fs-1 text-muted opacity-50"></i>
+                                    </div>
+                                    <h5 class="fw-bold text-dark mb-1">Không tìm thấy đơn đặt phòng nào</h5>
+                                    <p class="text-muted small mb-3">Vui lòng thử điều chỉnh lại bộ lọc tìm kiếm hoặc từ khóa tra cứu.</p>
+                                    <a asp-action="Index" class="btn btn-outline-primary btn-sm px-3 rounded-pill">
+                                        <i class="bi bi-arrow-counterclockwise me-1"></i> Đặt lại tất cả bộ lọc
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     }
@@ -351,19 +572,22 @@
             </table>
         </div>
 
-        <!-- Phân trang (Pagination) giữ nguyên điều kiện tìm kiếm & lọc -->
+        <!-- ======================================================================
+             7. PHÂN TRANG (PAGINATION) HIỆN ĐẠI
+             ====================================================================== -->
         @if (Model.DanhSach != null && Model.DanhSach.TotalPages > 1)
         {
-            <div class="card-footer bg-white d-flex justify-content-between align-items-center py-3">
+            <div class="p-3 bg-white border-top d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
                 <div class="small text-muted">
-                    Trang <strong>@Model.DanhSach.PageIndex</strong> / <strong>@Model.DanhSach.TotalPages</strong>
-                    (Tổng số: <strong>@Model.DanhSach.TotalItems</strong> đặt phòng)
+                    Hiển thị trang <strong>@Model.DanhSach.PageIndex</strong> / <strong>@Model.DanhSach.TotalPages</strong>
+                    (Tổng số <strong>@Model.DanhSach.TotalItems</strong> đặt phòng)
                 </div>
+
                 <nav aria-label="Page navigation">
-                    <ul class="pagination pagination-sm mb-0">
+                    <ul class="letan-pagination">
                         <!-- Nút Trang trước -->
-                        <li class="page-item @(Model.DanhSach.HasPreviousPage ? "" : "disabled")">
-                            <a class="page-link"
+                        <li class="letan-page-item @(Model.DanhSach.HasPreviousPage ? "" : "disabled")">
+                            <a class="letan-page-link"
                                asp-action="Index"
                                asp-route-page="@(Model.DanhSach.PageIndex - 1)"
                                asp-route-tuKhoa="@Model.TuKhoa"
@@ -372,15 +596,15 @@
                                asp-route-ngayNhanPhong="@(Model.NgayNhanPhong?.ToString("yyyy-MM-dd"))"
                                asp-route-sortOrder="@Model.SortOrder"
                                asp-route-canhBaoQuaHan="@Model.CanhBaoQuaHan">
-                                Trước
+                                <i class="bi bi-chevron-left"></i>
                             </a>
                         </li>
 
-                        <!-- Các số trang -->
+                        <!-- Các trang -->
                         @for (int p = 1; p <= Model.DanhSach.TotalPages; p++)
                         {
-                            <li class="page-item @(p == Model.DanhSach.PageIndex ? "active" : "")">
-                                <a class="page-link"
+                            <li class="letan-page-item @(p == Model.DanhSach.PageIndex ? "active" : "")">
+                                <a class="letan-page-link"
                                    asp-action="Index"
                                    asp-route-page="@p"
                                    asp-route-tuKhoa="@Model.TuKhoa"
@@ -395,8 +619,8 @@
                         }
 
                         <!-- Nút Trang sau -->
-                        <li class="page-item @(Model.DanhSach.HasNextPage ? "" : "disabled")">
-                            <a class="page-link"
+                        <li class="letan-page-item @(Model.DanhSach.HasNextPage ? "" : "disabled")">
+                            <a class="letan-page-link"
                                asp-action="Index"
                                asp-route-page="@(Model.DanhSach.PageIndex + 1)"
                                asp-route-tuKhoa="@Model.TuKhoa"
@@ -405,7 +629,7 @@
                                asp-route-ngayNhanPhong="@(Model.NgayNhanPhong?.ToString("yyyy-MM-dd"))"
                                asp-route-sortOrder="@Model.SortOrder"
                                asp-route-canhBaoQuaHan="@Model.CanhBaoQuaHan">
-                                Sau
+                                <i class="bi bi-chevron-right"></i>
                             </a>
                         </li>
                     </ul>

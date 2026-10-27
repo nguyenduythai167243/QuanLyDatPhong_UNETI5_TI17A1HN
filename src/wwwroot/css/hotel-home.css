@@ -1,0 +1,604 @@
+/* ==========================================================================
+   UNETI LUXURY HOTEL - HOMEPAGE MODERN STYLES & INTERACTIVE ANIMATIONS
+   Modern Aesthetics: Mesh Gradients, Floating Orbs, Interactive Reveal Tabs
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   KEYFRAME ANIMATIONS
+   -------------------------------------------------------------------------- */
+@keyframes orb-float-1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(25px, -35px) scale(1.12);
+    }
+}
+
+@keyframes orb-float-2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-30px, 25px) scale(1.08);
+    }
+}
+
+@keyframes shine-sweep {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(200%);
+    }
+}
+
+@keyframes float-subtle {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes pulse-gold {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 12px rgba(245, 158, 11, 0);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   LUXURY HERO SECTION
+   -------------------------------------------------------------------------- */
+.hotel-hero-wrap {
+    position: relative;
+    border-radius: 28px;
+    background: linear-gradient(135deg, #0a0f1e 0%, #111827 30%, #1a1760 60%, #2d2a8a 85%, #3b36a8 100%);
+    color: #ffffff;
+    padding: 3.5rem 2.5rem 5.5rem 2.5rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: 0 28px 60px -12px rgba(10, 18, 50, 0.5), 0 0 0 1px rgba(150, 130, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Floating Ambient Orbs */
+.hotel-hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hotel-hero-orb-1 {
+    top: -15%;
+    right: -10%;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(99, 102, 241, 0) 70%);
+    animation: orb-float-1 9s ease-in-out infinite;
+}
+
+.hotel-hero-orb-2 {
+    bottom: -20%;
+    left: 10%;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(245, 158, 11, 0) 70%);
+    animation: orb-float-2 11s ease-in-out infinite;
+}
+
+.hotel-hero-orb-3 {
+    top: 30%;
+    left: 45%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.18) 0%, rgba(14, 165, 233, 0) 70%);
+}
+
+.hotel-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-shine-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+    backdrop-filter: blur(12px);
+    margin-bottom: 1.25rem;
+}
+
+.hero-badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f59e0b;
+    animation: pulse-gold 2s infinite;
+}
+
+.hero-main-title {
+    font-size: 2.85rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+.hero-title-gradient {
+    background: linear-gradient(135deg, #ffffff 0%, #fde68a 45%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(251,191,36,0.3));
+}
+
+.hero-desc {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 620px;
+    margin-bottom: 2rem;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+}
+
+/* Hero Stats Ticker */
+.hero-stats-row {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    flex-wrap: wrap;
+}
+
+.hero-stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-stat-number {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.hero-stat-label {
+    font-size: 0.825rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+/* Floating Card on Hero Right */
+.hero-floating-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: float-subtle 6s ease-in-out infinite;
+    transition: transform 0.3s ease;
+}
+
+.hero-floating-card:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* --------------------------------------------------------------------------
+   INTERACTIVE BOOKING BAR (FLOATING CONSOLE)
+   -------------------------------------------------------------------------- */
+.hotel-booking-bar-wrap {
+    position: relative;
+    z-index: 10;
+    margin-top: -65px;
+    margin-bottom: 3.5rem;
+    padding: 0 1rem;
+}
+
+.hotel-booking-console {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 1.75rem;
+    box-shadow: 0 30px 70px -10px rgba(5, 10, 30, 0.22), 0 10px 25px -5px rgba(15, 23, 42, 0.12);
+    border: 1px solid rgba(203, 213, 225, 0.8);
+}
+
+.booking-nav-tabs {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    overflow-x: auto;
+}
+
+.booking-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.booking-nav-btn:hover {
+    color: #4f46e5;
+    background: #f8fafc;
+}
+
+.booking-nav-btn.active {
+    background: #eef2ff;
+    color: #4f46e5;
+    border-color: #c7d2fe;
+}
+
+.booking-input-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 0.65rem 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.booking-input-box:focus-within {
+    background: #ffffff;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.booking-input-label {
+    font-size: 0.725rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.booking-input-control {
+    border: none;
+    background: transparent;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #0f172a;
+    width: 100%;
+    outline: none;
+    padding: 0;
+}
+
+.btn-glow-luxury {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.95rem 1.5rem;
+    border-radius: 14px;
+    border: none;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-glow-luxury:hover {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px -5px rgba(245, 158, 11, 0.5);
+    color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   INTERACTIVE ROOM CARDS WITH REVEAL ACCORDION
+   -------------------------------------------------------------------------- */
+.room-filter-container {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    scrollbar-width: none;
+}
+
+.room-filter-container::-webkit-scrollbar {
+    display: none;
+}
+
+.room-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.room-filter-chip:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #4f46e5;
+    transform: translateY(-1px);
+}
+
+.room-filter-chip.active {
+    background: #4f46e5;
+    color: #ffffff;
+    border-color: #4f46e5;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+}
+
+.hotel-room-card {
+    background: #fafbfd;
+    border-radius: 20px;
+    border: 1px solid #d1d9e6;
+    box-shadow: 0 6px 24px -4px rgba(10, 18, 40, 0.10);
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hotel-room-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 45px -5px rgba(10, 18, 40, 0.18), 0 10px 18px -3px rgba(79, 70, 229, 0.12);
+    border-color: #a5b4fc;
+}
+
+.room-visual-cover {
+    height: 220px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #1a1760 0%, #252093 40%, #3730a3 75%, #4338ca 100%);
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.room-visual-cover::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -30%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, rgba(245, 158, 11, 0) 70%);
+    border-radius: 50%;
+}
+
+.room-price-float {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    color: #ffffff;
+    padding: 0.45rem 0.95rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+.room-floor-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    padding: 0.3rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.room-amenities-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #4f46e5;
+    background: #eef2ff;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid #c7d2fe;
+    transition: all 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+.room-amenities-toggle:hover {
+    background: #e0e7ff;
+}
+
+.room-amenities-tray {
+    display: none;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px dashed #cbd5e1;
+    font-size: 0.8rem;
+    animation: scale-in 0.25s ease forwards;
+}
+
+.room-amenities-tray.show {
+    display: block;
+}
+
+@keyframes scale-in {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   INTERACTIVE HOTEL EXPERIENCES ACCORDION / TABS
+   -------------------------------------------------------------------------- */
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.experience-card {
+    background: #f8f9fc;
+    border-radius: 20px;
+    padding: 1.75rem;
+    border: 1px solid #d1d9e6;
+    box-shadow: 0 5px 18px rgba(10, 18, 40, 0.07);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 36px rgba(10, 18, 40, 0.13);
+    border-color: #a5b4fc;
+}
+
+.experience-card.active {
+    background: linear-gradient(145deg, #1e1b4b 0%, #2d2a8a 50%, #4338ca 100%);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 18px 40px -5px rgba(55, 48, 163, 0.40);
+}
+
+.experience-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+    background: #eef2ff;
+    color: #4f46e5;
+    transition: all 0.3s ease;
+}
+
+.experience-card.active .experience-icon {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fbbf24;
+}
+
+.experience-card.active .text-muted {
+    color: #cbd5e1 !important;
+}
+
+/* --------------------------------------------------------------------------
+   INTERACTIVE FAQ ACCORDION
+   -------------------------------------------------------------------------- */
+.hotel-faq-item {
+    background: #f8f9fc;
+    border-radius: 14px;
+    border: 1px solid #d1d9e6;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(10,18,40,0.06);
+}
+
+.hotel-faq-question {
+    padding: 1.15rem 1.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    color: #0f172a;
+    cursor: pointer;
+    background: #f8f9fc;
+}
+
+.hotel-faq-question:hover {
+    background: #eef0f8;
+    color: #4338ca;
+}
+
+.hotel-faq-answer {
+    display: none;
+    padding: 0 1.35rem 1.15rem 1.35rem;
+    font-size: 0.925rem;
+    color: #475569;
+    line-height: 1.6;
+    border-top: 1px dashed #f1f5f9;
+    padding-top: 0.85rem;
+}
+
+.hotel-faq-item.open .hotel-faq-answer {
+    display: block;
+}
+
+.hotel-faq-item.open .faq-chevron {
+    transform: rotate(180deg);
+}
+
+.faq-chevron {
+    transition: transform 0.25s ease;
+}

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Danh Sách Phòng Trống - Đặt Phòng Khách Sạn";
+    ViewData["FluidLayout"] = true;
     var loaiPhongs = ViewBag.LoaiPhongs as List<QuanLyDatPhong_UNETI5_TI17A1HN.Models.LoaiPhong> ?? new();
     var phongBanIds = ViewBag.PhongBanIds as List<int> ?? new();
     var ngayNhan = ViewBag.NgayNhan as string;

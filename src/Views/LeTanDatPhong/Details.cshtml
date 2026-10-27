@@ -1,4 +1,4 @@
-﻿@*
+@*
     Họ và tên: Nguyễn Duy Thái
     Mã sinh viên: 23103100052
     Nội dung thực hiện: Module 4 - Màn hình chi tiết đặt phòng, kiểm tra điều kiện nghiệp vụ LINQ và quản lý luồng trạng thái
@@ -7,181 +7,359 @@
 @model QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels.XuLyDatPhongViewModel
 
 @{
-    ViewData["Title"] = $"Chi tiết Đặt phòng #{Model.DatPhong.MaDatPhong}";
+    ViewData["Title"] = $"Hồ Sơ Đặt Phòng #{Model.DatPhong.MaDatPhong} - Lễ Tân";
+    ViewData["FluidLayout"] = true;
     var dp = Model.DatPhong;
     var kt = Model.KiemTra;
+
+    // Stepper state calculation
+    int activeStep = 1;
+    if (dp.TrangThai == "Đã xác nhận") activeStep = 2;
+    else if (dp.TrangThai == "Đã nhận phòng") activeStep = 3;
+    else if (dp.TrangThai == "Đã trả phòng") activeStep = 4;
 }
 
-<div class="container py-3">
-    <!-- Tiêu đề & Điều hướng -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <div>
-            <h3 class="text-primary fw-bold mb-1">
-                <i class="bi bi-file-earmark-text"></i> CHI TIẾT ĐẶT PHÒNG #@dp.MaDatPhong
-            </h3>
-            <div class="text-muted small">
-                <span class="badge bg-primary">Module 4</span>
-                <strong>Sinh viên phụ trách:</strong> Nguyễn Duy Thái - <strong>MSV:</strong> 23103100052
+<div class="py-2">
+    <!-- ======================================================================
+         1. HERO HEADER BREADCRUMB & THÔNG TIN ĐƠN ĐẶT
+         ====================================================================== -->
+    <div class="letan-hero mb-3 py-3 px-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+            <div>
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <a asp-action="Index" class="btn btn-sm btn-outline-light rounded-pill px-3 py-1">
+                        <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách
+                    </a>
+                    <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-10 py-1 px-2">
+                        Đơn đặt phòng <strong class="text-warning">#@dp.MaDatPhong</strong>
+                    </span>
+                    <span class="badge bg-primary bg-opacity-50 text-white">Module 4 - Lễ tân</span>
+                </div>
+                <h2 class="letan-hero-title mb-1">
+                    <i class="bi bi-file-earmark-medical-fill text-info me-2"></i>HỒ SƠ CHI TIẾT ĐẶT PHÒNG #@dp.MaDatPhong
+                </h2>
+                <div class="letan-hero-sub">
+                    <strong>Khách hàng:</strong> @(dp.KhachHang?.HoTen ?? "N/A") | 
+                    <strong>Phòng:</strong> P.@(dp.Phong?.SoPhong ?? "---") (@(dp.Phong?.LoaiPhong?.TenLoaiPhong ?? "N/A")) |
+                    <strong>Sinh viên:</strong> Nguyễn Duy Thái (23103100052)
+                </div>
             </div>
-        </div>
-        <div>
-            <a asp-action="Index" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left"></i> Quay lại danh sách
-            </a>
+
+            <!-- Trạng thái đơn -->
+            <div class="text-md-end">
+                <div class="small text-white-50 mb-1">Trạng thái hiện tại:</div>
+                @switch (dp.TrangThai)
+                {
+                    case "Chờ xác nhận":
+                        <span class="status-pill status-pending fs-6 px-3 py-2">
+                            <span class="status-dot"></span> Chờ xác nhận
+                        </span>
+                        break;
+                    case "Đã xác nhận":
+                        <span class="status-pill status-confirmed fs-6 px-3 py-2">
+                            <span class="status-dot"></span> Đã xác nhận
+                        </span>
+                        break;
+                    case "Đã nhận phòng":
+                        <span class="status-pill status-inhouse fs-6 px-3 py-2">
+                            <span class="status-dot"></span> Đang lưu trú
+                        </span>
+                        break;
+                    case "Đã trả phòng":
+                        <span class="status-pill status-completed fs-6 px-3 py-2">
+                            <span class="status-dot"></span> Đã trả phòng
+                        </span>
+                        break;
+                    case "Từ chối":
+                        <span class="status-pill status-rejected fs-6 px-3 py-2">
+                            <span class="status-dot"></span> Từ chối
+                        </span>
+                        break;
+                    case "Đã hủy":
+                        <span class="status-pill status-cancelled fs-6 px-3 py-2">
+                            <span class="status-dot"></span> Đã hủy
+                        </span>
+                        break;
+                    default:
+                        <span class="status-pill status-rejected fs-6 px-3 py-2">
+                            <span class="status-dot"></span> @dp.TrangThai
+                        </span>
+                        break;
+                }
+            </div>
         </div>
     </div>
 
-    <!-- Thông báo TempData -->
+    <!-- ======================================================================
+         2. THÔNG BÁO FLASH TEMPDATA
+         ====================================================================== -->
     @if (TempData["ThongBaoThanhCong"] != null)
     {
-        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
-            <i class="bi bi-check-circle-fill me-2"></i> @TempData["ThongBaoThanhCong"]
+        <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 d-flex align-items-center gap-2 mb-3 rounded-3" role="alert">
+            <i class="bi bi-check-circle-fill fs-5 text-success"></i>
+            <div class="flex-grow-1 fw-semibold">@TempData["ThongBaoThanhCong"]</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
     @if (TempData["ThongBaoLoi"] != null)
     {
-        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ThongBaoLoi"]
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm border-0 d-flex align-items-center gap-2 mb-3 rounded-3" role="alert">
+            <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
+            <div class="flex-grow-1 fw-semibold">@TempData["ThongBaoLoi"]</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
 
-    <div class="row g-4">
-        <!-- Cột trái: Thông tin đặt phòng & khách hàng -->
-        <div class="col-lg-7">
-            <!-- Thông tin chính -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 fw-bold text-secondary">
-                        <i class="bi bi-info-circle text-primary"></i> Thông tin đặt phòng
-                    </h5>
-                    <div>
-                        @switch (dp.TrangThai)
-                        {
-                            case "Chờ xác nhận":
-                                <span class="badge bg-warning text-dark fs-6">Chờ xác nhận</span>
-                                break;
-                            case "Đã xác nhận":
-                                <span class="badge bg-info text-dark fs-6">Đã xác nhận</span>
-                                break;
-                            case "Đã nhận phòng":
-                                <span class="badge bg-primary fs-6">Đã nhận phòng</span>
-                                break;
-                            case "Đã trả phòng":
-                                <span class="badge bg-success fs-6">Đã trả phòng</span>
-                                break;
-                            case "Từ chối":
-                                <span class="badge bg-secondary fs-6">Từ chối</span>
-                                break;
-                            case "Đã hủy":
-                                <span class="badge bg-danger fs-6">Đã hủy</span>
-                                break;
-                            default:
-                                <span class="badge bg-secondary fs-6">@dp.TrangThai</span>
-                                break;
-                        }
+    <!-- ======================================================================
+         3. TIẾN TRÌNH XỬ LÝ ĐẶT PHÒNG (STEPPER / LIFECYCLE TIMELINE)
+         ====================================================================== -->
+    @if (dp.TrangThai != "Từ chối" && dp.TrangThai != "Đã hủy")
+    {
+        <div class="card border-0 shadow-sm mb-4 rounded-4 p-3 bg-white">
+            <div class="letan-stepper mb-2">
+                <!-- Bước 1: Tiếp nhận -->
+                <div class="letan-step-item @(activeStep >= 1 ? "completed" : "")">
+                    <div class="letan-step-circle">
+                        <i class="bi bi-calendar-plus"></i>
                     </div>
+                    <div class="letan-step-label">1. Đặt phòng</div>
+                    <div class="letan-step-time">@dp.NgayDat.ToString("dd/MM HH:mm")</div>
                 </div>
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-sm-4 text-muted">Mã đặt phòng:</div>
-                        <div class="col-sm-8 fw-bold">#@dp.MaDatPhong</div>
+
+                <!-- Bước 2: Xác nhận -->
+                <div class="letan-step-item @(activeStep > 2 ? "completed" : (activeStep == 2 ? "active" : ""))">
+                    <div class="letan-step-circle">
+                        <i class="bi bi-check2-circle"></i>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-4 text-muted">Thời điểm đặt:</div>
-                        <div class="col-sm-8">@dp.NgayDat.ToString("dd/MM/yyyy HH:mm:ss")</div>
+                    <div class="letan-step-label">2. Xác nhận duyệt</div>
+                    <div class="letan-step-time">@(dp.NgayXuLy?.ToString("dd/MM HH:mm") ?? "Chờ duyệt")</div>
+                </div>
+
+                <!-- Bước 3: Nhận phòng -->
+                <div class="letan-step-item @(activeStep > 3 ? "completed" : (activeStep == 3 ? "active" : ""))">
+                    <div class="letan-step-circle">
+                        <i class="bi bi-door-open"></i>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-4 text-muted">Phòng đăng ký:</div>
-                        <div class="col-sm-8">
-                            <span class="badge bg-primary fs-6">Phòng @(dp.Phong?.SoPhong ?? "N/A")</span>
-                            <span class="text-muted ms-2">(@(dp.Phong?.LoaiPhong?.TenLoaiPhong ?? "N/A") - Tầng @(dp.Phong?.Tang ?? 1))</span>
+                    <div class="letan-step-label">3. Nhận phòng (Check-in)</div>
+                    <div class="letan-step-time">@(dp.NgayNhanThucTe?.ToString("dd/MM HH:mm") ?? "Chờ nhận")</div>
+                </div>
+
+                <!-- Bước 4: Trả phòng -->
+                <div class="letan-step-item @(activeStep >= 4 ? "completed" : "")">
+                    <div class="letan-step-circle">
+                        <i class="bi bi-receipt"></i>
+                    </div>
+                    <div class="letan-step-label">4. Trả phòng (Check-out)</div>
+                    <div class="letan-step-time">@(dp.NgayTraThucTe?.ToString("dd/MM HH:mm") ?? "Chờ trả")</div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- ======================================================================
+         4. NỘI DUNG 2 CỘT (THÔNG TIN ĐƠN + KIỂM TRA LINQ & THAO TÁC)
+         ====================================================================== -->
+    <div class="row g-4">
+        <!-- Cột trái: Hồ sơ đặt phòng & Thông tin khách hàng -->
+        <div class="col-lg-7">
+            <!-- Thông tin lưu trú -->
+            <div class="card border-0 shadow-sm mb-4 rounded-4 overflow-hidden">
+                <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold text-dark">
+                        <i class="bi bi-info-circle-fill text-primary me-2"></i>Thông tin đăng ký lưu trú
+                    </h5>
+                    <span class="room-tag fs-6">
+                        <i class="bi bi-door-closed-fill"></i> P.@(dp.Phong?.SoPhong ?? "---")
+                    </span>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3 mb-4">
+                        <!-- Phòng & Hạng -->
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <div class="text-muted small text-uppercase fw-bold mb-1">Phòng & Loại phòng</div>
+                                <div class="fs-5 fw-bold text-primary">Phòng @(dp.Phong?.SoPhong ?? "N/A")</div>
+                                <div class="text-secondary small fw-semibold">
+                                    @(dp.Phong?.LoaiPhong?.TenLoaiPhong ?? "N/A") - Tầng @(dp.Phong?.Tang ?? 1)
+                                </div>
+                                <div class="mt-2 text-dark small">
+                                    <i class="bi bi-tag-fill text-muted me-1"></i> Giá niêm yết: <strong>@(dp.Phong?.GiaMotDem.ToString("N0") ?? "0") đ/đêm</strong>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-4 text-muted">Thời gian lưu trú:</div>
-                        <div class="col-sm-8">
-                            <div><strong>Nhận:</strong> @dp.NgayNhanPhong.ToString("dd/MM/yyyy") (14:00)</div>
-                            <div><strong>Trả:</strong> @dp.NgayTraPhong.ToString("dd/MM/yyyy") (12:00)</div>
-                            <div class="text-primary fw-bold">Thời lượng: @Model.SoDem đêm</div>
+
+                        <!-- Khách & Sức chứa -->
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <div class="text-muted small text-uppercase fw-bold mb-1">Số lượng khách</div>
+                                <div class="fs-5 fw-bold text-dark">@dp.SoNguoi người</div>
+                                <div class="text-muted small">
+                                    Sức chứa tối đa của phòng: <strong>@(dp.Phong?.SucChua ?? 0) người</strong>
+                                </div>
+                                <div class="mt-2">
+                                    @if (dp.SoNguoi <= (dp.Phong?.SucChua ?? 0))
+                                    {
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                            <i class="bi bi-check-circle"></i> Sức chứa hợp lệ
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                                            <i class="bi bi-exclamation-triangle"></i> Vượt sức chứa
+                                        </span>
+                                    }
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-4 text-muted">Số lượng khách:</div>
-                        <div class="col-sm-8">@dp.SoNguoi người (Sức chứa tối đa: @(dp.Phong?.SucChua ?? 0) người)</div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-4 text-muted">Tổng tiền dự kiến:</div>
-                        <div class="col-sm-8 fs-5 fw-bold text-danger">@dp.TongTienDuKien.ToString("N0") VNĐ</div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-4 text-muted">Yêu cầu đặc biệt:</div>
-                        <div class="col-sm-8 fst-italic">@(string.IsNullOrWhiteSpace(dp.YeuCauDacBiet) ? "Không có" : dp.YeuCauDacBiet)</div>
                     </div>
 
-                    <hr />
+                    <!-- Lịch lưu trú timeline card -->
+                    <div class="p-3 rounded-3 border mb-4" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+                        <div class="row align-items-center text-center text-md-start">
+                            <div class="col-md-4 mb-2 mb-md-0">
+                                <div class="text-muted small fw-bold text-uppercase">
+                                    <i class="bi bi-box-arrow-in-right text-success me-1"></i> Ngày nhận phòng (Dự kiến)
+                                </div>
+                                <div class="fs-5 fw-bold text-dark">@dp.NgayNhanPhong.ToString("dd/MM/yyyy")</div>
+                                <div class="small text-muted">Quy định từ 14:00</div>
+                            </div>
+
+                            <div class="col-md-4 mb-2 mb-md-0 text-center">
+                                <span class="badge bg-primary px-3 py-2 rounded-pill fs-6 shadow-sm">
+                                    <i class="bi bi-moon-stars-fill me-1"></i> @Model.SoDem đêm lưu trú
+                                </span>
+                            </div>
+
+                            <div class="col-md-4 text-center text-md-end">
+                                <div class="text-muted small fw-bold text-uppercase">
+                                    <i class="bi bi-box-arrow-left text-danger me-1"></i> Ngày trả phòng (Dự kiến)
+                                </div>
+                                <div class="fs-5 fw-bold text-dark">@dp.NgayTraPhong.ToString("dd/MM/yyyy")</div>
+                                <div class="small text-muted">Quy định trước 12:00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tổng tiền dự kiến -->
+                    <div class="d-flex justify-content-between align-items-center p-3 rounded-3 bg-primary bg-opacity-10 border border-primary border-opacity-25 mb-4">
+                        <div>
+                            <div class="text-primary small fw-bold text-uppercase">Tổng tiền phòng dự kiến</div>
+                            <div class="small text-muted">(@Model.SoDem đêm x @(dp.Phong?.GiaMotDem.ToString("N0") ?? "0") đ)</div>
+                        </div>
+                        <div class="fs-3 fw-bold text-danger">
+                            @dp.TongTienDuKien.ToString("N0") <span class="fs-6 text-muted">VNĐ</span>
+                        </div>
+                    </div>
+
+                    <!-- Yêu cầu đặc biệt -->
+                    <div class="mb-4">
+                        <label class="form-label text-muted small fw-bold text-uppercase">Yêu cầu đặc biệt từ khách:</label>
+                        <div class="p-3 bg-light rounded-3 fst-italic border">
+                            <i class="bi bi-quote text-secondary me-1"></i>
+                            @(string.IsNullOrWhiteSpace(dp.YeuCauDacBiet) ? "Khách hàng không ghi chú yêu cầu đặc biệt nào." : dp.YeuCauDacBiet)
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
 
                     <!-- Quá trình xử lý thực tế -->
-                    <h6 class="fw-bold text-secondary mb-3">Lịch sử thực tế & Xử lý:</h6>
-                    <div class="row mb-2">
-                        <div class="col-sm-4 text-muted">Ngày nhận thực tế:</div>
-                        <div class="col-sm-8">@(dp.NgayNhanThucTe?.ToString("dd/MM/yyyy HH:mm") ?? "Chưa làm thủ tục nhận phòng")</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-4 text-muted">Ngày trả thực tế:</div>
-                        <div class="col-sm-8">@(dp.NgayTraThucTe?.ToString("dd/MM/yyyy HH:mm") ?? "Chưa làm thủ tục trả phòng")</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-4 text-muted">Ngày xử lý đơn:</div>
-                        <div class="col-sm-8">@(dp.NgayXuLy?.ToString("dd/MM/yyyy HH:mm") ?? "Chưa có")</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-4 text-muted">Ghi chú của Lễ tân:</div>
-                        <div class="col-sm-8 fw-semibold text-dark">@(string.IsNullOrWhiteSpace(dp.GhiChuLeTan) ? "Không có" : dp.GhiChuLeTan)</div>
+                    <h6 class="fw-bold text-dark mb-3">
+                        <i class="bi bi-clock-history text-secondary me-2"></i>Nhật ký thực hiện của Lễ tân:
+                    </h6>
+                    <div class="row g-2 small">
+                        <div class="col-sm-6">
+                            <span class="text-muted">Ngày nhận thực tế (Check-in):</span>
+                            <div class="fw-bold text-dark">
+                                @(dp.NgayNhanThucTe?.ToString("dd/MM/yyyy HH:mm:ss") ?? "Chưa làm thủ tục nhận phòng")
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="text-muted">Ngày trả thực tế (Check-out):</span>
+                            <div class="fw-bold text-dark">
+                                @(dp.NgayTraThucTe?.ToString("dd/MM/yyyy HH:mm:ss") ?? "Chưa làm thủ tục trả phòng")
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mt-2">
+                            <span class="text-muted">Thời điểm Lễ tân xử lý đơn:</span>
+                            <div class="fw-bold text-dark">
+                                @(dp.NgayXuLy?.ToString("dd/MM/yyyy HH:mm:ss") ?? "Chưa có")
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mt-2">
+                            <span class="text-muted">Ghi chú nghiệp vụ lễ tân:</span>
+                            <div class="fw-semibold text-primary">
+                                @(string.IsNullOrWhiteSpace(dp.GhiChuLeTan) ? "Không có ghi chú" : dp.GhiChuLeTan)
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Thông tin khách hàng -->
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white py-3">
-                    <h5 class="mb-0 fw-bold text-secondary">
-                        <i class="bi bi-person text-success"></i> Thông tin khách hàng
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <h5 class="mb-0 fw-bold text-dark">
+                        <i class="bi bi-person-badge-fill text-success me-2"></i>Hồ sơ khách hàng
                     </h5>
                 </div>
-                <div class="card-body">
-                    <div class="row mb-2">
-                        <div class="col-sm-4 text-muted">Họ và tên:</div>
-                        <div class="col-sm-8 fw-bold">@(dp.KhachHang?.HoTen ?? "N/A")</div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="customer-avatar fs-4" style="width: 52px; height: 52px;">
+                            @(!string.IsNullOrWhiteSpace(dp.KhachHang?.HoTen) ? dp.KhachHang.HoTen.Trim()[0].ToString().ToUpper() : "K")
+                        </div>
+                        <div>
+                            <div class="fs-5 fw-bold text-dark">@(dp.KhachHang?.HoTen ?? "Khách vãng lai")</div>
+                            <div class="text-muted small">
+                                Mã khách hàng: <strong>#@dp.MaKhachHang</strong>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-4 text-muted">Số điện thoại:</div>
-                        <div class="col-sm-8">@(dp.KhachHang?.SoDienThoai ?? "N/A")</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-4 text-muted">Email:</div>
-                        <div class="col-sm-8">@(dp.KhachHang?.Email ?? "N/A")</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-4 text-muted">Giấy tờ tùy thân:</div>
-                        <div class="col-sm-8">@(dp.KhachHang?.SoGiayToTuyThan ?? "N/A")</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-4 text-muted">Địa chỉ:</div>
-                        <div class="col-sm-8">@(dp.KhachHang?.DiaChi ?? "N/A")</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-4 text-muted">Trạng thái tài khoản:</div>
-                        <div class="col-sm-8">
-                            @if (dp.KhachHang?.TrangThai == "Hoạt động")
-                            {
-                                <span class="badge bg-success">Đang hoạt động</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-danger">Bị khóa / Ngừng hoạt động</span>
-                            }
+
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="text-muted small">Số điện thoại:</div>
+                            <div class="fw-bold text-dark d-flex align-items-center gap-2">
+                                <i class="bi bi-telephone text-primary"></i>
+                                @(dp.KhachHang?.SoDienThoai ?? "N/A")
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-muted small">Email:</div>
+                            <div class="fw-bold text-dark d-flex align-items-center gap-2">
+                                <i class="bi bi-envelope text-info"></i>
+                                @(dp.KhachHang?.Email ?? "Chưa cập nhật")
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-muted small">CMND / Thẻ CCCD:</div>
+                            <div class="fw-bold text-dark d-flex align-items-center gap-2">
+                                <i class="bi bi-card-text text-secondary"></i>
+                                @(dp.KhachHang?.SoGiayToTuyThan ?? "N/A")
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-muted small">Trạng thái tài khoản:</div>
+                            <div>
+                                @if (dp.KhachHang?.TrangThai == "Hoạt động")
+                                {
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                        <i class="bi bi-check-circle"></i> Đang hoạt động
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                                        <i class="bi bi-lock-fill"></i> Tạm khóa / Ngừng
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-muted small">Địa chỉ liên hệ:</div>
+                            <div class="fw-semibold text-dark">
+                                @(dp.KhachHang?.DiaChi ?? "Không rõ địa chỉ")
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -190,147 +368,147 @@
 
         <!-- Cột phải: Bảng kiểm tra điều kiện LINQ & Nút thao tác chuyển trạng thái -->
         <div class="col-lg-5">
-            <!-- 1. Bảng kiểm tra điều kiện nghiệp vụ tự động (Checklist LINQ) -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white py-3">
-                    <h5 class="mb-0 fw-bold text-secondary">
-                        <i class="bi bi-shield-check text-primary"></i> Kiểm tra điều kiện nghiệp vụ (LINQ)
+            <!-- 1. BẢNG KIỂM TRA ĐIỀU KIỆN NGHIỆP VỤ LINQ (REAL-TIME SHIELD CHECK) -->
+            <div class="linq-check-card mb-4 rounded-4 shadow-sm">
+                <div class="linq-check-header">
+                    <h5 class="mb-0 fw-bold text-dark">
+                        <i class="bi bi-shield-check text-primary me-2"></i>Kiểm tra điều kiện (LINQ)
                     </h5>
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1">Thời gian thực</span>
                 </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush mb-3">
-                        <!-- Trạng thái phòng -->
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <div>
-                                <strong>Phòng sẵn sàng</strong>
-                                <div class="small text-muted">Trạng thái hiện tại: @(kt.TrangThaiHienTaiCuaPhong ?? "Không rõ")</div>
-                            </div>
-                            @if (kt.PhongSanSang)
-                            {
-                                <span class="badge bg-success">Thỏa mãn</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-danger">Không sẵn sàng</span>
-                            }
-                        </li>
 
-                        <!-- Trạng thái khách hàng -->
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <div>
-                                <strong>Khách hàng hoạt động</strong>
-                                <div class="small text-muted">Tài khoản chưa bị khóa</div>
+                <div class="linq-rule-list">
+                    <!-- Rule 1: Phòng sẵn sàng -->
+                    <div class="linq-rule-row">
+                        <div class="linq-rule-info">
+                            <div class="linq-rule-icon @(kt.PhongSanSang ? "linq-rule-pass" : "linq-rule-fail")">
+                                <i class="bi @(kt.PhongSanSang ? "bi-check-lg" : "bi-x-lg")"></i>
                             </div>
-                            @if (kt.KhachHangHoatDong)
-                            {
-                                <span class="badge bg-success">Thỏa mãn</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-danger">Bị khóa</span>
-                            }
-                        </li>
-
-                        <!-- Trùng lịch phòng -->
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                             <div>
-                                <strong>Kiểm tra trùng lịch (Overlap)</strong>
-                                <div class="small text-muted">Không trùng đơn đã xác nhận / đang ở</div>
+                                <div class="fw-bold text-dark small">1. Phòng Sẵn sàng</div>
+                                <div class="text-muted small" style="font-size: 0.75rem;">Hiện tại: @(kt.TrangThaiHienTaiCuaPhong ?? "Không rõ")</div>
                             </div>
-                            @if (!kt.CoBiTrungLich)
-                            {
-                                <span class="badge bg-success">Không trùng</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-danger">Trùng lịch!</span>
-                            }
-                        </li>
+                        </div>
+                        <span class="badge @(kt.PhongSanSang ? "bg-success" : "bg-danger")">
+                            @(kt.PhongSanSang ? "Thỏa mãn" : "Không sẵn sàng")
+                        </span>
+                    </div>
 
-                        <!-- Kiểm soát công suất phòng -->
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                    <!-- Rule 2: Khách hàng hoạt động -->
+                    <div class="linq-rule-row">
+                        <div class="linq-rule-info">
+                            <div class="linq-rule-icon @(kt.KhachHangHoatDong ? "linq-rule-pass" : "linq-rule-fail")">
+                                <i class="bi @(kt.KhachHangHoatDong ? "bi-check-lg" : "bi-x-lg")"></i>
+                            </div>
                             <div>
-                                <strong>Kiểm soát công suất loại phòng</strong>
-                                <div class="small text-muted">
+                                <div class="fw-bold text-dark small">2. Khách hàng hoạt động</div>
+                                <div class="text-muted small" style="font-size: 0.75rem;">Tài khoản không bị khóa</div>
+                            </div>
+                        </div>
+                        <span class="badge @(kt.KhachHangHoatDong ? "bg-success" : "bg-danger")">
+                            @(kt.KhachHangHoatDong ? "Hợp lệ" : "Bị khóa")
+                        </span>
+                    </div>
+
+                    <!-- Rule 3: Trùng lịch Overlap -->
+                    <div class="linq-rule-row">
+                        <div class="linq-rule-info">
+                            <div class="linq-rule-icon @(!kt.CoBiTrungLich ? "linq-rule-pass" : "linq-rule-fail")">
+                                <i class="bi @(!kt.CoBiTrungLich ? "bi-check-lg" : "bi-exclamation-triangle")"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold text-dark small">3. Không trùng lịch (Overlap)</div>
+                                <div class="text-muted small" style="font-size: 0.75rem;">Kiểm tra khoảng ngày lưu trú</div>
+                            </div>
+                        </div>
+                        <span class="badge @(!kt.CoBiTrungLich ? "bg-success" : "bg-danger")">
+                            @(!kt.CoBiTrungLich ? "Không trùng" : "Trùng lịch!")
+                        </span>
+                    </div>
+
+                    <!-- Rule 4: Công suất loại phòng -->
+                    <div class="linq-rule-row">
+                        <div class="linq-rule-info">
+                            <div class="linq-rule-icon @(!kt.LoaiPhongBiKinLich ? "linq-rule-pass" : "linq-rule-fail")">
+                                <i class="bi @(!kt.LoaiPhongBiKinLich ? "bi-check-lg" : "bi-x-lg")"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold text-dark small">4. Công suất loại phòng</div>
+                                <div class="text-muted small" style="font-size: 0.75rem;">
                                     Đã kín: @kt.SoPhongDaKinLichTrongKhoang / @kt.TongPhongSanSangCuaLoai phòng
                                 </div>
                             </div>
-                            @if (!kt.LoaiPhongBiKinLich)
-                            {
-                                <span class="badge bg-success">Còn phòng</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-danger">Kín lịch!</span>
-                            }
-                        </li>
+                        </div>
+                        <span class="badge @(!kt.LoaiPhongBiKinLich ? "bg-success" : "bg-danger")">
+                            @(!kt.LoaiPhongBiKinLich ? "Còn trống" : "Kín lịch!")
+                        </span>
+                    </div>
 
-                        <!-- Đến ngày nhận phòng -->
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <div>
-                                <strong>Ngày nhận phòng</strong>
-                                <div class="small text-muted">Ngày nhận: @dp.NgayNhanPhong.ToString("dd/MM/yyyy")</div>
+                    <!-- Rule 5: Ngày nhận phòng -->
+                    <div class="linq-rule-row">
+                        <div class="linq-rule-info">
+                            <div class="linq-rule-icon @(kt.DaDenNgayNhan ? "linq-rule-pass" : "bg-secondary-subtle text-secondary")">
+                                <i class="bi bi-calendar-check"></i>
                             </div>
-                            @if (kt.DaDenNgayNhan)
-                            {
-                                <span class="badge bg-primary">Đã đến ngày</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-secondary">Chưa tới ngày</span>
-                            }
-                        </li>
-                    </ul>
-
-                    <!-- Chi tiết cảnh báo / lỗi nếu có -->
-                    @if (kt.DanhSachLoi.Any())
-                    {
-                        <div class="alert alert-danger py-2 small mb-2">
-                            <strong>Các vi phạm nghiệp vụ:</strong>
-                            <ul class="mb-0 ps-3">
-                                @foreach (var err in kt.DanhSachLoi)
-                                {
-                                    <li>@err</li>
-                                }
-                            </ul>
+                            <div>
+                                <div class="fw-bold text-dark small">5. Điều kiện nhận phòng</div>
+                                <div class="text-muted small" style="font-size: 0.75rem;">Ngày nhận: @dp.NgayNhanPhong.ToString("dd/MM/yyyy")</div>
+                            </div>
                         </div>
-                    }
-
-                    @if (kt.DanhSachCanhBao.Any())
-                    {
-                        <div class="alert alert-warning py-2 small mb-0">
-                            <strong>Cảnh báo:</strong>
-                            <ul class="mb-0 ps-3">
-                                @foreach (var warn in kt.DanhSachCanhBao)
-                                {
-                                    <li>@warn</li>
-                                }
-                            </ul>
-                        </div>
-                    }
+                        <span class="badge @(kt.DaDenNgayNhan ? "bg-primary" : "bg-secondary")">
+                            @(kt.DaDenNgayNhan ? "Đã đến ngày" : "Chưa tới ngày")
+                        </span>
+                    </div>
                 </div>
+
+                @if (kt.DanhSachLoi.Any())
+                {
+                    <div class="alert alert-danger py-2 small mt-3 mb-0 rounded-3">
+                        <div class="fw-bold mb-1"><i class="bi bi-exclamation-octagon me-1"></i>Vi phạm điều kiện:</div>
+                        <ul class="mb-0 ps-3">
+                            @foreach (var err in kt.DanhSachLoi)
+                            {
+                                <li>@err</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if (kt.DanhSachCanhBao.Any())
+                {
+                    <div class="alert alert-warning py-2 small mt-2 mb-0 rounded-3">
+                        <div class="fw-bold mb-1"><i class="bi bi-exclamation-triangle me-1"></i>Cảnh báo:</div>
+                        <ul class="mb-0 ps-3">
+                            @foreach (var warn in kt.DanhSachCanhBao)
+                            {
+                                <li>@warn</li>
+                            }
+                        </ul>
+                    </div>
+                }
             </div>
 
-            <!-- 2. Thao tác xử lý nghiệp vụ theo luồng trạng thái (State Machine) -->
-            <div class="card border-0 shadow-sm border-start border-primary border-4">
-                <div class="card-header bg-white py-3">
+            <!-- 2. TRUNG TÂM ĐIỀU PHỐI TRẠNG THÁI (STATE MACHINE CONSOLE) -->
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                <div class="card-header bg-white py-3 border-bottom">
                     <h5 class="mb-0 fw-bold text-dark">
-                        <i class="bi bi-gear-wide-connected text-primary"></i> Xử lý trạng thái Lễ tân
+                        <i class="bi bi-sliders text-primary me-2"></i>Thao tác nghiệp vụ Lễ tân
                     </h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     @if (dp.TrangThai == "Chờ xác nhận")
                     {
                         <!-- TRẠNG THÁI 1: CHỜ XÁC NHẬN -->
-                        <div class="mb-3">
-                            <p class="small text-muted mb-2">
-                                Đơn đặt phòng đang chờ Lễ tân xem xét điều kiện để chuyển trạng thái sang <strong>Đã xác nhận</strong> hoặc <strong>Từ chối</strong>.
-                            </p>
+                        <div>
+                            <div class="alert alert-warning bg-opacity-10 border border-warning rounded-3 small mb-3">
+                                <i class="bi bi-hourglass-split text-warning me-1"></i>
+                                Đơn đặt đang ở trạng thái <strong>Chờ xác nhận</strong>. Lễ tân kiểm tra điều kiện nghiệp vụ ở trên để chuyển sang <strong>Đã xác nhận</strong> hoặc <strong>Từ chối</strong>.
+                            </div>
                             <div class="d-grid gap-2">
-                                <a asp-action="XacNhan" asp-route-id="@dp.MaDatPhong" class="btn btn-success fw-bold">
-                                    <i class="bi bi-check-circle"></i> Tiến hành Xác nhận đặt phòng
+                                <a asp-action="XacNhan" asp-route-id="@dp.MaDatPhong" class="btn btn-success fw-bold py-2 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-check-circle-fill"></i> Tiến hành Xác nhận đặt phòng
                                 </a>
-                                <a asp-action="TuChoi" asp-route-id="@dp.MaDatPhong" class="btn btn-outline-danger">
+                                <a asp-action="TuChoi" asp-route-id="@dp.MaDatPhong" class="btn btn-outline-danger fw-semibold py-2 d-flex align-items-center justify-content-center gap-2">
                                     <i class="bi bi-x-circle"></i> Từ chối đặt phòng
                                 </a>
                             </div>
@@ -339,32 +517,35 @@
                     else if (dp.TrangThai == "Đã xác nhận")
                     {
                         <!-- TRẠNG THÁI 2: ĐÃ XÁC NHẬN -->
-                        <div class="mb-3">
+                        <div>
                             @if (Model.CoTheNhanPhong)
                             {
-                                <p class="small text-success mb-2">
-                                    <i class="bi bi-check-circle"></i> Đã đến ngày nhận phòng. Lễ tân có thể làm thủ tục check-in cho khách hàng!
-                                </p>
-                                <a asp-action="NhanPhong" asp-route-id="@dp.MaDatPhong" class="btn btn-primary btn-lg w-100 fw-bold mb-2">
-                                    <i class="bi bi-door-open-fill"></i> Làm thủ tục Nhận phòng (Check-in)
+                                <div class="alert alert-success bg-opacity-10 border border-success rounded-3 small mb-3">
+                                    <i class="bi bi-check-circle-fill text-success me-1"></i>
+                                    Đã đến ngày nhận phòng! Lễ tân sẵn sàng bàn giao thẻ phòng và làm thủ tục check-in cho khách.
+                                </div>
+                                <a asp-action="NhanPhong" asp-route-id="@dp.MaDatPhong" class="btn btn-primary fw-bold py-3 w-100 shadow-sm mb-2 d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-door-open-fill fs-5"></i> Làm thủ tục Nhận phòng (Check-in)
                                 </a>
                             }
                             else
                             {
-                                <div class="alert alert-secondary small mb-2">
-                                    <i class="bi bi-clock"></i> Chưa đến ngày nhận phòng (@dp.NgayNhanPhong.ToString("dd/MM/yyyy")). Chỉ được làm thủ tục nhận phòng khi đã đến ngày nhận theo quy định.
+                                <div class="alert alert-secondary rounded-3 small mb-3">
+                                    <i class="bi bi-clock-history me-1"></i>
+                                    Chưa đến ngày nhận phòng (@dp.NgayNhanPhong.ToString("dd/MM/yyyy")). Chỉ được check-in đúng ngày theo quy định.
                                 </div>
                             }
 
                             @if (Model.LaDonQuaHan)
                             {
-                                <div class="alert alert-danger small mb-2">
-                                    <i class="bi bi-exclamation-triangle-fill"></i> Đã quá ngày nhận phòng nhưng khách chưa đến nhận phòng (No-show).
+                                <div class="alert alert-danger rounded-3 small mb-2">
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                    <strong>Cảnh báo No-show:</strong> Khách đã quá hạn ngày nhận phòng mà chưa đến làm thủ tục.
                                 </div>
-                                <form asp-action="HuyQuaHan" asp-route-id="@dp.MaDatPhong" method="post" onsubmit="return confirm('Bạn có chắc muốn hủy đơn đặt phòng quá hạn này?');">
+                                <form asp-action="HuyQuaHan" asp-route-id="@dp.MaDatPhong" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn đặt phòng quá hạn này (No-show)?');">
                                     @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn btn-outline-danger w-100">
-                                        <i class="bi bi-trash"></i> Hủy đơn quá hạn (No-show)
+                                    <button type="submit" class="btn btn-outline-danger w-100 fw-semibold py-2">
+                                        <i class="bi bi-trash me-1"></i> Hủy đơn quá hạn (No-show)
                                     </button>
                                 </form>
                             }
@@ -373,16 +554,17 @@
                     else if (dp.TrangThai == "Đã nhận phòng")
                     {
                         <!-- TRẠNG THÁI 3: ĐÃ NHẬN PHÒNG -->
-                        <div class="mb-3">
-                            <p class="small text-primary mb-2">
-                                Khách hàng đang lưu trú tại khách sạn từ lúc @(dp.NgayNhanThucTe?.ToString("dd/MM/yyyy HH:mm") ?? "N/A").
-                            </p>
+                        <div>
+                            <div class="alert alert-primary bg-opacity-10 border border-primary rounded-3 small mb-3">
+                                <i class="bi bi-house-check-fill text-primary me-1"></i>
+                                Khách hàng đang lưu trú tại khách sạn từ lúc <strong>@(dp.NgayNhanThucTe?.ToString("dd/MM/yyyy HH:mm") ?? "N/A")</strong>.
+                            </div>
                             <div class="d-grid gap-2">
-                                <a asp-action="TraPhong" asp-route-id="@dp.MaDatPhong" class="btn btn-warning btn-lg text-dark fw-bold">
-                                    <i class="bi bi-box-arrow-left"></i> Làm thủ tục Trả phòng (Check-out)
+                                <a asp-action="TraPhong" asp-route-id="@dp.MaDatPhong" class="btn btn-warning text-dark fw-bold py-3 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-box-arrow-left fs-5"></i> Làm thủ tục Trả phòng (Check-out)
                                 </a>
-                                <a asp-controller="DichVuPhatSinh" asp-action="Create" class="btn btn-outline-primary">
-                                    <i class="bi bi-plus-circle"></i> Ghi nhận Dịch vụ phát sinh (Module 5)
+                                <a asp-controller="DichVuPhatSinh" asp-action="Create" class="btn btn-outline-primary fw-semibold py-2 d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-cup-hot-fill"></i> Ghi nhận Dịch vụ phát sinh (Module 5)
                                 </a>
                             </div>
                         </div>
@@ -390,20 +572,37 @@
                     else if (dp.TrangThai == "Đã trả phòng")
                     {
                         <!-- TRẠNG THÁI 4: ĐÃ TRẢ PHÒNG -->
-                        <div class="alert alert-success mb-3">
-                            <i class="bi bi-check2-all"></i> Đơn đặt phòng đã hoàn tất trả phòng lúc @(dp.NgayTraThucTe?.ToString("dd/MM/yyyy HH:mm") ?? "N/A").
-                        </div>
-                        <div class="d-grid gap-2">
-                            <a asp-controller="HoaDon" asp-action="Index" class="btn btn-outline-success">
-                                <i class="bi bi-receipt"></i> Quản lý Hóa đơn thanh toán (Module 5)
-                            </a>
+                        <div>
+                            <div class="alert alert-success rounded-3 mb-3">
+                                <i class="bi bi-check2-all text-success me-1"></i>
+                                Đơn đặt phòng đã hoàn tất trả phòng vào lúc <strong>@(dp.NgayTraThucTe?.ToString("dd/MM/yyyy HH:mm") ?? "N/A")</strong>.
+                            </div>
+                            <div class="d-grid gap-2">
+                                <a asp-controller="HoaDon" asp-action="Index" class="btn btn-success fw-bold py-2 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-receipt"></i> Chuyển sang Quản lý Hóa đơn (Module 5)
+                                </a>
+                            </div>
                         </div>
                     }
                     else
                     {
-                        <!-- TRẠNG THÁI 5 & 6: TỪ CHỐI / ĐÃ HỦY -->
-                        <div class="alert alert-secondary mb-0">
-                            <i class="bi bi-x-octagon"></i> Đơn đặt phòng này ở trạng thái <strong>@dp.TrangThai</strong> và đã kết thúc. Không thể thay đổi luồng trạng thái.
+                        <!-- TRẠNG THÁI TỪ CHỐI / ĐÃ HỦY -->
+                        <div class="alert alert-secondary rounded-3 mb-0">
+                            <i class="bi bi-x-octagon text-danger me-1"></i>
+                            Đơn đặt phòng này ở trạng thái <strong>@dp.TrangThai</strong> và đã kết thúc vòng đời.
+                        </div>
+                    }
+
+                    <!-- Phụ trợ: Chỉnh sửa / Xóa nếu chưa hoàn tất -->
+                    @if (dp.TrangThai != "Đã trả phòng" && dp.TrangThai != "Đã nhận phòng")
+                    {
+                        <div class="d-flex gap-2 mt-3 pt-3 border-top">
+                            <a asp-action="Edit" asp-route-id="@dp.MaDatPhong" class="btn btn-sm btn-outline-secondary w-50">
+                                <i class="bi bi-pencil-square me-1"></i> Sửa thông tin
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@dp.MaDatPhong" class="btn btn-sm btn-outline-danger w-50">
+                                <i class="bi bi-trash me-1"></i> Hủy / Xóa đơn
+                            </a>
                         </div>
                     }
                 </div>

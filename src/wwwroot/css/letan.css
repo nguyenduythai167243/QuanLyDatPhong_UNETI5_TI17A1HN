@@ -1,0 +1,1029 @@
+/* ==========================================================================
+   HOTEL RECEPTION LUXURY DASHBOARD THEME (LỄ TÂN ĐẶT PHÒNG)
+   Module 4 - Sinh viên thực hiện: Nguyễn Duy Thái (MSV: 23103100052)
+   Modern Luxury Hospitality UI / Glassmorphism / Vibrant Gradients
+   ========================================================================== */
+
+:root {
+    --lt-primary: #4f46e5;
+    --lt-primary-hover: #4338ca;
+    --lt-primary-light: #eef2ff;
+    --lt-primary-glow: rgba(79, 70, 229, 0.25);
+
+    --lt-secondary: #0ea5e9;
+    --lt-secondary-light: #f0f9ff;
+
+    --lt-success: #10b981;
+    --lt-success-hover: #059669;
+    --lt-success-light: #ecfdf5;
+    --lt-success-glow: rgba(16, 185, 129, 0.25);
+
+    --lt-warning: #f59e0b;
+    --lt-warning-hover: #d97706;
+    --lt-warning-light: #fffbeb;
+    --lt-warning-glow: rgba(245, 158, 11, 0.25);
+
+    --lt-danger: #ef4444;
+    --lt-danger-hover: #dc2626;
+    --lt-danger-light: #fef2f2;
+    --lt-danger-glow: rgba(239, 68, 68, 0.25);
+
+    --lt-dark: #0f172a;
+    --lt-slate: #1e293b;
+    --lt-muted: #64748b;
+    --lt-light: #f8fafc;
+    --lt-border: #e2e8f0;
+    --lt-card-bg: #ffffff;
+
+    --lt-radius-sm: 8px;
+    --lt-radius-md: 14px;
+    --lt-radius-lg: 20px;
+    --lt-radius-xl: 28px;
+
+    --lt-shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.04);
+    --lt-shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+    --lt-shadow-lg: 0 20px 35px -5px rgba(15, 23, 42, 0.08), 0 10px 15px -5px rgba(15, 23, 42, 0.04);
+    --lt-shadow-hover: 0 22px 40px -8px rgba(79, 70, 229, 0.16);
+
+    --lt-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    font-family: var(--lt-font);
+    background-color: #f1f5f9;
+    color: #1e293b;
+    letter-spacing: -0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   KEYFRAME ANIMATIONS
+   -------------------------------------------------------------------------- */
+@keyframes lt-pulse {
+    0% {
+        box-shadow: 0 0 0 0 var(--lt-primary-glow);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+    }
+}
+
+@keyframes lt-pulse-danger {
+    0% {
+        box-shadow: 0 0 0 0 var(--lt-danger-glow);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
+}
+
+@keyframes lt-shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   HERO / RECEPTION COMMAND HEADER
+   -------------------------------------------------------------------------- */
+.letan-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    border-radius: var(--lt-radius-lg);
+    padding: 2rem 2.25rem;
+    color: #ffffff;
+    box-shadow: var(--lt-shadow-lg);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.letan-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.letan-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: 20%;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(14, 165, 233, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.letan-hero-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.35rem;
+}
+
+.letan-hero-sub {
+    color: #94a3b8;
+    font-size: 0.925rem;
+    font-weight: 500;
+}
+
+.letan-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+}
+
+.letan-live-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    animation: lt-pulse 1.8s infinite;
+}
+
+.letan-hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    z-index: 2;
+    position: relative;
+}
+
+.btn-hero-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: var(--lt-radius-md);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    text-decoration: none;
+}
+
+.btn-hero-action.btn-accent {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-hero-action.btn-accent:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+    color: #ffffff;
+}
+
+.btn-hero-action.btn-glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-hero-action.btn-glass:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   KPI METRIC CARDS
+   -------------------------------------------------------------------------- */
+.letan-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.15rem;
+    margin-bottom: 2rem;
+}
+
+.letan-kpi-card {
+    background: var(--lt-card-bg);
+    border-radius: var(--lt-radius-md);
+    padding: 1.25rem 1.15rem;
+    border: 1px solid var(--lt-border);
+    box-shadow: var(--lt-shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+}
+
+.letan-kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--lt-shadow-hover);
+    border-color: transparent;
+    color: inherit;
+}
+
+.letan-kpi-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.letan-kpi-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: all 0.3s ease;
+}
+
+.letan-kpi-card:hover .letan-kpi-icon {
+    transform: scale(1.1) rotate(4deg);
+}
+
+.letan-kpi-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--lt-muted);
+}
+
+.letan-kpi-value {
+    font-size: 1.85rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 0.35rem;
+    color: var(--lt-dark);
+}
+
+.letan-kpi-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--lt-border);
+}
+
+/* Variations for KPI cards */
+.letan-kpi-total .letan-kpi-icon {
+    background: var(--lt-primary-light);
+    color: var(--lt-primary);
+}
+.letan-kpi-total:hover {
+    border-bottom: 3px solid var(--lt-primary);
+}
+
+.letan-kpi-pending .letan-kpi-icon {
+    background: var(--lt-warning-light);
+    color: var(--lt-warning);
+}
+.letan-kpi-pending .letan-kpi-value {
+    color: var(--lt-warning);
+}
+.letan-kpi-pending:hover {
+    border-bottom: 3px solid var(--lt-warning);
+}
+
+.letan-kpi-confirmed .letan-kpi-icon {
+    background: var(--lt-secondary-light);
+    color: var(--lt-secondary);
+}
+.letan-kpi-confirmed .letan-kpi-value {
+    color: var(--lt-secondary);
+}
+.letan-kpi-confirmed:hover {
+    border-bottom: 3px solid var(--lt-secondary);
+}
+
+.letan-kpi-inhouse .letan-kpi-icon {
+    background: #ede9fe;
+    color: #7c3aed;
+}
+.letan-kpi-inhouse .letan-kpi-value {
+    color: #7c3aed;
+}
+.letan-kpi-inhouse:hover {
+    border-bottom: 3px solid #7c3aed;
+}
+
+.letan-kpi-completed .letan-kpi-icon {
+    background: var(--lt-success-light);
+    color: var(--lt-success);
+}
+.letan-kpi-completed .letan-kpi-value {
+    color: var(--lt-success);
+}
+.letan-kpi-completed:hover {
+    border-bottom: 3px solid var(--lt-success);
+}
+
+.letan-kpi-danger .letan-kpi-icon {
+    background: var(--lt-danger-light);
+    color: var(--lt-danger);
+}
+.letan-kpi-danger .letan-kpi-value {
+    color: var(--lt-danger);
+}
+.letan-kpi-danger:hover {
+    border-bottom: 3px solid var(--lt-danger);
+}
+.letan-kpi-danger.has-alert {
+    animation: lt-pulse-danger 2s infinite;
+}
+
+/* --------------------------------------------------------------------------
+   QUICK FILTER TABS (CHIPS)
+   -------------------------------------------------------------------------- */
+.letan-quick-tabs {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.25rem;
+    scrollbar-width: none;
+}
+.letan-quick-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.letan-tab-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid var(--lt-border);
+    color: var(--lt-muted);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.letan-tab-chip:hover {
+    background: #f8fafc;
+    color: var(--lt-primary);
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+}
+
+.letan-tab-chip.active {
+    background: var(--lt-primary);
+    color: #ffffff;
+    border-color: var(--lt-primary);
+    box-shadow: 0 4px 12px var(--lt-primary-glow);
+}
+
+.letan-tab-badge {
+    background: rgba(15, 23, 42, 0.08);
+    color: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+}
+
+.letan-tab-chip.active .letan-tab-badge {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   ADVANCED FILTER & SEARCH CARD
+   -------------------------------------------------------------------------- */
+.letan-filter-card {
+    background: var(--lt-card-bg);
+    border-radius: var(--lt-radius-md);
+    border: 1px solid var(--lt-border);
+    box-shadow: var(--lt-shadow-sm);
+    padding: 1.35rem;
+    margin-bottom: 2rem;
+}
+
+.letan-input-group {
+    position: relative;
+}
+
+.letan-input-icon {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: var(--lt-muted);
+    font-size: 0.95rem;
+    pointer-events: none;
+}
+
+.letan-form-control {
+    border-radius: var(--lt-radius-sm);
+    border: 1px solid var(--lt-border);
+    padding: 0.65rem 0.85rem 0.65rem 2.45rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--lt-dark);
+    transition: all 0.2s ease;
+    background-color: #ffffff;
+}
+
+.letan-form-control:focus {
+    border-color: var(--lt-primary);
+    box-shadow: 0 0 0 3px var(--lt-primary-glow);
+    outline: none;
+}
+
+.letan-select {
+    border-radius: var(--lt-radius-sm);
+    border: 1px solid var(--lt-border);
+    padding: 0.65rem 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--lt-dark);
+    transition: all 0.2s ease;
+    background-color: #ffffff;
+}
+
+.letan-select:focus {
+    border-color: var(--lt-primary);
+    box-shadow: 0 0 0 3px var(--lt-primary-glow);
+    outline: none;
+}
+
+.letan-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--lt-muted);
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* --------------------------------------------------------------------------
+   LUXURY DATA TABLE
+   -------------------------------------------------------------------------- */
+.letan-table-card {
+    background: var(--lt-card-bg);
+    border-radius: var(--lt-radius-lg);
+    border: 1px solid var(--lt-border);
+    box-shadow: var(--lt-shadow-md);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.letan-table-header {
+    padding: 1.25rem 1.5rem;
+    background: #ffffff;
+    border-bottom: 1px solid var(--lt-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.letan-table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.letan-table thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.9rem 1.15rem;
+    border-bottom: 1px solid var(--lt-border);
+    white-space: nowrap;
+}
+
+.letan-table tbody tr {
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.letan-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.letan-table tbody td {
+    padding: 1rem 1.15rem;
+    vertical-align: middle;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.letan-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Alert Row (No-show warning) */
+.letan-table tbody tr.row-noshow-alert {
+    background: rgba(254, 242, 242, 0.7);
+    border-left: 4px solid var(--lt-danger);
+}
+.letan-table tbody tr.row-noshow-alert:hover {
+    background: rgba(254, 242, 242, 0.95);
+}
+
+/* Customer Avatar Circle */
+.customer-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+    box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+    flex-shrink: 0;
+}
+
+/* Room Tag */
+.room-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+    color: #3730a3;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #c7d2fe;
+}
+
+/* Duration Timeline Pill */
+.stay-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.825rem;
+}
+
+.stay-date-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #334155;
+}
+
+.stay-nights-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    width: fit-content;
+}
+
+/* --------------------------------------------------------------------------
+   STATUS BADGES WITH GLOWING DOTS
+   -------------------------------------------------------------------------- */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.status-pending {
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fde68a;
+}
+.status-pending .status-dot {
+    background: #f59e0b;
+    box-shadow: 0 0 6px #f59e0b;
+}
+
+.status-confirmed {
+    background: #f0f9ff;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+}
+.status-confirmed .status-dot {
+    background: #0284c7;
+    box-shadow: 0 0 6px #0284c7;
+}
+
+.status-inhouse {
+    background: #ede9fe;
+    color: #6d28d9;
+    border: 1px solid #ddd6fe;
+}
+.status-inhouse .status-dot {
+    background: #7c3aed;
+    box-shadow: 0 0 6px #7c3aed;
+}
+
+.status-completed {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+}
+.status-completed .status-dot {
+    background: #10b981;
+    box-shadow: 0 0 6px #10b981;
+}
+
+.status-rejected {
+    background: #f8fafc;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+}
+.status-rejected .status-dot {
+    background: #94a3b8;
+}
+
+.status-cancelled {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+.status-cancelled .status-dot {
+    background: #ef4444;
+}
+
+/* --------------------------------------------------------------------------
+   ACTION BUTTONS
+   -------------------------------------------------------------------------- */
+.action-btn-group {
+    display: inline-flex;
+    gap: 0.35rem;
+    align-items: center;
+}
+
+.btn-act {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+
+.btn-act:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.btn-act-view {
+    background: #f1f5f9;
+    color: #334155;
+    border-color: #e2e8f0;
+}
+.btn-act-view:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.btn-act-confirm {
+    background: #ecfdf5;
+    color: #065f46;
+    border-color: #a7f3d0;
+}
+.btn-act-confirm:hover {
+    background: #10b981;
+    color: #ffffff;
+    box-shadow: 0 4px 12px var(--lt-success-glow);
+}
+
+.btn-act-checkin {
+    background: #eef2ff;
+    color: #3730a3;
+    border-color: #c7d2fe;
+}
+.btn-act-checkin:hover {
+    background: #4f46e5;
+    color: #ffffff;
+    box-shadow: 0 4px 12px var(--lt-primary-glow);
+}
+
+.btn-act-checkout {
+    background: #fffbeb;
+    color: #92400e;
+    border-color: #fde68a;
+}
+.btn-act-checkout:hover {
+    background: #f59e0b;
+    color: #ffffff;
+    box-shadow: 0 4px 12px var(--lt-warning-glow);
+}
+
+.btn-act-reject {
+    background: #fef2f2;
+    color: #991b1b;
+    border-color: #fecaca;
+}
+.btn-act-reject:hover {
+    background: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 4px 12px var(--lt-danger-glow);
+}
+
+/* --------------------------------------------------------------------------
+   BOOKING PROGRESS STEPPER (IN DETAILS)
+   -------------------------------------------------------------------------- */
+.letan-stepper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 2rem 0;
+}
+
+.letan-stepper::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 40px;
+    right: 40px;
+    height: 4px;
+    background: #e2e8f0;
+    z-index: 1;
+}
+
+.letan-step-item {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 25%;
+}
+
+.letan-step-circle {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    color: #94a3b8;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.letan-step-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #64748b;
+    margin-top: 0.65rem;
+}
+
+.letan-step-time {
+    font-size: 0.725rem;
+    color: #94a3b8;
+    margin-top: 0.15rem;
+}
+
+/* Stepper States */
+.letan-step-item.completed .letan-step-circle {
+    background: #10b981;
+    border-color: #10b981;
+    color: #ffffff;
+    box-shadow: 0 4px 14px var(--lt-success-glow);
+}
+.letan-step-item.completed .letan-step-label {
+    color: #047857;
+}
+
+.letan-step-item.active .letan-step-circle {
+    background: #4f46e5;
+    border-color: #c7d2fe;
+    color: #ffffff;
+    box-shadow: 0 0 0 4px var(--lt-primary-glow);
+    animation: lt-pulse 2s infinite;
+}
+.letan-step-item.active .letan-step-label {
+    color: #4f46e5;
+    font-weight: 800;
+}
+
+/* --------------------------------------------------------------------------
+   LINQ REAL-TIME VERIFICATION PANEL
+   -------------------------------------------------------------------------- */
+.linq-check-card {
+    background: #ffffff;
+    border-radius: var(--lt-radius-md);
+    border: 1px solid var(--lt-border);
+    padding: 1.5rem;
+    box-shadow: var(--lt-shadow-sm);
+    margin-bottom: 1.5rem;
+}
+
+.linq-check-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+}
+
+.linq-rule-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    border-radius: var(--lt-radius-sm);
+    margin-bottom: 0.65rem;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    transition: all 0.2s ease;
+}
+
+.linq-rule-row:hover {
+    background: #f1f5f9;
+}
+
+.linq-rule-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.linq-rule-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.linq-rule-pass {
+    background: #ecfdf5;
+    color: #10b981;
+}
+
+.linq-rule-fail {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+/* --------------------------------------------------------------------------
+   OCCUPANCY INSPECTOR (KIỂM TRA CÔNG SUẤT)
+   -------------------------------------------------------------------------- */
+.occupancy-card {
+    background: #ffffff;
+    border-radius: var(--lt-radius-md);
+    border: 1px solid var(--lt-border);
+    box-shadow: var(--lt-shadow-sm);
+    padding: 1.35rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.occupancy-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--lt-shadow-md);
+}
+
+.occupancy-card.is-full {
+    border-color: #fca5a5;
+    background: linear-gradient(180deg, #ffffff 0%, #fef2f2 100%);
+}
+
+.occupancy-bar-container {
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 9999px;
+    overflow: hidden;
+    margin: 0.85rem 0;
+}
+
+.occupancy-bar-fill {
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.occupancy-safe {
+    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+}
+.occupancy-medium {
+    background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+}
+.occupancy-high {
+    background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);
+}
+.occupancy-full {
+    background: linear-gradient(90deg, #ef4444 0%, #f87171 100%);
+}
+
+/* --------------------------------------------------------------------------
+   PAGINATION MODERN
+   -------------------------------------------------------------------------- */
+.letan-pagination {
+    display: flex;
+    gap: 0.35rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.letan-page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 0.65rem;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid var(--lt-border);
+    color: #475569;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.letan-page-link:hover {
+    background: #f1f5f9;
+    color: var(--lt-primary);
+    border-color: #cbd5e1;
+}
+
+.letan-page-item.active .letan-page-link {
+    background: var(--lt-primary);
+    color: #ffffff;
+    border-color: var(--lt-primary);
+    box-shadow: 0 4px 10px var(--lt-primary-glow);
+}
+
+.letan-page-item.disabled .letan-page-link {
+    color: #cbd5e1;
+    pointer-events: none;
+    background: #f8fafc;
+}
