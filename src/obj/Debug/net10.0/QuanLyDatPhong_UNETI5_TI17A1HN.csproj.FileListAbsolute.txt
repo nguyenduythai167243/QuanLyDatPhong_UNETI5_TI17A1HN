@@ -1392,6 +1392,5 @@ d:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\QuanLyDatPhong_UNETI5_TI
 d:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\ref\QuanLyDatPhong_UNETI5_TI17A1HN.dll
 D:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\h5vqlul8jn-{0}-h7j35028k1-h7j35028k1.gz
 D:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\pyu96yylvm-{0}-uuhaa6h64i-uuhaa6h64i.gz
-D:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\zc2pl9kd8t-{0}-rnpilebjim-rnpilebjim.gz
 D:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\9cpwtj372b-{0}-s4iy5sayl1-s4iy5sayl1.gz
-D:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\zc2pl9kd8t-{0}-iveihdmoo5-iveihdmoo5.gz
+D:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\zc2pl9kd8t-{0}-6vfbidcfu8-6vfbidcfu8.gz
