@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QuanLyDatPhong_UNETI5_TI17A1HN")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d1d30db40955ace25ba738269a06e33b24b3ee9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6e13ecfe0d5eb6e35b36164875f84b285409319f")]
 [assembly: System.Reflection.AssemblyProductAttribute("QuanLyDatPhong_UNETI5_TI17A1HN")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QuanLyDatPhong_UNETI5_TI17A1HN")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

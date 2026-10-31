@@ -1,24 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
-
+using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 public class DichVuPhatSinhController : Controller
 {
-    private readonly QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext _context;
+    private readonly IDichVuPhatSinhRespository _respository;
 
-    public DichVuPhatSinhController(
-        QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext context)
+    public DichVuPhatSinhController(IDichVuPhatSinhRespository respository)
     {
-        _context = context;
+        _respository = respository;
     }
 
     // GET: DichVuPhatSinhs
     public async Task<IActionResult> Index()
     {
-        var danhSach = await _context.DichVuPhatSinhs
-            .Include(d => d.DatPhong)
-            .OrderByDescending(d => d.NgaySuDung)
-            .ToListAsync();
+        var danhSach = await _respository.GetAllAsync();
 
         return View(danhSach);
     }
@@ -29,9 +25,7 @@ public class DichVuPhatSinhController : Controller
         if (id == null)
             return NotFound();
 
-        var dichVu = await _context.DichVuPhatSinhs
-            .Include(d => d.DatPhong)
-            .FirstOrDefaultAsync(d => d.MaDichVuPhatSinh == id);
+        var dichVu = await _respository.GetDetailsAsync(id.Value);
 
         if (dichVu == null)
             return NotFound();
@@ -58,9 +52,7 @@ public class DichVuPhatSinhController : Controller
         [Bind("MaDatPhong,TenDichVu,SoLuong,DonGia,NgaySuDung,GhiChu")]
         DichVuPhatSinh dichVu)
     {
-        var datPhong = await _context.DatPhongs
-            .Include(d => d.HoaDon)
-            .FirstOrDefaultAsync(d => d.MaDatPhong == dichVu.MaDatPhong);
+        var datPhong = await _respository.GetDatPhongAsync(dichVu.MaDatPhong);
 
         if (datPhong == null)
         {
@@ -111,8 +103,8 @@ public class DichVuPhatSinhController : Controller
         {
             dichVu.TrangThai = TrangThaiDV.DaGhiNhan;
 
-            _context.DichVuPhatSinhs.Add(dichVu);
-            await _context.SaveChangesAsync();
+            
+            await _respository.AddAsync(dichVu);
 
             return RedirectToAction(nameof(Index));
         }
@@ -126,7 +118,7 @@ public class DichVuPhatSinhController : Controller
         if (id == null)
             return NotFound();
 
-        var dichVu = await _context.DichVuPhatSinhs.FindAsync(id);
+        var dichVu = await _respository.GetByIdAsync(id.Value);
 
         if (dichVu == null)
             return NotFound();
@@ -148,7 +140,7 @@ public class DichVuPhatSinhController : Controller
         if (id != dichVu.MaDichVuPhatSinh)
             return NotFound();
 
-        var dichVuCu = await _context.DichVuPhatSinhs.FindAsync(id);
+        var dichVuCu = await _respository.GetByIdAsync(id);
 
         if (dichVuCu == null)
             return NotFound();
@@ -156,9 +148,7 @@ public class DichVuPhatSinhController : Controller
         if (dichVuCu.TrangThai != TrangThaiDV.DaGhiNhan)
             return BadRequest("Dịch vụ đã hủy không thể sửa.");
 
-        var datPhong = await _context.DatPhongs
-            .Include(d => d.HoaDon)
-            .FirstOrDefaultAsync(d => d.MaDatPhong == dichVu.MaDatPhong);
+        var datPhong = await _respository.GetDatPhongAsync(dichVu.MaDatPhong);
 
         if (datPhong == null)
         {
@@ -202,7 +192,7 @@ public class DichVuPhatSinhController : Controller
             dichVuCu.NgaySuDung = dichVu.NgaySuDung;
             dichVuCu.GhiChu = dichVu.GhiChu;
 
-            await _context.SaveChangesAsync();
+            await _respository.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
@@ -216,9 +206,7 @@ public class DichVuPhatSinhController : Controller
         if (id == null)
             return NotFound();
 
-        var dichVu = await _context.DichVuPhatSinhs
-            .Include(d => d.DatPhong)
-            .FirstOrDefaultAsync(d => d.MaDichVuPhatSinh == id);
+        var dichVu = await _respository.GetDetailsAsync(id.Value);
 
         if (dichVu == null)
             return NotFound();
@@ -234,7 +222,7 @@ public class DichVuPhatSinhController : Controller
         if (id == null)
             return NotFound();
 
-        var dichVu = await _context.DichVuPhatSinhs.FindAsync(id);
+        var dichVu = await _respository.GetByIdAsync(id.Value);
 
         if (dichVu == null)
             return NotFound();
@@ -242,9 +230,8 @@ public class DichVuPhatSinhController : Controller
         if (dichVu.TrangThai == TrangThaiDV.DaHuy)
             return RedirectToAction(nameof(Index));
 
-        var datPhong = await _context.DatPhongs
-            .Include(d => d.HoaDon)
-            .FirstOrDefaultAsync(d => d.MaDatPhong == dichVu.MaDatPhong);
+        var datPhong = await _respository.GetDatPhongAsync(
+            dichVu.MaDatPhong);
 
         if (datPhong == null
             || !LaTrangThaiDaNhanPhong(datPhong.TrangThai)
@@ -257,7 +244,7 @@ public class DichVuPhatSinhController : Controller
         // Hủy mềm: giữ dữ liệu để phục vụ thống kê.
         dichVu.TrangThai = TrangThaiDV.DaHuy;
 
-        await _context.SaveChangesAsync();
+        await _respository.SaveChangesAsync();
 
         return RedirectToAction(nameof(Index));
     }
