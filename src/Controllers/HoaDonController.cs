@@ -2,24 +2,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 
 public class HoaDonController : Controller
 {
-    private readonly QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext _context;
+    private readonly IHoaDonRespository _respository;
 
-    public HoaDonController(
-        QuanLyDatPhong_UNETI5_TI17A1HN.Data.ApplicationDbContext context)
+    public HoaDonController(IHoaDonRespository respository)
     {
-        _context = context;
+        _respository = respository;
     }
 
     // GET: HoaDons
     public async Task<IActionResult> Index()
     {
-        var hoaDons = await _context.HoaDons
-            .Include(h => h.DatPhong)
-            .OrderByDescending(h => h.NgayLap)
-            .ToListAsync();
+        var hoaDons = await _respository.GetAllAsync();
 
         return View(hoaDons);
     }
@@ -30,12 +27,7 @@ public class HoaDonController : Controller
         if (id == null)
             return NotFound();
 
-        var hoaDon = await _context.HoaDons
-            .Include(h => h.DatPhong)
-                .ThenInclude(d => d!.Phong)
-            .Include(h => h.DatPhong)
-                .ThenInclude(d => d!.KhachHang)
-            .FirstOrDefaultAsync(h => h.MaHoaDon == id);
+        var hoaDon = await _respository.GetDetailsAsync(id.Value);
 
         if (hoaDon == null)
             return NotFound();
@@ -59,11 +51,7 @@ public class HoaDonController : Controller
         decimal giamGia,
         HinhThucThanhToan hinhThucThanhToan)
     {
-        var datPhong = await _context.DatPhongs
-            .Include(d => d.Phong)
-            .Include(d => d.DichVuPhatSinhs)
-            .Include(d => d.HoaDon)
-            .FirstOrDefaultAsync(d => d.MaDatPhong == maDatPhong);
+        var datPhong = await _respository.GetDatPhongLapHoaDonAsync(maDatPhong);
 
         if (datPhong == null)
         {
@@ -81,8 +69,7 @@ public class HoaDonController : Controller
             }
 
             if (datPhong.HoaDon != null ||
-                await _context.HoaDons.AnyAsync(
-                    h => h.MaDatPhong == maDatPhong))
+                await _respository.ExistsByDatPhongAsync(maDatPhong))
             {
                 ModelState.AddModelError(
                     "",
@@ -166,8 +153,7 @@ public class HoaDonController : Controller
             TrangThai = TrangThaiTT.ChuaThanhToan
         };
 
-        _context.HoaDons.Add(hoaDon);
-        await _context.SaveChangesAsync();
+        await _respository.AddAsync(hoaDon);
 
         return RedirectToAction(
             nameof(Details),
@@ -179,8 +165,7 @@ public class HoaDonController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ThanhToan(int id)
     {
-        var hoaDon = await _context.HoaDons
-            .FirstOrDefaultAsync(h => h.MaHoaDon == id);
+        var hoaDon = await _respository.GetDetailsAsync(id);
 
         if (hoaDon == null)
             return NotFound();
@@ -196,7 +181,7 @@ public class HoaDonController : Controller
 
         hoaDon.TrangThai = TrangThaiTT.DaThanhToan;
 
-        await _context.SaveChangesAsync();
+        await _respository.UpdateAsync(hoaDon);
 
         TempData["ThongBao"] = "Cập nhật thanh toán thành công.";
 
@@ -208,23 +193,11 @@ public class HoaDonController : Controller
     // Nạp danh sách đặt phòng đủ điều kiện lập hóa đơn
     private async Task NapDanhSachDatPhong()
     {
-        var danhSach = await _context.DatPhongs
-            .Where(d => d.TrangThai == "Đã trả phòng"
-                && d.NgayNhanThucTe != null
-                && d.NgayTraThucTe != null
-                && d.HoaDon == null
-                && !_context.HoaDons.Any(
-                    h => h.MaDatPhong == d.MaDatPhong))
-            .OrderByDescending(d => d.MaDatPhong)
-            .Select(d => new
-            {
-                d.MaDatPhong
-            })
-            .ToListAsync();
+        var danhSach = await _respository.GetDanhSachDatPhongDuDieuKienAsync();
 
         ViewBag.MaDatPhong = new SelectList(
             danhSach,
-            "MaDatPhong",
-            "MaDatPhong");
+            null,
+            null);
     }
 }

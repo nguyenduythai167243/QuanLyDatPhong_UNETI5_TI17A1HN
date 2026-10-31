@@ -6194,24 +6194,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\Desktop\\Study\\THLT .Net\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
       "projectName": "QuanLyDatPhong_UNETI5_TI17A1HN",
-      "projectPath": "D:\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\obj\\",
+      "projectPath": "C:\\Users\\admin\\Desktop\\Study\\THLT .Net\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\admin\\Desktop\\Study\\THLT .Net\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "D:\\NuGet.Config",
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -6219,7 +6218,8 @@
         "net10.0"
       ],
       "sources": {
-        "D:\\ThiMVC6\\02_NuGetOffline": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

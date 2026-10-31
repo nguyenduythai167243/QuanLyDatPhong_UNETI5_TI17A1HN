@@ -26,6 +26,7 @@ builder.Services.AddScoped<IThongkeRepository, ThongKeRepository>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<ILeTanRepository, LeTanRepository>();
 builder.Services.AddScoped<ILeTanDatPhongRepository, LeTanRepository>();
+builder.Services.AddScoped<IHoaDonRespository, HoaDonRespository>();
 
 builder.Services.AddControllersWithViews();
 

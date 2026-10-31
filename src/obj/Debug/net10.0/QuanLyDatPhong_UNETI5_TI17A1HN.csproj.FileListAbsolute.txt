@@ -1394,3 +1394,7 @@ D:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\h5vqlul8jn-{0
 D:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\pyu96yylvm-{0}-uuhaa6h64i-uuhaa6h64i.gz
 D:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\9cpwtj372b-{0}-s4iy5sayl1-s4iy5sayl1.gz
 D:\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\zc2pl9kd8t-{0}-6vfbidcfu8-6vfbidcfu8.gz
+C:\Users\admin\Desktop\Study\THLT .Net\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\zc2pl9kd8t-{0}-dwgsbetv2u-dwgsbetv2u.gz
+C:\Users\admin\Desktop\Study\THLT .Net\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\h5vqlul8jn-{0}-rwkxje8bkl-rwkxje8bkl.gz
+C:\Users\admin\Desktop\Study\THLT .Net\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\9cpwtj372b-{0}-zft6793wa9-zft6793wa9.gz
+C:\Users\admin\Desktop\Study\THLT .Net\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\pyu96yylvm-{0}-3hz3x0uhlk-3hz3x0uhlk.gz
