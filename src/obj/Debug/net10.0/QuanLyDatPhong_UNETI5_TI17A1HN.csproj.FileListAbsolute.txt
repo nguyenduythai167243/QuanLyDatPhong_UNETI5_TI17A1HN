@@ -1674,8 +1674,6 @@ D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\rjsmcshtml.dswa.cach
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\scopedcss\bundle\QuanLyDatPhong_UNETI5_TI17A1HN.styles.css
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\scopedcss\projectbundle\QuanLyDatPhong_UNETI5_TI17A1HN.bundle.scp.css
-D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\h5vqlul8jn-{0}-hvqmcf0q5z-hvqmcf0q5z.gz
-D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\xzzee1m80f-{0}-hemj7w8aaz-hemj7w8aaz.gz
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\f783orpoqz-{0}-61n19gt1b8-61n19gt1b8.gz
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\pyu96yylvm-{0}-3hz3x0uhlk-3hz3x0uhlk.gz
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\47d7zug847-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
@@ -1738,8 +1736,6 @@ D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\9akt83vfa
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\2l2ctptx77-{0}-9vr69e8ynj-9vr69e8ynj.gz
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\bakf8qs40a-{0}-87fc7y1x7t-87fc7y1x7t.gz
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\soqynzwj42-{0}-mlv21k5csn-mlv21k5csn.gz
-D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\s0e1lg4tcs-{0}-hfso1nlqp7-hfso1nlqp7.gz
-D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\1jnq16250g-{0}-hfso1nlqp7-hfso1nlqp7.gz
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\staticwebassets.build.json
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\staticwebassets.build.json.cache
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\staticwebassets.development.json
@@ -1748,5 +1744,9 @@ D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\swae.build.ex.cache
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\QuanLyDa.D4B153D1.Up2Date
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\QuanLyDatPhong_UNETI5_TI17A1HN.genruntimeconfig.cache
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\ref\QuanLyDatPhong_UNETI5_TI17A1HN.dll
-D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\zc2pl9kd8t-{0}-k8ly4yap5a-k8ly4yap5a.gz
 D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\9cpwtj372b-{0}-9cdp1mljmg-9cdp1mljmg.gz
+D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\s0e1lg4tcs-{0}-dx3py3vbnc-dx3py3vbnc.gz
+D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\1jnq16250g-{0}-dx3py3vbnc-dx3py3vbnc.gz
+D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\zc2pl9kd8t-{0}-tdbq2akm8x-tdbq2akm8x.gz
+D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\h5vqlul8jn-{0}-x3nh9mnrhf-x3nh9mnrhf.gz
+D:\btl\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\xzzee1m80f-{0}-o9kvyztxgm-o9kvyztxgm.gz

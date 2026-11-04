@@ -145,10 +145,10 @@
 }
 
 .hero-main-title {
-    font-size: 2.85rem;
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
+    font-size: clamp(2.25rem, 5vw, 3.0rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
     margin-bottom: 1.25rem;
     text-shadow: 0 2px 20px rgba(0,0,0,0.4);
 }
@@ -187,9 +187,10 @@
 
 .hero-stat-number {
     font-size: 1.75rem;
-    font-weight: 800;
+    font-weight: 700;
+    line-height: 1.25;
     color: #ffffff;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 
 .hero-stat-label {
@@ -453,7 +454,8 @@
     border-radius: 9999px;
     border: 1px solid rgba(255, 255, 255, 0.15);
     font-size: 0.95rem;
-    font-weight: 800;
+    font-weight: 700;
+    line-height: 1.35;
 }
 
 .room-floor-badge {
@@ -642,4 +644,284 @@
 
 .faq-chevron {
     transition: transform 0.25s ease;
+}
+
+
+/* ==========================================================================
+   UNETI LUXURY 5-STAR FOOTER COMPONENT
+   ========================================================================== */
+.hotel-main-footer {
+    background: linear-gradient(180deg, #0b0f19 0%, #080b12 100%);
+    color: #94a3b8;
+    position: relative;
+    overflow: hidden;
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hotel-main-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.6) 50%, transparent);
+}
+
+.footer-top-wrap {
+    padding: 4.5rem 0 3rem 0;
+}
+
+.footer-brand-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+}
+
+.footer-brand-logo {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+    color: #ffffff;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+}
+
+.footer-brand-bio {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #94a3b8;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    color: #cbd5e1;
+}
+
+.footer-contact-item i {
+    font-size: 1rem;
+    color: #fbbf24;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+}
+
+.footer-heading {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.65rem;
+    display: inline-block;
+}
+
+.footer-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 28px;
+    height: 2px;
+    background: linear-gradient(90deg, #f59e0b, transparent);
+    border-radius: 2px;
+}
+
+.footer-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.footer-link-item a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-link-item a i {
+    font-size: 0.75rem;
+    color: #64748b;
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.footer-link-item a:hover {
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+.footer-link-item a:hover i {
+    color: #fbbf24;
+    transform: translateX(2px);
+}
+
+/* Social icons */
+.footer-social-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 1.25rem;
+}
+
+.footer-social-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.footer-social-btn:hover {
+    background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+    color: #ffffff;
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35);
+}
+
+/* Newsletter Box */
+.footer-newsletter-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-newsletter-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.footer-newsletter-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 0.75rem 3.25rem 0.75rem 1rem;
+    color: #ffffff;
+    font-size: 0.875rem;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.footer-newsletter-input:focus {
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.footer-newsletter-input::placeholder {
+    color: #64748b;
+}
+
+.footer-newsletter-btn {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+    border: none;
+    border-radius: 8px;
+    padding: 0 0.85rem;
+    background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.footer-newsletter-btn:hover {
+    filter: brightness(1.1);
+    transform: scale(1.03);
+}
+
+/* Payment badges */
+.footer-payment-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.footer-payment-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* Sub-footer bottom bar */
+.footer-bottom-bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 1.5rem 0;
+    background: #080b12;
+    font-size: 0.825rem;
+    color: #64748b;
+}
+
+.footer-bottom-links {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-bottom-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-bottom-links a:hover {
+    color: #ffffff;
 }
