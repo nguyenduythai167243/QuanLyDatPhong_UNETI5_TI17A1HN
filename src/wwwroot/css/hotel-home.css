@@ -269,6 +269,19 @@
     border-color: #c7d2fe;
 }
 
+.hover-luxury-tag {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.hover-luxury-tag:hover {
+    background: #eef2ff !important;
+    color: #4f46e5 !important;
+    border-color: #c7d2fe !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.15) !important;
+}
+
 .booking-input-box {
     background: #f8fafc;
     border: 1px solid #e2e8f0;

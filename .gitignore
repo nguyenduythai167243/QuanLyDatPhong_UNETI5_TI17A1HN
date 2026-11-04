@@ -1,4 +1,4 @@
-﻿# Visual Studio
+# Visual Studio
 .vs/
 **/.vs/
 
@@ -16,3 +16,7 @@
 # Local database backups
 backup/
 *.bak
+
+# Build intermediate outputs
+obj/
+**/obj/

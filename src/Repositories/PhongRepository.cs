@@ -278,15 +278,21 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Repositories
             return (paginatedPhongs, phongTrongMap);
         }
 
-        public async Task<List<Phong>> GetFeaturedRoomsAsync(int? maLoaiPhong, int? soNguoi, int count = 6)
+        public async Task<List<Phong>> GetFeaturedRoomsAsync(int? maLoaiPhong, int? soNguoi, int count = 9)
         {
             var query = _context.Phongs
                 .Include(p => p.LoaiPhong)
-                .AsQueryable();
+                .Where(p => p.TrangThai != "Ngừng kinh doanh" && p.LoaiPhong != null && p.LoaiPhong.TrangThai);
 
+            // Nếu người dùng đã chọn cụ thể 1 loại phòng
             if (maLoaiPhong.HasValue && maLoaiPhong.Value > 0)
             {
                 query = query.Where(p => p.MaLoaiPhong == maLoaiPhong.Value);
+                if (soNguoi.HasValue && soNguoi.Value > 0)
+                {
+                    query = query.Where(p => p.SucChua >= soNguoi.Value);
+                }
+                return await query.Take(count).ToListAsync();
             }
 
             if (soNguoi.HasValue && soNguoi.Value > 0)
@@ -294,7 +300,38 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Repositories
                 query = query.Where(p => p.SucChua >= soNguoi.Value);
             }
 
-            return await query.Take(count).ToListAsync();
+            // Lấy các phòng tiêu biểu phân bổ đều giữa các hạng phòng (tối đa count phòng)
+            var activeLoaiPhongIds = await _context.LoaiPhongs
+                .Where(lp => lp.TrangThai)
+                .OrderBy(lp => lp.MaLoaiPhong)
+                .Select(lp => lp.MaLoaiPhong)
+                .ToListAsync();
+
+            var featured = new List<Phong>();
+            const int takePerType = 2;
+            foreach (var lpId in activeLoaiPhongIds)
+            {
+                if (featured.Count >= count) break;
+                int remaining = count - featured.Count;
+                var roomsForType = await query
+                    .Where(p => p.MaLoaiPhong == lpId)
+                    .OrderBy(p => p.GiaMotDem)
+                    .Take(Math.Min(takePerType, remaining))
+                    .ToListAsync();
+                featured.AddRange(roomsForType);
+            }
+
+            if (featured.Count < count)
+            {
+                var existingIds = featured.Select(f => f.MaPhong).ToList();
+                var additionalRooms = await query
+                    .Where(p => !existingIds.Contains(p.MaPhong))
+                    .Take(count - featured.Count)
+                    .ToListAsync();
+                featured.AddRange(additionalRooms);
+            }
+
+            return featured;
         }
 
         public async Task<List<Phong>> GetCustomerRoomsAsync(int? maLoaiPhong, int? soNguoi, decimal? giaTu, decimal? giaDen)

@@ -39,8 +39,8 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             ViewBag.SoNguoi = soNguoi ?? 2;
             ViewBag.MaLoaiPhong = maLoaiPhong;
 
-            // Lấy danh sách phòng nổi bật có thể đặt
-            var phongs = await _phongRepository.GetFeaturedRoomsAsync(maLoaiPhong, soNguoi, 6);
+            // Lấy danh sách 9 phòng tiêu biểu phân bổ đủ các hạng phòng
+            var phongs = await _phongRepository.GetFeaturedRoomsAsync(maLoaiPhong, soNguoi, 9);
             return View(phongs);
         }
 

@@ -291,19 +291,20 @@
                 }
             </div>
 
-            <!-- Phân trang (Pagination) -->
+            <!-- Phân trang Luxury (Pagination) -->
             @if (danhSachPhong != null && totalPages > 1)
             {
-                <div class="card border-0 shadow-sm rounded-4 p-3 mt-4 bg-white d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-                    <div class="text-muted small">
-                        Hiển thị trang <strong>@currentPage</strong> / <strong>@totalPages</strong>
-                        (Tổng cộng <strong>@totalItems</strong> phòng)
+                <div class="luxury-pagination-wrap">
+                    <div class="luxury-page-info">
+                        <span class="page-badge">
+                            <i class="bi bi-layers-half"></i> Trang @currentPage / @totalPages
+                        </span>
+                        <span>Tổng số <strong class="text-dark">@totalItems</strong> phòng tiêu chuẩn</span>
                     </div>
 
                     <nav aria-label="Phân trang danh sách phòng">
-                        <ul class="pagination pagination-sm mb-0">
+                        <ul class="luxury-pagination">
                             @{
-                                var firstRoute = new Dictionary<string, string>(baseRoute) { ["page"] = "1" };
                                 var prevRoute = new Dictionary<string, string>(baseRoute)
                                 {
                                     ["page"] = (currentPage - 1).ToString()
@@ -312,51 +313,69 @@
                                 {
                                     ["page"] = (currentPage + 1).ToString()
                                 };
-                                var lastRoute = new Dictionary<string, string>(baseRoute)
-                                {
-                                    ["page"] = totalPages.ToString()
-                                };
                             }
 
-                            <!-- Đầu tiên & Trước -->
-                            <li class="page-item @(!danhSachPhong.HasPreviousPage ? "disabled" : "")">
-                                <a class="page-link rounded-start-pill" asp-action="DanhSachPhong" asp-all-route-data="@firstRoute" title="Trang đầu">
-                                    <i class="bi bi-chevron-double-left"></i>
-                                </a>
-                            </li>
-                            <li class="page-item @(!danhSachPhong.HasPreviousPage ? "disabled" : "")">
-                                <a class="page-link" asp-action="DanhSachPhong" asp-all-route-data="@prevRoute" title="Trang trước">
+                            <!-- Nút Trước -->
+                            <li class="luxury-page-item @(!danhSachPhong.HasPreviousPage ? "disabled" : "")">
+                                <a class="luxury-page-link nav-btn" asp-action="DanhSachPhong" asp-all-route-data="@prevRoute" title="Trang trước">
                                     <i class="bi bi-chevron-left"></i>
+                                    <span class="d-none d-sm-inline">Trước</span>
                                 </a>
                             </li>
 
-                            <!-- Các trang số -->
-                            @for (int p = 1; p <= totalPages; p++)
+                            <!-- Trang 1 nếu đang ở trang xa -->
+                            @if (currentPage > 3)
+                            {
+                                var r1 = new Dictionary<string, string>(baseRoute) { ["page"] = "1" };
+                                <li class="luxury-page-item">
+                                    <a class="luxury-page-link" asp-action="DanhSachPhong" asp-all-route-data="@r1">1</a>
+                                </li>
+                                @if (currentPage > 4)
+                                {
+                                    <li class="luxury-page-item">
+                                        <span class="luxury-page-ellipsis">&hellip;</span>
+                                    </li>
+                                }
+                            }
+
+                            <!-- Các trang lân cận -->
+                            @for (int p = Math.Max(1, currentPage - 2); p <= Math.Min(totalPages, currentPage + 2); p++)
                             {
                                 var pageRoute = new Dictionary<string, string>(baseRoute) { ["page"] = p.ToString() };
                                 if (p == currentPage)
                                 {
-                                    <li class="page-item active" aria-current="page">
-                                        <span class="page-link fw-bold">@p</span>
+                                    <li class="luxury-page-item active" aria-current="page">
+                                        <span class="luxury-page-link">@p</span>
                                     </li>
                                 }
-                                else if (p >= currentPage - 2 && p <= currentPage + 2)
+                                else
                                 {
-                                    <li class="page-item">
-                                        <a class="page-link" asp-action="DanhSachPhong" asp-all-route-data="@pageRoute">@p</a>
+                                    <li class="luxury-page-item">
+                                        <a class="luxury-page-link" asp-action="DanhSachPhong" asp-all-route-data="@pageRoute">@p</a>
                                     </li>
                                 }
                             }
 
-                            <!-- Tiếp & Cuối cùng -->
-                            <li class="page-item @(!danhSachPhong.HasNextPage ? "disabled" : "")">
-                                <a class="page-link" asp-action="DanhSachPhong" asp-all-route-data="@nextRoute" title="Trang sau">
+                            <!-- Trang cuối nếu đang ở trang xa -->
+                            @if (currentPage < totalPages - 2)
+                            {
+                                if (currentPage < totalPages - 3)
+                                {
+                                    <li class="luxury-page-item">
+                                        <span class="luxury-page-ellipsis">&hellip;</span>
+                                    </li>
+                                }
+                                var rLast = new Dictionary<string, string>(baseRoute) { ["page"] = totalPages.ToString() };
+                                <li class="luxury-page-item">
+                                    <a class="luxury-page-link" asp-action="DanhSachPhong" asp-all-route-data="@rLast">@totalPages</a>
+                                </li>
+                            }
+
+                            <!-- Nút Sau -->
+                            <li class="luxury-page-item @(!danhSachPhong.HasNextPage ? "disabled" : "")">
+                                <a class="luxury-page-link nav-btn" asp-action="DanhSachPhong" asp-all-route-data="@nextRoute" title="Trang sau">
+                                    <span class="d-none d-sm-inline">Sau</span>
                                     <i class="bi bi-chevron-right"></i>
-                                </a>
-                            </li>
-                            <li class="page-item @(!danhSachPhong.HasNextPage ? "disabled" : "")">
-                                <a class="page-link rounded-end-pill" asp-action="DanhSachPhong" asp-all-route-data="@lastRoute" title="Trang cuối">
-                                    <i class="bi bi-chevron-double-right"></i>
                                 </a>
                             </li>
                         </ul>

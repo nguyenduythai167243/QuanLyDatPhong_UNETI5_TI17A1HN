@@ -56,7 +56,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Repositories
             int pageSize);
 
         // Trang chủ & Cổng thông tin khách sạn (HomeController)
-        Task<List<Phong>> GetFeaturedRoomsAsync(int? maLoaiPhong, int? soNguoi, int count = 6);
+        Task<List<Phong>> GetFeaturedRoomsAsync(int? maLoaiPhong, int? soNguoi, int count = 9);
         Task<List<Phong>> GetCustomerRoomsAsync(int? maLoaiPhong, int? soNguoi, decimal? giaTu, decimal? giaDen);
         Task<List<Phong>> GetRelatedRoomsAsync(int maLoaiPhong, int currentPhongId, int count = 3);
 
