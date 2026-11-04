@@ -27,7 +27,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm py-2 mb-3">
             <div class="container-fluid px-3 px-xl-4">
-                <a class="navbar-brand fw-extrabold text-primary d-flex align-items-center gap-2" asp-area="" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" asp-area="" asp-controller="Home" asp-action="Index">
                     <span class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-3 p-2 shadow-sm" style="width: 36px; height: 36px;">
                         <i class="bi bi-buildings-fill fs-6"></i>
                     </span>
@@ -136,24 +136,108 @@
             </div>
         </nav>
     </header>
-        <div class="@(ViewData["FluidLayout"] as bool? == true ? "container-fluid px-3 px-xl-4" : "container")">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+
+    <!-- Main Page Body Container -->
+    <div class="@(ViewData["FluidLayout"] as bool? == true ? "container-fluid px-3 px-xl-4" : "container") flex-grow-1">
+        <main role="main" class="pb-4">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- ======================================================================
+         HOTEL LUXURY 5-STAR FOOTER (UNETI GRAND HOTEL & RESORT)
+         ====================================================================== -->
+    <footer class="hotel-main-footer">
+        <div class="container-fluid px-3 px-xl-5">
+            <div class="footer-top-wrap">
+                <div class="row g-4 g-lg-5 justify-content-between">
+                    <!-- Cột 1: Thông tin thương hiệu & Liên hệ -->
+                    <div class="col-12 col-lg-7">
+                        <a asp-controller="Home" asp-action="Index" class="footer-brand-title">
+                            <span class="footer-brand-logo">
+                                <i class="bi bi-buildings-fill fs-5"></i>
+                            </span>
+                            <div>
+                                <span>UNETI</span>
+                                <span class="text-warning">HOTEL</span>
+                            </div>
+                        </a>
+                        <p class="footer-brand-bio">
+                            Khu nghỉ dưỡng thượng lưu chuẩn 5 sao quốc tế hàng đầu, nơi kiến tạo không gian lưu trú tinh hoa, tiện nghi xa hoa và trải nghiệm trọn vẹn từng khoảnh khắc.
+                        </p>
+                        <ul class="footer-contact-list">
+                            <li class="footer-contact-item">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>218 Đường Lĩnh Nam, Quận Hoàng Mai, Hà Nội (Cơ sở UNETI)</span>
+                            </li>
+                            <li class="footer-contact-item">
+                                <i class="bi bi-telephone-inbound-fill"></i>
+                                <span><strong>Hotline 24/7:</strong> 1900 6868 &bull; (024) 3862 1504</span>
+                            </li>
+                            <li class="footer-contact-item">
+                                <i class="bi bi-envelope-check-fill"></i>
+                                <span><strong>Email:</strong> reservation@unetihotel.edu.vn</span>
+                            </li>
+                        </ul>
+                        <!-- Mạng xã hội -->
+                        <div class="footer-social-wrap">
+                            <a href="#" class="footer-social-btn" title="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="footer-social-btn" title="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="footer-social-btn" title="YouTube"><i class="bi bi-youtube"></i></a>
+                            <a href="#" class="footer-social-btn" title="TikTok"><i class="bi bi-tiktok"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Cột 2: Khám phá & Đặt phòng nhanh -->
+                    <div class="col-12 col-md-5 col-lg-4">
+                        <div class="footer-heading">Khám Phá</div>
+                        <ul class="footer-links-list">
+                            <li class="footer-link-item">
+                                <a asp-controller="Home" asp-action="Index"><i class="bi bi-chevron-right"></i>Trang Chủ</a>
+                            </li>
+                            <li class="footer-link-item">
+                                <a asp-controller="Home" asp-action="DanhSachPhong"><i class="bi bi-chevron-right"></i>Tìm & Đặt Phòng</a>
+                            </li>
+                            <li class="footer-link-item">
+                                <a asp-controller="Home" asp-action="TraCuu"><i class="bi bi-chevron-right"></i>Tra Cứu Đơn Đặt</a>
+                            </li>
+                            <li class="footer-link-item">
+                                <a asp-controller="Home" asp-action="DanhSachPhong" asp-route-maLoaiPhong="4"><i class="bi bi-chevron-right"></i>Hạng Suite VIP</a>
+                            </li>
+                            <li class="footer-link-item">
+                                <a asp-controller="Home" asp-action="DanhSachPhong" asp-route-maLoaiPhong="5"><i class="bi bi-chevron-right"></i>Nghỉ Dưỡng Gia Đình</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2026 - QuanLyDatPhong_UNETI5_TI17A1HN - <a asp-area="" asp-controller="Home"
-                                                                  asp-action="Privacy">Privacy</a>
+        <!-- Chân trang bản quyền -->
+        <div class="footer-bottom-bar">
+            <div class="container-fluid px-3 px-xl-5">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                    <div>
+                        <span>&copy; 2026 <strong>UNETI Grand Hotel & Resort</strong>. Đề tài BTL Nhóm 5 - Lớp <strong>TI17A1HN</strong> - Trường Đại học Kinh tế - Kỹ thuật Công nghiệp.</span>
+                    </div>
+                    <div>
+                        <ul class="footer-bottom-links">
+                            <li><a asp-controller="Home" asp-action="Privacy">Chính sách bảo mật</a></li>
+                            <li><a href="javascript:void(0)">Điều khoản dịch vụ</a></li>
+                            <li><a href="javascript:void(0)">Sơ đồ website</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </footer>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="~/js/letan.js" asp-append-version="true"></script>
-        <script src="~/js/hotel-home.js" asp-append-version="true"></script>
-        @await RenderSectionAsync("Scripts", required: false)
-    </body>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/letan.js" asp-append-version="true"></script>
+    <script src="~/js/hotel-home.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
 
 </html>
