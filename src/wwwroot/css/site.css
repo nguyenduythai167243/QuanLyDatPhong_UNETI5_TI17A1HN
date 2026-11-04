@@ -1,3 +1,11 @@
+:root {
+  --main-font: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link {
+  font-family: var(--main-font);
+}
+
 html {
   font-size: 14px;
 }
