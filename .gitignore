@@ -20,3 +20,7 @@ backup/
 # Build intermediate outputs
 obj/
 **/obj/
+
+# Local specifications & design documents
+DESIGN.md
+

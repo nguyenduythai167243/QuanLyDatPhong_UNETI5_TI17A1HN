@@ -35,14 +35,18 @@
                     </h1>
 
                     <p class="hero-desc">
-                        Đắm mình trong không gian kiến trúc đương đại xa hoa, dịch vụ quản gia cao cấp 24/7 và hệ sinh thái ẩm thực Michelin đỉnh cao ngay tại trung tâm thủ đô.
+                        Đắm mình trong không gian kiến trúc đương đại xa hoa, dịch vụ quản gia cao cấp 24/7 và hệ sinh
+                        thái ẩm thực Michelin đỉnh cao ngay tại trung tâm thủ đô.
                     </p>
 
                     <div class="d-flex flex-wrap gap-3">
-                        <a href="#booking-bar" class="btn btn-warning btn-lg fw-bold px-4 py-3 rounded-pill shadow-lg text-dark d-inline-flex align-items-center gap-2">
+                        <a href="#booking-bar"
+                           class="btn btn-warning btn-lg fw-bold px-4 py-3 rounded-pill shadow-lg text-dark d-inline-flex align-items-center gap-2">
                             <i class="bi bi-calendar2-check-fill"></i> Đặt Phòng Trực Tuyến
                         </a>
-                        <a asp-action="DanhSachPhong" class="btn btn-outline-light btn-lg fw-semibold px-4 py-3 rounded-pill d-inline-flex align-items-center gap-2" style="backdrop-filter: blur(8px);">
+                        <a asp-action="DanhSachPhong"
+                           class="btn btn-outline-light btn-lg fw-semibold px-4 py-3 rounded-pill d-inline-flex align-items-center gap-2"
+                           style="backdrop-filter: blur(8px);">
                             <i class="bi bi-door-open"></i> Khám Phá Các Phòng
                         </a>
                     </div>
@@ -85,7 +89,8 @@
                         </div>
 
                         <div class="text-center py-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-10 rounded-circle p-4 mb-3" style="width: 100px; height: 100px;">
+                            <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-10 rounded-circle p-4 mb-3"
+                                 style="width: 100px; height: 100px;">
                                 <i class="bi bi-buildings-fill text-warning" style="font-size: 3rem;"></i>
                             </div>
                             <h3 class="fw-bold text-white mb-1">UNETI Grand Resort</h3>
@@ -114,45 +119,41 @@
          ====================================================================== -->
     <div id="booking-bar" class="hotel-booking-bar-wrap">
         <div class="hotel-booking-console">
-            <!-- Booking Console Header: Tiêu đề & Night Counter Badge -->
-            <div class="d-flex flex-wrap align-items-center justify-content-between mb-3 pb-2 border-bottom border-light">
+            <!-- Booking Console Header: Tiêu đề -->
+            <div class="d-flex align-items-center mb-3 pb-2 border-bottom border-light">
                 <div class="d-flex align-items-center gap-2">
-                    <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 px-3 py-1.5 rounded-pill fw-bold">
+                    <span
+                        class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 px-3 py-1.5 rounded-pill fw-bold">
                         <i class="bi bi-search-heart me-1"></i> Tra Cứu Phòng Khả Dụng
                     </span>
                     <span class="text-muted small d-none d-md-inline">Cam kết giá tốt nhất & dịch vụ chuẩn 5 sao</span>
                 </div>
-                <div class="mt-2 mt-md-0">
-                    <span id="booking-nights-badge" class="badge bg-light text-secondary border px-3 py-1.5 rounded-pill fw-semibold shadow-sm">
-                        <i class="bi bi-moon-stars-fill me-1 text-warning"></i> <span id="booking-nights-count">1</span> đêm nghỉ
-                    </span>
-                </div>
             </div>
 
             <!-- Booking Form -->
-            <form asp-action="DanhSachPhong" method="get" class="row g-3 align-items-end">
+            <form asp-action="DanhSachPhong" method="get" class="row g-2 g-lg-3 align-items-center">
                 <!-- Ngày nhận -->
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <div class="booking-input-box">
                         <label class="booking-input-label">
-                            <i class="bi bi-box-arrow-in-right text-success"></i> Ngày nhận phòng
+                            <i class="bi bi-box-arrow-in-right text-success"></i> Ngày nhận
                         </label>
                         <input type="date" name="ngayNhan" value="@ngayNhan" class="booking-input-control" required />
                     </div>
                 </div>
 
                 <!-- Ngày trả -->
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <div class="booking-input-box">
                         <label class="booking-input-label">
-                            <i class="bi bi-box-arrow-left text-danger"></i> Ngày trả phòng
+                            <i class="bi bi-box-arrow-left text-danger"></i> Ngày trả
                         </label>
                         <input type="date" name="ngayTra" value="@ngayTra" class="booking-input-control" required />
                     </div>
                 </div>
 
                 <!-- Loại phòng -->
-                <div class="col-12 col-md-2">
+                <div class="col-12 col-sm-6 col-lg-2">
                     <div class="booking-input-box">
                         <label class="booking-input-label">
                             <i class="bi bi-door-closed text-primary"></i> Hạng phòng
@@ -161,30 +162,30 @@
                             <option value="">Tất cả hạng</option>
                             @foreach (var lp in loaiPhongs)
                             {
-                                <option value="@lp.MaLoaiPhong" selected="@(maLoaiPhong == lp.MaLoaiPhong)">@lp.TenLoaiPhong</option>
+                                <option value="@lp.MaLoaiPhong" selected="@(maLoaiPhong == lp.MaLoaiPhong)">@lp.TenLoaiPhong
+                                </option>
                             }
                         </select>
                     </div>
                 </div>
 
                 <!-- Số khách -->
-                <div class="col-12 col-md-2">
+                <div class="col-12 col-sm-6 col-lg-2">
                     <div class="booking-input-box">
                         <label class="booking-input-label">
-                            <i class="bi bi-people text-info"></i> Số lượng khách
+                            <i class="bi bi-people text-info"></i> Số khách
                         </label>
                         <select name="soNguoi" class="booking-input-control">
                             <option value="1" selected="@(soNguoi == 1)">1 Khách</option>
-                            <option value="2" selected="@(soNguoi == 2)">2 Khách (Cặp đôi)</option>
+                            <option value="2" selected="@(soNguoi == 2)">2 Khách</option>
                             <option value="3" selected="@(soNguoi == 3)">3 Khách</option>
                             <option value="4" selected="@(soNguoi == 4)">4 Khách</option>
-                            <option value="6" selected="@(soNguoi >= 5)">Gia đình (> 4 khách)</option>
                         </select>
                     </div>
                 </div>
 
                 <!-- Nút tìm kiếm -->
-                <div class="col-12 col-md-2">
+                <div class="col-12 col-lg-2">
                     <button type="submit" class="btn-glow-luxury">
                         <i class="bi bi-search"></i>
                         <span>Tìm Phòng</span>
@@ -197,19 +198,16 @@
                 <span class="text-muted small fw-semibold me-1">
                     <i class="bi bi-lightning-charge-fill text-warning me-1"></i>Xu hướng tìm:
                 </span>
-                <a asp-action="DanhSachPhong" asp-route-tuKhoa="bồn tắm" class="badge bg-light text-secondary border text-decoration-none px-3 py-1.5 rounded-pill shadow-xs hover-luxury-tag">
-                    🛁 Có bồn tắm nằm
-                </a>
-                <a asp-action="DanhSachPhong" asp-route-tuKhoa="view" class="badge bg-light text-secondary border text-decoration-none px-3 py-1.5 rounded-pill shadow-xs hover-luxury-tag">
-                    🌅 View đẹp panorama
-                </a>
-                <a asp-action="DanhSachPhong" asp-route-maLoaiPhong="4" class="badge bg-light text-secondary border text-decoration-none px-3 py-1.5 rounded-pill shadow-xs hover-luxury-tag">
+                <a asp-action="DanhSachPhong" asp-route-maLoaiPhong="4"
+                   class="badge bg-light text-secondary border text-decoration-none px-3 py-1.5 rounded-pill shadow-xs hover-luxury-tag">
                     👑 Hạng Suite VIP
                 </a>
-                <a asp-action="DanhSachPhong" asp-route-maLoaiPhong="5" class="badge bg-light text-secondary border text-decoration-none px-3 py-1.5 rounded-pill shadow-xs hover-luxury-tag">
+                <a asp-action="DanhSachPhong" asp-route-maLoaiPhong="5"
+                   class="badge bg-light text-secondary border text-decoration-none px-3 py-1.5 rounded-pill shadow-xs hover-luxury-tag">
                     👨‍👩‍👧 Nghỉ dưỡng gia đình
                 </a>
-                <a asp-action="DanhSachPhong" asp-route-giaDen="1000000" class="badge bg-light text-secondary border text-decoration-none px-3 py-1.5 rounded-pill shadow-xs hover-luxury-tag">
+                <a asp-action="DanhSachPhong" asp-route-giaDen="1000000"
+                   class="badge bg-light text-secondary border text-decoration-none px-3 py-1.5 rounded-pill shadow-xs hover-luxury-tag">
                     💰 Giá tốt dưới 1 triệu
                 </a>
             </div>
@@ -220,322 +218,361 @@
          3. 9 PHÒNG NGHỈ TIÊU BIỂU (FEATURED ROOMS COLLECTION)
          ====================================================================== -->
     <div class="mb-5">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-end mb-4 gap-3">
+        <div
+            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-end mb-4 gap-3">
             <div>
-                <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-1 rounded-pill fw-bold text-uppercase mb-2">
+                <span
+                    class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-1 rounded-pill fw-bold text-uppercase mb-2">
                     <i class="bi bi-stars me-1 text-warning"></i> Tuyển Chọn Nghỉ Dưỡng
                 </span>
                 <h2 class="fw-bold text-dark mb-1">Các Hạng Phòng Nghỉ Tiêu Biểu</h2>
-                <p class="text-muted mb-0">Tuyển chọn 9 phòng nghỉ tiêu biểu với không gian sang trọng, tiện nghi chuẩn 5 sao quốc tế</p>
-            </div>
-            <a asp-action="DanhSachPhong" class="btn btn-outline-primary fw-bold rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2 shadow-xs">
-                Xem Tất Cả Phòng <i class="bi bi-arrow-right"></i>
-            </a>
-        </div>
-
-        <!-- Grid 9 Cards Phòng Nghỉ Tiêu Biểu -->
-        <div class="row g-4" id="room-grid">
-            @if (!Model.Any())
-            {
-                <div class="col-12 text-center py-5">
-                    <div class="p-5 bg-white rounded-4 shadow-sm border">
-                        <i class="bi bi-door-closed fs-1 text-muted opacity-50 mb-3 d-block"></i>
-                        <h5 class="fw-bold text-dark">Hiện chưa có phòng hiển thị</h5>
-                        <p class="text-muted small">Vui lòng quay lại sau hoặc liên hệ quầy lễ tân để được hỗ trợ.</p>
-                    </div>
+                <p class="text-muted mb-0">Tuyển chọn 9 phòng nghỉ tiêu biểu với không gian sang trọng, tiện nghi chuẩn
+                    5 sao quốc tế</p>
                 </div>
-            }
-            else
-            {
-                @foreach (var p in Model)
+                <a asp-action="DanhSachPhong"
+                   class="btn btn-outline-primary fw-bold rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2 shadow-xs">
+                    Xem Tất Cả Phòng <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Grid 9 Cards Phòng Nghỉ Tiêu Biểu -->
+            <div class="row g-4" id="room-grid">
+                @if (!Model.Any())
                 {
-                    var roomTitle = p.LoaiPhong?.TenLoaiPhong ?? "Phòng Tiêu Chuẩn";
+                    <div class="col-12 text-center py-5">
+                        <div class="p-5 bg-white rounded-4 shadow-sm border">
+                            <i class="bi bi-door-closed fs-1 text-muted opacity-50 mb-3 d-block"></i>
+                            <h5 class="fw-bold text-dark">Hiện chưa có phòng hiển thị</h5>
+                            <p class="text-muted small">Vui lòng quay lại sau hoặc liên hệ quầy lễ tân để được hỗ trợ.</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var p in Model)
+                    {
+                        var roomTitle = p.LoaiPhong?.TenLoaiPhong ?? "Phòng Tiêu Chuẩn";
 
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="hotel-room-card">
-                            <!-- Visual Cover with Door Icon -->
-                            <div class="room-visual-cover">
-                                <span class="room-floor-badge">
-                                    <i class="bi bi-layers-fill me-1"></i> Tầng @p.Tang
-                                </span>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="hotel-room-card">
+                                <!-- Visual Cover with Door Icon -->
+                                <div class="room-visual-cover">
+                                    <span class="room-floor-badge">
+                                        <i class="bi bi-layers-fill me-1"></i> Tầng @p.Tang
+                                    </span>
 
-                                <div class="text-center z-2">
-                                    <i class="bi bi-door-open-fill text-warning opacity-75" style="font-size: 3.5rem;"></i>
-                                    <div class="fw-bold fs-4 text-white mt-1">Phòng @p.SoPhong</div>
-                                    <span class="badge bg-white bg-opacity-20 text-white border border-white border-opacity-25 rounded-pill px-3 py-1 small">
+                                    <span class="room-type-badge" title="@roomTitle">
                                         @roomTitle
                                     </span>
-                                </div>
 
-                                <div class="room-price-float">
-                                    @(p.GiaMotDem.ToString("N0")) đ <small class="text-white-50 fw-normal">/ đêm</small>
-                                </div>
-                            </div>
-
-                            <!-- Card Body -->
-                            <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                                <div>
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <h5 class="fw-bold text-dark mb-0">@roomTitle</h5>
-                                        <span class="status-pill status-completed">
-                                            <span class="status-dot"></span> @(string.IsNullOrEmpty(p.TrangThai) ? "Sẵn sàng" : p.TrangThai)
-                                        </span>
+                                    <div class="text-center z-2">
+                                        <i class="bi bi-door-open-fill text-warning opacity-75" style="font-size: 3.2rem;"></i>
+                                        <div class="fw-bold fs-4 text-white mt-1">Phòng @p.SoPhong</div>
                                     </div>
 
-                                    <p class="text-muted small mb-3 text-truncate-2" style="min-height: 40px;">
-                                        @(string.IsNullOrEmpty(p.MoTa) ? "Phòng nghỉ sang trọng, đầy đủ tiện nghi chuẩn 5 sao quốc tế, mang lại giấc ngủ trọn vẹn." : p.MoTa)
-                                    </p>
-
-                                    <!-- Thông số phòng -->
-                                    <div class="row g-2 small text-muted mb-3 py-2 border-top border-bottom">
-                                        <div class="col-6">
-                                            <i class="bi bi-people-fill text-primary me-1"></i>Sức chứa: <strong>@p.SucChua khách</strong>
-                                        </div>
-                                        <div class="col-6">
-                                            <i class="bi bi-arrows-angle-expand text-success me-1"></i>Diện tích: <strong>@p.DienTich m²</strong>
-                                        </div>
-                                        <div class="col-12 text-truncate" title="@p.TienNghi">
-                                            <i class="bi bi-wifi text-info me-1"></i>Tiện ích: <strong>@(string.IsNullOrEmpty(p.TienNghi) ? "Wifi tốc độ cao, TV 4K, Minibar" : p.TienNghi)</strong>
-                                        </div>
+                                    <div class="room-price-float">
+                                        @(p.GiaMotDem.ToString("N0")) đ <small class="text-white-50 fw-normal">/ đêm</small>
                                     </div>
+                                </div>
 
-                                    <!-- Nút Bấm Click Mở Rộng Tiện Ích (Interactive Reveal Tray) -->
+                                <!-- Card Body -->
+                                <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
                                     <div>
-                                        <button type="button" class="room-amenities-toggle" data-target="tray-@p.MaPhong">
-                                            <i class="bi bi-stars"></i> Xem nhanh tiện ích
-                                        </button>
-                                        <div id="tray-@p.MaPhong" class="room-amenities-tray">
-                                            <div class="fw-bold text-dark mb-1"><i class="bi bi-check-circle-fill text-success me-1"></i>Tiện nghi cao cấp trang bị sẵn:</div>
-                                            <div class="row g-1 text-muted small">
-                                                <div class="col-6"><i class="bi bi-check2"></i> Giường nệm lò xo cao cấp</div>
-                                                <div class="col-6"><i class="bi bi-check2"></i> Điều hòa 2 chiều Inverter</div>
-                                                <div class="col-6"><i class="bi bi-check2"></i> Smart TV Netflix & Youtube</div>
-                                                <div class="col-6"><i class="bi bi-check2"></i> Máy sấy & Bàn là ủi</div>
-                                                <div class="col-6"><i class="bi bi-check2"></i> Áo choàng & Khăn tắm cao cấp</div>
-                                                <div class="col-6"><i class="bi bi-check2"></i> Minibar trà & cà phê miễn phí</div>
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="fw-bold text-dark mb-0">@roomTitle</h5>
+                                            <span class="status-pill status-completed">
+                                                <span class="status-dot"></span> @(string.IsNullOrEmpty(p.TrangThai) ? "Sẵn sàng" :
+                                                                                    p.TrangThai)
+                                            </span>
+                                        </div>
+
+                                        <p class="text-muted small mb-3 text-truncate-2" style="min-height: 40px;">
+                                            @(string.IsNullOrEmpty(p.MoTa) ? "Phòng nghỉ sang trọng, đầy đủ tiện nghi chuẩn 5 sao quốc tế, mang lại giấc ngủ trọn vẹn." : p.MoTa)
+                                        </p>
+
+                                        <!-- Thông số phòng -->
+                                        <div class="row g-2 small text-muted mb-3 py-2 border-top border-bottom">
+                                            <div class="col-6">
+                                                <i class="bi bi-people-fill text-primary me-1"></i>Sức chứa: <strong>@p.SucChua
+                                                khách</strong>
+                                            </div>
+                                            <div class="col-6">
+                                                <i class="bi bi-arrows-angle-expand text-success me-1"></i>Diện tích:
+                                                <strong>@p.DienTich m²</strong>
+                                            </div>
+                                            <div class="col-12 text-truncate" title="@p.TienNghi">
+                                                <i class="bi bi-wifi text-info me-1"></i>Tiện ích:
+                                                <strong>@(string.IsNullOrEmpty(p.TienNghi) ? "Wifi tốc độ cao, TV 4K, Minibar" :
+                                                                                            p.TienNghi)</strong>
+                                                </div>
+                                            </div>
+
+                                            <!-- Nút Bấm Click Mở Rộng Tiện Ích (Interactive Reveal Tray) -->
+                                            <div>
+                                                <button type="button" class="room-amenities-toggle" data-target="tray-@p.MaPhong">
+                                                    <i class="bi bi-stars"></i> Xem nhanh tiện ích
+                                                </button>
+                                                <div id="tray-@p.MaPhong" class="room-amenities-tray">
+                                                    <div class="fw-bold text-dark mb-1"><i
+                                                        class="bi bi-check-circle-fill text-success me-1"></i>Tiện nghi cao cấp
+                                                        trang bị sẵn:</div>
+                                                        <div class="row g-1 text-muted small">
+                                                            <div class="col-6"><i class="bi bi-check2"></i> Giường nệm lò xo cao cấp</div>
+                                                            <div class="col-6"><i class="bi bi-check2"></i> Điều hòa 2 chiều Inverter</div>
+                                                            <div class="col-6"><i class="bi bi-check2"></i> Smart TV Netflix & Youtube</div>
+                                                            <div class="col-6"><i class="bi bi-check2"></i> Máy sấy & Bàn là ủi</div>
+                                                            <div class="col-6"><i class="bi bi-check2"></i> Áo choàng & Khăn tắm cao cấp
+                                                            </div>
+                                                            <div class="col-6"><i class="bi bi-check2"></i> Minibar trà & cà phê miễn phí
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Nút Đặt phòng / Chi tiết -->
+                                            <div class="d-flex gap-2 mt-4 pt-3 border-top">
+                                                <a asp-action="ChiTietPhong" asp-route-id="@p.MaPhong"
+                                                   class="btn btn-outline-secondary w-50 rounded-pill fw-semibold py-2">
+                                                    <i class="bi bi-info-circle me-1"></i> Chi Tiết
+                                                </a>
+                                                <a asp-controller="DatPhong" asp-action="DatPhong" asp-route-maPhong="@p.MaPhong"
+                                                   asp-route-ngayNhan="@ngayNhan" asp-route-ngayTra="@ngayTra" asp-route-soNguoi="@soNguoi"
+                                                   class="btn btn-primary w-50 rounded-pill fw-bold py-2 shadow-sm d-flex align-items-center justify-content-center gap-1">
+                                                    <i class="bi bi-calendar2-check"></i> Đặt Ngay
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            }
+                        }
+                    </div>
+                </div>
 
-                                <!-- Nút Đặt phòng / Chi tiết -->
-                                <div class="d-flex gap-2 mt-4 pt-3 border-top">
-                                    <a asp-action="ChiTietPhong" asp-route-id="@p.MaPhong" class="btn btn-outline-secondary w-50 rounded-pill fw-semibold py-2">
-                                        <i class="bi bi-info-circle me-1"></i> Chi Tiết
-                                    </a>
-                                    <a asp-controller="DatPhong" asp-action="DatPhong" asp-route-maPhong="@p.MaPhong" asp-route-ngayNhan="@ngayNhan" asp-route-ngayTra="@ngayTra" asp-route-soNguoi="@soNguoi" class="btn btn-primary w-50 rounded-pill fw-bold py-2 shadow-sm d-flex align-items-center justify-content-center gap-1">
-                                        <i class="bi bi-calendar2-check"></i> Đặt Ngay
-                                    </a>
+                <!-- ======================================================================
+         4. DỊCH VỤ & TIỆN ÍCH THƯỢNG LƯU (INTERACTIVE EXPERIENCE CARDS)
+         ====================================================================== -->
+                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-5 bg-white">
+                    <div class="text-center mb-4">
+                        <span
+                            class="badge bg-warning bg-opacity-10 text-warning-emphasis border border-warning-subtle px-3 py-1 rounded-pill fw-bold text-uppercase mb-2">
+                            <i class="bi bi-stars me-1"></i> Dịch Vụ Thượng Lưu 5 Sao
+                        </span>
+                        <h2 class="fw-bold text-dark">Hệ Sinh Thái Tiện Ích Đỉnh Cao</h2>
+                        <p class="text-muted max-w-600 mx-auto">
+                            Chúng tôi mang lại chuỗi trải nghiệm trọn vẹn từ thể chất đến tinh thần cho kỳ nghỉ dưỡng khó quên. Nhấp
+                            chuột vào từng thẻ để khám phá chi tiết!
+                        </p>
+                    </div>
+
+                    <div class="experience-grid">
+                        <!-- Thẻ 1 -->
+                        <div class="experience-card active">
+                            <div class="experience-icon">
+                                <i class="bi bi-water"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">Hồ Bơi Vô Cực Chân Mây</h5>
+                            <p class="text-muted small mb-0">
+                                Tọa lạc trên tầng 25 với tầm nhìn 360 độ ngắm hoàng hôn rực rỡ, kèm quầy cocktail nhiệt đới phục vụ
+                                tận nơi.
+                            </p>
+                        </div>
+
+                        <!-- Thẻ 2 -->
+                        <div class="experience-card">
+                            <div class="experience-icon">
+                                <i class="bi bi-cup-hot-fill"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">Sky Gourmet Restaurant</h5>
+                            <p class="text-muted small mb-0">
+                                Thưởng thức buffet Á - Âu thượng hạng và bữa tối fine-dining tinh hoa được chế biến bởi đầu bếp
+                                chuẩn Michelin.
+                            </p>
+                        </div>
+
+                        <!-- Thẻ 3 -->
+                        <div class="experience-card">
+                            <div class="experience-icon">
+                                <i class="bi bi-flower1"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">Royal Spa & Trị Liệu Thảo Mộc</h5>
+                            <p class="text-muted small mb-0">
+                                Thư giãn tuyệt đối với liệu trình xông hơi đá muối Himalaya, massage tinh dầu hữu cơ giúp tái tạo
+                                năng lượng hoàn hảo.
+                            </p>
+                        </div>
+
+                        <!-- Thẻ 4 -->
+                        <div class="experience-card">
+                            <div class="experience-icon">
+                                <i class="bi bi-car-front-fill"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">Đưa Đón Limousine & Concierge 24/7</h5>
+                            <p class="text-muted small mb-0">
+                                Đội ngũ quản gia riêng chu đáo hỗ trợ lịch trình tham quan, đưa đón sân bay bằng dòng xe thương gia
+                                sang trọng.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================================
+         5. ĐÁNH GIÁ KHÁCH HÀNG (LUXURY TESTIMONIALS)
+         ====================================================================== -->
+                <div class="mb-5">
+                    <div class="text-center mb-5">
+                        <span
+                            class="badge bg-success bg-opacity-10 text-success border border-success-subtle px-3 py-1 rounded-pill fw-bold text-uppercase mb-2">
+                            <i class="bi bi-chat-quote-fill me-1"></i> Cảm Nhận Khách Hàng
+                        </span>
+                        <h2 class="fw-bold text-dark">Trải Nghiệm Thật Từ Du Khách</h2>
+                        <p class="text-muted">Hơn 10.000+ du khách trong và ngoài nước đã tin tưởng lựa chọn UNETI Grand Hotel</p>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- Review 1 -->
+                        <div class="col-12 col-md-4">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+                                <div class="d-flex align-items-center gap-1 text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="text-secondary small fst-italic mb-4 flex-grow-1">
+                                    "Kỳ nghỉ tuyệt vời nhất của gia đình mình! Phòng Suite view cực đẹp, nệm êm ái, các bạn lễ tân
+                                    tiếp đón nồng hậu và làm thủ tục check-in cực kỳ nhanh chóng."
+                                </p>
+                                <div class="d-flex align-items-center gap-3 pt-3 border-top">
+                                    <div class="customer-avatar">H</div>
+                                    <div>
+                                        <div class="fw-bold text-dark">Hoàng Minh Thảo</div>
+                                        <div class="text-muted small">Du khách từ Hà Nội (Đã ở 3 đêm)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review 2 -->
+                        <div class="col-12 col-md-4">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+                                <div class="d-flex align-items-center gap-1 text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="text-secondary small fst-italic mb-4 flex-grow-1">
+                                    "Buffet sáng quá đỗi đa dạng và ngon miệng. Khách sạn rất yên tĩnh dù nằm ngay trung tâm thành
+                                    phố. Chắc chắn sẽ quay lại trong các chuyến công tác tới!"
+                                </p>
+                                <div class="d-flex align-items-center gap-3 pt-3 border-top">
+                                    <div class="customer-avatar"
+                                         style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">T</div>
+                                    <div>
+                                        <div class="fw-bold text-dark">Trần Đình Khang</div>
+                                        <div class="text-muted small">Khách doanh nhân (TP. Hồ Chí Minh)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review 3 -->
+                        <div class="col-12 col-md-4">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+                                <div class="d-flex align-items-center gap-1 text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="text-secondary small fst-italic mb-4 flex-grow-1">
+                                    "Hồ bơi chân mây tầng 25 ngắm hoàng hôn đẹp không góc chết. Dịch vụ spa cực kỳ thư giãn. Giá
+                                    phòng rất tương xứng với chất lượng đẳng cấp 5 sao."
+                                </p>
+                                <div class="d-flex align-items-center gap-3 pt-3 border-top">
+                                    <div class="customer-avatar"
+                                         style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">A</div>
+                                    <div>
+                                        <div class="fw-bold text-dark">Nguyễn Lan Anh</div>
+                                        <div class="text-muted small">Kỳ nghỉ trăng mật (Đà Nẵng)</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                }
-            }
-        </div>
-    </div>
-
-    <!-- ======================================================================
-         4. DỊCH VỤ & TIỆN ÍCH THƯỢNG LƯU (INTERACTIVE EXPERIENCE CARDS)
-         ====================================================================== -->
-    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-5 bg-white">
-        <div class="text-center mb-4">
-            <span class="badge bg-warning bg-opacity-10 text-warning-emphasis border border-warning-subtle px-3 py-1 rounded-pill fw-bold text-uppercase mb-2">
-                <i class="bi bi-stars me-1"></i> Dịch Vụ Thượng Lưu 5 Sao
-            </span>
-            <h2 class="fw-bold text-dark">Hệ Sinh Thái Tiện Ích Đỉnh Cao</h2>
-            <p class="text-muted max-w-600 mx-auto">
-                Chúng tôi mang lại chuỗi trải nghiệm trọn vẹn từ thể chất đến tinh thần cho kỳ nghỉ dưỡng khó quên. Nhấp chuột vào từng thẻ để khám phá chi tiết!
-            </p>
-        </div>
-
-        <div class="experience-grid">
-            <!-- Thẻ 1 -->
-            <div class="experience-card active">
-                <div class="experience-icon">
-                    <i class="bi bi-water"></i>
                 </div>
-                <h5 class="fw-bold mb-2">Hồ Bơi Vô Cực Chân Mây</h5>
-                <p class="text-muted small mb-0">
-                    Tọa lạc trên tầng 25 với tầm nhìn 360 độ ngắm hoàng hôn rực rỡ, kèm quầy cocktail nhiệt đới phục vụ tận nơi.
-                </p>
-            </div>
 
-            <!-- Thẻ 2 -->
-            <div class="experience-card">
-                <div class="experience-icon">
-                    <i class="bi bi-cup-hot-fill"></i>
-                </div>
-                <h5 class="fw-bold mb-2">Sky Gourmet Restaurant</h5>
-                <p class="text-muted small mb-0">
-                    Thưởng thức buffet Á - Âu thượng hạng và bữa tối fine-dining tinh hoa được chế biến bởi đầu bếp chuẩn Michelin.
-                </p>
-            </div>
-
-            <!-- Thẻ 3 -->
-            <div class="experience-card">
-                <div class="experience-icon">
-                    <i class="bi bi-flower1"></i>
-                </div>
-                <h5 class="fw-bold mb-2">Royal Spa & Trị Liệu Thảo Mộc</h5>
-                <p class="text-muted small mb-0">
-                    Thư giãn tuyệt đối với liệu trình xông hơi đá muối Himalaya, massage tinh dầu hữu cơ giúp tái tạo năng lượng hoàn hảo.
-                </p>
-            </div>
-
-            <!-- Thẻ 4 -->
-            <div class="experience-card">
-                <div class="experience-icon">
-                    <i class="bi bi-car-front-fill"></i>
-                </div>
-                <h5 class="fw-bold mb-2">Đưa Đón Limousine & Concierge 24/7</h5>
-                <p class="text-muted small mb-0">
-                    Đội ngũ quản gia riêng chu đáo hỗ trợ lịch trình tham quan, đưa đón sân bay bằng dòng xe thương gia sang trọng.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ======================================================================
-         5. ĐÁNH GIÁ KHÁCH HÀNG (LUXURY TESTIMONIALS)
-         ====================================================================== -->
-    <div class="mb-5">
-        <div class="text-center mb-5">
-            <span class="badge bg-success bg-opacity-10 text-success border border-success-subtle px-3 py-1 rounded-pill fw-bold text-uppercase mb-2">
-                <i class="bi bi-chat-quote-fill me-1"></i> Cảm Nhận Khách Hàng
-            </span>
-            <h2 class="fw-bold text-dark">Trải Nghiệm Thật Từ Du Khách</h2>
-            <p class="text-muted">Hơn 10.000+ du khách trong và ngoài nước đã tin tưởng lựa chọn UNETI Grand Hotel</p>
-        </div>
-
-        <div class="row g-4">
-            <!-- Review 1 -->
-            <div class="col-12 col-md-4">
-                <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
-                    <div class="d-flex align-items-center gap-1 text-warning mb-3">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="text-secondary small fst-italic mb-4 flex-grow-1">
-                        "Kỳ nghỉ tuyệt vời nhất của gia đình mình! Phòng Suite view cực đẹp, nệm êm ái, các bạn lễ tân tiếp đón nồng hậu và làm thủ tục check-in cực kỳ nhanh chóng."
-                    </p>
-                    <div class="d-flex align-items-center gap-3 pt-3 border-top">
-                        <div class="customer-avatar">H</div>
-                        <div>
-                            <div class="fw-bold text-dark">Hoàng Minh Thảo</div>
-                            <div class="text-muted small">Du khách từ Hà Nội (Đã ở 3 đêm)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Review 2 -->
-            <div class="col-12 col-md-4">
-                <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
-                    <div class="d-flex align-items-center gap-1 text-warning mb-3">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="text-secondary small fst-italic mb-4 flex-grow-1">
-                        "Buffet sáng quá đỗi đa dạng và ngon miệng. Khách sạn rất yên tĩnh dù nằm ngay trung tâm thành phố. Chắc chắn sẽ quay lại trong các chuyến công tác tới!"
-                    </p>
-                    <div class="d-flex align-items-center gap-3 pt-3 border-top">
-                        <div class="customer-avatar" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">T</div>
-                        <div>
-                            <div class="fw-bold text-dark">Trần Đình Khang</div>
-                            <div class="text-muted small">Khách doanh nhân (TP. Hồ Chí Minh)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Review 3 -->
-            <div class="col-12 col-md-4">
-                <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
-                    <div class="d-flex align-items-center gap-1 text-warning mb-3">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="text-secondary small fst-italic mb-4 flex-grow-1">
-                        "Hồ bơi chân mây tầng 25 ngắm hoàng hôn đẹp không góc chết. Dịch vụ spa cực kỳ thư giãn. Giá phòng rất tương xứng với chất lượng đẳng cấp 5 sao."
-                    </p>
-                    <div class="d-flex align-items-center gap-3 pt-3 border-top">
-                        <div class="customer-avatar" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">A</div>
-                        <div>
-                            <div class="fw-bold text-dark">Nguyễn Lan Anh</div>
-                            <div class="text-muted small">Kỳ nghỉ trăng mật (Đà Nẵng)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ======================================================================
+                <!-- ======================================================================
          6. CÂU HỎI THƯỜNG GẶP (FAQ ACCORDION HIỆN/ẨN TƯƠNG TÁC)
          ====================================================================== -->
-    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-5 bg-white">
-        <div class="text-center mb-4">
-            <span class="badge bg-secondary bg-opacity-10 text-secondary border px-3 py-1 rounded-pill fw-bold text-uppercase mb-2">
-                <i class="bi bi-question-circle-fill me-1"></i> Hỗ Trợ Đặt Phòng
-            </span>
-            <h2 class="fw-bold text-dark">Câu Hỏi Thường Gặp (FAQ)</h2>
-            <p class="text-muted">Nhấp chuột vào từng câu hỏi để xem giải đáp chi tiết từ khách sạn</p>
-        </div>
+                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-5 bg-white">
+                    <div class="text-center mb-4">
+                        <span
+                            class="badge bg-secondary bg-opacity-10 text-secondary border px-3 py-1 rounded-pill fw-bold text-uppercase mb-2">
+                            <i class="bi bi-question-circle-fill me-1"></i> Hỗ Trợ Đặt Phòng
+                        </span>
+                        <h2 class="fw-bold text-dark">Câu Hỏi Thường Gặp (FAQ)</h2>
+                        <p class="text-muted">Nhấp chuột vào từng câu hỏi để xem giải đáp chi tiết từ khách sạn</p>
+                    </div>
 
-        <div class="max-w-800 mx-auto" style="max-width: 820px;">
-            <!-- FAQ 1 -->
-            <div class="hotel-faq-item open">
-                <div class="hotel-faq-question">
-                    <span>1. Giờ nhận phòng (Check-in) và trả phòng (Check-out) tiêu chuẩn là mấy giờ?</span>
-                    <i class="bi bi-chevron-down faq-chevron"></i>
-                </div>
-                <div class="hotel-faq-answer">
-                    Giờ nhận phòng tiêu chuẩn là từ <strong>14:00</strong> và giờ trả phòng là trước <strong>12:00</strong> trưa hôm sau. Trong trường hợp quý khách có nhu cầu nhận phòng sớm hoặc trả phòng muộn, vui lòng liên hệ trước với bộ phận Lễ tân để được sắp xếp phòng khả dụng (có thể áp dụng phụ phí nhỏ theo quy định).
+                    <div class="max-w-800 mx-auto" style="max-width: 820px;">
+                        <!-- FAQ 1 -->
+                        <div class="hotel-faq-item open">
+                            <div class="hotel-faq-question">
+                                <span>1. Giờ nhận phòng (Check-in) và trả phòng (Check-out) tiêu chuẩn là mấy giờ?</span>
+                                <i class="bi bi-chevron-down faq-chevron"></i>
+                            </div>
+                            <div class="hotel-faq-answer">
+                                Giờ nhận phòng tiêu chuẩn là từ <strong>14:00</strong> và giờ trả phòng là trước
+                                <strong>12:00</strong> trưa hôm sau. Trong trường hợp quý khách có nhu cầu nhận phòng sớm hoặc trả
+                                phòng muộn, vui lòng liên hệ trước với bộ phận Lễ tân để được sắp xếp phòng khả dụng (có thể áp dụng
+                                phụ phí nhỏ theo quy định).
+                            </div>
+                        </div>
+
+                        <!-- FAQ 2 -->
+                        <div class="hotel-faq-item">
+                            <div class="hotel-faq-question">
+                                <span>2. Tôi có thể hủy hoặc thay đổi thông tin đặt phòng trực tuyến được không?</span>
+                                <i class="bi bi-chevron-down faq-chevron"></i>
+                            </div>
+                            <div class="hotel-faq-answer">
+                                Quý khách hoàn toàn có thể hủy hoặc điều chỉnh đơn đặt phòng trực tuyến thông qua mục <a
+                                asp-action="TraCuu" class="fw-bold text-primary">Tra cứu đơn đặt</a> trước thời điểm nhận phòng
+                                tối thiểu 24 giờ mà không mất bất kỳ khoản phí nào.
+                            </div>
+                        </div>
+
+                        <!-- FAQ 3 -->
+                        <div class="hotel-faq-item">
+                            <div class="hotel-faq-question">
+                                <span>3. Giá phòng trên trang web đã bao gồm bữa sáng buffet và thuế phí chưa?</span>
+                                <i class="bi bi-chevron-down faq-chevron"></i>
+                            </div>
+                            <div class="hotel-faq-answer">
+                                Tất cả mức giá hiển thị trên website UNETI Grand Hotel đều là giá trọn gói đã bao gồm <strong>bữa
+                                sáng buffet Á - Âu hàng ngày</strong>, nước suối, trà, cà phê trong phòng cùng dịch vụ sử dụng
+                                hồ bơi vô cực và phòng gym miễn phí.
+                            </div>
+                        </div>
+
+                        <!-- FAQ 4 -->
+                        <div class="hotel-faq-item">
+                            <div class="hotel-faq-question">
+                                <span>4. Khách sạn có dịch vụ xe đưa đón sân bay và đặt tour tham quan không?</span>
+                                <i class="bi bi-chevron-down faq-chevron"></i>
+                            </div>
+                            <div class="hotel-faq-answer">
+                                Chúng tôi cung cấp đội xe Limousine cao cấp đưa đón sân bay Nội Bài 24/7 và quầy hỗ trợ Concierge
+                                tại sảnh chính để tư vấn, đặt tour tham quan danh lam thắng cảnh cho quý khách với mức giá ưu đãi
+                                nhất.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- FAQ 2 -->
-            <div class="hotel-faq-item">
-                <div class="hotel-faq-question">
-                    <span>2. Tôi có thể hủy hoặc thay đổi thông tin đặt phòng trực tuyến được không?</span>
-                    <i class="bi bi-chevron-down faq-chevron"></i>
-                </div>
-                <div class="hotel-faq-answer">
-                    Quý khách hoàn toàn có thể hủy hoặc điều chỉnh đơn đặt phòng trực tuyến thông qua mục <a asp-action="TraCuu" class="fw-bold text-primary">Tra cứu đơn đặt</a> trước thời điểm nhận phòng tối thiểu 24 giờ mà không mất bất kỳ khoản phí nào.
-                </div>
-            </div>
-
-            <!-- FAQ 3 -->
-            <div class="hotel-faq-item">
-                <div class="hotel-faq-question">
-                    <span>3. Giá phòng trên trang web đã bao gồm bữa sáng buffet và thuế phí chưa?</span>
-                    <i class="bi bi-chevron-down faq-chevron"></i>
-                </div>
-                <div class="hotel-faq-answer">
-                    Tất cả mức giá hiển thị trên website UNETI Grand Hotel đều là giá trọn gói đã bao gồm <strong>bữa sáng buffet Á - Âu hàng ngày</strong>, nước suối, trà, cà phê trong phòng cùng dịch vụ sử dụng hồ bơi vô cực và phòng gym miễn phí.
-                </div>
-            </div>
-
-            <!-- FAQ 4 -->
-            <div class="hotel-faq-item">
-                <div class="hotel-faq-question">
-                    <span>4. Khách sạn có dịch vụ xe đưa đón sân bay và đặt tour tham quan không?</span>
-                    <i class="bi bi-chevron-down faq-chevron"></i>
-                </div>
-                <div class="hotel-faq-answer">
-                    Chúng tôi cung cấp đội xe Limousine cao cấp đưa đón sân bay Nội Bài 24/7 và quầy hỗ trợ Concierge tại sảnh chính để tư vấn, đặt tour tham quan danh lam thắng cảnh cho quý khách với mức giá ưu đãi nhất.
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

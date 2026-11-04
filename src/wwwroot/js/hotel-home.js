@@ -66,20 +66,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 5. Dynamic Night Calculator for Booking Console (Tự động tính số đêm nghỉ)
+    // 5. Checkout Date Auto-validation
     const inInput = document.querySelector('input[name="ngayNhan"]');
     const outInput = document.querySelector('input[name="ngayTra"]');
-    const nightsEl = document.getElementById('booking-nights-count');
-
-    function updateNights() {
-        if (inInput && outInput && nightsEl && inInput.value && outInput.value) {
-            const d1 = new Date(inInput.value);
-            const d2 = new Date(outInput.value);
-            const diffTime = d2.getTime() - d1.getTime();
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            nightsEl.textContent = diffDays > 0 ? diffDays : 1;
-        }
-    }
 
     if (inInput && outInput) {
         inInput.addEventListener('change', function () {
@@ -88,9 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 nextDay.setDate(nextDay.getDate() + 1);
                 outInput.value = nextDay.toISOString().split('T')[0];
             }
-            updateNights();
         });
-        outInput.addEventListener('change', updateNights);
-        updateNights();
     }
 });
