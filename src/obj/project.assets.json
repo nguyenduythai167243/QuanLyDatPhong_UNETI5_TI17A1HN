@@ -6194,24 +6194,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kanka\\.nuget\\packages\\": {}
+    "C:\\Users\\PC\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\btl\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\Documents\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
       "projectName": "QuanLyDatPhong_UNETI5_TI17A1HN",
-      "projectPath": "D:\\btl\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
-      "packagesPath": "C:\\Users\\kanka\\.nuget\\packages\\",
-      "outputPath": "D:\\btl\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\obj\\",
+      "projectPath": "C:\\Users\\PC\\Documents\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\QuanLyDatPhong_UNETI5_TI17A1HN.csproj",
+      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PC\\Documents\\QuanLyDatPhong_UNETI5_TI17A1HN\\src\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\kanka\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

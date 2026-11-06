@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using QuanLyDatPhong_UNeTI5_TI17A1HN.Repositories;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 
-
-using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +26,9 @@ builder.Services.AddScoped<ILeTanRepository, LeTanRepository>();
 builder.Services.AddScoped<ILeTanDatPhongRepository, LeTanRepository>();
 builder.Services.AddScoped<IHoaDonRespository, HoaDonRespository>();
 builder.Services.AddScoped<IDichVuPhatSinhRespository, DichVuPhatSinhRespository>();
-
+builder.Services.AddScoped<IDatPhongRepository, DatPhongRepository>();
+builder.Services.AddScoped<IQuanLyKhachRepository, QuanLyKhachRepository>();
+builder.Services.AddScoped<IKhachHangRepository, KhachHangRepository>();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDistributedMemoryCache();
@@ -62,3 +62,4 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 app.Run();
+

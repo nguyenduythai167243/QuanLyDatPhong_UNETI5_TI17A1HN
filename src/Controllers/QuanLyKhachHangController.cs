@@ -3,25 +3,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
-
+using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 public class QuanLyKhachHangController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IQuanLyKhachRepository _khachHangRepository;
 
-    public QuanLyKhachHangController(ApplicationDbContext context)
+    public QuanLyKhachHangController(IQuanLyKhachRepository khachHangRepository)
     {
-        _context = context;
+        _khachHangRepository = khachHangRepository;
     }
     public async Task<IActionResult> Search(string? searchString)
     {
         string? vaiTro = HttpContext.Session.GetString("VaiTro");
-        var query = _context.KhachHangs.AsQueryable();
-        if (!string.IsNullOrWhiteSpace(searchString))
-        {
-            query = query.Where(kh => kh.SoGiayToTuyThan.Contains(searchString.Trim()));
-        }
+
         ViewData["SearchString"] = searchString;
-        return View(await query.ToListAsync());
+
+        return View(await _khachHangRepository.SearchAsync(searchString));
     }
 
     [HttpPost]
@@ -29,11 +26,14 @@ public class QuanLyKhachHangController : Controller
     public async Task<IActionResult> UpdateStatus(int id)
     {
         string? vaiTro = HttpContext.Session.GetString("VaiTro");
-        var khachHang = await _context.KhachHangs.FirstOrDefaultAsync(kh => kh.MaKhachHang == id);
+
+        var khachHang = await _khachHangRepository.GetByIdAsync(id);
+
         if (khachHang == null)
         {
             return NotFound();
         }
+
         if (khachHang.TrangThai == "Hoạt động")
         {
             khachHang.TrangThai = "Ngừng hoạt động";
@@ -42,26 +42,20 @@ public class QuanLyKhachHangController : Controller
         {
             khachHang.TrangThai = "Hoạt động";
         }
-        await _context.SaveChangesAsync();
+
+        _khachHangRepository.Update(khachHang);
+        await _khachHangRepository.SaveAsync();
+
         TempData["Success"] = "Cập nhật trạng thái khách hàng thành công.";
+
         return RedirectToAction(nameof(Index));
     }
     // GET: KHACHHANGS
     public async Task<IActionResult> Index(string? searchString)
     {
-        var query = _context.KhachHangs.AsQueryable();
-
-        if (!string.IsNullOrWhiteSpace(searchString))
-        {
-            searchString = searchString.Trim();
-
-            query = query.Where(kh =>
-                kh.SoGiayToTuyThan.Contains(searchString));
-        }
-
         ViewData["SearchString"] = searchString;
 
-        return View(await query.ToListAsync());
+        return View(await _khachHangRepository.SearchAsync(searchString));
     }
 
     // GET: KHACHHANGS/Details/5
@@ -72,8 +66,7 @@ public class QuanLyKhachHangController : Controller
             return NotFound();
         }
 
-        var khachhang = await _context.KhachHangs
-            .FirstOrDefaultAsync(m => m.MaKhachHang == makhachhang);
+        var khachhang = await _khachHangRepository.GetByIdAsync(makhachhang.Value);
         if (khachhang == null)
         {
             return NotFound();
@@ -97,8 +90,8 @@ public class QuanLyKhachHangController : Controller
     {
         if (ModelState.IsValid)
         {
-            _context.Add(khachhang);
-            await _context.SaveChangesAsync();
+            await _khachHangRepository.AddAsync(khachhang);
+            await _khachHangRepository.SaveAsync();
             return RedirectToAction(nameof(Index));
         }
         return View(khachhang);
@@ -112,7 +105,7 @@ public class QuanLyKhachHangController : Controller
             return NotFound();
         }
 
-        var khachhang = await _context.KhachHangs.FindAsync(makhachhang);
+        var khachhang = await _khachHangRepository.GetByIdAsync(makhachhang.Value);
         if (khachhang == null)
         {
             return NotFound();
@@ -132,22 +125,14 @@ public class QuanLyKhachHangController : Controller
 
         if (ModelState.IsValid)
         {
-            try
+            if (!await _khachHangRepository.ExistsAsync(khachhang.MaKhachHang))
             {
-                _context.Update(khachhang);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!KhachHangExists(khachhang.MaKhachHang))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+
+            _khachHangRepository.Update(khachhang);
+            await _khachHangRepository.SaveAsync();
+
             return RedirectToAction(nameof(Index));
         }
         return View(khachhang);
@@ -161,8 +146,7 @@ public class QuanLyKhachHangController : Controller
             return NotFound();
         }
 
-        var khachhang = await _context.KhachHangs
-            .FirstOrDefaultAsync(m => m.MaKhachHang == makhachhang);
+        var khachhang = await _khachHangRepository.GetByIdAsync(makhachhang.Value);
         if (khachhang == null)
         {
             return NotFound();
@@ -176,18 +160,22 @@ public class QuanLyKhachHangController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int? makhachhang)
     {
-        var khachhang = await _context.KhachHangs.FindAsync(makhachhang);
-        if (khachhang != null)
+        if (makhachhang == null)
         {
-            _context.KhachHangs.Remove(khachhang);
+            return NotFound();
         }
 
-        await _context.SaveChangesAsync();
+        var khachhang = await _khachHangRepository.GetByIdAsync(makhachhang.Value);
+
+        if (khachhang == null)
+        {
+            return NotFound();
+        }
+
+        _khachHangRepository.Delete(khachhang);
+        await _khachHangRepository.SaveAsync();
+
         return RedirectToAction(nameof(Index));
     }
 
-    private bool KhachHangExists(int? makhachhang)
-    {
-        return _context.KhachHangs.Any(e => e.MaKhachHang == makhachhang);
-    }
 }

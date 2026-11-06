@@ -6,7 +6,7 @@ using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace QuanLyDatPhong_UNeTI5_TI17A1HN.Repositories
+namespace QuanLyDatPhong_UNETI5_TI17A1HN.Repositories
 {
     public class DashboardRepository : IDashboardRepository
     {

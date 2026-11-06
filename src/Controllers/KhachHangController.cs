@@ -3,14 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 
 public class KhachHangController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IKhachHangRepository _KhachHangRepository;
 
-    public KhachHangController(ApplicationDbContext context)
+    public KhachHangController(IKhachHangRepository KhachHangRepository)
     {
-        _context = context;
+        _KhachHangRepository = KhachHangRepository;
     }
 
     // GET: KHACHHANGS
@@ -21,8 +22,7 @@ public class KhachHangController : Controller
         if (maTaiKhoan == null)
             return RedirectToAction("Login", "TaiKhoan");
 
-        var khachHang = await _context.KhachHangs
-            .FirstOrDefaultAsync(kh => kh.MaTaiKhoan == maTaiKhoan);
+        var khachHang = await _KhachHangRepository.GetByMaTaiKhoanAsync(maTaiKhoan.Value);
 
         if (khachHang == null)
             return NotFound("Không tìm thấy thông tin khách hàng.");
@@ -38,8 +38,8 @@ public class KhachHangController : Controller
             return NotFound();
         }
 
-        var khachhang = await _context.KhachHangs
-            .FirstOrDefaultAsync(m => m.MaKhachHang == makhachhang);
+        var khachhang = await _KhachHangRepository
+                .GetByIdAsync(makhachhang.Value);
         if (khachhang == null)
         {
             return NotFound();
@@ -63,8 +63,7 @@ public class KhachHangController : Controller
     {
         if (ModelState.IsValid)
         {
-            _context.Add(khachhang);
-            await _context.SaveChangesAsync();
+            await _KhachHangRepository.AddAsync(khachhang);
             return RedirectToAction(nameof(Index));
         }
         return View(khachhang);
@@ -78,8 +77,8 @@ public class KhachHangController : Controller
         if (maTaiKhoan == null)
             return RedirectToAction("Login", "TaiKhoan");
 
-        var khachHang = await _context.KhachHangs
-            .FirstOrDefaultAsync(kh => kh.MaTaiKhoan == maTaiKhoan);
+        var khachHang = await _KhachHangRepository
+                .GetByMaTaiKhoanAsync(maTaiKhoan.Value);
 
         if (khachHang == null)
             return NotFound("Không tìm thấy thông tin khách hàng.");
@@ -99,8 +98,8 @@ public class KhachHangController : Controller
             if (maTaiKhoan == null)
                 return RedirectToAction("Login", "TaiKhoan");
 
-            var khachHang = await _context.KhachHangs
-                .FirstOrDefaultAsync(kh => kh.MaTaiKhoan == maTaiKhoan.Value);
+            var khachHang = await _KhachHangRepository
+                .GetByMaTaiKhoanAsync(maTaiKhoan.Value);
 
             if (khachHang == null)
                 return NotFound("Không tìm thấy thông tin khách hàng.");
@@ -121,7 +120,7 @@ public class KhachHangController : Controller
             khachHang.SoGiayToTuyThan = khachhang.SoGiayToTuyThan;
             khachHang.QuocTich = khachhang.QuocTich;
 
-            await _context.SaveChangesAsync();
+            await _KhachHangRepository.Update(khachHang);
 
             TempData["Success"] = "Cập nhật thông tin cá nhân thành công.";
 
@@ -135,9 +134,7 @@ public class KhachHangController : Controller
         {
             return NotFound();
         }
-
-        var khachhang = await _context.KhachHangs
-            .FirstOrDefaultAsync(m => m.MaKhachHang == makhachhang);
+        var khachhang = await _KhachHangRepository.GetByIdAsync(makhachhang.Value);
         if (khachhang == null)
         {
             return NotFound();
@@ -151,18 +148,10 @@ public class KhachHangController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int? makhachhang)
     {
-        var khachhang = await _context.KhachHangs.FindAsync(makhachhang);
-        if (khachhang != null)
-        {
-            _context.KhachHangs.Remove(khachhang);
-        }
-
-        await _context.SaveChangesAsync();
+        if (makhachhang == null)
+        return NotFound();
+        await _KhachHangRepository.DeleteAsync(makhachhang.Value);
         return RedirectToAction(nameof(Index));
     }
 
-    private bool KhachHangExists(int? makhachhang)
-    {
-        return _context.KhachHangs.Any(e => e.MaKhachHang == makhachhang);
-    }
 }
