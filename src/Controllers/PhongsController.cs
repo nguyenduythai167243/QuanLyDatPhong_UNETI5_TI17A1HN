@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Filters;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 using QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 {
+    [SessionAuthorize("Admin")]
     public class PhongController : Controller
     {
         private readonly IPhongRepository _phongRepository;
@@ -20,8 +22,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             _phongRepository = phongRepository;
         }
 
-        // GET: Phong (Dành cho Lễ tân / Quản trị viên)
-        //[RoleAuthorize("Admin", "LeTan")]
+        // GET: Phong (Chỉ dành cho Quản trị viên - Admin)
         public async Task<IActionResult> Index(
             string? tuKhoa,
             int? maLoaiPhong,
@@ -134,8 +135,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             return View(phong);
         }
 
-        // GET: Phong/Create (Chỉ Lễ tân / Admin)
-        //[RoleAuthorize("Admin", "LeTan")]
+        // GET: Phong/Create
         public async Task<IActionResult> Create()
         {
             var loaiPhongs = await _phongRepository.GetLoaiPhongsAsync(onlyActive: true);
@@ -146,7 +146,6 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         // POST: Phong/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[RoleAuthorize("Admin", "LeTan")]
         public async Task<IActionResult> Create(Phong phong)
         {
             // Kiểm tra trùng số phòng
@@ -190,7 +189,6 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         }
 
         // GET: Phong/Edit/5
-        //[RoleAuthorize("Admin", "LeTan")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -206,7 +204,6 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         // POST: Phong/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[RoleAuthorize("Admin", "LeTan")]
         public async Task<IActionResult> Edit(int id, Phong phong)
         {
             if (id != phong.MaPhong) return NotFound();
@@ -261,7 +258,6 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         // POST: Phong/CapNhatTrangThai
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[RoleAuthorize("Admin", "LeTan")]
         public async Task<IActionResult> CapNhatTrangThai(int id, string trangThaiMoi)
         {
             var phong = await _phongRepository.GetByIdAsync(id);
@@ -288,7 +284,6 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
         // POST: Phong/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[RoleAuthorize("Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var phong = await _phongRepository.GetByIdWithBookingsAsync(id);
