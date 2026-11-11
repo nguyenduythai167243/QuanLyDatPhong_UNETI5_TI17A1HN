@@ -1,18 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
-using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 {
 	public class AccountController : Controller
 	{
 
-		private readonly ApplicationDbContext _context;
+		private readonly ITaiKhoanRepository _taiKhoanRepository;
 
-		public AccountController(ApplicationDbContext context)
+		public AccountController(ITaiKhoanRepository taiKhoanRepository)
 		{
-			_context = context;
+			_taiKhoanRepository = taiKhoanRepository;
 		}
 
 
@@ -41,9 +39,8 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 			}
 
 
-			var taiKhoan = await _context.TaiKhoans
-				.FirstOrDefaultAsync(t =>
-					t.TenDangNhap == tenDangNhap);
+			var taiKhoan = await _taiKhoanRepository
+				.GetByTenDangNhapAsync(tenDangNhap);
 
 			if (taiKhoan == null || taiKhoan.MatKhau != matKhau)
 			{

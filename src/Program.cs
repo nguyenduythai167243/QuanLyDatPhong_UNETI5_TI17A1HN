@@ -29,6 +29,7 @@ builder.Services.AddScoped<IDichVuPhatSinhRespository, DichVuPhatSinhRespository
 builder.Services.AddScoped<IDatPhongRepository, DatPhongRepository>();
 builder.Services.AddScoped<IQuanLyKhachRepository, QuanLyKhachRepository>();
 builder.Services.AddScoped<IKhachHangRepository, KhachHangRepository>();
+builder.Services.AddScoped<ITaiKhoanRepository, TaiKhoanRepository>();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDistributedMemoryCache();
