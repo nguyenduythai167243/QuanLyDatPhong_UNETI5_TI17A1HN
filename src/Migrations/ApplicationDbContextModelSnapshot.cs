@@ -751,6 +751,1158 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             SoNguoi = 3,
                             TongTienDuKien = 3600000m,
                             TrangThai = "Đã hủy"
+                        },
+                        new
+                        {
+                            MaDatPhong = 101,
+                            GhiChuLeTan = "Lưu trú lịch sử 01/2026",
+                            MaKhachHang = 1,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2026, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 1, 5, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 1, 8, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 6000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 102,
+                            GhiChuLeTan = "Lưu trú lịch sử 01/2026",
+                            MaKhachHang = 2,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2026, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 1, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 1, 14, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 1, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 1, 17, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 3600000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 103,
+                            GhiChuLeTan = "Lưu trú lịch sử 02/2026",
+                            MaKhachHang = 3,
+                            MaPhong = 23,
+                            NgayDat = new DateTime(2026, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 2, 4, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 2, 8, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 6400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 104,
+                            GhiChuLeTan = "Lưu trú lịch sử 02/2026",
+                            MaKhachHang = 4,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2026, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 2, 15, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 2, 19, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 105,
+                            GhiChuLeTan = "Lưu trú lịch sử 03/2026",
+                            MaKhachHang = 5,
+                            MaPhong = 5,
+                            NgayDat = new DateTime(2026, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 3, 6, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 3, 9, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 2400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 106,
+                            GhiChuLeTan = "Lưu trú lịch sử 03/2026",
+                            MaKhachHang = 6,
+                            MaPhong = 19,
+                            NgayDat = new DateTime(2026, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 3, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 3, 17, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 3, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 3, 21, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 107,
+                            GhiChuLeTan = "Lưu trú lịch sử 04/2026",
+                            MaKhachHang = 7,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2026, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 4, 5, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 4, 9, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 108,
+                            GhiChuLeTan = "Lưu trú lịch sử 04/2026",
+                            MaKhachHang = 8,
+                            MaPhong = 27,
+                            NgayDat = new DateTime(2026, 4, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 4, 18, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 4, 21, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 4, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 6000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 109,
+                            GhiChuLeTan = "Lưu trú lịch sử 05/2026",
+                            MaKhachHang = 9,
+                            MaPhong = 28,
+                            NgayDat = new DateTime(2026, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 5, 3, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 5, 7, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 5,
+                            TongTienDuKien = 6400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 110,
+                            GhiChuLeTan = "Lưu trú lịch sử 05/2026",
+                            MaKhachHang = 10,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2026, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 5, 15, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 5, 20, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 6000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 111,
+                            GhiChuLeTan = "Lưu trú lịch sử 06/2026",
+                            MaKhachHang = 11,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2026, 6, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 6, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 6, 4, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 6, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 6, 9, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 6, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 10000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 112,
+                            GhiChuLeTan = "Lưu trú lịch sử 06/2026",
+                            MaKhachHang = 12,
+                            MaPhong = 23,
+                            NgayDat = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 6, 14, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 6, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 6, 19, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 113,
+                            GhiChuLeTan = "Lưu trú lịch sử 07/2026",
+                            MaKhachHang = 13,
+                            MaPhong = 27,
+                            NgayDat = new DateTime(2026, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 7, 3, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 7, 9, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 12000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 114,
+                            GhiChuLeTan = "Lưu trú lịch sử 07/2026",
+                            MaKhachHang = 14,
+                            MaPhong = 19,
+                            NgayDat = new DateTime(2026, 7, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 7, 15, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 7, 20, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 7, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 6000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 115,
+                            GhiChuLeTan = "Lưu trú lịch sử 08/2026",
+                            MaKhachHang = 15,
+                            MaPhong = 28,
+                            NgayDat = new DateTime(2026, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 8, 5, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 8, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 5,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 116,
+                            GhiChuLeTan = "Lưu trú lịch sử 08/2026",
+                            MaKhachHang = 16,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2026, 8, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 8, 16, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 8, 20, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 8, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 117,
+                            GhiChuLeTan = "Lưu trú lịch sử 09/2026",
+                            MaKhachHang = 17,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2026, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 9, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 9, 4, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 9, 8, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 118,
+                            GhiChuLeTan = "Lưu trú lịch sử 09/2026",
+                            MaKhachHang = 18,
+                            MaPhong = 5,
+                            NgayDat = new DateTime(2026, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 9, 15, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 9, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 9, 18, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 2400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 119,
+                            GhiChuLeTan = "Lưu trú lịch sử 11/2026",
+                            MaKhachHang = 19,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2026, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 11, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 11, 2, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 11, 5, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 6000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 120,
+                            GhiChuLeTan = "Lưu trú lịch sử 11/2026",
+                            MaKhachHang = 20,
+                            MaPhong = 23,
+                            NgayDat = new DateTime(2026, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2026, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2026, 11, 5, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2026, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2026, 11, 8, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2026, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 121,
+                            GhiChuLeTan = "Lưu trú lịch sử 01/2025",
+                            MaKhachHang = 21,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2025, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 1, 6, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 1, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 122,
+                            GhiChuLeTan = "Lưu trú lịch sử 02/2025",
+                            MaKhachHang = 22,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2025, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 2, 8, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 2, 13, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 10000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 123,
+                            GhiChuLeTan = "Lưu trú lịch sử 03/2025",
+                            MaKhachHang = 23,
+                            MaPhong = 23,
+                            NgayDat = new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 3, 10, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 3, 14, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 6400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 124,
+                            GhiChuLeTan = "Lưu trú lịch sử 04/2025",
+                            MaKhachHang = 24,
+                            MaPhong = 19,
+                            NgayDat = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 4, 7, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 4, 12, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 6000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 125,
+                            GhiChuLeTan = "Lưu trú lịch sử 05/2025",
+                            MaKhachHang = 25,
+                            MaPhong = 27,
+                            NgayDat = new DateTime(2025, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 5, 9, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 5, 13, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 126,
+                            GhiChuLeTan = "Lưu trú lịch sử 06/2025",
+                            MaKhachHang = 26,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2025, 6, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 6, 6, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 6, 12, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 6, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 12000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 127,
+                            GhiChuLeTan = "Lưu trú lịch sử 07/2025",
+                            MaKhachHang = 27,
+                            MaPhong = 28,
+                            NgayDat = new DateTime(2025, 7, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 7, 10, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 7, 16, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 7, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 5,
+                            TongTienDuKien = 9600000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 128,
+                            GhiChuLeTan = "Lưu trú lịch sử 08/2025",
+                            MaKhachHang = 28,
+                            MaPhong = 23,
+                            NgayDat = new DateTime(2025, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 8, 5, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 8, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 129,
+                            GhiChuLeTan = "Lưu trú lịch sử 09/2025",
+                            MaKhachHang = 29,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2025, 9, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 9, 8, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 9, 12, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 9, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 130,
+                            GhiChuLeTan = "Lưu trú lịch sử 10/2025",
+                            MaKhachHang = 15,
+                            MaPhong = 27,
+                            NgayDat = new DateTime(2025, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 10, 11, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 10, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 10, 16, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 10000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 131,
+                            GhiChuLeTan = "Lưu trú lịch sử 11/2025",
+                            MaKhachHang = 1,
+                            MaPhong = 19,
+                            NgayDat = new DateTime(2025, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 11, 9, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 11, 13, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 132,
+                            GhiChuLeTan = "Lưu trú lịch sử 12/2025",
+                            MaKhachHang = 2,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2025, 12, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 12, 4, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 12, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 12, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 12000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 133,
+                            GhiChuLeTan = "Lưu trú lịch sử 12/2025",
+                            MaKhachHang = 3,
+                            MaPhong = 5,
+                            NgayDat = new DateTime(2025, 12, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2025, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2025, 12, 16, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2025, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2025, 12, 19, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2025, 12, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 2400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 134,
+                            GhiChuLeTan = "Lưu trú lịch sử 01/2024",
+                            MaKhachHang = 4,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2024, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 1, 8, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 1, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 3600000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 135,
+                            GhiChuLeTan = "Lưu trú lịch sử 02/2024",
+                            MaKhachHang = 5,
+                            MaPhong = 23,
+                            NgayDat = new DateTime(2024, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 2, 10, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 2, 14, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 6400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 136,
+                            GhiChuLeTan = "Lưu trú lịch sử 03/2024",
+                            MaKhachHang = 6,
+                            MaPhong = 5,
+                            NgayDat = new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 3, 12, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 3, 15, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 2400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 137,
+                            GhiChuLeTan = "Lưu trú lịch sử 04/2024",
+                            MaKhachHang = 7,
+                            MaPhong = 19,
+                            NgayDat = new DateTime(2024, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 4, 6, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 4, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 138,
+                            GhiChuLeTan = "Lưu trú lịch sử 05/2024",
+                            MaKhachHang = 8,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2024, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 5, 9, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 5, 13, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 139,
+                            GhiChuLeTan = "Lưu trú lịch sử 06/2024",
+                            MaKhachHang = 9,
+                            MaPhong = 28,
+                            NgayDat = new DateTime(2024, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 6, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 6, 8, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 6, 13, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 5,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 140,
+                            GhiChuLeTan = "Lưu trú lịch sử 07/2024",
+                            MaKhachHang = 10,
+                            MaPhong = 27,
+                            NgayDat = new DateTime(2024, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 7, 11, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 7, 16, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 10000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 141,
+                            GhiChuLeTan = "Lưu trú lịch sử 08/2024",
+                            MaKhachHang = 11,
+                            MaPhong = 23,
+                            NgayDat = new DateTime(2024, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 8, 7, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 8, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 6400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 142,
+                            GhiChuLeTan = "Lưu trú lịch sử 09/2024",
+                            MaKhachHang = 12,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2024, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 9, 10, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 9, 13, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 3600000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 143,
+                            GhiChuLeTan = "Lưu trú lịch sử 10/2024",
+                            MaKhachHang = 13,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2024, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 10, 12, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 10, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 10, 16, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 144,
+                            GhiChuLeTan = "Lưu trú lịch sử 11/2024",
+                            MaKhachHang = 14,
+                            MaPhong = 19,
+                            NgayDat = new DateTime(2024, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 11, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 11, 6, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 11, 9, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 3600000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 145,
+                            GhiChuLeTan = "Lưu trú lịch sử 12/2024",
+                            MaKhachHang = 15,
+                            MaPhong = 27,
+                            NgayDat = new DateTime(2024, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 12, 5, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 12, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 10000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 146,
+                            GhiChuLeTan = "Lưu trú lịch sử 12/2024",
+                            MaKhachHang = 16,
+                            MaPhong = 2,
+                            NgayDat = new DateTime(2024, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2024, 12, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2024, 12, 18, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2024, 12, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2024, 12, 21, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2024, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 1500000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 147,
+                            GhiChuLeTan = "Lưu trú lịch sử 01/2023",
+                            MaKhachHang = 17,
+                            MaPhong = 5,
+                            NgayDat = new DateTime(2023, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 1, 9, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 1, 12, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 2400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 148,
+                            GhiChuLeTan = "Lưu trú lịch sử 02/2023",
+                            MaKhachHang = 18,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2023, 2, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 2, 11, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 2, 14, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 2, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 3600000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 149,
+                            GhiChuLeTan = "Lưu trú lịch sử 03/2023",
+                            MaKhachHang = 19,
+                            MaPhong = 2,
+                            NgayDat = new DateTime(2023, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 3, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 3, 7, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 3, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 2000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 150,
+                            GhiChuLeTan = "Lưu trú lịch sử 04/2023",
+                            MaKhachHang = 20,
+                            MaPhong = 23,
+                            NgayDat = new DateTime(2023, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 4, 14, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 4, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 4, 17, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 151,
+                            GhiChuLeTan = "Lưu trú lịch sử 05/2023",
+                            MaKhachHang = 21,
+                            MaPhong = 19,
+                            NgayDat = new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 5, 6, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 5, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 152,
+                            GhiChuLeTan = "Lưu trú lịch sử 06/2023",
+                            MaKhachHang = 22,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2023, 6, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 6, 10, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 6, 14, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 6, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 153,
+                            GhiChuLeTan = "Lưu trú lịch sử 07/2023",
+                            MaKhachHang = 23,
+                            MaPhong = 28,
+                            NgayDat = new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 7, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 7, 8, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 7, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 7, 13, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 5,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 154,
+                            GhiChuLeTan = "Lưu trú lịch sử 08/2023",
+                            MaKhachHang = 24,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 8, 12, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 8, 16, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 155,
+                            GhiChuLeTan = "Lưu trú lịch sử 09/2023",
+                            MaKhachHang = 25,
+                            MaPhong = 5,
+                            NgayDat = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 9, 5, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 9, 8, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 2400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 156,
+                            GhiChuLeTan = "Lưu trú lịch sử 10/2023",
+                            MaKhachHang = 26,
+                            MaPhong = 23,
+                            NgayDat = new DateTime(2023, 10, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 10, 9, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 10, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 10, 13, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 10, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 6400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 157,
+                            GhiChuLeTan = "Lưu trú lịch sử 11/2023",
+                            MaKhachHang = 27,
+                            MaPhong = 19,
+                            NgayDat = new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 11, 11, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 11, 14, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 3600000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 158,
+                            GhiChuLeTan = "Lưu trú lịch sử 12/2023",
+                            MaKhachHang = 28,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2023, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 12, 7, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 12, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 159,
+                            GhiChuLeTan = "Lưu trú lịch sử 12/2023",
+                            MaKhachHang = 29,
+                            MaPhong = 2,
+                            NgayDat = new DateTime(2023, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2023, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2023, 12, 17, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2023, 12, 20, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2023, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 1500000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 160,
+                            GhiChuLeTan = "Lưu trú lịch sử 01/2022",
+                            MaKhachHang = 14,
+                            MaPhong = 2,
+                            NgayDat = new DateTime(2022, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 1, 10, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 1, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 1, 13, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 1500000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 161,
+                            GhiChuLeTan = "Lưu trú lịch sử 02/2022",
+                            MaKhachHang = 1,
+                            MaPhong = 5,
+                            NgayDat = new DateTime(2022, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 2, 12, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 2, 15, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 2400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 162,
+                            GhiChuLeTan = "Lưu trú lịch sử 03/2022",
+                            MaKhachHang = 2,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2022, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 3, 8, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 3, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 3600000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 163,
+                            GhiChuLeTan = "Lưu trú lịch sử 04/2022",
+                            MaKhachHang = 3,
+                            MaPhong = 5,
+                            NgayDat = new DateTime(2022, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 4, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 4, 11, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 4, 15, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 3200000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 164,
+                            GhiChuLeTan = "Lưu trú lịch sử 05/2022",
+                            MaKhachHang = 4,
+                            MaPhong = 19,
+                            NgayDat = new DateTime(2022, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 5, 9, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 5, 12, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 3600000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 165,
+                            GhiChuLeTan = "Lưu trú lịch sử 06/2022",
+                            MaKhachHang = 5,
+                            MaPhong = 23,
+                            NgayDat = new DateTime(2022, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 6, 7, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 6, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 6400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 166,
+                            GhiChuLeTan = "Lưu trú lịch sử 07/2022",
+                            MaKhachHang = 6,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2022, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 7, 12, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 7, 16, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 167,
+                            GhiChuLeTan = "Lưu trú lịch sử 08/2022",
+                            MaKhachHang = 7,
+                            MaPhong = 15,
+                            NgayDat = new DateTime(2022, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 8, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 8, 6, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 8, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 168,
+                            GhiChuLeTan = "Lưu trú lịch sử 09/2022",
+                            MaKhachHang = 8,
+                            MaPhong = 5,
+                            NgayDat = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 9, 10, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 9, 13, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 2400000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 169,
+                            GhiChuLeTan = "Lưu trú lịch sử 10/2022",
+                            MaKhachHang = 9,
+                            MaPhong = 23,
+                            NgayDat = new DateTime(2022, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 10, 8, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 10, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 4800000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 170,
+                            GhiChuLeTan = "Lưu trú lịch sử 11/2022",
+                            MaKhachHang = 10,
+                            MaPhong = 19,
+                            NgayDat = new DateTime(2022, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 11, 14, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 11, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 11, 17, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 3,
+                            TongTienDuKien = 3600000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 171,
+                            GhiChuLeTan = "Lưu trú lịch sử 12/2022",
+                            MaKhachHang = 11,
+                            MaPhong = 25,
+                            NgayDat = new DateTime(2022, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 12, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 12, 9, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 12, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 12, 13, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 4,
+                            TongTienDuKien = 8000000m,
+                            TrangThai = "Đã trả phòng"
+                        },
+                        new
+                        {
+                            MaDatPhong = 172,
+                            GhiChuLeTan = "Lưu trú lịch sử 12/2022",
+                            MaKhachHang = 12,
+                            MaPhong = 2,
+                            NgayDat = new DateTime(2022, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanPhong = new DateTime(2022, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayNhanThucTe = new DateTime(2022, 12, 19, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraPhong = new DateTime(2022, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayTraThucTe = new DateTime(2022, 12, 22, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayXuLy = new DateTime(2022, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoNguoi = 2,
+                            TongTienDuKien = 1500000m,
+                            TrangThai = "Đã trả phòng"
                         });
                 });
 
@@ -1069,6 +2221,798 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             SoLuong = 1,
                             TenDichVu = "Dịch vụ giặt ủi",
                             TrangThai = 1
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 101,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 01/2026",
+                            MaDatPhong = 101,
+                            NgaySuDung = new DateTime(2026, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 102,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 01/2026",
+                            MaDatPhong = 102,
+                            NgaySuDung = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 3,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 103,
+                            DonGia = 400000m,
+                            GhiChu = "Dịch vụ kỳ 02/2026",
+                            MaDatPhong = 103,
+                            NgaySuDung = new DateTime(2026, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Bữa tối Room Service",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 104,
+                            DonGia = 650000m,
+                            GhiChu = "Dịch vụ kỳ 02/2026",
+                            MaDatPhong = 104,
+                            NgaySuDung = new DateTime(2026, 2, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Rượu vang đỏ",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 105,
+                            DonGia = 50000m,
+                            GhiChu = "Dịch vụ kỳ 03/2026",
+                            MaDatPhong = 105,
+                            NgaySuDung = new DateTime(2026, 3, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Giặt là nhanh",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 106,
+                            DonGia = 350000m,
+                            GhiChu = "Dịch vụ kỳ 03/2026",
+                            MaDatPhong = 106,
+                            NgaySuDung = new DateTime(2026, 3, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Massage thư giãn",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 107,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 04/2026",
+                            MaDatPhong = 107,
+                            NgaySuDung = new DateTime(2026, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 108,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 04/2026",
+                            MaDatPhong = 108,
+                            NgaySuDung = new DateTime(2026, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 109,
+                            DonGia = 200000m,
+                            GhiChu = "Dịch vụ kỳ 05/2026",
+                            MaDatPhong = 109,
+                            NgaySuDung = new DateTime(2026, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Trà chiều set VIP",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 110,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 05/2026",
+                            MaDatPhong = 110,
+                            NgaySuDung = new DateTime(2026, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Thuê xe máy",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 111,
+                            DonGia = 650000m,
+                            GhiChu = "Dịch vụ kỳ 06/2026",
+                            MaDatPhong = 111,
+                            NgaySuDung = new DateTime(2026, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Rượu vang đỏ",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 112,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 06/2026",
+                            MaDatPhong = 112,
+                            NgaySuDung = new DateTime(2026, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 4,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 113,
+                            DonGia = 400000m,
+                            GhiChu = "Dịch vụ kỳ 07/2026",
+                            MaDatPhong = 113,
+                            NgaySuDung = new DateTime(2026, 7, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Bữa tối Room Service",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 114,
+                            DonGia = 350000m,
+                            GhiChu = "Dịch vụ kỳ 07/2026",
+                            MaDatPhong = 114,
+                            NgaySuDung = new DateTime(2026, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Massage thư giãn",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 115,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 08/2026",
+                            MaDatPhong = 115,
+                            NgaySuDung = new DateTime(2026, 8, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 116,
+                            DonGia = 200000m,
+                            GhiChu = "Dịch vụ kỳ 08/2026",
+                            MaDatPhong = 116,
+                            NgaySuDung = new DateTime(2026, 8, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Trà chiều set VIP",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 117,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 09/2026",
+                            MaDatPhong = 117,
+                            NgaySuDung = new DateTime(2026, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 3,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 118,
+                            DonGia = 50000m,
+                            GhiChu = "Dịch vụ kỳ 09/2026",
+                            MaDatPhong = 118,
+                            NgaySuDung = new DateTime(2026, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Giặt là nhanh",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 119,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 11/2026",
+                            MaDatPhong = 119,
+                            NgaySuDung = new DateTime(2026, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 120,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 11/2026",
+                            MaDatPhong = 120,
+                            NgaySuDung = new DateTime(2026, 11, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 121,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 01/2025",
+                            MaDatPhong = 121,
+                            NgaySuDung = new DateTime(2025, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 122,
+                            DonGia = 650000m,
+                            GhiChu = "Dịch vụ kỳ 02/2025",
+                            MaDatPhong = 122,
+                            NgaySuDung = new DateTime(2025, 2, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Rượu vang đỏ",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 123,
+                            DonGia = 50000m,
+                            GhiChu = "Dịch vụ kỳ 03/2025",
+                            MaDatPhong = 123,
+                            NgaySuDung = new DateTime(2025, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 3,
+                            TenDichVu = "Giặt là nhanh",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 124,
+                            DonGia = 350000m,
+                            GhiChu = "Dịch vụ kỳ 04/2025",
+                            MaDatPhong = 124,
+                            NgaySuDung = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Massage thư giãn",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 125,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 05/2025",
+                            MaDatPhong = 125,
+                            NgaySuDung = new DateTime(2025, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 126,
+                            DonGia = 400000m,
+                            GhiChu = "Dịch vụ kỳ 06/2025",
+                            MaDatPhong = 126,
+                            NgaySuDung = new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Bữa tối Room Service",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 127,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 07/2025",
+                            MaDatPhong = 127,
+                            NgaySuDung = new DateTime(2025, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 4,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 128,
+                            DonGia = 200000m,
+                            GhiChu = "Dịch vụ kỳ 08/2025",
+                            MaDatPhong = 128,
+                            NgaySuDung = new DateTime(2025, 8, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Trà chiều set VIP",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 129,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 09/2025",
+                            MaDatPhong = 129,
+                            NgaySuDung = new DateTime(2025, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Thuê xe máy",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 130,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 10/2025",
+                            MaDatPhong = 130,
+                            NgaySuDung = new DateTime(2025, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 131,
+                            DonGia = 350000m,
+                            GhiChu = "Dịch vụ kỳ 11/2025",
+                            MaDatPhong = 131,
+                            NgaySuDung = new DateTime(2025, 11, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Massage thư giãn",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 132,
+                            DonGia = 650000m,
+                            GhiChu = "Dịch vụ kỳ 12/2025",
+                            MaDatPhong = 132,
+                            NgaySuDung = new DateTime(2025, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Rượu vang đỏ",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 133,
+                            DonGia = 20000m,
+                            GhiChu = "Dịch vụ kỳ 12/2025",
+                            MaDatPhong = 133,
+                            NgaySuDung = new DateTime(2025, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 4,
+                            TenDichVu = "Nước suối khoáng",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 134,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 01/2024",
+                            MaDatPhong = 134,
+                            NgaySuDung = new DateTime(2024, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 135,
+                            DonGia = 400000m,
+                            GhiChu = "Dịch vụ kỳ 02/2024",
+                            MaDatPhong = 135,
+                            NgaySuDung = new DateTime(2024, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Bữa tối Room Service",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 136,
+                            DonGia = 50000m,
+                            GhiChu = "Dịch vụ kỳ 03/2024",
+                            MaDatPhong = 136,
+                            NgaySuDung = new DateTime(2024, 3, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Giặt là nhanh",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 137,
+                            DonGia = 350000m,
+                            GhiChu = "Dịch vụ kỳ 04/2024",
+                            MaDatPhong = 137,
+                            NgaySuDung = new DateTime(2024, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Massage thư giãn",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 138,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 05/2024",
+                            MaDatPhong = 138,
+                            NgaySuDung = new DateTime(2024, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 139,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 06/2024",
+                            MaDatPhong = 139,
+                            NgaySuDung = new DateTime(2024, 6, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 3,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 140,
+                            DonGia = 650000m,
+                            GhiChu = "Dịch vụ kỳ 07/2024",
+                            MaDatPhong = 140,
+                            NgaySuDung = new DateTime(2024, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Rượu vang đỏ",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 141,
+                            DonGia = 200000m,
+                            GhiChu = "Dịch vụ kỳ 08/2024",
+                            MaDatPhong = 141,
+                            NgaySuDung = new DateTime(2024, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Trà chiều set VIP",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 142,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 09/2024",
+                            MaDatPhong = 142,
+                            NgaySuDung = new DateTime(2024, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Thuê xe máy",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 143,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 10/2024",
+                            MaDatPhong = 143,
+                            NgaySuDung = new DateTime(2024, 10, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 144,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 11/2024",
+                            MaDatPhong = 144,
+                            NgaySuDung = new DateTime(2024, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 145,
+                            DonGia = 400000m,
+                            GhiChu = "Dịch vụ kỳ 12/2024",
+                            MaDatPhong = 145,
+                            NgaySuDung = new DateTime(2024, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Bữa tối Room Service",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 146,
+                            DonGia = 20000m,
+                            GhiChu = "Dịch vụ kỳ 12/2024",
+                            MaDatPhong = 146,
+                            NgaySuDung = new DateTime(2024, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 3,
+                            TenDichVu = "Nước suối khoáng",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 147,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 01/2023",
+                            MaDatPhong = 147,
+                            NgaySuDung = new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 148,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 02/2023",
+                            MaDatPhong = 148,
+                            NgaySuDung = new DateTime(2023, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 149,
+                            DonGia = 50000m,
+                            GhiChu = "Dịch vụ kỳ 03/2023",
+                            MaDatPhong = 149,
+                            NgaySuDung = new DateTime(2023, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Giặt là nhanh",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 150,
+                            DonGia = 350000m,
+                            GhiChu = "Dịch vụ kỳ 04/2023",
+                            MaDatPhong = 150,
+                            NgaySuDung = new DateTime(2023, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Massage thư giãn",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 151,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 05/2023",
+                            MaDatPhong = 151,
+                            NgaySuDung = new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 152,
+                            DonGia = 400000m,
+                            GhiChu = "Dịch vụ kỳ 06/2023",
+                            MaDatPhong = 152,
+                            NgaySuDung = new DateTime(2023, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Bữa tối Room Service",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 153,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 07/2023",
+                            MaDatPhong = 153,
+                            NgaySuDung = new DateTime(2023, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Thuê xe máy",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 154,
+                            DonGia = 200000m,
+                            GhiChu = "Dịch vụ kỳ 08/2023",
+                            MaDatPhong = 154,
+                            NgaySuDung = new DateTime(2023, 8, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Trà chiều set VIP",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 155,
+                            DonGia = 45000m,
+                            GhiChu = "Dịch vụ kỳ 09/2023",
+                            MaDatPhong = 155,
+                            NgaySuDung = new DateTime(2023, 9, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 4,
+                            TenDichVu = "Nước ép cam tươi",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 156,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 10/2023",
+                            MaDatPhong = 156,
+                            NgaySuDung = new DateTime(2023, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 157,
+                            DonGia = 50000m,
+                            GhiChu = "Dịch vụ kỳ 11/2023",
+                            MaDatPhong = 157,
+                            NgaySuDung = new DateTime(2023, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Giặt là nhanh",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 158,
+                            DonGia = 650000m,
+                            GhiChu = "Dịch vụ kỳ 12/2023",
+                            MaDatPhong = 158,
+                            NgaySuDung = new DateTime(2023, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Rượu vang đỏ",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 159,
+                            DonGia = 25000m,
+                            GhiChu = "Dịch vụ kỳ 12/2023",
+                            MaDatPhong = 159,
+                            NgaySuDung = new DateTime(2023, 12, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 4,
+                            TenDichVu = "Coca cola",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 160,
+                            DonGia = 20000m,
+                            GhiChu = "Dịch vụ kỳ 01/2022",
+                            MaDatPhong = 160,
+                            NgaySuDung = new DateTime(2022, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 3,
+                            TenDichVu = "Nước suối khoáng",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 161,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 02/2022",
+                            MaDatPhong = 161,
+                            NgaySuDung = new DateTime(2022, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 162,
+                            DonGia = 50000m,
+                            GhiChu = "Dịch vụ kỳ 03/2022",
+                            MaDatPhong = 162,
+                            NgaySuDung = new DateTime(2022, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Giặt là nhanh",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 163,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 04/2022",
+                            MaDatPhong = 163,
+                            NgaySuDung = new DateTime(2022, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Thuê xe máy",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 164,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 05/2022",
+                            MaDatPhong = 164,
+                            NgaySuDung = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 165,
+                            DonGia = 150000m,
+                            GhiChu = "Dịch vụ kỳ 06/2022",
+                            MaDatPhong = 165,
+                            NgaySuDung = new DateTime(2022, 6, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 3,
+                            TenDichVu = "Ăn sáng buffet",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 166,
+                            DonGia = 350000m,
+                            GhiChu = "Dịch vụ kỳ 07/2022",
+                            MaDatPhong = 166,
+                            NgaySuDung = new DateTime(2022, 7, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Massage thư giãn",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 167,
+                            DonGia = 400000m,
+                            GhiChu = "Dịch vụ kỳ 08/2022",
+                            MaDatPhong = 167,
+                            NgaySuDung = new DateTime(2022, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Bữa tối Room Service",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 168,
+                            DonGia = 30000m,
+                            GhiChu = "Dịch vụ kỳ 09/2022",
+                            MaDatPhong = 168,
+                            NgaySuDung = new DateTime(2022, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 3,
+                            TenDichVu = "Cà phê đen đá",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 169,
+                            DonGia = 200000m,
+                            GhiChu = "Dịch vụ kỳ 10/2022",
+                            MaDatPhong = 169,
+                            NgaySuDung = new DateTime(2022, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Trà chiều set VIP",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 170,
+                            DonGia = 50000m,
+                            GhiChu = "Dịch vụ kỳ 11/2022",
+                            MaDatPhong = 170,
+                            NgaySuDung = new DateTime(2022, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Giặt là nhanh",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 171,
+                            DonGia = 300000m,
+                            GhiChu = "Dịch vụ kỳ 12/2022",
+                            MaDatPhong = 171,
+                            NgaySuDung = new DateTime(2022, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 1,
+                            TenDichVu = "Đưa đón sân bay",
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaDichVuPhatSinh = 172,
+                            DonGia = 20000m,
+                            GhiChu = "Dịch vụ kỳ 12/2022",
+                            MaDatPhong = 172,
+                            NgaySuDung = new DateTime(2022, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 2,
+                            TenDichVu = "Nước suối khoáng",
+                            TrangThai = 0
                         });
                 });
 
@@ -1347,6 +3291,942 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Migrations
                             TienDichVu = 650000m,
                             TienPhong = 8000000m,
                             TongTienThanhToan = 8150000m,
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            MaHoaDon = 101,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 101,
+                            NgayLap = new DateTime(2026, 1, 8, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 300000m,
+                            TienPhong = 6000000m,
+                            TongTienThanhToan = 6300000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 102,
+                            GiamGia = 100000m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 102,
+                            NgayLap = new DateTime(2026, 1, 17, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 450000m,
+                            TienPhong = 3600000m,
+                            TongTienThanhToan = 3950000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 103,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 103,
+                            NgayLap = new DateTime(2026, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 800000m,
+                            TienPhong = 6400000m,
+                            TongTienThanhToan = 7200000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 104,
+                            GiamGia = 200000m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 104,
+                            NgayLap = new DateTime(2026, 2, 19, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 650000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8450000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 105,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 105,
+                            NgayLap = new DateTime(2026, 3, 9, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 100000m,
+                            TienPhong = 2400000m,
+                            TongTienThanhToan = 2500000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 106,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 106,
+                            NgayLap = new DateTime(2026, 3, 21, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 350000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5150000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 107,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 107,
+                            NgayLap = new DateTime(2026, 4, 9, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 300000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5100000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 108,
+                            GiamGia = 100000m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 108,
+                            NgayLap = new DateTime(2026, 4, 21, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 300000m,
+                            TienPhong = 6000000m,
+                            TongTienThanhToan = 6200000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 109,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 109,
+                            NgayLap = new DateTime(2026, 5, 7, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 400000m,
+                            TienPhong = 6400000m,
+                            TongTienThanhToan = 6800000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 110,
+                            GiamGia = 100000m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 110,
+                            NgayLap = new DateTime(2026, 5, 20, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 300000m,
+                            TienPhong = 6000000m,
+                            TongTienThanhToan = 6200000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 111,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 111,
+                            NgayLap = new DateTime(2026, 6, 9, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 650000m,
+                            TienPhong = 10000000m,
+                            TongTienThanhToan = 10650000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 112,
+                            GiamGia = 200000m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 112,
+                            NgayLap = new DateTime(2026, 6, 19, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 600000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8400000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 113,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 113,
+                            NgayLap = new DateTime(2026, 7, 9, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 6,
+                            TienDichVu = 800000m,
+                            TienPhong = 12000000m,
+                            TongTienThanhToan = 12800000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 114,
+                            GiamGia = 150000m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 114,
+                            NgayLap = new DateTime(2026, 7, 20, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 700000m,
+                            TienPhong = 6000000m,
+                            TongTienThanhToan = 6550000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 115,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 115,
+                            NgayLap = new DateTime(2026, 8, 10, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 300000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8300000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 116,
+                            GiamGia = 100000m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 116,
+                            NgayLap = new DateTime(2026, 8, 20, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 400000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8300000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 117,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 117,
+                            NgayLap = new DateTime(2026, 9, 8, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 450000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5250000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 118,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 118,
+                            NgayLap = new DateTime(2026, 9, 18, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 100000m,
+                            TienPhong = 2400000m,
+                            TongTienThanhToan = 2500000m,
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            MaHoaDon = 119,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 119,
+                            NgayLap = new DateTime(2026, 11, 5, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 300000m,
+                            TienPhong = 6000000m,
+                            TongTienThanhToan = 6300000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 120,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 120,
+                            NgayLap = new DateTime(2026, 11, 8, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 300000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5100000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 121,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 121,
+                            NgayLap = new DateTime(2025, 1, 10, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 300000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5100000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 122,
+                            GiamGia = 150000m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 122,
+                            NgayLap = new DateTime(2025, 2, 13, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 650000m,
+                            TienPhong = 10000000m,
+                            TongTienThanhToan = 10500000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 123,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 123,
+                            NgayLap = new DateTime(2025, 3, 14, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 150000m,
+                            TienPhong = 6400000m,
+                            TongTienThanhToan = 6550000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 124,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 124,
+                            NgayLap = new DateTime(2025, 4, 12, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 350000m,
+                            TienPhong = 6000000m,
+                            TongTienThanhToan = 6350000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 125,
+                            GiamGia = 100000m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 125,
+                            NgayLap = new DateTime(2025, 5, 13, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 300000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8200000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 126,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 126,
+                            NgayLap = new DateTime(2025, 6, 12, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 6,
+                            TienDichVu = 800000m,
+                            TienPhong = 12000000m,
+                            TongTienThanhToan = 12800000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 127,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 127,
+                            NgayLap = new DateTime(2025, 7, 16, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 6,
+                            TienDichVu = 600000m,
+                            TienPhong = 9600000m,
+                            TongTienThanhToan = 10200000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 128,
+                            GiamGia = 100000m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 128,
+                            NgayLap = new DateTime(2025, 8, 10, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 400000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8300000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 129,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 129,
+                            NgayLap = new DateTime(2025, 9, 12, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 300000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5100000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 130,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 130,
+                            NgayLap = new DateTime(2025, 10, 16, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 300000m,
+                            TienPhong = 10000000m,
+                            TongTienThanhToan = 10300000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 131,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 131,
+                            NgayLap = new DateTime(2025, 11, 13, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 350000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5150000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 132,
+                            GiamGia = 200000m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 132,
+                            NgayLap = new DateTime(2025, 12, 10, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 6,
+                            TienDichVu = 650000m,
+                            TienPhong = 12000000m,
+                            TongTienThanhToan = 12450000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 133,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 133,
+                            NgayLap = new DateTime(2025, 12, 19, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 80000m,
+                            TienPhong = 2400000m,
+                            TongTienThanhToan = 2480000m,
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            MaHoaDon = 134,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 134,
+                            NgayLap = new DateTime(2024, 1, 11, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 300000m,
+                            TienPhong = 3600000m,
+                            TongTienThanhToan = 3900000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 135,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 135,
+                            NgayLap = new DateTime(2024, 2, 14, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 400000m,
+                            TienPhong = 6400000m,
+                            TongTienThanhToan = 6800000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 136,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 136,
+                            NgayLap = new DateTime(2024, 3, 15, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 100000m,
+                            TienPhong = 2400000m,
+                            TongTienThanhToan = 2500000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 137,
+                            GiamGia = 50000m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 137,
+                            NgayLap = new DateTime(2024, 4, 10, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 350000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5100000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 138,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 138,
+                            NgayLap = new DateTime(2024, 5, 13, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 300000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8300000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 139,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 139,
+                            NgayLap = new DateTime(2024, 6, 13, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 450000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8450000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 140,
+                            GiamGia = 150000m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 140,
+                            NgayLap = new DateTime(2024, 7, 16, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 650000m,
+                            TienPhong = 10000000m,
+                            TongTienThanhToan = 10500000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 141,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 141,
+                            NgayLap = new DateTime(2024, 8, 11, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 200000m,
+                            TienPhong = 6400000m,
+                            TongTienThanhToan = 6600000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 142,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 142,
+                            NgayLap = new DateTime(2024, 9, 13, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 300000m,
+                            TienPhong = 3600000m,
+                            TongTienThanhToan = 3900000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 143,
+                            GiamGia = 100000m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 143,
+                            NgayLap = new DateTime(2024, 10, 16, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 300000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8200000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 144,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 144,
+                            NgayLap = new DateTime(2024, 11, 9, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 300000m,
+                            TienPhong = 3600000m,
+                            TongTienThanhToan = 3900000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 145,
+                            GiamGia = 100000m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 145,
+                            NgayLap = new DateTime(2024, 12, 10, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 800000m,
+                            TienPhong = 10000000m,
+                            TongTienThanhToan = 10700000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 146,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 146,
+                            NgayLap = new DateTime(2024, 12, 21, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 60000m,
+                            TienPhong = 1500000m,
+                            TongTienThanhToan = 1560000m,
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            MaHoaDon = 147,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 147,
+                            NgayLap = new DateTime(2023, 1, 12, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 300000m,
+                            TienPhong = 2400000m,
+                            TongTienThanhToan = 2700000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 148,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 148,
+                            NgayLap = new DateTime(2023, 2, 14, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 300000m,
+                            TienPhong = 3600000m,
+                            TongTienThanhToan = 3900000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 149,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 149,
+                            NgayLap = new DateTime(2023, 3, 11, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 100000m,
+                            TienPhong = 2000000m,
+                            TongTienThanhToan = 2100000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 150,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 150,
+                            NgayLap = new DateTime(2023, 4, 17, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 350000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5150000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 151,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 151,
+                            NgayLap = new DateTime(2023, 5, 10, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 300000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5100000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 152,
+                            GiamGia = 100000m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 152,
+                            NgayLap = new DateTime(2023, 6, 14, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 400000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8300000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 153,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 153,
+                            NgayLap = new DateTime(2023, 7, 13, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 5,
+                            TienDichVu = 300000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8300000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 154,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 154,
+                            NgayLap = new DateTime(2023, 8, 16, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 200000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5000000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 155,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 155,
+                            NgayLap = new DateTime(2023, 9, 8, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 180000m,
+                            TienPhong = 2400000m,
+                            TongTienThanhToan = 2580000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 156,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 156,
+                            NgayLap = new DateTime(2023, 10, 13, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 300000m,
+                            TienPhong = 6400000m,
+                            TongTienThanhToan = 6700000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 157,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 157,
+                            NgayLap = new DateTime(2023, 11, 14, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 100000m,
+                            TienPhong = 3600000m,
+                            TongTienThanhToan = 3700000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 158,
+                            GiamGia = 150000m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 158,
+                            NgayLap = new DateTime(2023, 12, 11, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 650000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8500000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 159,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 159,
+                            NgayLap = new DateTime(2023, 12, 20, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 100000m,
+                            TienPhong = 1500000m,
+                            TongTienThanhToan = 1600000m,
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            MaHoaDon = 160,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 160,
+                            NgayLap = new DateTime(2022, 1, 13, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 60000m,
+                            TienPhong = 1500000m,
+                            TongTienThanhToan = 1560000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 161,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 161,
+                            NgayLap = new DateTime(2022, 2, 15, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 300000m,
+                            TienPhong = 2400000m,
+                            TongTienThanhToan = 2700000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 162,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 162,
+                            NgayLap = new DateTime(2022, 3, 11, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 100000m,
+                            TienPhong = 3600000m,
+                            TongTienThanhToan = 3700000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 163,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 163,
+                            NgayLap = new DateTime(2022, 4, 15, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 150000m,
+                            TienPhong = 3200000m,
+                            TongTienThanhToan = 3350000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 164,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 164,
+                            NgayLap = new DateTime(2022, 5, 12, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 300000m,
+                            TienPhong = 3600000m,
+                            TongTienThanhToan = 3900000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 165,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 165,
+                            NgayLap = new DateTime(2022, 6, 11, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 450000m,
+                            TienPhong = 6400000m,
+                            TongTienThanhToan = 6850000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 166,
+                            GiamGia = 100000m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 166,
+                            NgayLap = new DateTime(2022, 7, 16, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 350000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8250000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 167,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 167,
+                            NgayLap = new DateTime(2022, 8, 10, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 400000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5200000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 168,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 168,
+                            NgayLap = new DateTime(2022, 9, 13, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 90000m,
+                            TienPhong = 2400000m,
+                            TongTienThanhToan = 2490000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 169,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 169,
+                            NgayLap = new DateTime(2022, 10, 11, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 200000m,
+                            TienPhong = 4800000m,
+                            TongTienThanhToan = 5000000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 170,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 2,
+                            MaDatPhong = 170,
+                            NgayLap = new DateTime(2022, 11, 17, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 100000m,
+                            TienPhong = 3600000m,
+                            TongTienThanhToan = 3700000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 171,
+                            GiamGia = 100000m,
+                            HinhThucThanhToan = 1,
+                            MaDatPhong = 171,
+                            NgayLap = new DateTime(2022, 12, 13, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 4,
+                            TienDichVu = 300000m,
+                            TienPhong = 8000000m,
+                            TongTienThanhToan = 8200000m,
+                            TrangThai = 0
+                        },
+                        new
+                        {
+                            MaHoaDon = 172,
+                            GiamGia = 0m,
+                            HinhThucThanhToan = 0,
+                            MaDatPhong = 172,
+                            NgayLap = new DateTime(2022, 12, 22, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            SoDem = 3,
+                            TienDichVu = 40000m,
+                            TienPhong = 1500000m,
+                            TongTienThanhToan = 1540000m,
                             TrangThai = 1
                         });
                 });

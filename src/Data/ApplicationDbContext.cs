@@ -221,6 +221,9 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Data
                 new DatPhong { MaDatPhong = 45, MaKhachHang = 15, MaPhong = 16, NgayDat = new DateTime(2026, 10, 12), NgayNhanPhong = new DateTime(2026, 10, 22), NgayTraPhong = new DateTime(2026, 10, 25), SoNguoi = 3, TongTienDuKien = 3600000m, TrangThai = "Đã hủy", NgayXuLy = new DateTime(2026, 10, 14), GhiChuLeTan = "Khách thay đổi lịch trình" }
             );
 
+            var historicalSeeds = GetHistoricalStaySeeds();
+            modelBuilder.Entity<DatPhong>().HasData(BuildHistoricalDatPhongs(historicalSeeds));
+
             modelBuilder.Entity<DichVuPhatSinh>().HasData(
                 new DichVuPhatSinh { MaDichVuPhatSinh = 1, MaDatPhong = 1, TenDichVu = "Nước suối khoáng", SoLuong = 2, DonGia = 20000m, NgaySuDung = new DateTime(2026, 10, 2), GhiChu = "Minibar phòng 101", TrangThai = TrangThaiDV.DaGhiNhan },
                 new DichVuPhatSinh { MaDichVuPhatSinh = 2, MaDatPhong = 1, TenDichVu = "Giặt là nhanh", SoLuong = 1, DonGia = 50000m, NgaySuDung = new DateTime(2026, 10, 3), GhiChu = "Áo sơ mi", TrangThai = TrangThaiDV.DaGhiNhan },
@@ -248,6 +251,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Data
                 new DichVuPhatSinh { MaDichVuPhatSinh = 24, MaDatPhong = 21, TenDichVu = "Thuê xe máy", SoLuong = 1, DonGia = 150000m, NgaySuDung = new DateTime(2026, 10, 14), GhiChu = "Xe số 1 ngày", TrangThai = TrangThaiDV.DaHuy },
                 new DichVuPhatSinh { MaDichVuPhatSinh = 25, MaDatPhong = 22, TenDichVu = "Dịch vụ giặt ủi", SoLuong = 1, DonGia = 60000m, NgaySuDung = new DateTime(2026, 10, 15), GhiChu = "Khách hủy giặt", TrangThai = TrangThaiDV.DaHuy }
             );
+            modelBuilder.Entity<DichVuPhatSinh>().HasData(BuildHistoricalDichVuPhatSinhs(historicalSeeds));
 
             modelBuilder.Entity<HoaDon>().HasData(
                 new HoaDon { MaHoaDon = 1, MaDatPhong = 1, SoDem = 3, TienPhong = 1500000m, TienDichVu = 90000m, GiamGia = 0m, TongTienThanhToan = 1590000m, HinhThucThanhToan = HinhThucThanhToan.ChuyenKhoan, NgayLap = new DateTime(2026, 10, 4, 11, 45, 0), TrangThai = TrangThaiTT.DaThanhToan },
@@ -269,6 +273,172 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Data
                 new HoaDon { MaHoaDon = 17, MaDatPhong = 17, SoDem = 4, TienPhong = 4800000m, TienDichVu = 400000m, GiamGia = 200000m, TongTienThanhToan = 5000000m, HinhThucThanhToan = HinhThucThanhToan.ChuyenKhoan, NgayLap = new DateTime(2026, 10, 13, 11, 30, 0), TrangThai = TrangThaiTT.ChuaThanhToan },
                 new HoaDon { MaHoaDon = 18, MaDatPhong = 18, SoDem = 4, TienPhong = 8000000m, TienDichVu = 650000m, GiamGia = 500000m, TongTienThanhToan = 8150000m, HinhThucThanhToan = HinhThucThanhToan.ChuyenKhoan, NgayLap = new DateTime(2026, 10, 14, 11, 45, 0), TrangThai = TrangThaiTT.ChuaThanhToan }
             );
+            modelBuilder.Entity<HoaDon>().HasData(BuildHistoricalHoaDons(historicalSeeds));
         }
+
+        private sealed record HistoricalStaySeed(
+            int Id,
+            int Year,
+            int Month,
+            int CheckInDay,
+            int Nights,
+            int MaKhachHang,
+            int MaPhong,
+            decimal GiaMotDem,
+            int SoNguoi,
+            string TenDichVu,
+            int SoLuongDv,
+            decimal DonGiaDv,
+            decimal GiamGia,
+            HinhThucThanhToan HinhThucThanhToan,
+            TrangThaiTT TrangThaiThanhToan);
+
+        /// <summary>
+        /// Dữ liệu lưu trú và hóa đơn bổ sung cho các tháng còn lại của năm 2026 (1-9, 11)
+        /// và đầy đủ 12 tháng cho các năm 2022-2025 để phục vụ thống kê đa năm.
+        /// ID bắt đầu từ 101 để không trùng với seed gốc và các đơn thử nghiệm hiện có.
+        /// </summary>
+        private static HistoricalStaySeed[] GetHistoricalStaySeeds() =>
+        [
+            // ===== NĂM 2026: Tháng 1 - 9 và đầu Tháng 11 (trước 11/11/2026) =====
+            new(101, 2026, 1, 5, 3, 1, 25, 2000000m, 4, "Đưa đón sân bay", 1, 300000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(102, 2026, 1, 14, 3, 2, 15, 1200000m, 3, "Ăn sáng buffet", 3, 150000m, 100000m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(103, 2026, 2, 4, 4, 3, 23, 1600000m, 4, "Bữa tối Room Service", 2, 400000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(104, 2026, 2, 15, 4, 4, 25, 2000000m, 4, "Rượu vang đỏ", 1, 650000m, 200000m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(105, 2026, 3, 6, 3, 5, 5, 800000m, 2, "Giặt là nhanh", 2, 50000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(106, 2026, 3, 17, 4, 6, 19, 1200000m, 3, "Massage thư giãn", 1, 350000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(107, 2026, 4, 5, 4, 7, 15, 1200000m, 3, "Ăn sáng buffet", 2, 150000m, 0m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(108, 2026, 4, 18, 3, 8, 27, 2000000m, 4, "Đưa đón sân bay", 1, 300000m, 100000m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(109, 2026, 5, 3, 4, 9, 28, 1600000m, 5, "Trà chiều set VIP", 2, 200000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(110, 2026, 5, 15, 5, 10, 15, 1200000m, 3, "Thuê xe máy", 2, 150000m, 100000m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(111, 2026, 6, 4, 5, 11, 25, 2000000m, 4, "Rượu vang đỏ", 1, 650000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(112, 2026, 6, 14, 5, 12, 23, 1600000m, 4, "Ăn sáng buffet", 4, 150000m, 200000m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(113, 2026, 7, 3, 6, 13, 27, 2000000m, 4, "Bữa tối Room Service", 2, 400000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(114, 2026, 7, 15, 5, 14, 19, 1200000m, 3, "Massage thư giãn", 2, 350000m, 150000m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(115, 2026, 8, 5, 5, 15, 28, 1600000m, 5, "Đưa đón sân bay", 1, 300000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(116, 2026, 8, 16, 4, 16, 25, 2000000m, 4, "Trà chiều set VIP", 2, 200000m, 100000m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(117, 2026, 9, 4, 4, 17, 15, 1200000m, 3, "Ăn sáng buffet", 3, 150000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(118, 2026, 9, 15, 3, 18, 5, 800000m, 2, "Giặt là nhanh", 2, 50000m, 0m, HinhThucThanhToan.The, TrangThaiTT.ChuaThanhToan),
+            new(119, 2026, 11, 2, 3, 19, 25, 2000000m, 4, "Đưa đón sân bay", 1, 300000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(120, 2026, 11, 5, 3, 20, 23, 1600000m, 4, "Ăn sáng buffet", 2, 150000m, 0m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+
+            // ===== NĂM 2025: Đầy đủ 12 tháng =====
+            new(121, 2025, 1, 6, 4, 21, 15, 1200000m, 3, "Ăn sáng buffet", 2, 150000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(122, 2025, 2, 8, 5, 22, 25, 2000000m, 4, "Rượu vang đỏ", 1, 650000m, 150000m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(123, 2025, 3, 10, 4, 23, 23, 1600000m, 4, "Giặt là nhanh", 3, 50000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(124, 2025, 4, 7, 5, 24, 19, 1200000m, 3, "Massage thư giãn", 1, 350000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(125, 2025, 5, 9, 4, 25, 27, 2000000m, 4, "Đưa đón sân bay", 1, 300000m, 100000m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(126, 2025, 6, 6, 6, 26, 25, 2000000m, 4, "Bữa tối Room Service", 2, 400000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(127, 2025, 7, 10, 6, 27, 28, 1600000m, 5, "Ăn sáng buffet", 4, 150000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(128, 2025, 8, 5, 5, 28, 23, 1600000m, 4, "Trà chiều set VIP", 2, 200000m, 100000m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(129, 2025, 9, 8, 4, 29, 15, 1200000m, 3, "Thuê xe máy", 2, 150000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(130, 2025, 10, 11, 5, 15, 27, 2000000m, 4, "Đưa đón sân bay", 1, 300000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(131, 2025, 11, 9, 4, 1, 19, 1200000m, 3, "Massage thư giãn", 1, 350000m, 0m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(132, 2025, 12, 4, 6, 2, 25, 2000000m, 4, "Rượu vang đỏ", 1, 650000m, 200000m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(133, 2025, 12, 16, 3, 3, 5, 800000m, 2, "Nước suối khoáng", 4, 20000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.ChuaThanhToan),
+
+            // ===== NĂM 2024: Đầy đủ 12 tháng =====
+            new(134, 2024, 1, 8, 3, 4, 15, 1200000m, 3, "Ăn sáng buffet", 2, 150000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(135, 2024, 2, 10, 4, 5, 23, 1600000m, 4, "Bữa tối Room Service", 1, 400000m, 0m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(136, 2024, 3, 12, 3, 6, 5, 800000m, 2, "Giặt là nhanh", 2, 50000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(137, 2024, 4, 6, 4, 7, 19, 1200000m, 3, "Massage thư giãn", 1, 350000m, 50000m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(138, 2024, 5, 9, 4, 8, 25, 2000000m, 4, "Đưa đón sân bay", 1, 300000m, 0m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(139, 2024, 6, 8, 5, 9, 28, 1600000m, 5, "Ăn sáng buffet", 3, 150000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(140, 2024, 7, 11, 5, 10, 27, 2000000m, 4, "Rượu vang đỏ", 1, 650000m, 150000m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(141, 2024, 8, 7, 4, 11, 23, 1600000m, 4, "Trà chiều set VIP", 1, 200000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(142, 2024, 9, 10, 3, 12, 15, 1200000m, 3, "Thuê xe máy", 2, 150000m, 0m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(143, 2024, 10, 12, 4, 13, 25, 2000000m, 4, "Đưa đón sân bay", 1, 300000m, 100000m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(144, 2024, 11, 6, 3, 14, 19, 1200000m, 3, "Ăn sáng buffet", 2, 150000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(145, 2024, 12, 5, 5, 15, 27, 2000000m, 4, "Bữa tối Room Service", 2, 400000m, 100000m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(146, 2024, 12, 18, 3, 16, 2, 500000m, 2, "Nước suối khoáng", 3, 20000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.ChuaThanhToan),
+
+            // ===== NĂM 2023: Đầy đủ 12 tháng =====
+            new(147, 2023, 1, 9, 3, 17, 5, 800000m, 2, "Ăn sáng buffet", 2, 150000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(148, 2023, 2, 11, 3, 18, 15, 1200000m, 3, "Đưa đón sân bay", 1, 300000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(149, 2023, 3, 7, 4, 19, 2, 500000m, 2, "Giặt là nhanh", 2, 50000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(150, 2023, 4, 14, 3, 20, 23, 1600000m, 4, "Massage thư giãn", 1, 350000m, 0m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(151, 2023, 5, 6, 4, 21, 19, 1200000m, 3, "Ăn sáng buffet", 2, 150000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(152, 2023, 6, 10, 4, 22, 25, 2000000m, 4, "Bữa tối Room Service", 1, 400000m, 100000m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(153, 2023, 7, 8, 5, 23, 28, 1600000m, 5, "Thuê xe máy", 2, 150000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(154, 2023, 8, 12, 4, 24, 15, 1200000m, 3, "Trà chiều set VIP", 1, 200000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(155, 2023, 9, 5, 3, 25, 5, 800000m, 2, "Nước ép cam tươi", 4, 45000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(156, 2023, 10, 9, 4, 26, 23, 1600000m, 4, "Đưa đón sân bay", 1, 300000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(157, 2023, 11, 11, 3, 27, 19, 1200000m, 3, "Giặt là nhanh", 2, 50000m, 0m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(158, 2023, 12, 7, 4, 28, 25, 2000000m, 4, "Rượu vang đỏ", 1, 650000m, 150000m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(159, 2023, 12, 17, 3, 29, 2, 500000m, 2, "Coca cola", 4, 25000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.ChuaThanhToan),
+
+            // ===== NĂM 2022: Đầy đủ 12 tháng =====
+            new(160, 2022, 1, 10, 3, 14, 2, 500000m, 2, "Nước suối khoáng", 3, 20000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(161, 2022, 2, 12, 3, 1, 5, 800000m, 2, "Ăn sáng buffet", 2, 150000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(162, 2022, 3, 8, 3, 2, 15, 1200000m, 3, "Giặt là nhanh", 2, 50000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(163, 2022, 4, 11, 4, 3, 5, 800000m, 3, "Thuê xe máy", 1, 150000m, 0m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(164, 2022, 5, 9, 3, 4, 19, 1200000m, 3, "Đưa đón sân bay", 1, 300000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(165, 2022, 6, 7, 4, 5, 23, 1600000m, 4, "Ăn sáng buffet", 3, 150000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(166, 2022, 7, 12, 4, 6, 25, 2000000m, 4, "Massage thư giãn", 1, 350000m, 100000m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(167, 2022, 8, 6, 4, 7, 15, 1200000m, 3, "Bữa tối Room Service", 1, 400000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(168, 2022, 9, 10, 3, 8, 5, 800000m, 2, "Cà phê đen đá", 3, 30000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.DaThanhToan),
+            new(169, 2022, 10, 8, 3, 9, 23, 1600000m, 4, "Trà chiều set VIP", 1, 200000m, 0m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(170, 2022, 11, 14, 3, 10, 19, 1200000m, 3, "Giặt là nhanh", 2, 50000m, 0m, HinhThucThanhToan.The, TrangThaiTT.DaThanhToan),
+            new(171, 2022, 12, 9, 4, 11, 25, 2000000m, 4, "Đưa đón sân bay", 1, 300000m, 100000m, HinhThucThanhToan.ChuyenKhoan, TrangThaiTT.DaThanhToan),
+            new(172, 2022, 12, 19, 3, 12, 2, 500000m, 2, "Nước suối khoáng", 2, 20000m, 0m, HinhThucThanhToan.TienMat, TrangThaiTT.ChuaThanhToan)
+        ];
+
+        private static DatPhong[] BuildHistoricalDatPhongs(HistoricalStaySeed[] seeds) =>
+            seeds.Select(s =>
+            {
+                var ngayNhan = new DateTime(s.Year, s.Month, s.CheckInDay);
+                var ngayDat = ngayNhan.AddDays(-2);
+                var ngayTra = ngayNhan.AddDays(s.Nights);
+                return new DatPhong
+                {
+                    MaDatPhong = s.Id,
+                    MaKhachHang = s.MaKhachHang,
+                    MaPhong = s.MaPhong,
+                    NgayDat = ngayDat,
+                    NgayNhanPhong = ngayNhan,
+                    NgayTraPhong = ngayTra,
+                    SoNguoi = s.SoNguoi,
+                    TongTienDuKien = s.Nights * s.GiaMotDem,
+                    NgayNhanThucTe = ngayNhan.AddHours(14),
+                    NgayTraThucTe = ngayTra.AddHours(11),
+                    TrangThai = "Đã trả phòng",
+                    NgayXuLy = ngayDat,
+                    GhiChuLeTan = $"Lưu trú lịch sử {s.Month:D2}/{s.Year}"
+                };
+            }).ToArray();
+
+        private static DichVuPhatSinh[] BuildHistoricalDichVuPhatSinhs(HistoricalStaySeed[] seeds) =>
+            seeds.Select(s => new DichVuPhatSinh
+            {
+                MaDichVuPhatSinh = s.Id,
+                MaDatPhong = s.Id,
+                TenDichVu = s.TenDichVu,
+                SoLuong = s.SoLuongDv,
+                DonGia = s.DonGiaDv,
+                NgaySuDung = new DateTime(s.Year, s.Month, s.CheckInDay).AddDays(1),
+                GhiChu = $"Dịch vụ kỳ {s.Month:D2}/{s.Year}",
+                TrangThai = TrangThaiDV.DaGhiNhan
+            }).ToArray();
+
+        private static HoaDon[] BuildHistoricalHoaDons(HistoricalStaySeed[] seeds) =>
+            seeds.Select(s =>
+            {
+                var tienPhong = s.Nights * s.GiaMotDem;
+                var tienDichVu = s.SoLuongDv * s.DonGiaDv;
+                var ngayTra = new DateTime(s.Year, s.Month, s.CheckInDay).AddDays(s.Nights);
+                return new HoaDon
+                {
+                    MaHoaDon = s.Id,
+                    MaDatPhong = s.Id,
+                    SoDem = s.Nights,
+                    TienPhong = tienPhong,
+                    TienDichVu = tienDichVu,
+                    GiamGia = s.GiamGia,
+                    TongTienThanhToan = tienPhong + tienDichVu - s.GiamGia,
+                    HinhThucThanhToan = s.HinhThucThanhToan,
+                    NgayLap = ngayTra.AddHours(11).AddMinutes(20),
+                    TrangThai = s.TrangThaiThanhToan
+                };
+            }).ToArray();
     }
 }
