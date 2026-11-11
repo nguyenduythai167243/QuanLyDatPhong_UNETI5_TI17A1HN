@@ -1,0 +1,157 @@
+body.admin-page {
+  margin: 0;
+  padding: 0;
+  background: #f4f6fa;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 255px;
+  height: 100vh;
+  background: #102d52;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  z-index: 1050;
+  overflow-y: auto;
+}
+
+.admin-brand {
+  padding: 24px 18px;
+  font-size: 21px;
+  font-weight: 800;
+  border-bottom: 1px solid #294363;
+  letter-spacing: 0.5px;
+}
+
+.admin-brand i {
+  color: #60a5fa;
+  margin-right: 8px;
+}
+
+.admin-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 15px;
+  border-bottom: 1px solid #294363;
+}
+
+.admin-user > i {
+  font-size: 32px;
+  color: #93c5fd;
+}
+
+.admin-user strong {
+  display: block;
+  font-size: 13px;
+}
+
+.admin-user small {
+  display: block;
+  color: #a9bfd8;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.admin-menu {
+  flex: 1;
+  padding: 18px 10px;
+}
+
+.admin-menu-title {
+  padding: 5px 12px 12px;
+  color: #8fa9c7;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.admin-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 12px;
+  margin-bottom: 5px;
+  color: #dbeafe;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 7px;
+  transition: all 0.2s;
+}
+
+.admin-menu a i {
+  font-size: 18px;
+  width: 22px;
+  text-align: center;
+}
+
+.admin-menu a:hover {
+  background: #2563eb;
+  color: white;
+  transform: translateX(3px);
+}
+
+.admin-logout {
+  padding: 15px;
+  border-top: 1px solid #294363;
+}
+
+.admin-logout button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 7px;
+  background: #dc3545;
+  color: white;
+  text-align: left;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.admin-logout button:hover {
+  background: #bb2d3b;
+}
+
+.admin-content {
+  margin-left: 255px;
+  width: calc(100% - 255px);
+  min-height: 100vh;
+  padding: 25px;
+  background: #f4f6fa;
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 210px;
+  }
+
+  .admin-content {
+    margin-left: 210px;
+    width: calc(100% - 210px);
+    padding: 15px;
+  }
+}
+/* Các chức năng lễ tân không được phép sử dụng */
+.admin-sidebar .admin-menu a.menu-disabled {
+  opacity: 0.35;
+  color: #94a3b8 !important;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: transparent !important;
+  filter: grayscale(100%);
+}
+
+/* Icon khóa */
+.admin-sidebar .admin-menu a.menu-disabled .bi-lock-fill {
+  font-size: 12px;
+  color: #94a3b8;
+}

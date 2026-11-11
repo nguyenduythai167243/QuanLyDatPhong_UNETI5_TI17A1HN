@@ -66,6 +66,13 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 			HttpContext.Session.SetString(
 				"VaiTro", taiKhoan.VaiTro);
 
+			if (taiKhoan.VaiTro == "Admin" ||
+				taiKhoan.VaiTro == "LeTan" ||
+				taiKhoan.VaiTro == "Lễ tân")
+			{
+				return RedirectToAction("Index", "Dashboard");
+			}
+
 			return RedirectToAction("Index", "Home");
 		}
 

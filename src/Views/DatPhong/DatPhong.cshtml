@@ -1,27 +1,9 @@
+
 @{
     ViewData["Title"] = "Đặt phòng";
 
-    var quocTichHienTai = ViewBag.QuocTich as string ?? "";
-    var danhSachQuocTich = new[]
-    {
-        "Việt Nam",
-        "Trung Quốc",
-        "Hàn Quốc",
-        "Nhật Bản",
-        "Mỹ",
-        "Anh",
-        "Pháp",
-        "Úc",
-        "Canada",
-        "Singapore",
-        "Thái Lan",
-        "Malaysia",
-        "Indonesia",
-        "Ấn Độ",
-        "Đức",
-        "Nga",
-        "Khác"
-    };
+    var maPhong = ViewBag.MaPhong;
+    var giaMotDem = (decimal?)ViewBag.GiaMotDem ?? 0;
 }
 
 <style>
@@ -47,36 +29,38 @@
         border-radius: 8px;
     }
 
-        .booking-section h3 {
-            color: #176b45;
-            margin-bottom: 18px;
-            font-size: 20px;
-        }
+    .booking-section h3 {
+        color: #176b45;
+        margin-bottom: 18px;
+        font-size: 20px;
+    }
 
     .booking-field {
         margin-bottom: 15px;
     }
 
-        .booking-field label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
+    .booking-field label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
 
-        .booking-field input,
-        .booking-field textarea,
-        .booking-field select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 15px;
-        }
+    .booking-field input,
+    .booking-field textarea,
+    .booking-field select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
 
-            .booking-field input[readonly] {
-                background: #f3f4f6;
-            }
+    .booking-field input[readonly] {
+        background: #f3f4f6;
+        color: #555;
+        cursor: default;
+    }
 
     .booking-grid {
         display: grid;
@@ -91,9 +75,9 @@
         margin-bottom: 20px;
     }
 
-        .booking-total p {
-            margin: 8px 0;
-        }
+    .booking-total p {
+        margin: 8px 0;
+    }
 
     .booking-buttons {
         display: flex;
@@ -102,34 +86,34 @@
         flex-wrap: wrap;
     }
 
-        .booking-buttons button,
-        .booking-buttons a {
-            display: inline-block;
-            padding: 11px 24px;
-            border: none;
-            border-radius: 6px;
-            text-decoration: none;
-            cursor: pointer;
-            font-size: 15px;
-        }
+    .booking-buttons button,
+    .booking-buttons a {
+        display: inline-block;
+        padding: 11px 24px;
+        border: none;
+        border-radius: 6px;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 15px;
+    }
 
     .btn-book {
         background: #198754;
         color: white;
     }
 
-        .btn-book:hover {
-            background: #146c43;
-        }
+    .btn-book:hover {
+        background: #146c43;
+    }
 
     .btn-cancel {
         background: #6c757d;
         color: white;
     }
 
-        .btn-cancel:hover {
-            background: #565e64;
-        }
+    .btn-cancel:hover {
+        background: #565e64;
+    }
 
     .validation-summary,
     .field-error {
@@ -155,6 +139,17 @@
         color: #666;
         font-size: 13px;
         line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .booking-edit-link {
+        color: #198754;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .booking-edit-link:hover {
+        text-decoration: underline;
     }
 
     @@media (max-width: 600px) {
@@ -171,6 +166,7 @@
 </style>
 
 <div class="booking-container">
+
     <h1 class="booking-title">ĐẶT PHÒNG KHÁCH SẠN</h1>
 
     @if (TempData["ThongBao"] != null)
@@ -188,10 +184,11 @@
 
         <input type="hidden"
                name="maPhong"
-               value="@ViewBag.MaPhong" />
+               value="@maPhong" />
 
         <!-- 1. THÔNG TIN PHÒNG -->
         <div class="booking-section">
+
             <h3>1. Thông tin phòng</h3>
 
             <div class="booking-field">
@@ -214,128 +211,107 @@
                 <label for="giaPhong">Giá một đêm (VNĐ)</label>
                 <input id="giaPhong"
                        type="text"
-                       value="@(((decimal?)ViewBag.GiaMotDem ?? 0).ToString("N0"))"
+                       value="@giaMotDem.ToString("N0")"
                        readonly />
             </div>
+
         </div>
 
-        <!-- 2. THÔNG TIN NGƯỜI ĐƯỢC ĐẶT PHÒNG -->
+        <!-- 2. THÔNG TIN CÁ NHÂN -->
         <div class="booking-section">
-            <h3>2. Thông tin người được đặt phòng</h3>
+
+            <h3>2. Thông tin người đặt phòng</h3>
 
             <p class="booking-note">
-                Nhập thông tin của người sẽ sử dụng phòng.
-                Bạn có thể đặt phòng cho bản thân hoặc đặt hộ người khác.
-                Hãy kiểm tra thông tin trước khi xác nhận.
+                Thông tin được tự động lấy từ hồ sơ cá nhân của bạn.
+                Bạn chỉ có thể xem thông tin tại đây.
+                Nếu muốn thay đổi, vui lòng truy cập mục Thông tin cá nhân.
             </p>
 
             <div class="booking-field">
-                <label for="hoTen">Họ và tên *</label>
-                <input type="text"
-                       id="hoTen"
-                       name="hoTen"
+                <label for="hoTen">Họ và tên</label>
+                <input id="hoTen"
+                       type="text"
                        value="@ViewBag.HoTen"
-                       maxlength="15"
-                       placeholder="Nhập họ và tên"
-                       required />
-
-                @Html.ValidationMessage(
-                    "hoTen", null, new { @class = "field-error" })
+                       readonly />
             </div>
 
             <div class="booking-grid">
-                <div class="booking-field">
-                    <label for="soDienThoai">Số điện thoại *</label>
-                    <input type="tel"
-                           id="soDienThoai"
-                           name="soDienThoai"
-                           value="@ViewBag.SoDienThoai"
-                           maxlength="10"
-                           placeholder="Nhập số điện thoại"
-                           required />
 
-                    @Html.ValidationMessage(
-                        "soDienThoai", null, new { @class = "field-error" })
+                <div class="booking-field">
+                    <label for="soDienThoai">Số điện thoại</label>
+                    <input id="soDienThoai"
+                           type="text"
+                           value="@ViewBag.SoDienThoai"
+                           readonly />
                 </div>
 
                 <div class="booking-field">
                     <label for="email">Email</label>
-                    <input type="email"
-                           id="email"
-                           name="email"
+                    <input id="email"
+                           type="text"
                            value="@ViewBag.Email"
-                           maxlength="15"
-                           placeholder="Nhập email" />
-
-                    @Html.ValidationMessage(
-                        "email", null, new { @class = "field-error" })
+                           readonly />
                 </div>
+
             </div>
 
             <div class="booking-field">
-                <label for="soGiayToTuyThan">Số giấy tờ tùy thân *</label>
-                <input type="text"
-                       id="soGiayToTuyThan"
-                       name="soGiayToTuyThan"
-                       value="@ViewBag.SoGiayToTuyThan"
-                       maxlength="10"
-                       placeholder="Nhập số giấy tờ tùy thân"
-                       required />
+                <label for="soGiayToTuyThan">
+                    Số giấy tờ tùy thân
+                </label>
 
-                @Html.ValidationMessage(
-                    "soGiayToTuyThan", null, new { @class = "field-error" })
+                <input id="soGiayToTuyThan"
+                       type="text"
+                       value="@ViewBag.SoGiayToTuyThan"
+                       readonly />
             </div>
 
             <div class="booking-field">
                 <label for="diaChi">Địa chỉ</label>
-                <input type="text"
-                       id="diaChi"
-                       name="diaChi"
+
+                <input id="diaChi"
+                       type="text"
                        value="@ViewBag.DiaChi"
-                       maxlength="20"
-                       placeholder="Nhập địa chỉ" />
-
-                @Html.ValidationMessage(
-                    "diaChi", null, new { @class = "field-error" })
+                       readonly />
             </div>
 
-            <!-- QUỐC TỊCH -->
             <div class="booking-field">
-                <label for="quocTich">Quốc tịch *</label>
+                <label for="quocTich">Quốc tịch</label>
 
-                <select id="quocTich"
-                        name="quocTich"
-                        required>
-                    <option value="">-- Chọn quốc tịch --</option>
-
-                    @foreach (var qt in danhSachQuocTich)
-                    {
-                        if (quocTichHienTai == qt)
-                        {
-                            <option value="@qt" selected>@qt</option>
-                        }
-                        else
-                        {
-                            <option value="@qt">@qt</option>
-                        }
-                    }
-                </select>
-
-                @Html.ValidationMessage(
-                    "quocTich", null, new { @class = "field-error" })
+                <input id="quocTich"
+                       type="text"
+                       value="@ViewBag.QuocTich"
+                       readonly />
             </div>
+
+            <p class="booking-note">
+                <a asp-controller="KhachHang"
+                   asp-action="Edit"
+                   class="booking-edit-link">
+                    Chỉnh sửa thông tin cá nhân
+                </a>
+            </p>
+
         </div>
 
         <!-- 3. THÔNG TIN ĐẶT PHÒNG -->
         <div class="booking-section">
+
             <h3>3. Thông tin đặt phòng</h3>
 
             @Html.ValidationSummary(
-                false, "", new { @class = "validation-summary" })
+                false,
+                "",
+                new { @class = "validation-summary" }
+            )
 
             <div class="booking-grid">
+
                 <div class="booking-field">
-                    <label for="ngayNhanPhong">Ngày nhận phòng *</label>
+                    <label for="ngayNhanPhong">
+                        Ngày nhận phòng *
+                    </label>
 
                     <input type="date"
                            id="ngayNhanPhong"
@@ -345,11 +321,16 @@
                            required />
 
                     @Html.ValidationMessage(
-                        "ngayNhanPhong", null, new { @class = "field-error" })
+                        "ngayNhanPhong",
+                        null,
+                        new { @class = "field-error" }
+                    )
                 </div>
 
                 <div class="booking-field">
-                    <label for="ngayTraPhong">Ngày trả phòng *</label>
+                    <label for="ngayTraPhong">
+                        Ngày trả phòng *
+                    </label>
 
                     <input type="date"
                            id="ngayTraPhong"
@@ -359,12 +340,17 @@
                            required />
 
                     @Html.ValidationMessage(
-                        "ngayTraPhong", null, new { @class = "field-error" })
+                        "ngayTraPhong",
+                        null,
+                        new { @class = "field-error" }
+                    )
                 </div>
+
             </div>
 
             <div class="booking-field">
                 <label for="soNguoi">Số người *</label>
+
                 <input type="number"
                        id="soNguoi"
                        name="soNguoi"
@@ -373,11 +359,16 @@
                        required />
 
                 @Html.ValidationMessage(
-                    "soNguoi", null, new { @class = "field-error" })
+                    "soNguoi",
+                    null,
+                    new { @class = "field-error" }
+                )
             </div>
 
             <div class="booking-field">
-                <label for="yeuCauDacBiet">Yêu cầu đặc biệt</label>
+                <label for="yeuCauDacBiet">
+                    Yêu cầu đặc biệt
+                </label>
 
                 <textarea id="yeuCauDacBiet"
                           name="yeuCauDacBiet"
@@ -386,12 +377,17 @@
                           placeholder="Ví dụ: nhận phòng muộn, cần thêm gối...">@ViewBag.YeuCauDacBiet</textarea>
 
                 @Html.ValidationMessage(
-                    "yeuCauDacBiet", null, new { @class = "field-error" })
+                    "yeuCauDacBiet",
+                    null,
+                    new { @class = "field-error" }
+                )
             </div>
+
         </div>
 
         <!-- 4. CHI PHÍ DỰ KIẾN -->
         <div class="booking-total">
+
             <h3>Chi phí dự kiến</h3>
 
             <p>
@@ -402,7 +398,7 @@
             <p>
                 Giá một đêm:
                 <strong>
-                    @(((decimal?)ViewBag.GiaMotDem ?? 0).ToString("N0")) VNĐ
+                    @giaMotDem.ToString("N0") VNĐ
                 </strong>
             </p>
 
@@ -417,10 +413,12 @@
                 Tổng tiền dự kiến được tính theo số đêm và giá phòng.
                 Giá thực tế có thể được khách sạn xác nhận lại.
             </p>
+
         </div>
 
         <!-- 5. NÚT CHỨC NĂNG -->
         <div class="booking-buttons">
+
             <button type="submit" class="btn-book">
                 Xác nhận đặt phòng
             </button>
@@ -430,11 +428,15 @@
                class="btn-cancel">
                 Hủy bỏ
             </a>
+
         </div>
+
     </form>
+
 </div>
 
 <script>
+
     const ngayNhan = document.getElementById("ngayNhanPhong");
     const ngayTra = document.getElementById("ngayTraPhong");
 
@@ -442,8 +444,8 @@
     const tongTienElement = document.getElementById("tongTien");
 
     const giaMotDem = Number(
-        "@(((decimal?)ViewBag.GiaMotDem ?? 0).ToString(
-                        System.Globalization.CultureInfo.InvariantCulture))"
+        "@giaMotDem.ToString(
+            System.Globalization.CultureInfo.InvariantCulture)"
     );
 
     function dinhDangTien(tien) {
@@ -451,6 +453,7 @@
     }
 
     function tinhTien() {
+
         if (!ngayNhan.value || !ngayTra.value) {
             soDemElement.textContent = "0";
             tongTienElement.textContent = "0 VNĐ";
@@ -471,21 +474,35 @@
         }
 
         soDemElement.textContent = soDem;
-        tongTienElement.textContent = dinhDangTien(soDem * giaMotDem);
+
+        tongTienElement.textContent =
+            dinhDangTien(soDem * giaMotDem);
     }
 
     ngayNhan.addEventListener("change", function () {
+
         if (ngayNhan.value) {
-            ngayTra.min = ngayNhan.value;
+
+            const ngayToiThieu = new Date(
+                ngayNhan.value + "T00:00:00"
+            );
+
+            ngayToiThieu.setDate(
+                ngayToiThieu.getDate() + 1
+            );
+
+            const nam = ngayToiThieu.getFullYear();
+            const thang = String(
+                ngayToiThieu.getMonth() + 1
+            ).padStart(2, "0");
+
+            const ngay = String(
+                ngayToiThieu.getDate()
+            ).padStart(2, "0");
+
+            ngayTra.min = `${nam}-${thang}-${ngay}`;
 
             if (ngayTra.value && ngayTra.value <= ngayNhan.value) {
-                const ngayMoi = new Date(ngayNhan.value + "T00:00:00");
-                ngayMoi.setDate(ngayMoi.getDate() + 1);
-
-                const nam = ngayMoi.getFullYear();
-                const thang = String(ngayMoi.getMonth() + 1).padStart(2, "0");
-                const ngay = String(ngayMoi.getDate()).padStart(2, "0");
-
                 ngayTra.value = `${nam}-${thang}-${ngay}`;
             }
         }
@@ -496,4 +513,5 @@
     ngayTra.addEventListener("change", tinhTien);
 
     tinhTien();
+
 </script>

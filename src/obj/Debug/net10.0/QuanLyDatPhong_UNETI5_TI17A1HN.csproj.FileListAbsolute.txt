@@ -2083,8 +2083,6 @@ C:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compr
 C:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\2l2ctptx77-{0}-9vr69e8ynj-9vr69e8ynj.gz
 C:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\bakf8qs40a-{0}-87fc7y1x7t-87fc7y1x7t.gz
 C:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\soqynzwj42-{0}-mlv21k5csn-mlv21k5csn.gz
-C:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\s0e1lg4tcs-{0}-dx3py3vbnc-dx3py3vbnc.gz
-C:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\1jnq16250g-{0}-dx3py3vbnc-dx3py3vbnc.gz
 C:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\staticwebassets.build.json
 C:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\staticwebassets.build.json.cache
 C:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\staticwebassets.development.json
@@ -2102,3 +2100,6 @@ C:\Users\admin\Desktop\Study\THLT .Net\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\De
 C:\Users\admin\Desktop\Study\THLT .Net\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\9cpwtj372b-{0}-voasstzwal-voasstzwal.gz
 C:\Users\admin\Desktop\Study\THLT .Net\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\s0e1lg4tcs-{0}-dx3py3vbnc-dx3py3vbnc.gz
 C:\Users\admin\Desktop\Study\THLT .Net\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\1jnq16250g-{0}-dx3py3vbnc-dx3py3vbnc.gz
+c:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\s0e1lg4tcs-{0}-ld58xysvfs-ld58xysvfs.gz
+c:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\1jnq16250g-{0}-ld58xysvfs-ld58xysvfs.gz
+c:\Users\PC\Documents\QuanLyDatPhong_UNETI5_TI17A1HN\src\obj\Debug\net10.0\compressed\hewibfdgqo-{0}-213i8cpnom-213i8cpnom.gz
