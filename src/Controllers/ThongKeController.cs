@@ -1,12 +1,14 @@
-﻿
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Filters;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 {
+    [SessionAuthorize("Admin", "LeTan", "Lễ tân")]
     public class ThongKeController : Controller
     {
         private readonly IThongkeRepository _thongKeRepository;

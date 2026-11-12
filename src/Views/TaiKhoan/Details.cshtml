@@ -1,0 +1,81 @@
+@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.TaiKhoan
+
+@{
+    ViewData["Title"] = "Chi tiết tài khoản";
+    bool coKhachHang = ViewBag.CoKhachHangLienQuan == true;
+    bool laTaiKhoanHienTai = ViewBag.LaTaiKhoanHienTai == true;
+}
+
+<div class="container-fluid py-3">
+    <h2 class="fw-bold mb-1">Chi tiết tài khoản</h2>
+    <p class="text-muted">Thông tin tài khoản trong hệ thống</p>
+    <hr />
+
+    <div class="card shadow-sm border-0 col-md-7">
+        <div class="card-body p-4">
+            <dl class="row mb-4">
+                <dt class="col-sm-4">Mã tài khoản</dt>
+                <dd class="col-sm-8">@Model.MaTaiKhoan</dd>
+
+                <dt class="col-sm-4">Tên đăng nhập</dt>
+                <dd class="col-sm-8 fw-semibold">
+                    @Model.TenDangNhap
+                    @if (laTaiKhoanHienTai)
+                    {
+                        <span class="badge bg-info-subtle text-info border ms-1">Đang đăng nhập</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-4">Họ tên</dt>
+                <dd class="col-sm-8">@Model.HoTen</dd>
+
+                <dt class="col-sm-4">Email</dt>
+                <dd class="col-sm-8">@Model.Email</dd>
+
+                <dt class="col-sm-4">Vai trò</dt>
+                <dd class="col-sm-8">
+                    @if (string.Equals(Model.VaiTro, "Admin", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <span class="badge bg-danger">Quản trị viên (Admin)</span>
+                    }
+                    else if (string.Equals(Model.VaiTro, "LeTan", StringComparison.OrdinalIgnoreCase) ||
+                             string.Equals(Model.VaiTro, "Lễ tân", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <span class="badge bg-primary">Lễ tân</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Khách hàng</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-4">Trạng thái</dt>
+                <dd class="col-sm-8">
+                    @if (Model.TrangThai)
+                    {
+                        <span class="badge bg-success">Hoạt động</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-dark">Đã khóa</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-4">Hồ sơ khách hàng</dt>
+                <dd class="col-sm-8">
+                    @(coKhachHang ? "Đã liên kết hồ sơ khách hàng" : "Không có")
+                </dd>
+            </dl>
+
+            <div class="d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@Model.MaTaiKhoan" class="btn btn-warning">
+                    <i class="bi bi-pencil-square me-1"></i> Sửa tài khoản
+                </a>
+                <a asp-action="Index" class="btn btn-secondary">
+                    Quay lại danh sách
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

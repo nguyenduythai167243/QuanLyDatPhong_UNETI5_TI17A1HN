@@ -80,21 +80,26 @@
                     Quản lý đặt phòng
                 </a>
 
+                <a asp-controller="QuanLyKhachHang" asp-action="Index">
+                    <i class="bi bi-people-fill"></i>
+                    Quản lý khách hàng
+                </a>
+
+                <a asp-controller="Phong" asp-action="Index">
+                    <i class="bi bi-door-closed"></i>
+                    Quản lý phòng
+                </a>
+
                 @if (laAdmin)
                 {
-                    <a asp-controller="QuanLyKhachHang" asp-action="Index">
-                        <i class="bi bi-people-fill"></i>
-                        Quản lý khách hàng
+                    <a asp-controller="TaiKhoan" asp-action="Index">
+                        <i class="bi bi-person-badge-fill"></i>
+                        Quản lý tài khoản
                     </a>
 
                     <a asp-controller="LoaiPhong" asp-action="Index">
                         <i class="bi bi-collection"></i>
                         Quản lý loại phòng
-                    </a>
-
-                    <a asp-controller="Phong" asp-action="Index">
-                        <i class="bi bi-door-closed"></i>
-                        Quản lý phòng
                     </a>
                 }
                 else
@@ -103,8 +108,8 @@
                     href="javascript:void(0)"
                     aria-disabled="true"
                     tabindex="-1">
-                        <i class="bi bi-people-fill"></i>
-                        Quản lý khách hàng
+                        <i class="bi bi-person-badge-fill"></i>
+                        Quản lý tài khoản
                         <i class="bi bi-lock-fill ms-auto"></i>
                     </a>
 
@@ -114,15 +119,6 @@
                     tabindex="-1">
                         <i class="bi bi-collection"></i>
                         Quản lý loại phòng
-                        <i class="bi bi-lock-fill ms-auto"></i>
-                    </a>
-
-                    <a class="menu-disabled"
-                    href="javascript:void(0)"
-                    aria-disabled="true"
-                    tabindex="-1">
-                        <i class="bi bi-door-closed"></i>
-                        Quản lý phòng
                         <i class="bi bi-lock-fill ms-auto"></i>
                     </a>
                 }

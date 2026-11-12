@@ -1,0 +1,77 @@
+@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.TaiKhoan
+
+@{
+    ViewData["Title"] = "Xóa tài khoản";
+    bool coKhachHang = ViewBag.CoKhachHangLienQuan == true;
+    bool laTaiKhoanHienTai = ViewBag.LaTaiKhoanHienTai == true;
+}
+
+<div class="container-fluid py-3">
+    <h2 class="fw-bold text-danger mb-1">Xóa tài khoản</h2>
+    <p class="text-muted">Bạn có chắc chắn muốn xóa tài khoản này khỏi hệ thống?</p>
+    <hr />
+
+    @if (laTaiKhoanHienTai)
+    {
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            Không thể xóa tài khoản đang đăng nhập.
+        </div>
+    }
+    else if (coKhachHang)
+    {
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            Tài khoản này đang liên kết với hồ sơ khách hàng nên không thể xóa để tránh mất dữ liệu lịch sử đặt phòng.
+            Hãy sử dụng chức năng <strong>Khóa tài khoản</strong> trong danh sách hoặc trang Sửa.
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <i class="bi bi-trash-fill me-2"></i>
+            Thao tác này sẽ xóa vĩnh viễn tài khoản khỏi cơ sở dữ liệu.
+        </div>
+    }
+
+    <div class="card shadow-sm border-0 col-md-7">
+        <div class="card-body p-4">
+            <dl class="row mb-4">
+                <dt class="col-sm-4">Mã tài khoản</dt>
+                <dd class="col-sm-8">@Model.MaTaiKhoan</dd>
+
+                <dt class="col-sm-4">Tên đăng nhập</dt>
+                <dd class="col-sm-8 fw-semibold">@Model.TenDangNhap</dd>
+
+                <dt class="col-sm-4">Họ tên</dt>
+                <dd class="col-sm-8">@Model.HoTen</dd>
+
+                <dt class="col-sm-4">Email</dt>
+                <dd class="col-sm-8">@Model.Email</dd>
+
+                <dt class="col-sm-4">Vai trò</dt>
+                <dd class="col-sm-8">@Model.VaiTro</dd>
+
+                <dt class="col-sm-4">Trạng thái</dt>
+                <dd class="col-sm-8">@(Model.TrangThai ? "Hoạt động" : "Đã khóa")</dd>
+            </dl>
+
+            <div class="d-flex gap-2">
+                @if (!laTaiKhoanHienTai && !coKhachHang)
+                {
+                    <form asp-action="Delete" asp-route-id="@Model.MaTaiKhoan" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash me-1"></i> Xác nhận xóa
+                        </button>
+                    </form>
+                }
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    Quay lại danh sách
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

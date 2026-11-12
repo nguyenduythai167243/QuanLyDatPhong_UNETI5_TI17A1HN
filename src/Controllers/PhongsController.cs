@@ -12,7 +12,7 @@ using QuanLyDatPhong_UNETI5_TI17A1HN.ViewModels;
 
 namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
 {
-    [SessionAuthorize("Admin")]
+    [SessionAuthorize("Admin", "LeTan", "Lễ tân")]
     public class PhongController : Controller
     {
         private readonly IPhongRepository _phongRepository;
@@ -22,7 +22,7 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Controllers
             _phongRepository = phongRepository;
         }
 
-        // GET: Phong (Chỉ dành cho Quản trị viên - Admin)
+        // GET: Phong (Quản trị viên / Lễ tân)
         public async Task<IActionResult> Index(
             string? tuKhoa,
             int? maLoaiPhong,

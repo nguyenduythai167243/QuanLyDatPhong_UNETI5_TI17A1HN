@@ -1,0 +1,78 @@
+@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.TaiKhoan
+
+@{
+    ViewData["Title"] = "Thêm tài khoản";
+}
+
+<div class="container-fluid py-3">
+    <h2 class="fw-bold mb-1">Thêm tài khoản mới</h2>
+    <p class="text-muted">Tạo tài khoản và cấp vai trò truy cập hệ thống</p>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="TenDangNhap" class="form-label fw-semibold">Tên đăng nhập</label>
+                            <input asp-for="TenDangNhap" class="form-control" />
+                            <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="MatKhau" class="form-label fw-semibold">Mật khẩu</label>
+                            <input asp-for="MatKhau" type="password" class="form-control" autocomplete="new-password" />
+                            <span asp-validation-for="MatKhau" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="HoTen" class="form-label fw-semibold">Họ và tên</label>
+                            <input asp-for="HoTen" class="form-control" />
+                            <span asp-validation-for="HoTen" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-semibold">Email</label>
+                            <input asp-for="Email" type="email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="VaiTro" class="form-label fw-semibold">Vai trò</label>
+                            <select asp-for="VaiTro" asp-items="ViewBag.VaiTroList" class="form-select"></select>
+                            <span asp-validation-for="VaiTro" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input asp-for="TrangThai" class="form-check-input" />
+                            <label asp-for="TrangThai" class="form-check-label fw-semibold">
+                                Tài khoản đang hoạt động
+                            </label>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save me-1"></i> Lưu tài khoản
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                Quay lại
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

@@ -45,12 +45,64 @@ namespace QuanLyDatPhong_UNETI5_TI17A1HN.Repositories
         }
 
         /// <summary>
+        /// Tìm kiếm và lọc tài khoản theo từ khóa và vai trò.
+        /// </summary>
+        public async Task<List<TaiKhoan>> SearchAsync(string? tuKhoa, string? vaiTro)
+        {
+            var query = _context.TaiKhoans.AsNoTracking().AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(tuKhoa))
+            {
+                tuKhoa = tuKhoa.Trim();
+                query = query.Where(t =>
+                    t.TenDangNhap.Contains(tuKhoa) ||
+                    t.HoTen.Contains(tuKhoa) ||
+                    t.Email.Contains(tuKhoa));
+            }
+
+            if (!string.IsNullOrWhiteSpace(vaiTro))
+            {
+                vaiTro = vaiTro.Trim();
+                if (string.Equals(vaiTro, "LeTan", StringComparison.OrdinalIgnoreCase))
+                {
+                    query = query.Where(t => t.VaiTro == "LeTan" || t.VaiTro == "Lễ tân");
+                }
+                else
+                {
+                    query = query.Where(t => t.VaiTro == vaiTro);
+                }
+            }
+
+            return await query
+                .OrderBy(t => t.MaTaiKhoan)
+                .ToListAsync();
+        }
+
+        /// <summary>
         /// Kiểm tra tên đăng nhập đã tồn tại hay chưa.
         /// </summary>
         public async Task<bool> ExistsTenDangNhapAsync(string tenDangNhap)
         {
             return await _context.TaiKhoans
                 .AnyAsync(t => t.TenDangNhap == tenDangNhap);
+        }
+
+        /// <summary>
+        /// Kiểm tra tên đăng nhập đã tồn tại ở tài khoản khác hay chưa.
+        /// </summary>
+        public async Task<bool> ExistsTenDangNhapExceptAsync(string tenDangNhap, int excludeMaTaiKhoan)
+        {
+            return await _context.TaiKhoans
+                .AnyAsync(t => t.TenDangNhap == tenDangNhap && t.MaTaiKhoan != excludeMaTaiKhoan);
+        }
+
+        /// <summary>
+        /// Kiểm tra tài khoản đã liên kết với hồ sơ khách hàng hay chưa.
+        /// </summary>
+        public async Task<bool> HasKhachHangAsync(int maTaiKhoan)
+        {
+            return await _context.KhachHangs
+                .AnyAsync(k => k.MaTaiKhoan == maTaiKhoan);
         }
 
         /// <summary>

@@ -1,0 +1,106 @@
+@model QuanLyDatPhong_UNETI5_TI17A1HN.Models.TaiKhoan
+
+@{
+    ViewData["Title"] = "Sửa tài khoản";
+    bool laTaiKhoanHienTai = ViewBag.LaTaiKhoanHienTai == true;
+}
+
+<div class="container-fluid py-3">
+    <h2 class="fw-bold mb-1">Cập nhật tài khoản</h2>
+    <p class="text-muted">Chỉnh sửa thông tin, vai trò hoặc trạng thái hoạt động của tài khoản</p>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <form asp-action="Edit" asp-route-id="@Model.MaTaiKhoan" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden" asp-for="MaTaiKhoan" />
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="TenDangNhap" class="form-label fw-semibold">Tên đăng nhập</label>
+                            <input asp-for="TenDangNhap" class="form-control" />
+                            <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="MatKhau" class="form-label fw-semibold">Mật khẩu mới</label>
+                            <input type="password"
+                                   id="MatKhau"
+                                   name="MatKhau"
+                                   class="form-control"
+                                   maxlength="100"
+                                   autocomplete="new-password"
+                                   placeholder="Để trống nếu giữ nguyên mật khẩu hiện tại" />
+                            <span asp-validation-for="MatKhau" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="HoTen" class="form-label fw-semibold">Họ và tên</label>
+                            <input asp-for="HoTen" class="form-control" />
+                            <span asp-validation-for="HoTen" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-semibold">Email</label>
+                            <input asp-for="Email" type="email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="VaiTro" class="form-label fw-semibold">Vai trò</label>
+                            @if (laTaiKhoanHienTai)
+                            {
+                                <input type="hidden" asp-for="VaiTro" />
+                                <select class="form-select" asp-items="ViewBag.VaiTroList" disabled="disabled"></select>
+                                <div class="form-text text-muted">Không thể tự thay đổi vai trò của tài khoản đang đăng nhập.</div>
+                            }
+                            else
+                            {
+                                <select asp-for="VaiTro" asp-items="ViewBag.VaiTroList" class="form-select"></select>
+                            }
+                            <span asp-validation-for="VaiTro" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check mb-4">
+                            @if (laTaiKhoanHienTai)
+                            {
+                                <input type="hidden" asp-for="TrangThai" />
+                                <input type="checkbox" class="form-check-input" checked="checked" disabled="disabled" />
+                                <label class="form-check-label fw-semibold">Tài khoản đang hoạt động (đang đăng nhập)</label>
+                            }
+                            else
+                            {
+                                <input asp-for="TrangThai" class="form-check-input" />
+                                <label asp-for="TrangThai" class="form-check-label fw-semibold">
+                                    Tài khoản đang hoạt động
+                                </label>
+                            }
+                            <span asp-validation-for="TrangThai" class="text-danger d-block"></span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save me-1"></i> Lưu thay đổi
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                Quay lại
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

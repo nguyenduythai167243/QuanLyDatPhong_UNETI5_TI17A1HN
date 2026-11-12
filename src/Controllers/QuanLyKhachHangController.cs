@@ -1,9 +1,12 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Data;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Filters;
+using QuanLyDatPhong_UNETI5_TI17A1HN.Models;
 using QuanLyDatPhong_UNETI5_TI17A1HN.Repositories;
+
+[SessionAuthorize("Admin", "LeTan", "Lễ tân")]
 public class QuanLyKhachHangController : Controller
 {
     private readonly IQuanLyKhachRepository _khachHangRepository;
@@ -14,8 +17,6 @@ public class QuanLyKhachHangController : Controller
     }
     public async Task<IActionResult> Search(string? searchString)
     {
-        string? vaiTro = HttpContext.Session.GetString("VaiTro");
-
         ViewData["SearchString"] = searchString;
 
         return View(await _khachHangRepository.SearchAsync(searchString));
@@ -25,8 +26,6 @@ public class QuanLyKhachHangController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> UpdateStatus(int id)
     {
-        string? vaiTro = HttpContext.Session.GetString("VaiTro");
-
         var khachHang = await _khachHangRepository.GetByIdAsync(id);
 
         if (khachHang == null)

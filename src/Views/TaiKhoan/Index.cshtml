@@ -1,0 +1,183 @@
+@model IEnumerable<QuanLyDatPhong_UNETI5_TI17A1HN.Models.TaiKhoan>
+
+@{
+    ViewData["Title"] = "Quản lý tài khoản";
+    int? currentUserId = ViewBag.CurrentUserId as int?;
+}
+
+<div class="container-fluid py-3">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+        <div>
+            <h2 class="fw-bold mb-1 text-primary">
+                <i class="bi bi-person-badge-fill me-2"></i>Quản Lý Tài Khoản
+            </h2>
+            <p class="text-muted mb-0">Quản lý tài khoản đăng nhập, phân vai trò và khóa/mở khóa người dùng trong hệ thống</p>
+        </div>
+        <div>
+            <a asp-action="Create" class="btn btn-primary shadow-sm px-3 py-2 fw-semibold">
+                <i class="bi bi-plus-circle me-1"></i> Thêm Tài Khoản Mới
+            </a>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show shadow-sm border-0" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>@TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm border-0" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+            <form asp-action="Index" method="get" class="row g-2 align-items-end">
+                <div class="col-md-5">
+                    <label class="form-label fw-semibold small">Tìm kiếm</label>
+                    <input type="text"
+                           name="tuKhoa"
+                           value="@ViewBag.TuKhoa"
+                           class="form-control"
+                           placeholder="Tên đăng nhập, họ tên hoặc email..." />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold small">Vai trò</label>
+                    <select name="vaiTro" class="form-select" asp-items="ViewBag.VaiTroList">
+                        <option value="">-- Tất cả vai trò --</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-fill">
+                        <i class="bi bi-search me-1"></i> Lọc
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        Làm mới
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <strong>Danh sách tài khoản</strong>
+            <span class="text-muted small">(@Model.Count() tài khoản)</span>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle mb-0">
+                    <thead class="table-light text-center">
+                        <tr>
+                            <th>Mã TK</th>
+                            <th>Tên đăng nhập</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Vai trò</th>
+                            <th>Trạng thái</th>
+                            <th style="min-width: 280px;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">@item.MaTaiKhoan</td>
+                                    <td class="fw-semibold">
+                                        @item.TenDangNhap
+                                        @if (currentUserId == item.MaTaiKhoan)
+                                        {
+                                            <span class="badge bg-info-subtle text-info border border-info-subtle ms-1">Bạn</span>
+                                        }
+                                    </td>
+                                    <td>@item.HoTen</td>
+                                    <td>@item.Email</td>
+                                    <td class="text-center">
+                                        @if (string.Equals(item.VaiTro, "Admin", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <span class="badge bg-danger">Admin</span>
+                                        }
+                                        else if (string.Equals(item.VaiTro, "LeTan", StringComparison.OrdinalIgnoreCase) ||
+                                                 string.Equals(item.VaiTro, "Lễ tân", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <span class="badge bg-primary">Lễ tân</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Khách hàng</span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if (item.TrangThai)
+                                        {
+                                            <span class="badge bg-success">Hoạt động</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-dark">Đã khóa</span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center flex-wrap gap-1">
+                                            <a asp-action="Details"
+                                               asp-route-id="@item.MaTaiKhoan"
+                                               class="btn btn-sm btn-info text-white">
+                                                Chi tiết
+                                            </a>
+
+                                            <a asp-action="Edit"
+                                               asp-route-id="@item.MaTaiKhoan"
+                                               class="btn btn-sm btn-warning">
+                                                Sửa
+                                            </a>
+
+                                            @if (currentUserId != item.MaTaiKhoan)
+                                            {
+                                                <form asp-action="ToggleStatus"
+                                                      asp-route-id="@item.MaTaiKhoan"
+                                                      method="post"
+                                                      class="d-inline">
+                                                    @Html.AntiForgeryToken()
+                                                    <button type="submit"
+                                                            class="btn btn-sm @(item.TrangThai ? "btn-outline-dark" : "btn-outline-success")">
+                                                        @(item.TrangThai ? "Khóa" : "Mở khóa")
+                                                    </button>
+                                                </form>
+
+                                                <a asp-action="Delete"
+                                                   asp-route-id="@item.MaTaiKhoan"
+                                                   class="btn btn-sm btn-danger">
+                                                    Xóa
+                                                </a>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center py-4 text-muted">
+                                    Không tìm thấy tài khoản phù hợp.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
